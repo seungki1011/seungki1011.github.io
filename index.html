@@ -27,14 +27,14 @@ title: Home
 </section>
 
 {% endif %}
-
+{% assign total_posts = site.posts | size %}
 <!-- Posts Index
 ================================================== -->
 <section class="recent-posts">
 
     <div class="section-title">
 
-        <h2><span>All Stories</span></h2>
+        <h2><span>All Posts({{ total_posts }})</span></h2>
 
     </div>
 
