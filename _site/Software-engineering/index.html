@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Software Engineering | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software Engineering | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Software Engineering" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="소프트웨어 엔지니어링이란 소프트웨어의 개발, 운용, 유지보수 등의 life cycle 전반을 체계적이고 정량적으로 다루는 개념이다. 한 마디로 소프트웨어의 품질과 유지 보수성을 보장하는 학문이라고 봐도 무방할 것 같다. Software Development Life Cycle(SDLC) 소프트웨어의 개발 수명 주기는 고품질 소프트웨어를 설계하고 구축하기 위해 필수적인 비용 및 시간 효율적인 프로세스이다. 계획(Planning) &amp; 분석(Analysis) 비용 분석, 스케쥴링, 리소스 추정 및 할당과 같은 작업 client, 전문가, 관리자 등 여러 이해 관계자들의 요구 사항을 수집하여 공통 목표를 정의 보통 협의된 요구사항들에 대해서 문서화 해서 수령하고, 이 요구사항에 대한 문서를 SRS(Software Requirement Specification)라고 부릅니다 공통 목표를 달성하기 위한 세부 계획을 수립 설계(Design architecture) 요구 사항을 만족하는 최적의 솔루션 찾기 모듈을 통합하거나, 기술을 선택하고, 개발 도구를 찾고 기능이 동작할 수 있는 아키텍쳐를 설계하는 단계 데이터의 flow나 동작에 대한 고민 구현(Implementation) 실제적인 제품의 개발이 시작되는 단계 개발 가이드라인을 준수하면서 코드의 개발부터 시작해서 통합해서 빌드하는 단계까지 모두 포함 검증(Testing) 기능이 동작하는지, 오류가 있는지 테스트하는 단계 client의 요구 사항을 충족하는지 확인하는 작업이 포함 구현 단계와 동시에 진행되는 경우가 많음 배포(Deployment) 사용자가 사용하는 소프트웨어를 프로덕션 이라고 하고 개발팀에서 지속적으로 개발하고 테스트하는 소프트웨어의 복사본을 테스트 환경 또는 빌드 환경 패키징, 환경 구성 및 설치 하는 작업도 배포에 포함 유지관리(Maintenance) 소프트웨어의 변경 사항 관리, 버그 픽스, 성능 및 사용자 환경 모니터링이 들어가는 단계 출처 - https://bigwater.consulting/2019/04/08/software-development-life-cycle-sdlc/ SDLC는 위 과정을 계속 반복하는 프로세스. SDLC 모델들은 여러가지가 존재하고, 다른 수명 주기 방법론과 intersect 하는 부분도 많기 때문에 관심이 있다면 terminology에 대한 명확한 설명을 더 찾아보는 것도 좋을 것 같다. 소프트웨어의 설계 Modularity, Cohesion, Coupling 모듈성(modularity) 소프트웨어에서 임의의 두 부분이 직접적인 상호관계가 많아지면 모듈성이 떨어짐 시스템의 구성 요소가 분리되고 재결합 될 수 있는 정도 응집도(cohesion) 모듈 내부의 기능적인 응집 정도 하나의 모듈은 하나의 기능을 수행하는 것이 이상적 하나의 클래스에 모든 기능을 구현하는 것이 아닌 목적에 맞게 나누고 교류하는 인터페이스가 중요 결합도(coupling) 모듈과 모듈같의 상호 결합 정도, 모듈 간의 상호의존성을 나타내는 정도 응집도와 결합도에서 보통 응집도는 높을수록 좋고 결합도는 낮을수록 이상적이다. 응집도와 결합도의 다양한 유형에 대해 추가적으로 알아봐도 좋을 것 같다. 출처 - https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion Testing 소프트웨어 개발에서의 테스트는 넓게 보면 프로그램이 예상대로 작동하고 문제가 없는지 확인하는 과정이라고 생각하면 좋을 것 같다. 조금 더 자세히 말하자면 사용자가 안정적으로 소프트웨어를 사용할 수 있도록, 기능이 추가될 때 기존 시스템에서의 오류 확인, 아키텍쳐 확인, 서버에 대한 확인, 데이터베이스의 연결에 대한 확인 등 여러가지 단계가 포함된다. 출처 : https://www.geeksforgeeks.org/levels-of-software-testing 딥러닝에서의 testing life cycle에 대해서 더 알아봐야겠다. 문서화(Documentation) 소프트웨어를 위한 Readme, API 문서, 아키텍쳐 문서 등이 여기에 포함. 파이토치의 documentation을 예시로 들자면 Pytorch에 대한 소개와 설명 OS별 설치 방법 시작 방법 추가 학습 자료 오픈소스에 기여하는 방법 소프트웨어 엔지니어링 역량의 필요성 머신러닝 모델을 설계하고 만드는 것은 전체 과정의 극히 일부. 결국 product를 serving하기 위해서는 소프트웨어 엔지니어링은 필수적이다. 전체 시스템을 알기 위해서는 소프트웨어 엔지니어링 관점으로 생각을 확장해야 함. 출처 : Hidden Technical Debt in Machine Learning Systems 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://zzsza.github.io/ https://aws.amazon.com/ko/what-is/sdlc/ https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/" />
+<meta property="og:description" content="소프트웨어 엔지니어링이란 소프트웨어의 개발, 운용, 유지보수 등의 life cycle 전반을 체계적이고 정량적으로 다루는 개념이다. 한 마디로 소프트웨어의 품질과 유지 보수성을 보장하는 학문이라고 봐도 무방할 것 같다. Software Development Life Cycle(SDLC) 소프트웨어의 개발 수명 주기는 고품질 소프트웨어를 설계하고 구축하기 위해 필수적인 비용 및 시간 효율적인 프로세스이다. 계획(Planning) &amp; 분석(Analysis) 비용 분석, 스케쥴링, 리소스 추정 및 할당과 같은 작업 client, 전문가, 관리자 등 여러 이해 관계자들의 요구 사항을 수집하여 공통 목표를 정의 보통 협의된 요구사항들에 대해서 문서화 해서 수령하고, 이 요구사항에 대한 문서를 SRS(Software Requirement Specification)라고 부릅니다 공통 목표를 달성하기 위한 세부 계획을 수립 설계(Design architecture) 요구 사항을 만족하는 최적의 솔루션 찾기 모듈을 통합하거나, 기술을 선택하고, 개발 도구를 찾고 기능이 동작할 수 있는 아키텍쳐를 설계하는 단계 데이터의 flow나 동작에 대한 고민 구현(Implementation) 실제적인 제품의 개발이 시작되는 단계 개발 가이드라인을 준수하면서 코드의 개발부터 시작해서 통합해서 빌드하는 단계까지 모두 포함 검증(Testing) 기능이 동작하는지, 오류가 있는지 테스트하는 단계 client의 요구 사항을 충족하는지 확인하는 작업이 포함 구현 단계와 동시에 진행되는 경우가 많음 배포(Deployment) 사용자가 사용하는 소프트웨어를 프로덕션 이라고 하고 개발팀에서 지속적으로 개발하고 테스트하는 소프트웨어의 복사본을 테스트 환경 또는 빌드 환경 패키징, 환경 구성 및 설치 하는 작업도 배포에 포함 유지관리(Maintenance) 소프트웨어의 변경 사항 관리, 버그 픽스, 성능 및 사용자 환경 모니터링이 들어가는 단계 출처 - https://bigwater.consulting/2019/04/08/software-development-life-cycle-sdlc/ SDLC는 위 과정을 계속 반복하는 프로세스. SDLC 모델들은 여러가지가 존재하고, 다른 수명 주기 방법론과 intersect 하는 부분도 많기 때문에 관심이 있다면 terminology에 대한 명확한 설명을 더 찾아보는 것도 좋을 것 같다. 소프트웨어의 설계 Modularity, Cohesion, Coupling 모듈성(modularity) 소프트웨어에서 임의의 두 부분이 직접적인 상호관계가 많아지면 모듈성이 떨어짐 시스템의 구성 요소가 분리되고 재결합 될 수 있는 정도 응집도(cohesion) 모듈 내부의 기능적인 응집 정도 하나의 모듈은 하나의 기능을 수행하는 것이 이상적 하나의 클래스에 모든 기능을 구현하는 것이 아닌 목적에 맞게 나누고 교류하는 인터페이스가 중요 결합도(coupling) 모듈과 모듈같의 상호 결합 정도, 모듈 간의 상호의존성을 나타내는 정도 응집도와 결합도에서 보통 응집도는 높을수록 좋고 결합도는 낮을수록 이상적이다. 응집도와 결합도의 다양한 유형에 대해 추가적으로 알아봐도 좋을 것 같다. 출처 - https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion Testing 소프트웨어 개발에서의 테스트는 넓게 보면 프로그램이 예상대로 작동하고 문제가 없는지 확인하는 과정이라고 생각하면 좋을 것 같다. 조금 더 자세히 말하자면 사용자가 안정적으로 소프트웨어를 사용할 수 있도록, 기능이 추가될 때 기존 시스템에서의 오류 확인, 아키텍쳐 확인, 서버에 대한 확인, 데이터베이스의 연결에 대한 확인 등 여러가지 단계가 포함된다. 출처 : https://www.geeksforgeeks.org/levels-of-software-testing 딥러닝에서의 testing life cycle에 대해서 더 알아봐야겠다. 문서화(Documentation) 소프트웨어를 위한 Readme, API 문서, 아키텍쳐 문서 등이 여기에 포함. 파이토치의 documentation을 예시로 들자면 Pytorch에 대한 소개와 설명 OS별 설치 방법 시작 방법 추가 학습 자료 오픈소스에 기여하는 방법 소프트웨어 엔지니어링 역량의 필요성 머신러닝 모델을 설계하고 만드는 것은 전체 과정의 극히 일부. 결국 product를 serving하기 위해서는 소프트웨어 엔지니어링은 필수적이다. 전체 시스템을 알기 위해서는 소프트웨어 엔지니어링 관점으로 생각을 확장해야 함. 출처 : Hidden Technical Debt in Machine Learning Systems 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://zzsza.github.io/ https://aws.amazon.com/ko/what-is/sdlc/ https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/" />
+<link rel="canonical" href="http://localhost:4000/Software-engineering/" />
+<meta property="og:url" content="http://localhost:4000/Software-engineering/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4%EB%A7%81.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-24T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4%EB%A7%81.jpeg" />
+<meta property="twitter:title" content="Software Engineering" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-04-24T00:00:00+09:00","datePublished":"2023-04-24T00:00:00+09:00","description":"소프트웨어 엔지니어링이란 소프트웨어의 개발, 운용, 유지보수 등의 life cycle 전반을 체계적이고 정량적으로 다루는 개념이다. 한 마디로 소프트웨어의 품질과 유지 보수성을 보장하는 학문이라고 봐도 무방할 것 같다. Software Development Life Cycle(SDLC) 소프트웨어의 개발 수명 주기는 고품질 소프트웨어를 설계하고 구축하기 위해 필수적인 비용 및 시간 효율적인 프로세스이다. 계획(Planning) &amp; 분석(Analysis) 비용 분석, 스케쥴링, 리소스 추정 및 할당과 같은 작업 client, 전문가, 관리자 등 여러 이해 관계자들의 요구 사항을 수집하여 공통 목표를 정의 보통 협의된 요구사항들에 대해서 문서화 해서 수령하고, 이 요구사항에 대한 문서를 SRS(Software Requirement Specification)라고 부릅니다 공통 목표를 달성하기 위한 세부 계획을 수립 설계(Design architecture) 요구 사항을 만족하는 최적의 솔루션 찾기 모듈을 통합하거나, 기술을 선택하고, 개발 도구를 찾고 기능이 동작할 수 있는 아키텍쳐를 설계하는 단계 데이터의 flow나 동작에 대한 고민 구현(Implementation) 실제적인 제품의 개발이 시작되는 단계 개발 가이드라인을 준수하면서 코드의 개발부터 시작해서 통합해서 빌드하는 단계까지 모두 포함 검증(Testing) 기능이 동작하는지, 오류가 있는지 테스트하는 단계 client의 요구 사항을 충족하는지 확인하는 작업이 포함 구현 단계와 동시에 진행되는 경우가 많음 배포(Deployment) 사용자가 사용하는 소프트웨어를 프로덕션 이라고 하고 개발팀에서 지속적으로 개발하고 테스트하는 소프트웨어의 복사본을 테스트 환경 또는 빌드 환경 패키징, 환경 구성 및 설치 하는 작업도 배포에 포함 유지관리(Maintenance) 소프트웨어의 변경 사항 관리, 버그 픽스, 성능 및 사용자 환경 모니터링이 들어가는 단계 출처 - https://bigwater.consulting/2019/04/08/software-development-life-cycle-sdlc/ SDLC는 위 과정을 계속 반복하는 프로세스. SDLC 모델들은 여러가지가 존재하고, 다른 수명 주기 방법론과 intersect 하는 부분도 많기 때문에 관심이 있다면 terminology에 대한 명확한 설명을 더 찾아보는 것도 좋을 것 같다. 소프트웨어의 설계 Modularity, Cohesion, Coupling 모듈성(modularity) 소프트웨어에서 임의의 두 부분이 직접적인 상호관계가 많아지면 모듈성이 떨어짐 시스템의 구성 요소가 분리되고 재결합 될 수 있는 정도 응집도(cohesion) 모듈 내부의 기능적인 응집 정도 하나의 모듈은 하나의 기능을 수행하는 것이 이상적 하나의 클래스에 모든 기능을 구현하는 것이 아닌 목적에 맞게 나누고 교류하는 인터페이스가 중요 결합도(coupling) 모듈과 모듈같의 상호 결합 정도, 모듈 간의 상호의존성을 나타내는 정도 응집도와 결합도에서 보통 응집도는 높을수록 좋고 결합도는 낮을수록 이상적이다. 응집도와 결합도의 다양한 유형에 대해 추가적으로 알아봐도 좋을 것 같다. 출처 - https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion Testing 소프트웨어 개발에서의 테스트는 넓게 보면 프로그램이 예상대로 작동하고 문제가 없는지 확인하는 과정이라고 생각하면 좋을 것 같다. 조금 더 자세히 말하자면 사용자가 안정적으로 소프트웨어를 사용할 수 있도록, 기능이 추가될 때 기존 시스템에서의 오류 확인, 아키텍쳐 확인, 서버에 대한 확인, 데이터베이스의 연결에 대한 확인 등 여러가지 단계가 포함된다. 출처 : https://www.geeksforgeeks.org/levels-of-software-testing 딥러닝에서의 testing life cycle에 대해서 더 알아봐야겠다. 문서화(Documentation) 소프트웨어를 위한 Readme, API 문서, 아키텍쳐 문서 등이 여기에 포함. 파이토치의 documentation을 예시로 들자면 Pytorch에 대한 소개와 설명 OS별 설치 방법 시작 방법 추가 학습 자료 오픈소스에 기여하는 방법 소프트웨어 엔지니어링 역량의 필요성 머신러닝 모델을 설계하고 만드는 것은 전체 과정의 극히 일부. 결국 product를 serving하기 위해서는 소프트웨어 엔지니어링은 필수적이다. 전체 시스템을 알기 위해서는 소프트웨어 엔지니어링 관점으로 생각을 확장해야 함. 출처 : Hidden Technical Debt in Machine Learning Systems 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://zzsza.github.io/ https://aws.amazon.com/ko/what-is/sdlc/ https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/","headline":"Software Engineering","image":"http://localhost:4000/post_images/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4%EB%A7%81.jpeg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Software-engineering/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/Software-engineering/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Software Engineering&url=http://localhost:4000/Software-engineering/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/Software-engineering/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/Software-engineering/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Software Engineering</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/소프트웨어엔지니어링.jpeg" alt="Software Engineering">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#소프트웨어-엔지니어링이란">소프트웨어 엔지니어링이란</a></li>
+  <li><a href="#software-development-life-cyclesdlc">Software Development Life Cycle(SDLC)</a>
+    <ul>
+      <li><a href="#계획planning--분석analysis">계획(Planning) &amp; 분석(Analysis)</a></li>
+      <li><a href="#설계design-architecture">설계(Design architecture)</a></li>
+      <li><a href="#구현implementation">구현(Implementation)</a></li>
+      <li><a href="#검증testing">검증(Testing)</a></li>
+      <li><a href="#배포deployment">배포(Deployment)</a></li>
+      <li><a href="#유지관리maintenance">유지관리(Maintenance)</a></li>
+    </ul>
+  </li>
+  <li><a href="#소프트웨어의-설계">소프트웨어의 설계</a>
+    <ul>
+      <li><a href="#modularity-cohesion-coupling">Modularity, Cohesion, Coupling</a></li>
+    </ul>
+  </li>
+  <li><a href="#testing">Testing</a></li>
+  <li><a href="#문서화documentation">문서화(Documentation)</a></li>
+  <li><a href="#소프트웨어-엔지니어링-역량의-필요성">소프트웨어 엔지니어링 역량의 필요성</a></li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <p><br /></p>
+
+<h2 id="소프트웨어-엔지니어링이란">소프트웨어 엔지니어링이란</h2>
+
+<p>소프트웨어의 개발, 운용, 유지보수 등의 life cycle 전반을 체계적이고 정량적으로 다루는 개념이다. 한 마디로 소프트웨어의 품질과 유지 보수성을 보장하는 학문이라고 봐도 무방할 것 같다.</p>
+
+<p><br /></p>
+
+<h2 id="software-development-life-cyclesdlc">Software Development Life Cycle(SDLC)</h2>
+
+<p>소프트웨어의 개발 수명 주기는 고품질 소프트웨어를 설계하고 구축하기 위해 필수적인 비용 및 시간 효율적인 프로세스이다.</p>
+
+<p><br /></p>
+
+<h3 id="계획planning--분석analysis">계획(Planning) &amp; 분석(Analysis)</h3>
+
+<ul>
+  <li>비용 분석, 스케쥴링, 리소스 추정 및 할당과 같은 작업</li>
+  <li>client, 전문가, 관리자 등 여러 이해 관계자들의 요구 사항을 수집하여 공통 목표를 정의
+    <ul>
+      <li>보통 협의된 요구사항들에 대해서 문서화 해서 수령하고, 이 요구사항에 대한 문서를 SRS(Software Requirement Specification)라고 부릅니다</li>
+    </ul>
+  </li>
+  <li>공통 목표를 달성하기 위한 세부 계획을 수립</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="설계design-architecture">설계(Design architecture)</h3>
+
+<ul>
+  <li>요구 사항을 만족하는 최적의 솔루션 찾기</li>
+  <li>모듈을 통합하거나, 기술을 선택하고, 개발 도구를 찾고 기능이 동작할 수 있는 아키텍쳐를 설계하는 단계</li>
+  <li>데이터의 flow나 동작에 대한 고민</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="구현implementation">구현(Implementation)</h3>
+
+<ul>
+  <li>실제적인 제품의 개발이 시작되는 단계</li>
+  <li>개발 가이드라인을 준수하면서 코드의 개발부터 시작해서 통합해서 빌드하는 단계까지 모두 포함</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="검증testing">검증(Testing)</h3>
+
+<ul>
+  <li>기능이 동작하는지, 오류가 있는지 테스트하는 단계</li>
+  <li>client의 요구 사항을 충족하는지 확인하는 작업이 포함</li>
+  <li>구현 단계와 동시에 진행되는 경우가 많음</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="배포deployment">배포(Deployment)</h3>
+
+<ul>
+  <li>사용자가 사용하는 소프트웨어를 <strong><em>프로덕션</em></strong> 이라고 하고 개발팀에서 지속적으로 개발하고 테스트하는 소프트웨어의 복사본을 <strong>테스트 환경</strong> 또는 <strong>빌드 환경</strong></li>
+  <li>패키징, 환경 구성 및 설치 하는 작업도 배포에 포함</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="유지관리maintenance">유지관리(Maintenance)</h3>
+
+<ul>
+  <li>소프트웨어의 변경 사항 관리, 버그 픽스, 성능 및 사용자 환경 모니터링이 들어가는 단계</li>
+</ul>
+
+<p><img src="../post_images/2023-04-24-Software-engineering/SDLC_BWC.png" alt="SDLC_BWC" style="zoom: 67%;" class="center-image" /></p>
+
+<p align="center">출처 - https://bigwater.consulting/2019/04/08/software-development-life-cycle-sdlc/ </p>
+
+<p>SDLC는 위 과정을 계속 반복하는 프로세스. SDLC 모델들은 여러가지가 존재하고, 다른 수명 주기 방법론과 intersect 하는 부분도 많기 때문에 관심이 있다면 terminology에 대한 명확한 설명을 더 찾아보는 것도 좋을 것 같다.</p>
+
+<p><br /></p>
+
+<h2 id="소프트웨어의-설계">소프트웨어의 설계</h2>
+
+<h3 id="modularity-cohesion-coupling">Modularity, Cohesion, Coupling</h3>
+
+<ol>
+  <li>
+    <p><strong>모듈성(modularity)</strong></p>
+
+    <ul>
+      <li>소프트웨어에서 임의의 두 부분이 직접적인 상호관계가 많아지면 모듈성이 떨어짐</li>
+      <li>시스템의 구성 요소가 분리되고 재결합 될 수 있는 정도</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>응집도(cohesion)</strong></p>
+
+    <ul>
+      <li>모듈 내부의 기능적인 응집 정도</li>
+      <li>하나의 모듈은 하나의 기능을 수행하는 것이 이상적</li>
+      <li>하나의 클래스에 모든 기능을 구현하는 것이 아닌 목적에 맞게 나누고 교류하는 인터페이스가 중요</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>결합도(coupling)</strong></p>
+    <ul>
+      <li>모듈과 모듈같의 상호 결합 정도, 모듈 간의 상호의존성을 나타내는 정도</li>
+    </ul>
+  </li>
+</ol>
+
+<p>응집도와 결합도에서 보통 응집도는 높을수록 좋고 결합도는 낮을수록 이상적이다. 응집도와 결합도의 다양한 유형에 대해 추가적으로 알아봐도 좋을 것 같다.</p>
+
+<p><img src="../post_images/2023-04-24-Software-engineering/modularity.png" alt="modularity" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">출처 - https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion </p>
+
+<p><br /></p>
+
+<h2 id="testing">Testing</h2>
+
+<p>소프트웨어 개발에서의 테스트는 넓게 보면 프로그램이 예상대로 작동하고 문제가 없는지 확인하는 과정이라고 생각하면 좋을 것 같다. 조금 더 자세히 말하자면 사용자가 안정적으로 소프트웨어를 사용할 수 있도록, 기능이 추가될 때 기존 시스템에서의 오류 확인, 아키텍쳐 확인, 서버에 대한 확인, 데이터베이스의 연결에 대한 확인 등 여러가지 단계가 포함된다.</p>
+
+<p><img src="../post_images/2023-04-24-Software-engineering/test level.png" alt="test level" class="center-image" /></p>
+
+<p align="center">출처 : https://www.geeksforgeeks.org/levels-of-software-testing </p>
+
+<p>딥러닝에서의 testing life cycle에 대해서 더 알아봐야겠다.</p>
+
+<p><br /></p>
+
+<h2 id="문서화documentation">문서화(Documentation)</h2>
+
+<p>소프트웨어를 위한 Readme, API 문서, 아키텍쳐 문서 등이 여기에 포함.</p>
+
+<p>파이토치의 documentation을 예시로 들자면</p>
+
+<ul>
+  <li>Pytorch에 대한 소개와 설명</li>
+  <li>OS별 설치 방법</li>
+  <li>시작 방법</li>
+  <li>추가 학습 자료</li>
+  <li>오픈소스에 기여하는 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="소프트웨어-엔지니어링-역량의-필요성">소프트웨어 엔지니어링 역량의 필요성</h2>
+
+<p>머신러닝 모델을 설계하고 만드는 것은 전체 과정의 극히 일부. 결국 product를 serving하기 위해서는 소프트웨어 엔지니어링은 필수적이다. 전체 시스템을 알기 위해서는 소프트웨어 엔지니어링 관점으로 생각을 확장해야 함.</p>
+
+<p><img src="../post_images/2023-04-24-Software-engineering/hidden technical deby in machine learning systems.png" alt="hidden technical deby in machine learning systems" style="zoom: 67%;" class="center-image" /></p>
+
+<p align="center">출처 : Hidden Technical Debt in Machine Learning Systems </p>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li>Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤)</li>
+  <li><a href="https://zzsza.github.io/">https://zzsza.github.io/</a></li>
+  <li><a href="https://aws.amazon.com/ko/what-is/sdlc/">https://aws.amazon.com/ko/what-is/sdlc/</a></li>
+  <li><a href="https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/">https://www.geeksforgeeks.org/software-engineering-coupling-and-cohesion/</a></li>
+</ol>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-04-24">24 Apr 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Software-Engineering">Software Engineering</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//Versioning/">Versioning &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

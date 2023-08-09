@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Versioning | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Versioning | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Versioning" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Version and Versioning 버전(Version) 소프트웨어 제품의 특정 릴리스에 대한 고유한 식별자 소프트웨어의 출시나 업데이트가 이루어질 때마다 새로운 버전을 부여함 버저닝(Versioning) 소프트웨어의 버전 작성은 특정 상태에 대한 유일한 버전 번호를 결정하는 일이라고 보면 된다 다양한 버전을 관리하고 식별하기 위해 사용되는 방법 버저닝 방법(Versioning strategy) CalVer(Calendar Versioning) 날짜 기반 시스템을 활용한 버저닝 버전 번호는 연도와 월로 구성 날짜 기반으로 출시 시기 예측이 수월 ex. Ubuntu 20.04 출처 - https://blog.datalust.co/switching-to-calendar-versioning/ SemVer(Semantic Versioning) 마침표로 구분된 주 번호, 부 번호, 패치 번호로 구성 이전 버전과 호환되지 않은 변경이 있는 경우 주 번호 증가 이전 버전과 호환되며 새로운 기능이 추가되면 부 번호 증가 이전 버전의 버그 수정이 진행되면 패치 번호가 증가 ex. Python 3.11.0 출처 - https://forums.ubports.com/topic/1822/semantic-versioning-for-ut HashVer(Hash Versioning) SHA-1, SHA-256 해시 알고리즘을 사용해 버전에 대한 고유 식별자를 생성 코드가 변결될 때마다 해시가 변경되므로 모든 버전이 고유한 식별자를 가지도록 보장 ex. Git command 7e6d3fd 버저닝이라는 것은 결국 코드의 특정 상태를 표현하는 것이 핵심이다. 협업을 할 때에도 특정 상태에 대한 통일된 명칭을 만들어야 커뮤니케이션이 원활하다는 것을 알 것이다. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://semver.org/ https://calver.org/" />
+<meta property="og:description" content="Version and Versioning 버전(Version) 소프트웨어 제품의 특정 릴리스에 대한 고유한 식별자 소프트웨어의 출시나 업데이트가 이루어질 때마다 새로운 버전을 부여함 버저닝(Versioning) 소프트웨어의 버전 작성은 특정 상태에 대한 유일한 버전 번호를 결정하는 일이라고 보면 된다 다양한 버전을 관리하고 식별하기 위해 사용되는 방법 버저닝 방법(Versioning strategy) CalVer(Calendar Versioning) 날짜 기반 시스템을 활용한 버저닝 버전 번호는 연도와 월로 구성 날짜 기반으로 출시 시기 예측이 수월 ex. Ubuntu 20.04 출처 - https://blog.datalust.co/switching-to-calendar-versioning/ SemVer(Semantic Versioning) 마침표로 구분된 주 번호, 부 번호, 패치 번호로 구성 이전 버전과 호환되지 않은 변경이 있는 경우 주 번호 증가 이전 버전과 호환되며 새로운 기능이 추가되면 부 번호 증가 이전 버전의 버그 수정이 진행되면 패치 번호가 증가 ex. Python 3.11.0 출처 - https://forums.ubports.com/topic/1822/semantic-versioning-for-ut HashVer(Hash Versioning) SHA-1, SHA-256 해시 알고리즘을 사용해 버전에 대한 고유 식별자를 생성 코드가 변결될 때마다 해시가 변경되므로 모든 버전이 고유한 식별자를 가지도록 보장 ex. Git command 7e6d3fd 버저닝이라는 것은 결국 코드의 특정 상태를 표현하는 것이 핵심이다. 협업을 할 때에도 특정 상태에 대한 통일된 명칭을 만들어야 커뮤니케이션이 원활하다는 것을 알 것이다. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://semver.org/ https://calver.org/" />
+<link rel="canonical" href="http://localhost:4000/Versioning/" />
+<meta property="og:url" content="http://localhost:4000/Versioning/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/versioning.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-25T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/versioning.png" />
+<meta property="twitter:title" content="Versioning" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-04-25T00:00:00+09:00","datePublished":"2023-04-25T00:00:00+09:00","description":"Version and Versioning 버전(Version) 소프트웨어 제품의 특정 릴리스에 대한 고유한 식별자 소프트웨어의 출시나 업데이트가 이루어질 때마다 새로운 버전을 부여함 버저닝(Versioning) 소프트웨어의 버전 작성은 특정 상태에 대한 유일한 버전 번호를 결정하는 일이라고 보면 된다 다양한 버전을 관리하고 식별하기 위해 사용되는 방법 버저닝 방법(Versioning strategy) CalVer(Calendar Versioning) 날짜 기반 시스템을 활용한 버저닝 버전 번호는 연도와 월로 구성 날짜 기반으로 출시 시기 예측이 수월 ex. Ubuntu 20.04 출처 - https://blog.datalust.co/switching-to-calendar-versioning/ SemVer(Semantic Versioning) 마침표로 구분된 주 번호, 부 번호, 패치 번호로 구성 이전 버전과 호환되지 않은 변경이 있는 경우 주 번호 증가 이전 버전과 호환되며 새로운 기능이 추가되면 부 번호 증가 이전 버전의 버그 수정이 진행되면 패치 번호가 증가 ex. Python 3.11.0 출처 - https://forums.ubports.com/topic/1822/semantic-versioning-for-ut HashVer(Hash Versioning) SHA-1, SHA-256 해시 알고리즘을 사용해 버전에 대한 고유 식별자를 생성 코드가 변결될 때마다 해시가 변경되므로 모든 버전이 고유한 식별자를 가지도록 보장 ex. Git command 7e6d3fd 버저닝이라는 것은 결국 코드의 특정 상태를 표현하는 것이 핵심이다. 협업을 할 때에도 특정 상태에 대한 통일된 명칭을 만들어야 커뮤니케이션이 원활하다는 것을 알 것이다. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://semver.org/ https://calver.org/","headline":"Versioning","image":"http://localhost:4000/post_images/versioning.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Versioning/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/Versioning/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Versioning&url=http://localhost:4000/Versioning/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/Versioning/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/Versioning/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Versioning</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/versioning.png" alt="Versioning">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#version-and-versioning">Version and Versioning</a>
+    <ul>
+      <li><a href="#버전version">버전(Version)</a></li>
+      <li><a href="#버저닝versioning">버저닝(Versioning)</a></li>
+      <li><a href="#버저닝-방법versioning-strategy">버저닝 방법(Versioning strategy)</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <p><br /></p>
+
+<h2 id="version-and-versioning">Version and Versioning</h2>
+
+<h3 id="버전version">버전(Version)</h3>
+
+<ul>
+  <li>소프트웨어 제품의 특정 릴리스에 대한 고유한 식별자</li>
+  <li>소프트웨어의 출시나 업데이트가 이루어질 때마다 새로운 버전을 부여함</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="버저닝versioning">버저닝(Versioning)</h3>
+
+<ul>
+  <li>소프트웨어의 버전 작성은 특정 상태에 대한 유일한 버전 번호를 결정하는 일이라고 보면 된다</li>
+  <li>다양한 버전을 관리하고 식별하기 위해 사용되는 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="버저닝-방법versioning-strategy">버저닝 방법(Versioning strategy)</h3>
+
+<ol>
+  <li>
+    <p><strong>CalVer(Calendar Versioning)</strong></p>
+
+    <ul>
+      <li>날짜 기반 시스템을 활용한 버저닝</li>
+      <li>버전 번호는 연도와 월로 구성</li>
+      <li>날짜 기반으로 출시 시기 예측이 수월</li>
+      <li>ex. Ubuntu 20.04</li>
+    </ul>
+
+    <p><img src="../post_images/Versioning/calVersioning.png" alt="calVersioning" style="zoom: 67%;" class="center-image" /></p>
+
+    <p align="center">출처 - https://blog.datalust.co/switching-to-calendar-versioning/ </p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<ol>
+  <li>
+    <p><strong>SemVer(Semantic Versioning)</strong></p>
+
+    <ul>
+      <li>마침표로 구분된 주 번호, 부 번호, 패치 번호로 구성</li>
+      <li>이전 버전과 호환되지 않은 변경이 있는 경우 주 번호 증가</li>
+      <li>이전 버전과 호환되며 새로운 기능이 추가되면 부 번호 증가</li>
+      <li>이전 버전의 버그 수정이 진행되면 패치 번호가 증가</li>
+      <li>ex. Python 3.11.0</li>
+    </ul>
+  </li>
+</ol>
+
+<p><img src="../post_images/Versioning/sem ver.png" alt="sem ver" style="zoom: 67%;" class="center-image" /></p>
+
+<p align="center">출처 - https://forums.ubports.com/topic/1822/semantic-versioning-for-ut </p>
+
+<p><br /></p>
+
+<ol>
+  <li><strong>HashVer(Hash Versioning)</strong>
+    <ul>
+      <li>SHA-1, SHA-256 해시 알고리즘을 사용해 버전에 대한 고유 식별자를 생성</li>
+      <li>코드가 변결될 때마다 해시가 변경되므로 모든 버전이 고유한 식별자를 가지도록 보장</li>
+      <li>ex. Git command 7e6d3fd</li>
+    </ul>
+  </li>
+</ol>
+
+<p>버저닝이라는 것은 결국 코드의 특정 상태를 표현하는 것이 핵심이다. 협업을 할 때에도 특정 상태에 대한 통일된 명칭을 만들어야 커뮤니케이션이 원활하다는 것을 알 것이다.</p>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li>Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤)</li>
+  <li><a href="https://semver.org/">https://semver.org/</a></li>
+  <li><a href="https://calver.org/">https://calver.org/</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-04-25">25 Apr 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Software-Engineering">Software Engineering</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//Software-engineering/"> &laquo; Software Engineering</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//python-version-control/">Version Control &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

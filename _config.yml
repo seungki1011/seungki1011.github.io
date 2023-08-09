@@ -1,13 +1,13 @@
 # Site
-name: "I like ML"
-title: "I like ML"
-description: "A dev blog by seungki1011. ML/DL/CV/Generative Models/MLops"
+name: "Seungki1011's Dev Blog"
+title: "Seungki1011's Dev Blog"
+description: "머신러닝 엔지니어의 공부 블로그 🙂"
 logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+favicon: 'assets/images/favicon.ico'
 url: 'https://seungki.github.io/'
-baseurl: /mediumish-theme-jekyll
+baseurl: ''
 google_analytics: ''
-disqus: ''
+disqus: 'roadtoml'
 mailchimp-list: ''
 include: ["_pages"]
 permalink: /:title/
@@ -22,7 +22,7 @@ authors:
     email: kimseungki1011@gmail.com
     web: 
     twitter: 
-    description: "This is the author box. Write a short description of the author here. You are currently previewing Mediumish demo, a Jekyll template compatible with Github pages."
+    description: "Trying to find a career for ML engineering in Seoul & Pangyo."
 
 # Plugins
 plugins:

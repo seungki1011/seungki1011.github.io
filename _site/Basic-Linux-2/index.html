@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Linux Basic - 2 | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Linux Basic - 2 | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Linux Basic - 2" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="표준 스트림(standard stream) 표준 스트림은 프로그래밍 언어의 인터페이스를 비롯한 유닉스 계열 운영체제에서 컴퓨터 프로그램과 단말기 사이에 미리 연결된 입출력 통로를 가르킨다. 유닉스에서 통작하는 프로그램은 실행 시 3개의 스트림이 자동으로 열린다. 입력을 위한 스트림(Standard Input, STDIN, 0), 출력을 위한 스트림(Standard Output, STDOUT, 1), 마지막으로 오류 메시지의 출력을 위한 스트림(Standard Error , STDERR, 2)가 존재한다. 보통 입출력은 물리적으로 연결된 콘솔을 통해 일어나는데, 표준 스트림을 이것을 추상화한 것이라고 보면 된다. 출처 : https://en.wikipedia.org/wiki/Standard_streams ​ Standard Input, STDIN, 0 : 입력(비밀번호, 커맨드 등) Standard Output, STDOUT, 1 : 출력(터미널에 나오는 값) Standard Error , STDERR, 2 : 디버깅 정보나 에러 출력 Redirection and Pipe Redirection 프로그램의 출력을 다른 파일이나 스트림으로 전달하는 것. &lt; 스트림의 흐름을 바꿔주는 것이라고 이해하면 편하다. Pipe 프로그램의 출력을 다른 프로그램의 입력으로 사용하고 싶을 때 사용한다. 예를 들어 A라는 명령어의 output을 B의 input으로 사용하고 싶을 경우 처럼, 다양한 커맨드를 조합하는 방식으로 사용 할 수 있다. ls | grep &quot;vi&quot; : 현재 폴더에 있는 파일 명 중 “vi” 가 들어간 단어를 찾기 서버에서 자주 사용하는 쉘 커맨드 ps Process Status의 약자. 현재 실행되고 있는 프로세스를 출력한다. -e : 모든 프로세스 -f : full format으로 자세히 보여줌 curl Client URL의 약자. CL 기반의 data transfer 커맨드이다. Request를 테스트 할 수 있는 명령어이다. 웹 서버를 작성한 후 요청이 제대로 실행되는지 확인할 수 있다. curl -X localhost:5000/ {data} curl 외에도 httpie 또는 Postman 등이 있다. df Disk Free의 약자. 현재 사용 중인 디스크의 용량을 확일 할 수 있다. -h : 읽기 쉬운 형태로 출력 scp Secure Copy의 약자. SSH를 이용해 네트워크로 연결된 호스트 간 파일을 주고 받는 명령어이다. -r : 재귀적으로 복사 -P : SSH 포트 지정 -i : SSH 설정을 활용해 실행 remote to local scp user@ip:remote_directory local_path remote to remote scp user@ip:remote_directory user2@ip2:target_remote_directory nohup 터미널 종료 후에도 계속 작업이 유지하도록 실행한다(백그라운드 실행) nohup python3 app.py &amp; nohup으로 실행될 파일은 permission이 755여야 함. chmod 755 {실행파일} nohup으로 실행된 파일 종료 ps ef | grep app.py : app.py의 pid(Process ID) 찾고 kill -9 {pid}로 프로세스를 kill 하면 된다. Log는 nohup.out에 저장 된다. chmod Change Mod의 약자. 파일의 권한을 변경하는 경우 사용한다. 유닉스에서 파일이나 디엑토리의 시스템 모드를 변경한다. ls -al로 확인 Permission r : Read, 4 w : write, 2 x : execute, 1 - : Denied 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://www.youtube.com/watch?v=EL6AQl-e3AQ 위키피디아-표준 스트림" />
+<meta property="og:description" content="표준 스트림(standard stream) 표준 스트림은 프로그래밍 언어의 인터페이스를 비롯한 유닉스 계열 운영체제에서 컴퓨터 프로그램과 단말기 사이에 미리 연결된 입출력 통로를 가르킨다. 유닉스에서 통작하는 프로그램은 실행 시 3개의 스트림이 자동으로 열린다. 입력을 위한 스트림(Standard Input, STDIN, 0), 출력을 위한 스트림(Standard Output, STDOUT, 1), 마지막으로 오류 메시지의 출력을 위한 스트림(Standard Error , STDERR, 2)가 존재한다. 보통 입출력은 물리적으로 연결된 콘솔을 통해 일어나는데, 표준 스트림을 이것을 추상화한 것이라고 보면 된다. 출처 : https://en.wikipedia.org/wiki/Standard_streams ​ Standard Input, STDIN, 0 : 입력(비밀번호, 커맨드 등) Standard Output, STDOUT, 1 : 출력(터미널에 나오는 값) Standard Error , STDERR, 2 : 디버깅 정보나 에러 출력 Redirection and Pipe Redirection 프로그램의 출력을 다른 파일이나 스트림으로 전달하는 것. &lt; 스트림의 흐름을 바꿔주는 것이라고 이해하면 편하다. Pipe 프로그램의 출력을 다른 프로그램의 입력으로 사용하고 싶을 때 사용한다. 예를 들어 A라는 명령어의 output을 B의 input으로 사용하고 싶을 경우 처럼, 다양한 커맨드를 조합하는 방식으로 사용 할 수 있다. ls | grep &quot;vi&quot; : 현재 폴더에 있는 파일 명 중 “vi” 가 들어간 단어를 찾기 서버에서 자주 사용하는 쉘 커맨드 ps Process Status의 약자. 현재 실행되고 있는 프로세스를 출력한다. -e : 모든 프로세스 -f : full format으로 자세히 보여줌 curl Client URL의 약자. CL 기반의 data transfer 커맨드이다. Request를 테스트 할 수 있는 명령어이다. 웹 서버를 작성한 후 요청이 제대로 실행되는지 확인할 수 있다. curl -X localhost:5000/ {data} curl 외에도 httpie 또는 Postman 등이 있다. df Disk Free의 약자. 현재 사용 중인 디스크의 용량을 확일 할 수 있다. -h : 읽기 쉬운 형태로 출력 scp Secure Copy의 약자. SSH를 이용해 네트워크로 연결된 호스트 간 파일을 주고 받는 명령어이다. -r : 재귀적으로 복사 -P : SSH 포트 지정 -i : SSH 설정을 활용해 실행 remote to local scp user@ip:remote_directory local_path remote to remote scp user@ip:remote_directory user2@ip2:target_remote_directory nohup 터미널 종료 후에도 계속 작업이 유지하도록 실행한다(백그라운드 실행) nohup python3 app.py &amp; nohup으로 실행될 파일은 permission이 755여야 함. chmod 755 {실행파일} nohup으로 실행된 파일 종료 ps ef | grep app.py : app.py의 pid(Process ID) 찾고 kill -9 {pid}로 프로세스를 kill 하면 된다. Log는 nohup.out에 저장 된다. chmod Change Mod의 약자. 파일의 권한을 변경하는 경우 사용한다. 유닉스에서 파일이나 디엑토리의 시스템 모드를 변경한다. ls -al로 확인 Permission r : Read, 4 w : write, 2 x : execute, 1 - : Denied 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://www.youtube.com/watch?v=EL6AQl-e3AQ 위키피디아-표준 스트림" />
+<link rel="canonical" href="http://localhost:4000/Basic-Linux-2/" />
+<meta property="og:url" content="http://localhost:4000/Basic-Linux-2/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/linuxlogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-27T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/linuxlogo.png" />
+<meta property="twitter:title" content="Linux Basic - 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-04-27T00:00:00+09:00","datePublished":"2023-04-27T00:00:00+09:00","description":"표준 스트림(standard stream) 표준 스트림은 프로그래밍 언어의 인터페이스를 비롯한 유닉스 계열 운영체제에서 컴퓨터 프로그램과 단말기 사이에 미리 연결된 입출력 통로를 가르킨다. 유닉스에서 통작하는 프로그램은 실행 시 3개의 스트림이 자동으로 열린다. 입력을 위한 스트림(Standard Input, STDIN, 0), 출력을 위한 스트림(Standard Output, STDOUT, 1), 마지막으로 오류 메시지의 출력을 위한 스트림(Standard Error , STDERR, 2)가 존재한다. 보통 입출력은 물리적으로 연결된 콘솔을 통해 일어나는데, 표준 스트림을 이것을 추상화한 것이라고 보면 된다. 출처 : https://en.wikipedia.org/wiki/Standard_streams ​ Standard Input, STDIN, 0 : 입력(비밀번호, 커맨드 등) Standard Output, STDOUT, 1 : 출력(터미널에 나오는 값) Standard Error , STDERR, 2 : 디버깅 정보나 에러 출력 Redirection and Pipe Redirection 프로그램의 출력을 다른 파일이나 스트림으로 전달하는 것. &lt; 스트림의 흐름을 바꿔주는 것이라고 이해하면 편하다. Pipe 프로그램의 출력을 다른 프로그램의 입력으로 사용하고 싶을 때 사용한다. 예를 들어 A라는 명령어의 output을 B의 input으로 사용하고 싶을 경우 처럼, 다양한 커맨드를 조합하는 방식으로 사용 할 수 있다. ls | grep &quot;vi&quot; : 현재 폴더에 있는 파일 명 중 “vi” 가 들어간 단어를 찾기 서버에서 자주 사용하는 쉘 커맨드 ps Process Status의 약자. 현재 실행되고 있는 프로세스를 출력한다. -e : 모든 프로세스 -f : full format으로 자세히 보여줌 curl Client URL의 약자. CL 기반의 data transfer 커맨드이다. Request를 테스트 할 수 있는 명령어이다. 웹 서버를 작성한 후 요청이 제대로 실행되는지 확인할 수 있다. curl -X localhost:5000/ {data} curl 외에도 httpie 또는 Postman 등이 있다. df Disk Free의 약자. 현재 사용 중인 디스크의 용량을 확일 할 수 있다. -h : 읽기 쉬운 형태로 출력 scp Secure Copy의 약자. SSH를 이용해 네트워크로 연결된 호스트 간 파일을 주고 받는 명령어이다. -r : 재귀적으로 복사 -P : SSH 포트 지정 -i : SSH 설정을 활용해 실행 remote to local scp user@ip:remote_directory local_path remote to remote scp user@ip:remote_directory user2@ip2:target_remote_directory nohup 터미널 종료 후에도 계속 작업이 유지하도록 실행한다(백그라운드 실행) nohup python3 app.py &amp; nohup으로 실행될 파일은 permission이 755여야 함. chmod 755 {실행파일} nohup으로 실행된 파일 종료 ps ef | grep app.py : app.py의 pid(Process ID) 찾고 kill -9 {pid}로 프로세스를 kill 하면 된다. Log는 nohup.out에 저장 된다. chmod Change Mod의 약자. 파일의 권한을 변경하는 경우 사용한다. 유닉스에서 파일이나 디엑토리의 시스템 모드를 변경한다. ls -al로 확인 Permission r : Read, 4 w : write, 2 x : execute, 1 - : Denied 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://www.youtube.com/watch?v=EL6AQl-e3AQ 위키피디아-표준 스트림","headline":"Linux Basic - 2","image":"http://localhost:4000/post_images/linuxlogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Basic-Linux-2/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/Basic-Linux-2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Linux Basic - 2&url=http://localhost:4000/Basic-Linux-2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/Basic-Linux-2/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/Basic-Linux-2/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Linux Basic - 2</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/linuxlogo.png" alt="Linux Basic - 2">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#표준-스트림standard-stream">표준 스트림(standard stream)</a></li>
+  <li><a href="#redirection-and-pipe">Redirection and Pipe</a>
+    <ul>
+      <li><a href="#redirection">Redirection</a></li>
+      <li><a href="#pipe">Pipe</a></li>
+    </ul>
+  </li>
+  <li><a href="#서버에서-자주-사용하는-쉘-커맨드">서버에서 자주 사용하는 쉘 커맨드</a>
+    <ul>
+      <li><a href="#ps">ps</a></li>
+      <li><a href="#curl">curl</a></li>
+      <li><a href="#df">df</a></li>
+      <li><a href="#scp">scp</a>
+        <ul>
+          <li><a href="#remote-to-local"><strong>remote to local</strong></a></li>
+          <li><a href="#remote-to-remote"><strong>remote to remote</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#nohup">nohup</a>
+        <ul>
+          <li><a href="#nohup으로-실행된-파일-종료"><strong>nohup으로 실행된 파일 종료</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#chmod">chmod</a>
+        <ul>
+          <li><a href="#permission">Permission</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <p><br /></p>
+
+<h2 id="표준-스트림standard-stream">표준 스트림(standard stream)</h2>
+
+<p>표준 스트림은 프로그래밍 언어의 인터페이스를 비롯한 유닉스 계열 운영체제에서 컴퓨터 프로그램과 단말기 사이에 미리 연결된 입출력 통로를 가르킨다. 유닉스에서 통작하는 프로그램은 실행 시 3개의 스트림이 자동으로 열린다. 입력을 위한 스트림(Standard Input, STDIN, 0), 출력을 위한 스트림(Standard Output, STDOUT, 1), 마지막으로 오류 메시지의 출력을 위한 스트림(Standard Error , STDERR, 2)가 존재한다.</p>
+
+<p>보통 입출력은 물리적으로 연결된 콘솔을 통해 일어나는데, 표준 스트림을 이것을 추상화한 것이라고 보면 된다.</p>
+
+<p><img src="../post_images/Basic Linux2/Stdstreams.png" alt="Stdstreams" style="zoom: 50%;" class="center-image" /></p>
+
+<p align="center">출처 : https://en.wikipedia.org/wiki/Standard_streams</p>
+
+<p>​</p>
+
+<ul>
+  <li>Standard Input, STDIN, 0 : 입력(비밀번호, 커맨드 등)</li>
+  <li>Standard Output, STDOUT, 1 : 출력(터미널에 나오는 값)</li>
+  <li>Standard Error , STDERR, 2 : 디버깅 정보나 에러 출력</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="redirection-and-pipe">Redirection and Pipe</h2>
+
+<h3 id="redirection">Redirection</h3>
+
+<ul>
+  <li>프로그램의 출력을 다른 파일이나 스트림으로 전달하는 것.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;</code></li>
+    </ul>
+  </li>
+  <li>스트림의 흐름을 바꿔주는 것이라고 이해하면 편하다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="pipe">Pipe</h3>
+
+<ul>
+  <li>
+    <p>프로그램의 출력을 다른 프로그램의 입력으로 사용하고 싶을 때 사용한다. 예를 들어 A라는 명령어의 output을 B의 input으로 사용하고 싶을 경우 처럼, 다양한 커맨드를 조합하는 방식으로 사용 할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ls | grep "vi"</code> : 현재 폴더에 있는 파일 명 중 “vi” 가 들어간 단어를 찾기</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="서버에서-자주-사용하는-쉘-커맨드">서버에서 자주 사용하는 쉘 커맨드</h2>
+
+<h3 id="ps">ps</h3>
+
+<ul>
+  <li>
+    <p>Process Status의 약자. 현재 실행되고 있는 프로세스를 출력한다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-e</code> : 모든 프로세스</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-f</code> : full format으로 자세히 보여줌</p>
+  </li>
+</ul>
+
+<p><img src="../post_images/Basic Linux2/ps.PNG" alt="ps" style="zoom:100%;" class="center-image" /></p>
+
+<p><br /></p>
+
+<h3 id="curl">curl</h3>
+
+<ul>
+  <li>
+    <p>Client URL의 약자. CL 기반의 data transfer 커맨드이다. Request를 테스트 할 수 있는 명령어이다. 웹 서버를 작성한 후 요청이 제대로 실행되는지 확인할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">curl -X localhost:5000/ {data}</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">curl</code> 외에도 <code class="language-plaintext highlighter-rouge">httpie</code> 또는 <code class="language-plaintext highlighter-rouge">Postman</code> 등이 있다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="df">df</h3>
+
+<ul>
+  <li>
+    <p>Disk Free의 약자. 현재 사용 중인 디스크의 용량을 확일 할 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-h</code> : 읽기 쉬운 형태로 출력</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="scp">scp</h3>
+
+<ul>
+  <li>
+    <p>Secure Copy의 약자. SSH를 이용해 네트워크로 연결된 호스트 간 파일을 주고 받는 명령어이다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-r</code> : 재귀적으로 복사</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-P</code> : SSH 포트 지정</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-i</code> : SSH 설정을 활용해 실행</p>
+  </li>
+</ul>
+
+<h4 id="remote-to-local"><strong>remote to local</strong></h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scp user@ip:remote_directory local_path</code></li>
+</ul>
+
+<h4 id="remote-to-remote"><strong>remote to remote</strong></h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scp user@ip:remote_directory user2@ip2:target_remote_directory</code></li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="nohup">nohup</h3>
+
+<ul>
+  <li>
+    <p>터미널 종료 후에도 계속 작업이 유지하도록 실행한다(백그라운드 실행)</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nohup python3 app.py &amp;</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">nohup</code>으로 실행될 파일은 permission이 755여야 함.</p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">chmod 755 {실행파일}</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="nohup으로-실행된-파일-종료"><strong>nohup으로 실행된 파일 종료</strong></h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ps ef | grep app.py</code> : <code class="language-plaintext highlighter-rouge">app.py</code>의 pid(Process ID) 찾고 <code class="language-plaintext highlighter-rouge">kill -9 {pid}</code>로 프로세스를 kill 하면 된다.</p>
+  </li>
+  <li>
+    <p>Log는 nohup.out에 저장 된다.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="chmod">chmod</h3>
+
+<ul>
+  <li>
+    <p>Change Mod의 약자. 파일의 권한을 변경하는 경우 사용한다. 유닉스에서 파일이나 디엑토리의 시스템 모드를 변경한다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ls -al</code>로 확인</p>
+  </li>
+</ul>
+
+<p><img src="../post_images/Basic Linux2/chmod.PNG" alt="chmod" style="zoom:100%;" class="center-image" /></p>
+
+<h4 id="permission">Permission</h4>
+
+<p><code class="language-plaintext highlighter-rouge">r</code> : Read, 4</p>
+
+<p><code class="language-plaintext highlighter-rouge">w</code> : write, 2</p>
+
+<p><code class="language-plaintext highlighter-rouge">x</code> : execute, 1</p>
+
+<p><code class="language-plaintext highlighter-rouge">-</code> : Denied</p>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li>Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤)</li>
+  <li><a href="https://www.youtube.com/watch?v=EL6AQl-e3AQ">https://www.youtube.com/watch?v=EL6AQl-e3AQ</a></li>
+  <li><a href="https://ko.wikipedia.org/wiki/%ED%91%9C%EC%A4%80_%EC%8A%A4%ED%8A%B8%EB%A6%BC">위키피디아-표준 스트림</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-04-27">27 Apr 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Linux">Linux</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//Shell-Script-1/"> &laquo; Shell Script Basic - 1</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//Docker-Basic-1/">Docker Basic - 1 &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

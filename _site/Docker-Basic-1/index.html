@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Docker Basic - 1 | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Docker Basic - 1 | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Docker Basic - 1" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Virtualization 가상화란 무엇인가 가상화는 서버, 스토리지, 네트워크 및 기타 물리적 시스템에 대한 가상 표현을 생성하는데 사용할 수 있는 기술이다. 가상 소프트웨어는 물리적 하드웨어 기능을 모방하여 하나의 물리적 머신에서 여러 가상 시스템을 동시에 실행할 수 있다. 가상화는 간단하게 말하자면 Local이나 Production 서버에서의 환경을 위한 일종의 템플릿이라고 생각할 수 있다. 개발과 운영 서버의 환경 불일치를 해소할 수 있고, 어느 조건에서나 동일한 환경으로 프로그램을 실행 할 수 있게 된다. Virtual Machine vs Docker VM(Virtual Machine) 도커의 등장 전에는 주로 VM(Virtual Machine)을 사용했다. VM은 호스트 머신이라고 하는 실제 물리적인 컴퓨터 위에 OS를 포함한 가상화 소프트웨어를 두는 방식이라고 이해하면 된다. 그러나 이러한 방식은 OS 위에 OS를 하나 더 실행시킨다는 점에서 굉장히 많은 리소스를 사용하게 된다(무겁다). Container 컨테이너는 어떤 환경에서나 실행하기 위해 필요한 모든 요소를 포함하는 소프트웨어 패키지같은 형태이다. 컨테이너의 정의를 찾아보면, 소프트웨어 서비스를 실행하는 데 필요한 특정 버전의 프로그래밍 언어 런타임 및 라이브러리와 같은 종속 항목과 애플리케이션 코드를 함께 포함하는 경량 패키지이다. 으로 정의된다. 출처 - https://www.weave.works/blog/a-practical-guide-to-choosing-between-docker-containers-and-vms VM의 경우 host OS 위에 다시 guest OS가 존재하는 형태인 반면에, 컨테이너는 OS 하나 위에서 OS에 상관없이 컨테이너를 띄우는 것을 볼 수 있다. Docker 도커 소개 도커는 이런 컨테이너에 기반한 개발과 운영을 매우 빠르게 확장 할 수 있는 오픈소스 프로젝트이다. 도커에 대해 간단히 설명하자면, 도커의 이미지를 만들어두면 재부팅 할 경우 도커의 이미지 상태로 다시 실행이 된다고 보면 된다. 출처 - https://medium.com/swlh/understand-dockerfile-dd11746ed183 Docker Image : 컨테이너를 실행할 때 사용할 수 있는 Template (Read only) Docker Container : Docker Image를 활용해 실행된 인스턴스 (Write allowed) 도커로 할 수 있는 일 다른 사람이 만든 소프트웨어를 가져와서 바로 사용 할 수 있음 MySQL을 도커로 실행 Jupyter Notebook을 도커로 실행 이 때 다른 사람이 만든 소프트웨어를 Docker Image라고 이해하면 되고, OS를 포함한 실행 환경이 저장되어 있다. Linux, Windows 등 어디서나 동일하게 실행할 수 있다. 도커로 MySQL 실행 해보기 도커 실행 docker명령어로 도커 동작 확인 docker pull mysql:8로 mysql 8 버전의 이미지를 다운 docker images로 다운 받은 이미지 확인 docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=0000 -d -p 3306:3306 mysql:8 다운 받은 MySQL 이미지 기반으로 docker container를 만들고 실행 --name mysql-tutorial : 컨테이너의 이름을 mysql-tutorial 로 정하겠다는 것. 설정 하지 않으면 랜덤으로 생성 됨 -e MYSQL_ROOT_PASSWORD=0000 : 환경변수 설정을 하는 부분. 사용하는 이미지에 따라 설정이 다르지만, 현재 하고 있는 MySQL의 경우 환경변수를 통해 root 계정의 비밀번호를 설정하고 있음. -d : 데몬(백그라운드) 모드. 컨테이너를 백그라운드 상태로 실행. 이 설정을 하지 않을 경우, 현재 실행하는 셸 위에서 컨테이너가 실행되고 컨테이너의 로그를 바로 볼 수 있지만, 컨테이너를 나갈 경우 실행이 종료 됨. -p 3306:3306 : 포트 지정. -p {localhost port}:{container port} 형태로, 현재의 경우 로컬 포트 3306으로 접근 시 컨테이너 포트 3306으로 연결되도록 설정. MySQL은 기본적으로 3306 포트로 통신함. docker ps 로 실행한 컨테이너와 정보를 확인 할 수 있음 docker exec -it mysql-tutorial /bin/bash MySQL이 실행되고 있는지 확인하기 위해 컨테이너로 진입 할 수 있다. Compute engine에서 SSH와 접속하는 것과 유사하다. docker exec -it {container name or ID} /bin/bash mysql -u root -p MySQL 프로세스로 들어가면 MySQL 쉘 화면이 보인다. docker stop {container name or ID} 실행 중인 컨테이너를 멈출 수 있다. docker ps -a로 작동을 멈춘 컨테이너를 확인 할 수 있다. docker ps의 경우 실행중인 컨테이너 목록만 보여줌. docker rm {container name or ID} 으로 멈춘 컨테이너 삭제 가능 docker rm {container name or ID} -f 로 실행중인 컨테이너도 삭제 가능 Volume mount Docker run 할 때 파일이 자동으로 공유가 되는 것이 아님. 호스트와 컨테이너를 연결(sync) 해주는 것이 volume mount. docker container는 특별한 설정이 없으면 컨테이너를 삭제할 때 파일이 사라짐 Host와 container는 처음부터 파일 공유가 되지 않음 파일을 유지하고 싶을 경우 host와 container의 저장소를 공유해야 함 Volume mount를 진행하면 host와 container의 폴더가 공유됨 -v 옵션을 사용하며 port 처럼 사용함. -v host_folder:container_folder ex. docker run -it -p 8888:8888 -v /some/host/folder/for/work : /home/workspace/jupyter/note DockerHub 필요한 이미지가 있을 경우, 공개된 모든 이미지를 다운받을 수 있다. Docker Image 만들기 pytorch example 코드를 실행하는 docker image 생성 해보기 Dockerfile 생성 vi Dockerfile 로 만들든 gui로 만들든 Dockerfile을 생성해서 필요한 내용을 작성한다. 1 From pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime From {image name}:{tag} 형식은 이미지 빌드에 사용할 베이스 이미지를 지정하는 것이다. 보통 공개된 이미지 기반으로 새로운 설정을 추가하는 방법으로 사용. 1 copy . /app copy {로컬 디렉토리(파일)} {컨테니어 내 디렉토리(파일)} 컨테이너는 자체적인 파일 시스템을 가짐. copy명령어는 dockerfile이 존재하는 경로 기준 로컬 디렉토리를 컨테이너 내부의 디렉토리로 복사한다. 해당 코드의 경우 프로젝트 최상위에 존재하는 모든 파일을 컨테이너 내부 /app 디렉토리로 복사한다. 파일을 컨테이너에서 사용하고 싶으면 반드시 copy를 써서 복사해야 함. 1 WORKDIR /app WORKDIR {컨테이너 내 디렉토리} dockerfile의 RUN , CMD, ENTRYPOINT 등의 명령어를 실행할 컨테이너 경로를 지정한다. 아래 라인에 등장하는 RUN, CMD는 컨테이너 내부의 /app에서 실행한다. 1 2 ENV PYTHONPATH=/app ENV PYTHONBUFFERED=1 ENV {환경변수 이름=값} 컨테이너 내의 환경변수를 지정한다. 파이썬 애플리케이션의 경우 보통 위의 두 값을 지정한다. 1 2 3 4 RUN pip install pip==23.0.1 &amp;&amp; \ pip install poetry==1.2.1 &amp;&amp; \ poetry export -o requirements.txt &amp;&amp; \ pip install -r requirements.txt RUN은 컨테이너 내에서 리눅스 명령어를 실행한다. 한번에 실행할 명령어가 여러 대인 경우 &amp;&amp; \로 이어준다. 이전 라인에서 COPY 와 WORKDIR이 실행 되었기 때문에 requirements.txt가 존재하고, 이를 pip install -r 명령어로 실행할 수 있다. 1 CMD [&quot;python&quot;, &quot;main.py&quot;] CMD [&quot;실행할 명령어&quot;, &quot;인자&quot;, ..] docker run으로 이미지를 기반으로 컨테이너를 만들 때, 실행할 명령어의 이미지는 실행되는 즉시 python main.py를 실행한다. CMD는 띄어쓰기를 사용하지 않는다. Docker Image Build 1 docker build -t {빌드할 이미지 이름:태그 이름} {Dockerfile이 위치한 경로} 1 docker build -t 02-docker:latest . 이미지 생성 아래 이미지에서 . 는 현태 폴더에 Dockerfile이 있음을 의미 -t {빌드할 이미지 이름:태그 이름} 옵션으로 이미지 이름과 태그 지정 태그 미지정시 “latest”로 채워짐 빌드를 마치면 docker images명령어로 방금 빌드한 이미지를 확인 할 수 있다. 1 docker images | grep 02-docker Docker Image 실행 1 docker run {image name:tag} 빌드한 이미지를 실행 할 수 있음 태그가 latest인 경우 생략 가능 1 docker run 02-docker:latest Dockerfile 기타 EXPOSE : 컨테이너 외부에 노출할 포트 지정 ENTRYPOINT : 이미지를 컨테이너로 뛰울 때 항상 실행하는 커맨드 Docker Image Push 우리가 만든 이미지를 업로드 할 수 있다. 이를 위해 대표적인 registry인 Dockerhub에 도커 이미지를 push 할 수 있다. (github과 비슷함) docker login 명령어로 내 dockerhub 계정을 cli에 연동 할 수 있음. docker tag {기존 이미지:태그} {새 이미지 이름:태그} dockerhub에 올릴 이미지 이름은 내 계정ID/이미지 이름 형태여야 함. docker push {이미지이름:태그} dockerhub에 이미지를 psuh 한다. Dockerhub에서 push된 이미지 확인 가능. 내가 push한 이미지는 pull로 언제든지 다시 받을 수 있음. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://github.com/zzsza https://aws.amazon.com/ko/what-is/virtualization/ https://cloud.google.com/learn/what-are-containers?hl=ko" />
+<meta property="og:description" content="Virtualization 가상화란 무엇인가 가상화는 서버, 스토리지, 네트워크 및 기타 물리적 시스템에 대한 가상 표현을 생성하는데 사용할 수 있는 기술이다. 가상 소프트웨어는 물리적 하드웨어 기능을 모방하여 하나의 물리적 머신에서 여러 가상 시스템을 동시에 실행할 수 있다. 가상화는 간단하게 말하자면 Local이나 Production 서버에서의 환경을 위한 일종의 템플릿이라고 생각할 수 있다. 개발과 운영 서버의 환경 불일치를 해소할 수 있고, 어느 조건에서나 동일한 환경으로 프로그램을 실행 할 수 있게 된다. Virtual Machine vs Docker VM(Virtual Machine) 도커의 등장 전에는 주로 VM(Virtual Machine)을 사용했다. VM은 호스트 머신이라고 하는 실제 물리적인 컴퓨터 위에 OS를 포함한 가상화 소프트웨어를 두는 방식이라고 이해하면 된다. 그러나 이러한 방식은 OS 위에 OS를 하나 더 실행시킨다는 점에서 굉장히 많은 리소스를 사용하게 된다(무겁다). Container 컨테이너는 어떤 환경에서나 실행하기 위해 필요한 모든 요소를 포함하는 소프트웨어 패키지같은 형태이다. 컨테이너의 정의를 찾아보면, 소프트웨어 서비스를 실행하는 데 필요한 특정 버전의 프로그래밍 언어 런타임 및 라이브러리와 같은 종속 항목과 애플리케이션 코드를 함께 포함하는 경량 패키지이다. 으로 정의된다. 출처 - https://www.weave.works/blog/a-practical-guide-to-choosing-between-docker-containers-and-vms VM의 경우 host OS 위에 다시 guest OS가 존재하는 형태인 반면에, 컨테이너는 OS 하나 위에서 OS에 상관없이 컨테이너를 띄우는 것을 볼 수 있다. Docker 도커 소개 도커는 이런 컨테이너에 기반한 개발과 운영을 매우 빠르게 확장 할 수 있는 오픈소스 프로젝트이다. 도커에 대해 간단히 설명하자면, 도커의 이미지를 만들어두면 재부팅 할 경우 도커의 이미지 상태로 다시 실행이 된다고 보면 된다. 출처 - https://medium.com/swlh/understand-dockerfile-dd11746ed183 Docker Image : 컨테이너를 실행할 때 사용할 수 있는 Template (Read only) Docker Container : Docker Image를 활용해 실행된 인스턴스 (Write allowed) 도커로 할 수 있는 일 다른 사람이 만든 소프트웨어를 가져와서 바로 사용 할 수 있음 MySQL을 도커로 실행 Jupyter Notebook을 도커로 실행 이 때 다른 사람이 만든 소프트웨어를 Docker Image라고 이해하면 되고, OS를 포함한 실행 환경이 저장되어 있다. Linux, Windows 등 어디서나 동일하게 실행할 수 있다. 도커로 MySQL 실행 해보기 도커 실행 docker명령어로 도커 동작 확인 docker pull mysql:8로 mysql 8 버전의 이미지를 다운 docker images로 다운 받은 이미지 확인 docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=0000 -d -p 3306:3306 mysql:8 다운 받은 MySQL 이미지 기반으로 docker container를 만들고 실행 --name mysql-tutorial : 컨테이너의 이름을 mysql-tutorial 로 정하겠다는 것. 설정 하지 않으면 랜덤으로 생성 됨 -e MYSQL_ROOT_PASSWORD=0000 : 환경변수 설정을 하는 부분. 사용하는 이미지에 따라 설정이 다르지만, 현재 하고 있는 MySQL의 경우 환경변수를 통해 root 계정의 비밀번호를 설정하고 있음. -d : 데몬(백그라운드) 모드. 컨테이너를 백그라운드 상태로 실행. 이 설정을 하지 않을 경우, 현재 실행하는 셸 위에서 컨테이너가 실행되고 컨테이너의 로그를 바로 볼 수 있지만, 컨테이너를 나갈 경우 실행이 종료 됨. -p 3306:3306 : 포트 지정. -p {localhost port}:{container port} 형태로, 현재의 경우 로컬 포트 3306으로 접근 시 컨테이너 포트 3306으로 연결되도록 설정. MySQL은 기본적으로 3306 포트로 통신함. docker ps 로 실행한 컨테이너와 정보를 확인 할 수 있음 docker exec -it mysql-tutorial /bin/bash MySQL이 실행되고 있는지 확인하기 위해 컨테이너로 진입 할 수 있다. Compute engine에서 SSH와 접속하는 것과 유사하다. docker exec -it {container name or ID} /bin/bash mysql -u root -p MySQL 프로세스로 들어가면 MySQL 쉘 화면이 보인다. docker stop {container name or ID} 실행 중인 컨테이너를 멈출 수 있다. docker ps -a로 작동을 멈춘 컨테이너를 확인 할 수 있다. docker ps의 경우 실행중인 컨테이너 목록만 보여줌. docker rm {container name or ID} 으로 멈춘 컨테이너 삭제 가능 docker rm {container name or ID} -f 로 실행중인 컨테이너도 삭제 가능 Volume mount Docker run 할 때 파일이 자동으로 공유가 되는 것이 아님. 호스트와 컨테이너를 연결(sync) 해주는 것이 volume mount. docker container는 특별한 설정이 없으면 컨테이너를 삭제할 때 파일이 사라짐 Host와 container는 처음부터 파일 공유가 되지 않음 파일을 유지하고 싶을 경우 host와 container의 저장소를 공유해야 함 Volume mount를 진행하면 host와 container의 폴더가 공유됨 -v 옵션을 사용하며 port 처럼 사용함. -v host_folder:container_folder ex. docker run -it -p 8888:8888 -v /some/host/folder/for/work : /home/workspace/jupyter/note DockerHub 필요한 이미지가 있을 경우, 공개된 모든 이미지를 다운받을 수 있다. Docker Image 만들기 pytorch example 코드를 실행하는 docker image 생성 해보기 Dockerfile 생성 vi Dockerfile 로 만들든 gui로 만들든 Dockerfile을 생성해서 필요한 내용을 작성한다. 1 From pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime From {image name}:{tag} 형식은 이미지 빌드에 사용할 베이스 이미지를 지정하는 것이다. 보통 공개된 이미지 기반으로 새로운 설정을 추가하는 방법으로 사용. 1 copy . /app copy {로컬 디렉토리(파일)} {컨테니어 내 디렉토리(파일)} 컨테이너는 자체적인 파일 시스템을 가짐. copy명령어는 dockerfile이 존재하는 경로 기준 로컬 디렉토리를 컨테이너 내부의 디렉토리로 복사한다. 해당 코드의 경우 프로젝트 최상위에 존재하는 모든 파일을 컨테이너 내부 /app 디렉토리로 복사한다. 파일을 컨테이너에서 사용하고 싶으면 반드시 copy를 써서 복사해야 함. 1 WORKDIR /app WORKDIR {컨테이너 내 디렉토리} dockerfile의 RUN , CMD, ENTRYPOINT 등의 명령어를 실행할 컨테이너 경로를 지정한다. 아래 라인에 등장하는 RUN, CMD는 컨테이너 내부의 /app에서 실행한다. 1 2 ENV PYTHONPATH=/app ENV PYTHONBUFFERED=1 ENV {환경변수 이름=값} 컨테이너 내의 환경변수를 지정한다. 파이썬 애플리케이션의 경우 보통 위의 두 값을 지정한다. 1 2 3 4 RUN pip install pip==23.0.1 &amp;&amp; \ pip install poetry==1.2.1 &amp;&amp; \ poetry export -o requirements.txt &amp;&amp; \ pip install -r requirements.txt RUN은 컨테이너 내에서 리눅스 명령어를 실행한다. 한번에 실행할 명령어가 여러 대인 경우 &amp;&amp; \로 이어준다. 이전 라인에서 COPY 와 WORKDIR이 실행 되었기 때문에 requirements.txt가 존재하고, 이를 pip install -r 명령어로 실행할 수 있다. 1 CMD [&quot;python&quot;, &quot;main.py&quot;] CMD [&quot;실행할 명령어&quot;, &quot;인자&quot;, ..] docker run으로 이미지를 기반으로 컨테이너를 만들 때, 실행할 명령어의 이미지는 실행되는 즉시 python main.py를 실행한다. CMD는 띄어쓰기를 사용하지 않는다. Docker Image Build 1 docker build -t {빌드할 이미지 이름:태그 이름} {Dockerfile이 위치한 경로} 1 docker build -t 02-docker:latest . 이미지 생성 아래 이미지에서 . 는 현태 폴더에 Dockerfile이 있음을 의미 -t {빌드할 이미지 이름:태그 이름} 옵션으로 이미지 이름과 태그 지정 태그 미지정시 “latest”로 채워짐 빌드를 마치면 docker images명령어로 방금 빌드한 이미지를 확인 할 수 있다. 1 docker images | grep 02-docker Docker Image 실행 1 docker run {image name:tag} 빌드한 이미지를 실행 할 수 있음 태그가 latest인 경우 생략 가능 1 docker run 02-docker:latest Dockerfile 기타 EXPOSE : 컨테이너 외부에 노출할 포트 지정 ENTRYPOINT : 이미지를 컨테이너로 뛰울 때 항상 실행하는 커맨드 Docker Image Push 우리가 만든 이미지를 업로드 할 수 있다. 이를 위해 대표적인 registry인 Dockerhub에 도커 이미지를 push 할 수 있다. (github과 비슷함) docker login 명령어로 내 dockerhub 계정을 cli에 연동 할 수 있음. docker tag {기존 이미지:태그} {새 이미지 이름:태그} dockerhub에 올릴 이미지 이름은 내 계정ID/이미지 이름 형태여야 함. docker push {이미지이름:태그} dockerhub에 이미지를 psuh 한다. Dockerhub에서 push된 이미지 확인 가능. 내가 push한 이미지는 pull로 언제든지 다시 받을 수 있음. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://github.com/zzsza https://aws.amazon.com/ko/what-is/virtualization/ https://cloud.google.com/learn/what-are-containers?hl=ko" />
+<link rel="canonical" href="http://localhost:4000/Docker-Basic-1/" />
+<meta property="og:url" content="http://localhost:4000/Docker-Basic-1/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/dockerlogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-28T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/dockerlogo.png" />
+<meta property="twitter:title" content="Docker Basic - 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-04-28T00:00:00+09:00","datePublished":"2023-04-28T00:00:00+09:00","description":"Virtualization 가상화란 무엇인가 가상화는 서버, 스토리지, 네트워크 및 기타 물리적 시스템에 대한 가상 표현을 생성하는데 사용할 수 있는 기술이다. 가상 소프트웨어는 물리적 하드웨어 기능을 모방하여 하나의 물리적 머신에서 여러 가상 시스템을 동시에 실행할 수 있다. 가상화는 간단하게 말하자면 Local이나 Production 서버에서의 환경을 위한 일종의 템플릿이라고 생각할 수 있다. 개발과 운영 서버의 환경 불일치를 해소할 수 있고, 어느 조건에서나 동일한 환경으로 프로그램을 실행 할 수 있게 된다. Virtual Machine vs Docker VM(Virtual Machine) 도커의 등장 전에는 주로 VM(Virtual Machine)을 사용했다. VM은 호스트 머신이라고 하는 실제 물리적인 컴퓨터 위에 OS를 포함한 가상화 소프트웨어를 두는 방식이라고 이해하면 된다. 그러나 이러한 방식은 OS 위에 OS를 하나 더 실행시킨다는 점에서 굉장히 많은 리소스를 사용하게 된다(무겁다). Container 컨테이너는 어떤 환경에서나 실행하기 위해 필요한 모든 요소를 포함하는 소프트웨어 패키지같은 형태이다. 컨테이너의 정의를 찾아보면, 소프트웨어 서비스를 실행하는 데 필요한 특정 버전의 프로그래밍 언어 런타임 및 라이브러리와 같은 종속 항목과 애플리케이션 코드를 함께 포함하는 경량 패키지이다. 으로 정의된다. 출처 - https://www.weave.works/blog/a-practical-guide-to-choosing-between-docker-containers-and-vms VM의 경우 host OS 위에 다시 guest OS가 존재하는 형태인 반면에, 컨테이너는 OS 하나 위에서 OS에 상관없이 컨테이너를 띄우는 것을 볼 수 있다. Docker 도커 소개 도커는 이런 컨테이너에 기반한 개발과 운영을 매우 빠르게 확장 할 수 있는 오픈소스 프로젝트이다. 도커에 대해 간단히 설명하자면, 도커의 이미지를 만들어두면 재부팅 할 경우 도커의 이미지 상태로 다시 실행이 된다고 보면 된다. 출처 - https://medium.com/swlh/understand-dockerfile-dd11746ed183 Docker Image : 컨테이너를 실행할 때 사용할 수 있는 Template (Read only) Docker Container : Docker Image를 활용해 실행된 인스턴스 (Write allowed) 도커로 할 수 있는 일 다른 사람이 만든 소프트웨어를 가져와서 바로 사용 할 수 있음 MySQL을 도커로 실행 Jupyter Notebook을 도커로 실행 이 때 다른 사람이 만든 소프트웨어를 Docker Image라고 이해하면 되고, OS를 포함한 실행 환경이 저장되어 있다. Linux, Windows 등 어디서나 동일하게 실행할 수 있다. 도커로 MySQL 실행 해보기 도커 실행 docker명령어로 도커 동작 확인 docker pull mysql:8로 mysql 8 버전의 이미지를 다운 docker images로 다운 받은 이미지 확인 docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=0000 -d -p 3306:3306 mysql:8 다운 받은 MySQL 이미지 기반으로 docker container를 만들고 실행 --name mysql-tutorial : 컨테이너의 이름을 mysql-tutorial 로 정하겠다는 것. 설정 하지 않으면 랜덤으로 생성 됨 -e MYSQL_ROOT_PASSWORD=0000 : 환경변수 설정을 하는 부분. 사용하는 이미지에 따라 설정이 다르지만, 현재 하고 있는 MySQL의 경우 환경변수를 통해 root 계정의 비밀번호를 설정하고 있음. -d : 데몬(백그라운드) 모드. 컨테이너를 백그라운드 상태로 실행. 이 설정을 하지 않을 경우, 현재 실행하는 셸 위에서 컨테이너가 실행되고 컨테이너의 로그를 바로 볼 수 있지만, 컨테이너를 나갈 경우 실행이 종료 됨. -p 3306:3306 : 포트 지정. -p {localhost port}:{container port} 형태로, 현재의 경우 로컬 포트 3306으로 접근 시 컨테이너 포트 3306으로 연결되도록 설정. MySQL은 기본적으로 3306 포트로 통신함. docker ps 로 실행한 컨테이너와 정보를 확인 할 수 있음 docker exec -it mysql-tutorial /bin/bash MySQL이 실행되고 있는지 확인하기 위해 컨테이너로 진입 할 수 있다. Compute engine에서 SSH와 접속하는 것과 유사하다. docker exec -it {container name or ID} /bin/bash mysql -u root -p MySQL 프로세스로 들어가면 MySQL 쉘 화면이 보인다. docker stop {container name or ID} 실행 중인 컨테이너를 멈출 수 있다. docker ps -a로 작동을 멈춘 컨테이너를 확인 할 수 있다. docker ps의 경우 실행중인 컨테이너 목록만 보여줌. docker rm {container name or ID} 으로 멈춘 컨테이너 삭제 가능 docker rm {container name or ID} -f 로 실행중인 컨테이너도 삭제 가능 Volume mount Docker run 할 때 파일이 자동으로 공유가 되는 것이 아님. 호스트와 컨테이너를 연결(sync) 해주는 것이 volume mount. docker container는 특별한 설정이 없으면 컨테이너를 삭제할 때 파일이 사라짐 Host와 container는 처음부터 파일 공유가 되지 않음 파일을 유지하고 싶을 경우 host와 container의 저장소를 공유해야 함 Volume mount를 진행하면 host와 container의 폴더가 공유됨 -v 옵션을 사용하며 port 처럼 사용함. -v host_folder:container_folder ex. docker run -it -p 8888:8888 -v /some/host/folder/for/work : /home/workspace/jupyter/note DockerHub 필요한 이미지가 있을 경우, 공개된 모든 이미지를 다운받을 수 있다. Docker Image 만들기 pytorch example 코드를 실행하는 docker image 생성 해보기 Dockerfile 생성 vi Dockerfile 로 만들든 gui로 만들든 Dockerfile을 생성해서 필요한 내용을 작성한다. 1 From pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime From {image name}:{tag} 형식은 이미지 빌드에 사용할 베이스 이미지를 지정하는 것이다. 보통 공개된 이미지 기반으로 새로운 설정을 추가하는 방법으로 사용. 1 copy . /app copy {로컬 디렉토리(파일)} {컨테니어 내 디렉토리(파일)} 컨테이너는 자체적인 파일 시스템을 가짐. copy명령어는 dockerfile이 존재하는 경로 기준 로컬 디렉토리를 컨테이너 내부의 디렉토리로 복사한다. 해당 코드의 경우 프로젝트 최상위에 존재하는 모든 파일을 컨테이너 내부 /app 디렉토리로 복사한다. 파일을 컨테이너에서 사용하고 싶으면 반드시 copy를 써서 복사해야 함. 1 WORKDIR /app WORKDIR {컨테이너 내 디렉토리} dockerfile의 RUN , CMD, ENTRYPOINT 등의 명령어를 실행할 컨테이너 경로를 지정한다. 아래 라인에 등장하는 RUN, CMD는 컨테이너 내부의 /app에서 실행한다. 1 2 ENV PYTHONPATH=/app ENV PYTHONBUFFERED=1 ENV {환경변수 이름=값} 컨테이너 내의 환경변수를 지정한다. 파이썬 애플리케이션의 경우 보통 위의 두 값을 지정한다. 1 2 3 4 RUN pip install pip==23.0.1 &amp;&amp; \\ pip install poetry==1.2.1 &amp;&amp; \\ poetry export -o requirements.txt &amp;&amp; \\ pip install -r requirements.txt RUN은 컨테이너 내에서 리눅스 명령어를 실행한다. 한번에 실행할 명령어가 여러 대인 경우 &amp;&amp; \\로 이어준다. 이전 라인에서 COPY 와 WORKDIR이 실행 되었기 때문에 requirements.txt가 존재하고, 이를 pip install -r 명령어로 실행할 수 있다. 1 CMD [&quot;python&quot;, &quot;main.py&quot;] CMD [&quot;실행할 명령어&quot;, &quot;인자&quot;, ..] docker run으로 이미지를 기반으로 컨테이너를 만들 때, 실행할 명령어의 이미지는 실행되는 즉시 python main.py를 실행한다. CMD는 띄어쓰기를 사용하지 않는다. Docker Image Build 1 docker build -t {빌드할 이미지 이름:태그 이름} {Dockerfile이 위치한 경로} 1 docker build -t 02-docker:latest . 이미지 생성 아래 이미지에서 . 는 현태 폴더에 Dockerfile이 있음을 의미 -t {빌드할 이미지 이름:태그 이름} 옵션으로 이미지 이름과 태그 지정 태그 미지정시 “latest”로 채워짐 빌드를 마치면 docker images명령어로 방금 빌드한 이미지를 확인 할 수 있다. 1 docker images | grep 02-docker Docker Image 실행 1 docker run {image name:tag} 빌드한 이미지를 실행 할 수 있음 태그가 latest인 경우 생략 가능 1 docker run 02-docker:latest Dockerfile 기타 EXPOSE : 컨테이너 외부에 노출할 포트 지정 ENTRYPOINT : 이미지를 컨테이너로 뛰울 때 항상 실행하는 커맨드 Docker Image Push 우리가 만든 이미지를 업로드 할 수 있다. 이를 위해 대표적인 registry인 Dockerhub에 도커 이미지를 push 할 수 있다. (github과 비슷함) docker login 명령어로 내 dockerhub 계정을 cli에 연동 할 수 있음. docker tag {기존 이미지:태그} {새 이미지 이름:태그} dockerhub에 올릴 이미지 이름은 내 계정ID/이미지 이름 형태여야 함. docker push {이미지이름:태그} dockerhub에 이미지를 psuh 한다. Dockerhub에서 push된 이미지 확인 가능. 내가 push한 이미지는 pull로 언제든지 다시 받을 수 있음. 참고 Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤) https://github.com/zzsza https://aws.amazon.com/ko/what-is/virtualization/ https://cloud.google.com/learn/what-are-containers?hl=ko","headline":"Docker Basic - 1","image":"http://localhost:4000/post_images/dockerlogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/Docker-Basic-1/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/Docker-Basic-1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Docker Basic - 1&url=http://localhost:4000/Docker-Basic-1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/Docker-Basic-1/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/Docker-Basic-1/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Docker Basic - 1</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/dockerlogo.png" alt="Docker Basic - 1">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#virtualization">Virtualization</a>
+    <ul>
+      <li><a href="#가상화란-무엇인가">가상화란 무엇인가</a></li>
+    </ul>
+  </li>
+  <li><a href="#virtual-machine-vs-docker">Virtual Machine vs Docker</a>
+    <ul>
+      <li><a href="#vmvirtual-machine">VM(Virtual Machine)</a></li>
+      <li><a href="#container">Container</a></li>
+    </ul>
+  </li>
+  <li><a href="#docker">Docker</a>
+    <ul>
+      <li><a href="#도커-소개">도커 소개</a></li>
+      <li><a href="#도커로-할-수-있는-일">도커로 할 수 있는 일</a></li>
+    </ul>
+  </li>
+  <li><a href="#도커로-mysql-실행-해보기">도커로 MySQL 실행 해보기</a>
+    <ul>
+      <li><a href="#도커-실행">도커 실행</a></li>
+      <li><a href="#volume-mount">Volume mount</a></li>
+      <li><a href="#dockerhub">DockerHub</a></li>
+      <li><a href="#docker-image-만들기">Docker Image 만들기</a>
+        <ul>
+          <li><a href="#dockerfile-생성">Dockerfile 생성</a></li>
+        </ul>
+      </li>
+      <li><a href="#docker-image-build">Docker Image Build</a></li>
+      <li><a href="#docker-image-실행">Docker Image 실행</a></li>
+      <li><a href="#dockerfile-기타">Dockerfile 기타</a></li>
+      <li><a href="#docker-image-push">Docker Image Push</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <p><br /></p>
+
+<h2 id="virtualization">Virtualization</h2>
+
+<h3 id="가상화란-무엇인가">가상화란 무엇인가</h3>
+
+<p>가상화는 서버, 스토리지, 네트워크 및 기타 물리적 시스템에 대한 가상 표현을 생성하는데 사용할 수 있는 기술이다. 가상 소프트웨어는 물리적 하드웨어 기능을 모방하여 하나의 물리적 머신에서 여러 가상 시스템을 동시에 실행할 수 있다.</p>
+
+<p>가상화는 간단하게 말하자면 Local이나 Production 서버에서의 환경을 위한 일종의 템플릿이라고 생각할 수 있다.   개발과 운영 서버의 환경 불일치를 해소할 수 있고, 어느 조건에서나 동일한 환경으로 프로그램을 실행 할 수 있게 된다.</p>
+
+<p><br /></p>
+
+<h2 id="virtual-machine-vs-docker">Virtual Machine vs Docker</h2>
+
+<h3 id="vmvirtual-machine">VM(Virtual Machine)</h3>
+
+<p>도커의 등장 전에는 주로 VM(Virtual Machine)을 사용했다. VM은 호스트 머신이라고 하는 실제 물리적인 컴퓨터 위에 OS를 포함한 가상화 소프트웨어를 두는 방식이라고 이해하면 된다. 그러나 이러한 방식은 OS 위에 OS를 하나 더 실행시킨다는 점에서 굉장히 많은 리소스를 사용하게 된다(무겁다).</p>
+
+<p><br /></p>
+
+<h3 id="container">Container</h3>
+
+<p>컨테이너는 어떤 환경에서나 실행하기 위해 필요한 모든 요소를 포함하는 소프트웨어 패키지같은 형태이다. 컨테이너의 정의를 찾아보면,</p>
+
+<blockquote>
+  <p><em>소프트웨어 서비스를 실행하는 데 필요한 특정 버전의 프로그래밍 언어 런타임 및 라이브러리와 같은 종속 항목과 애플리케이션 코드를 함께 포함하는 경량 패키지이다.</em></p>
+</blockquote>
+
+<p>으로 정의된다.</p>
+
+<p><img src="../post_images/Docker Basic/containers-vs-virtual-machines.jpg" alt="containers-vs-virtual-machines" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center"> 출처 - https://www.weave.works/blog/a-practical-guide-to-choosing-between-docker-containers-and-vms</p>
+
+<p>VM의 경우 host OS 위에 다시 guest OS가 존재하는 형태인 반면에, 컨테이너는 OS 하나 위에서 OS에 상관없이 컨테이너를 띄우는 것을 볼 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="docker">Docker</h2>
+
+<h3 id="도커-소개">도커 소개</h3>
+
+<p>도커는 이런 컨테이너에 기반한 개발과 운영을 매우 빠르게 확장 할 수 있는 오픈소스 프로젝트이다.</p>
+
+<p>도커에 대해 간단히 설명하자면, 도커의 이미지를 만들어두면 재부팅 할 경우 도커의 이미지 상태로 다시 실행이 된다고 보면 된다.</p>
+
+<p><img src="../post_images/Docker Basic/docker image container.webp" alt="docker image container" style="zoom:50%;" class="center-image" /></p>
+
+<p align="center"> 출처 - https://medium.com/swlh/understand-dockerfile-dd11746ed183</p>
+
+<ul>
+  <li>Docker Image : 컨테이너를 실행할 때 사용할 수 있는 Template (Read only)</li>
+  <li>Docker Container : Docker Image를 활용해 실행된 인스턴스 (Write allowed)</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="도커로-할-수-있는-일">도커로 할 수 있는 일</h3>
+
+<p>다른 사람이 만든 소프트웨어를 가져와서 바로 사용 할 수 있음</p>
+
+<ul>
+  <li>MySQL을 도커로 실행</li>
+  <li>Jupyter Notebook을 도커로 실행</li>
+</ul>
+
+<p>이 때 다른 사람이 만든 소프트웨어를 Docker Image라고 이해하면 되고, OS를 포함한 실행 환경이 저장되어 있다.  Linux, Windows 등 어디서나 동일하게 실행할 수 있다.</p>
+
+<p><br /></p>
+
+<h2 id="도커로-mysql-실행-해보기">도커로 MySQL 실행 해보기</h2>
+
+<h3 id="도커-실행">도커 실행</h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker</code>명령어로 도커 동작 확인</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker pull mysql:8</code>로 mysql 8 버전의 이미지를 다운</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker images</code>로 다운 받은 이미지 확인</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker run --name mysql-tutorial -e MYSQL_ROOT_PASSWORD=0000 -d -p 3306:3306 mysql:8</code></p>
+
+    <ul>
+      <li>
+        <p>다운 받은 MySQL 이미지 기반으로 docker container를 만들고 실행</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">--name mysql-tutorial</code> : 컨테이너의 이름을 <code class="language-plaintext highlighter-rouge">mysql-tutorial</code> 로 정하겠다는 것. 설정 하지 않으면 랜덤으로 생성 됨</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">-e MYSQL_ROOT_PASSWORD=0000</code> : 환경변수 설정을 하는 부분. 사용하는 이미지에 따라 설정이 다르지만, 현재 하고 있는 MySQL의 경우 환경변수를 통해 root 계정의 비밀번호를 설정하고 있음.</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">-d</code> : 데몬(백그라운드) 모드. 컨테이너를 백그라운드 상태로 실행. 이 설정을 하지 않을 경우, 현재 실행하는 셸 위에서 컨테이너가 실행되고 컨테이너의 로그를 바로 볼 수 있지만, 컨테이너를 나갈 경우 실행이 종료 됨.</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">-p 3306:3306</code> : 포트 지정. <code class="language-plaintext highlighter-rouge">-p {localhost port}:{container port}</code> 형태로, 현재의 경우 로컬 포트 3306으로 접근 시 컨테이너 포트 3306으로 연결되도록 설정. MySQL은 기본적으로 3306 포트로 통신함.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker ps</code> 로 실행한 컨테이너와 정보를 확인 할 수 있음</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker exec -it mysql-tutorial /bin/bash</code> MySQL이 실행되고 있는지 확인하기 위해 컨테이너로 진입 할 수 있다. Compute engine에서 SSH와 접속하는 것과 유사하다.</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">docker exec -it {container name or ID} /bin/bash</code></li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">mysql -u root -p</code> MySQL 프로세스로 들어가면 MySQL 쉘 화면이 보인다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker stop {container name or ID}</code> 실행 중인 컨테이너를 멈출 수 있다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker ps -a</code>로 작동을 멈춘 컨테이너를 확인 할 수 있다. <code class="language-plaintext highlighter-rouge">docker ps</code>의 경우 실행중인 컨테이너 목록만 보여줌.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker rm {container name or ID}</code> 으로 멈춘 컨테이너 삭제 가능</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">docker rm {container name or ID} -f</code> 로 실행중인 컨테이너도 삭제 가능</li>
+    </ul>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="volume-mount">Volume mount</h3>
+
+<ul>
+  <li>
+    <p>Docker run 할 때 파일이 자동으로 공유가 되는 것이 아님. 호스트와 컨테이너를 연결(sync) 해주는 것이 volume mount.</p>
+  </li>
+  <li>
+    <p>docker container는 특별한 설정이 없으면 컨테이너를 삭제할 때 파일이 사라짐</p>
+  </li>
+  <li>
+    <p>Host와 container는 처음부터 파일 공유가 되지 않음</p>
+  </li>
+  <li>
+    <p>파일을 유지하고 싶을 경우 host와 container의 저장소를 공유해야 함</p>
+  </li>
+  <li>
+    <p>Volume mount를 진행하면 host와 container의 폴더가 공유됨</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">-v</code> 옵션을 사용하며 port 처럼 사용함. <code class="language-plaintext highlighter-rouge">-v host_folder:container_folder</code></p>
+  </li>
+  <li>
+    <p>ex. <code class="language-plaintext highlighter-rouge">docker run -it -p 8888:8888 -v /some/host/folder/for/work : /home/workspace/jupyter/note</code></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="dockerhub">DockerHub</h3>
+
+<p>필요한 이미지가 있을 경우, 공개된 모든 이미지를 다운받을 수 있다.</p>
+
+<p><img src="../post_images/Docker Basic/dockerhub sql.PNG" alt="dockerhub sql" style="zoom:67%;" class="center-image" /></p>
+
+<p><br /></p>
+
+<h3 id="docker-image-만들기">Docker Image 만들기</h3>
+
+<p>pytorch example 코드를 실행하는 docker image 생성 해보기</p>
+
+<p><br /></p>
+
+<h4 id="dockerfile-생성">Dockerfile 생성</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">vi Dockerfile</code> 로 만들든 gui로 만들든 Dockerfile을 생성해서 필요한 내용을 작성한다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>From pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">From {image name}:{tag}</code> 형식은 이미지 빌드에 사용할 베이스 이미지를 지정하는 것이다. 보통 공개된 이미지 기반으로 새로운 설정을 추가하는 방법으로 사용.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>copy <span class="nb">.</span> /app
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">copy {로컬 디렉토리(파일)} {컨테니어 내 디렉토리(파일)}</code> 컨테이너는 자체적인 파일 시스템을 가짐. <code class="language-plaintext highlighter-rouge">copy</code>명령어는 dockerfile이 존재하는 경로 기준 로컬 디렉토리를 컨테이너 내부의 디렉토리로 복사한다.</p>
+  </li>
+  <li>
+    <p>해당 코드의 경우 프로젝트 최상위에 존재하는 모든 파일을 컨테이너 내부 /app 디렉토리로 복사한다.</p>
+  </li>
+  <li>
+    <p>파일을 컨테이너에서 사용하고 싶으면 반드시 <code class="language-plaintext highlighter-rouge">copy</code>를 써서 복사해야 함.</p>
+  </li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>WORKDIR /app
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">WORKDIR {컨테이너 내 디렉토리}</code> dockerfile의 RUN , CMD, ENTRYPOINT 등의 명령어를 실행할 컨테이너 경로를 지정한다. 아래 라인에 등장하는 RUN, CMD는 컨테이너 내부의 /app에서 실행한다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>ENV <span class="nv">PYTHONPATH</span><span class="o">=</span>/app
+ENV <span class="nv">PYTHONBUFFERED</span><span class="o">=</span>1
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ENV {환경변수 이름=값}</code> 컨테이너 내의 환경변수를 지정한다. 파이썬 애플리케이션의 경우 보통 위의 두 값을 지정한다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>RUN pip <span class="nb">install </span><span class="nv">pip</span><span class="o">==</span>23.0.1 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+	pip <span class="nb">install </span><span class="nv">poetry</span><span class="o">==</span>1.2.1 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+	poetry <span class="nb">export</span> <span class="nt">-o</span> requirements.txt <span class="o">&amp;&amp;</span> <span class="se">\</span>
+	pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">RUN</code>은 컨테이너 내에서 리눅스 명령어를 실행한다. 한번에 실행할 명령어가 여러 대인 경우 &amp;&amp; \로 이어준다. 이전 라인에서 <code class="language-plaintext highlighter-rouge">COPY</code> 와 <code class="language-plaintext highlighter-rouge">WORKDIR</code>이 실행 되었기 때문에 requirements.txt가 존재하고, 이를 <code class="language-plaintext highlighter-rouge">pip install -r</code> 명령어로 실행할 수 있다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>CMD <span class="o">[</span><span class="s2">"python"</span>, <span class="s2">"main.py"</span><span class="o">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CMD ["실행할 명령어", "인자", ..]</code> docker run으로 이미지를 기반으로 컨테이너를 만들 때, 실행할 명령어의 이미지는 실행되는 즉시 python main.py를 실행한다. <code class="language-plaintext highlighter-rouge">CMD</code>는 띄어쓰기를 사용하지 않는다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="docker-image-build">Docker Image Build</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker build <span class="nt">-t</span> <span class="o">{</span>빌드할 이미지 이름:태그 이름<span class="o">}</span> <span class="o">{</span>Dockerfile이 위치한 경로<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker build <span class="nt">-t</span> 02-docker:latest <span class="nb">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>이미지 생성</li>
+  <li>아래 이미지에서 . 는 현태 폴더에 Dockerfile이 있음을 의미</li>
+  <li>-t {빌드할 이미지 이름:태그 이름} 옵션으로 이미지 이름과 태그 지정</li>
+  <li>태그 미지정시 “latest”로 채워짐</li>
+</ul>
+
+<p><br /></p>
+
+<ul>
+  <li>빌드를 마치면 <code class="language-plaintext highlighter-rouge">docker images</code>명령어로 방금 빌드한 이미지를 확인 할 수 있다.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker images | <span class="nb">grep </span>02-docker
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="docker-image-실행">Docker Image 실행</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run <span class="o">{</span>image name:tag<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>빌드한 이미지를 실행 할 수 있음</li>
+  <li>태그가 latest인 경우 생략 가능</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run 02-docker:latest
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="dockerfile-기타">Dockerfile 기타</h3>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">EXPOSE</code> : 컨테이너 외부에 노출할 포트 지정</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ENTRYPOINT</code> : 이미지를 컨테이너로 뛰울 때 항상 실행하는 커맨드</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="docker-image-push">Docker Image Push</h3>
+
+<ul>
+  <li>
+    <p>우리가 만든 이미지를 업로드 할 수 있다. 이를 위해 대표적인 registry인 Dockerhub에 도커 이미지를 push 할 수 있다. (github과 비슷함)</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker login</code> 명령어로 내 dockerhub 계정을 cli에 연동 할 수 있음.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker tag {기존 이미지:태그} {새 이미지 이름:태그}</code> dockerhub에 올릴 이미지 이름은 내 계정ID/이미지 이름 형태여야 함.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">docker push {이미지이름:태그}</code> dockerhub에 이미지를 psuh 한다. Dockerhub에서 push된 이미지 확인 가능.</p>
+  </li>
+  <li>
+    <p>내가 push한 이미지는 pull로 언제든지 다시 받을 수 있음.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li>Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤)</li>
+  <li><a href="https://github.com/zzsza">https://github.com/zzsza</a></li>
+  <li><a href="https://aws.amazon.com/ko/what-is/virtualization/">https://aws.amazon.com/ko/what-is/virtualization/</a></li>
+  <li><a href="https://cloud.google.com/learn/what-are-containers?hl=ko">https://cloud.google.com/learn/what-are-containers?hl=ko</a></li>
+</ol>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-04-28">28 Apr 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Docker">Docker</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//Basic-Linux-2/"> &laquo; Linux Basic - 2</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//Debugging/">Debugging &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

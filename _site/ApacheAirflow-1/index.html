@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Introduction to Apache Airflow | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introduction to Apache Airflow | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Introduction to Apache Airflow" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apache Airflow의 등장 배경 Batch Processing 예약된 시간에 실행되는 프로세스 일회성 실행, 주기적인 실행 전부 가능 월요일날 7:00시에 한번 실행, 매주 월요일 7:00에 실행" />
+<meta property="og:description" content="Apache Airflow의 등장 배경 Batch Processing 예약된 시간에 실행되는 프로세스 일회성 실행, 주기적인 실행 전부 가능 월요일날 7:00시에 한번 실행, 매주 월요일 7:00에 실행" />
+<link rel="canonical" href="http://localhost:4000/ApacheAirflow-1/" />
+<meta property="og:url" content="http://localhost:4000/ApacheAirflow-1/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/apacheairflowlogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-07-06T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/apacheairflowlogo.png" />
+<meta property="twitter:title" content="Introduction to Apache Airflow" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-07-06T00:00:00+09:00","datePublished":"2023-07-06T00:00:00+09:00","description":"Apache Airflow의 등장 배경 Batch Processing 예약된 시간에 실행되는 프로세스 일회성 실행, 주기적인 실행 전부 가능 월요일날 7:00시에 한번 실행, 매주 월요일 7:00에 실행","headline":"Introduction to Apache Airflow","image":"http://localhost:4000/post_images/apacheairflowlogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/ApacheAirflow-1/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/ApacheAirflow-1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Introduction to Apache Airflow&url=http://localhost:4000/ApacheAirflow-1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/ApacheAirflow-1/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/ApacheAirflow-1/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Introduction to Apache Airflow</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/apacheairflowlogo.png" alt="Introduction to Apache Airflow">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#apache-airflow의-등장-배경">Apache Airflow의 등장 배경</a>
+    <ul>
+      <li><a href="#batch-processing">Batch Processing</a>
+        <ul>
+          <li><a href="#ml-ai-엔지니어-관점에서의-batch-processing">ML, AI 엔지니어 관점에서의 Batch Processing</a></li>
+          <li><a href="#airflow-등장-전의-batch-process">Airflow 등장 전의 Batch Process</a></li>
+          <li><a href="#linux-crontab의-한계">Linux Crontab의 한계</a></li>
+        </ul>
+      </li>
+      <li><a href="#스케쥴링-도구들의-등장">스케쥴링 도구들의 등장</a></li>
+    </ul>
+  </li>
+  <li><a href="#apache-airflow-소개">Apache Airflow 소개</a></li>
+  <li><a href="#airflow의-기능">Airflow의 기능</a></li>
+  <li><a href="#airflow-사용해보기">Airflow 사용해보기</a></li>
+  <li><a href="#dag">DAG</a>
+    <ul>
+      <li><a href="#batch-scheduling을-위한-dag-생성">Batch Scheduling을 위한 DAG 생성</a></li>
+    </ul>
+  </li>
+  <li><a href="#dag-작성하기">DAG 작성하기</a>
+    <ul>
+      <li><a href="#dag-작성">DAG 작성</a></li>
+      <li><a href="#실행결과-확인">실행결과 확인</a></li>
+    </ul>
+  </li>
+  <li><a href="#operator들-소개">Operator들 소개</a></li>
+  <li><a href="#추가적으로-학습-할-내용">추가적으로 학습 할 내용</a></li>
+  <li><a href="#airflow-architecture">Airflow Architecture</a>
+    <ul>
+      <li><a href="#dag-directory">DAG Directory</a></li>
+      <li><a href="#scheduler">Scheduler</a>
+        <ul>
+          <li><a href="#scheduler---executer">Scheduler - Executer</a>
+            <ul>
+              <li><a href="#local-executer">Local Executer</a></li>
+              <li><a href="#remote-executer">Remote Executer</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#workers">Workers</a></li>
+      <li><a href="#metadata-database">Metadata Database</a></li>
+      <li><a href="#webserver">WebServer</a></li>
+    </ul>
+  </li>
+  <li><a href="#실제-airflow-구축-및-활용">실제 Airflow 구축 및 활용</a></li>
+  <li><a href="#mlops-관점에서의-airflow">MLOps 관점에서의 Airflow</a></li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+<h2 id="apache-airflow의-등장-배경">Apache Airflow의 등장 배경</h2>
+<h3 id="batch-processing">Batch Processing</h3>
+<ul>
+  <li>예약된 시간에 실행되는 프로세스</li>
+  <li>일회성 실행, 주기적인 실행 전부 가능
+    <ul>
+      <li>월요일날 7:00시에 한번 실행, 매주 월요일 7:00에 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="ml-ai-엔지니어-관점에서의-batch-processing">ML, AI 엔지니어 관점에서의 Batch Processing</h4>
+
+<ul>
+  <li>모델을 주기적으로 학습시키는 경우(continuous training)</li>
+  <li>주기적인 Batch Serving을 하는 경우</li>
+  <li>그 외 개발에서 필요한 배치성 작업</li>
+</ul>
+
+<h4 id="airflow-등장-전의-batch-process">Airflow 등장 전의 Batch Process</h4>
+
+<ul>
+  <li>Linux Crontab으로 Batch Process 구축하는 경우</li>
+  <li>크론 표현식은 Batcj Process의 스케쥴링을 정의한 표현식
+    <ul>
+      <li>이 표현식은 다른 Batch Process 도구에서도 자주 사용됨</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="../post_images/2023-07-06-ApacheAirflow-1/스크린샷 2023-07-08 오전 11.21.17.png" alt="스크린샷 2023-07-08 오전 11.21.17" style="zoom:50%;" class="center-image" /></p>
+
+<p align="center"> 출처 - https://docs.aws.amazon.com/elemental-cl3/latest/apireference/channel-scheduling-cron-syntax-summary.html</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">*****</code> - Every minute</li>
+  <li><code class="language-plaintext highlighter-rouge">0****</code> - Every hour</li>
+  <li><code class="language-plaintext highlighter-rouge">00***</code> - Every day at 12:00 AM</li>
+  <li><code class="language-plaintext highlighter-rouge">00**FRI</code> - At 12:00 AM, only on Friday</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">001**</code> - At 12:00 AM, on day 1 of the month</p>
+  </li>
+  <li>https://crontab.cronhub.io/</li>
+  <li>http://www.cronmaker.com/</li>
+  <li>https://crontab.guru/</li>
+</ul>
+
+<h4 id="linux-crontab의-한계">Linux Crontab의 한계</h4>
+
+<ul>
+  <li>재실행 및 알람
+    <ul>
+      <li>파일을 실행하다 오류가 생긴 경우, 크론탭이 별도의 처리를 하지 않음</li>
+    </ul>
+  </li>
+  <li>실패할 경우, retry 하거나 실패했다는 알람을 보내주는 기능이 필요</li>
+  <li>과거 실행 이력 및 실행 로그를 보기 어려움</li>
+  <li>여러 파일을 실행하거나, 복잡한 파이프라인을 만들기 어려움</li>
+</ul>
+
+<p>-&gt; <strong>더 정교한 스케쥴링 및 워크플로우 도구가 필요함!</strong></p>
+
+<h3 id="스케쥴링-도구들의-등장">스케쥴링 도구들의 등장</h3>
+
+<ul>
+  <li>Luigi</li>
+  <li>argo</li>
+  <li><strong>Apache Airflow</strong></li>
+  <li>Prefect</li>
+  <li>MetaFlow</li>
+</ul>
+
+<hr />
+
+<h2 id="apache-airflow-소개">Apache Airflow 소개</h2>
+
+<p>현재 스케쥴링, 워크플로우 도구의 표준</p>
+
+<ul>
+  <li>업데이트 주기 빠름</li>
+  <li>스케쥴링 도구로 무거울 수 있지만, 거의 모든 기능을 제공하고, 확장성이 넓어 일반적으로 스케쥴링과 파이프라인 작성 도구로 많이 사용</li>
+  <li>데이터 엔지니어링 팀에서 많이 사용</li>
+</ul>
+
+<hr />
+
+<h2 id="airflow의-기능">Airflow의 기능</h2>
+
+<ul>
+  <li>파이썬을  사용해 스케쥴링 및 파이프라인 작성</li>
+  <li>실패 시 알람</li>
+  <li>실패 시 재실행 시도</li>
+  <li>동시 실행 워커 수</li>
+  <li>설정 및 변수 값 분리</li>
+</ul>
+
+<hr />
+
+<h2 id="airflow-사용해보기">Airflow 사용해보기</h2>
+
+<ol>
+  <li>가상환경 설정</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>python <span class="nt">-m</span> venv .venv
+<span class="nb">source</span> .venv/bin/activate
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>Airflow 설치</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>pip <span class="nb">install </span>pip <span class="nt">--upgrade</span>
+pip <span class="nb">install</span> <span class="s1">'apache-airflow==2.2.0'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>Airflow 기본 디렉토리 경로 지정</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">export AIRFLOW_HOME=.</code></p>
+
+<ol>
+  <li>Airflow에서 사용할 DB 초기화</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">airflow db init</code></p>
+
+<ul>
+  <li>DB를 초기화하면 기본 파일이 생성 <code class="language-plaintext highlighter-rouge">ls -al</code>로 확인</li>
+</ul>
+
+<ol>
+  <li>Airflow에서 사용할 어드민 계정 생성</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">airflow users create --username admin --password 1234 --firstname seungki --lastname kim --role Admin --email {email}</code></p>
+
+<ol>
+  <li>Airflow Webserver 실행</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">airflow webserver --port 8080</code></p>
+
+<ol>
+  <li>WebUI Dashboard 등장
+    <ul>
+      <li>스케쥴러가 실행중이지 않다는 에러가 보임</li>
+    </ul>
+  </li>
+  <li>별도의 터미널을 띄워서 Airflow Scheduler 실행</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">airflow scheduler</code></p>
+
+<ul>
+  <li>Web UI에서 관련 에러가 없어진 것을 확인할 수 있음</li>
+</ul>
+
+<hr />
+
+<h2 id="dag">DAG</h2>
+
+<h3 id="batch-scheduling을-위한-dag-생성">Batch Scheduling을 위한 DAG 생성</h3>
+
+<ul>
+  <li>Airflow에서는 스케줄링할 작업을 DAG이라고 부름</li>
+  <li>DAG은 Directed Acyclic Graph의 약자로 Airflow에 한정된 개념이 아닌 소프트웨어 자료구조에서 일반적으로 다루는 개념</li>
+  <li>DAG은 이름 그대로 순환하지 않는 방향이 존재하는 그래프를 의미</li>
+</ul>
+
+<p><strong>Airflow는 Crontab처럼 단순히 하나의 파일을 실행하는 것이 아닌, 여러 작업의 조합도 가능함</strong></p>
+
+<ul>
+  <li>DAG 1개 : 1개의 파이프라인</li>
+  <li>Task : DAG 내에서 실행할 작업</li>
+</ul>
+
+<p><strong>하나의 DAG에 여러 Task의 조합으로 구성</strong></p>
+
+<p><img src="../post_images/2023-07-06-ApacheAirflow-1/airflow dag.jpeg" alt="airflow dag" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">출처 - https://www.qubole.com/tech-blog/apache-airflow-tutorial-dags-tasks-operators-sensors-hooks-xcom</p>
+
+<p><strong>example) tutorial_etl_dag라는 DAG은 3가지 Task로 구성</strong></p>
+
+<ul>
+  <li>extract</li>
+  <li>transform</li>
+  <li>load</li>
+  <li>-&gt; tutorial_etl_dag라는 DAG을 실행하면 이 3가지 Task을 순차적으로 실행함</li>
+</ul>
+
+<p><strong>Task가 꼭 순차적으로 진행하지 않게 할 수도 있음</strong></p>
+
+<p>tutorial DAG</p>
+
+<ul>
+  <li>print_data Task 이후, sleep, templated Task 동시(병렬) 실행</li>
+</ul>
+
+<hr />
+
+<h2 id="dag-작성하기">DAG 작성하기</h2>
+
+<h3 id="dag-작성">DAG 작성</h3>
+
+<ol>
+  <li>DAG을 담을 디렉토리 생성(이름은 무조건 dags)</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">mkdir dags</code></p>
+
+<ol>
+  <li>dags 폴더 내에 hello_world.py 생성</li>
+</ol>
+
+<p><strong>hello_world.py</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+</pre></td><td class="rouge-code"><pre><span class="c1"># hello_world.py
+</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="kn">from</span> <span class="n">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="n">airflow.utils.dates</span> <span class="kn">import</span> <span class="n">days_ago</span>
+<span class="kn">from</span> <span class="n">airflow.operators.bash</span> <span class="kn">import</span> <span class="n">BashOperator</span>
+<span class="kn">from</span> <span class="n">airflow.operators.python</span> <span class="kn">import</span> <span class="n">PythonOperator</span>
+
+<span class="k">def</span> <span class="nf">print_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">world</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># with 구문으로 DAG 정의를 시작합니다.
+</span><span class="k">with</span> <span class="nc">DAG</span><span class="p">(</span>
+    <span class="n">dag_id</span><span class="o">=</span><span class="sh">"</span><span class="s">hello_world</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># DAG의 식별자용 아이디입니다.
+</span>    <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">My First DAG</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># DAG에 대해 설명합니다.
+</span>    <span class="n">start_date</span><span class="o">=</span><span class="nf">days_ago</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>  <span class="c1"># DAG 정의 기준 2일 전부터 시작합니다.
+</span>    <span class="n">schedule_interval</span><span class="o">=</span><span class="sh">"</span><span class="s">0 6 * * *</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># 매일 06:00에 실행합니다.
+</span>    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="s">my_dags</span><span class="sh">"</span><span class="p">],</span>  <span class="c1"># 태그 목록을 정의합니다. 추후에 DAG을 검색하는데 용이합니다.
+</span><span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="c1"># 테스크를 정의합니다.
+</span>    <span class="c1"># bash 커맨드로 echo hello 를 실행합니다.
+</span>    <span class="n">t1</span> <span class="o">=</span> <span class="nc">BashOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">print_hello</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">bash_command</span><span class="o">=</span><span class="sh">"</span><span class="s">echo Hello</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">owner</span><span class="o">=</span><span class="sh">"</span><span class="s">heumsi</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># 이 작업의 오너입니다. 보통 작업을 담당하는 사람 이름을 넣습니다.
+</span>        <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># 이 테스크가 실패한 경우, 3번 재시도 합니다.
+</span>        <span class="n">retry_delay</span><span class="o">=</span><span class="nf">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>  <span class="c1"># 재시도하는 시간 간격은 5분입니다.
+</span>    <span class="p">)</span>
+
+    <span class="c1"># 테스크를 정의합니다.
+</span>    <span class="c1"># python 함수인 print_world를 실행합니다.
+</span>    <span class="n">t2</span> <span class="o">=</span> <span class="nc">PythonOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">print_world</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">python_callable</span><span class="o">=</span><span class="n">print_world</span><span class="p">,</span>
+        <span class="n">depends_on_past</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">owner</span><span class="o">=</span><span class="sh">"</span><span class="s">heumsi</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">retry_delay</span><span class="o">=</span><span class="nf">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 테스크 순서를 정합니다.
+</span>    <span class="c1"># t1 실행 후 t2를 실행합니다.
+</span>    <span class="n">t1</span> <span class="o">&gt;&gt;</span> <span class="n">t2</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>DAG 정의(이름, 태그)
+    <ul>
+      <li>언제부터 스케쥴링 할지</li>
+      <li>스케쥴링 간격은 어떻게 할 지</li>
+    </ul>
+  </li>
+  <li>DAG 내 Task 정의
+    <ul>
+      <li>Task 정의는 Airflow의 Operator 클래스 사용</li>
+      <li>Airflow에는 다양한 Operator 클래스가 존재하며, 뒤에서 살펴봄
+        <ol>
+          <li>첫 번째 Task는 bash 커맨드 실행
+            <ul>
+              <li>Airflow에서 제공하는 BashOperator 사용</li>
+              <li>bash_command 파라미터에 bash로 실행할 커맨드 전달</li>
+            </ul>
+          </li>
+          <li>두 번째 Tasksms Python 함수 실행
+            <ul>
+              <li>Airflow에서 제공하는 PythonOperator 사용</li>
+              <li>python_callable 파라미터에 실행할 파이썬 함수 전달</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>Dag 내 Task간 순서 정하기
+    <ul>
+      <li>순서는 <code class="language-plaintext highlighter-rouge">&gt;&gt;</code>와 같은 형태로 표현</li>
+      <li>t1 (BashOperator) 실행 후, t2 (PythonOperator)를 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="실행결과-확인">실행결과 확인</h3>
+
+<ul>
+  <li>파일을 저장하고, UI를 확인해보면 새로 생성한 DAG 보임</li>
+  <li>
+    <p>DAG 상세 페이지에서 DAG을 ON 상태로 변경</p>
+  </li>
+  <li>DAG Run의 첫 번째 Task 사각형을 눌러서 Log 버튼을 클릭해서 Log 확인 가능</li>
+  <li>특정 DAG Run의 기록을 지우고 다시 실행시키고 싶으면 Clear 실행</li>
+</ul>
+
+<hr />
+
+<h2 id="operator들-소개">Operator들 소개</h2>
+
+<ul>
+  <li>Airflow에서는 다양한 Operator를 제공</li>
+</ul>
+
+<ol>
+  <li>PythonOperator
+    <ul>
+      <li>파이썬 함수를 실행</li>
+      <li>함수 뿐 아니라, Callable한 객체를 파라미터로 넘겨 실행 가능</li>
+      <li>실행할 파이썬 로직을 함수로 생성한 후, PythonOperator로 실행</li>
+    </ul>
+  </li>
+  <li>BashOperator
+    <ul>
+      <li>Bash 커맨드를 실행</li>
+      <li>실행해야할 프로세스가 파이썬이 아닌 경우에도 BashOperator로 실행 가능
+        <ul>
+          <li>shell script, scala file ..</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>DummyOperator
+    <ul>
+      <li>아무것도 실행하지 않음</li>
+      <li>DAG내에서 Task를 구성할 때, 여러 개의 Task의 Success를 기다려야 하는 복잡한 Task 구성에서 사용</li>
+    </ul>
+  </li>
+  <li>SimpleHttpOperator
+    <ul>
+      <li>특정 호스트로 HTTP 요청을 보내고 Response로 반환</li>
+      <li>파이썬 함수에서 requests 모듈로 사용한 뒤 PythonOperator로 실행시켜도 무방</li>
+    </ul>
+  </li>
+  <li>그 외
+    <ul>
+      <li>KubernetesOperator</li>
+      <li>OckerOperator</li>
+      <li>CustomOperator</li>
+      <li>등..</li>
+    </ul>
+  </li>
+  <li>클라우드 기능을 추상화한 Operator도 존재함(AWS, GCP ..)
+    <ul>
+      <li>provider packages</li>
+      <li>Third Party와 연동해 사용하는 Operator의 경우 Airflow 설치 시에 다음처럼 extra package를 설치해야 함</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="추가적으로-학습-할-내용">추가적으로 학습 할 내용</h2>
+
+<ul>
+  <li>Variable</li>
+  <li>Connections &amp; Hooks</li>
+  <li>Sensor</li>
+  <li>Marker</li>
+  <li>XComs</li>
+</ul>
+
+<hr />
+
+<h2 id="airflow-architecture">Airflow Architecture</h2>
+
+<p><img src="../post_images/2023-07-06-ApacheAirflow-1/airflow-architecture.png" alt="airflow-architecture" class="center-image" style="zoom:80%;" /></p>
+
+<p align="center">https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html</p>
+
+<h3 id="dag-directory">DAG Directory</h3>
+
+<ul>
+  <li>DAG 파일들을 저장</li>
+  <li>DAG_FOLDER</li>
+  <li>Scheduler에 의해 .py 파일은 모두 탐색되고 DAG에 파싱</li>
+</ul>
+
+<h3 id="scheduler">Scheduler</h3>
+
+<ul>
+  <li>각종 메타 정보의 기록을 담당</li>
+  <li>DAG들의 스케쥴링 관리</li>
+  <li>실행 진행 상황과 결과를 DB에 저장</li>
+  <li>Executer를 통해 실제로 스케쥴링된 DAG을 실행</li>
+  <li>Airflow의 가장 핵심적인 component</li>
+</ul>
+
+<h4 id="scheduler---executer">Scheduler - Executer</h4>
+
+<ul>
+  <li>
+    <p>스케쥴링된 DAG을 실행하는 객체, 크게 2개로 나뉨</p>
+
+    <h5 id="local-executer">Local Executer</h5>
+
+    <ul>
+      <li>DAG Run을 프로세스 단위로 실행하며, 다음 처럼 나뉨
+        <ul>
+          <li>Local
+            <ul>
+              <li>하나의 DAG Run을 프로세스로 띄워서 실행</li>
+              <li>최대로 생성할 프로세스 수를 정해야 함</li>
+              <li>Airflow를 간단하게 운영할 때 적합</li>
+            </ul>
+          </li>
+          <li>Sequential
+            <ul>
+              <li>하나의 프로세스에서 모든 DAG Run들을 처리</li>
+              <li>Airflow 기본 Executer, 별도 설정이 없으면 이것을 사용</li>
+              <li>테스트용으로 잠시 운영할 때 적합</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <h5 id="remote-executer">Remote Executer</h5>
+
+    <ul>
+      <li>DAG을 외부 프로세스로 실행
+        <ul>
+          <li>Celery
+            <ul>
+              <li>DAG Run을 Celery Work Process로 실행</li>
+              <li>보통 Redis를 중간에 두고 같이 사용</li>
+              <li>Local Executer를 사용하다 Airflow 운영 규모가 좀 더 커지면 Celery Executor로 전환</li>
+            </ul>
+          </li>
+          <li>Kubernetes
+            <ul>
+              <li>쿠버네티스 상에서 Airflow를 운영할 때 사용</li>
+              <li>DAG Run 하나가 하나의 Pod(컨테이너 같은 개념)</li>
+              <li>운영 규모가 큰 팀에서 사용</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="workers">Workers</h3>
+
+<ul>
+  <li>DAG을 실제로 실행</li>
+  <li>Scheduler에 의해 생기고 실행</li>
+  <li>Executer에 따라 워커의 형태가 다름
+    <ul>
+      <li>Celery, Local Executer의 경우 Worker는 Process</li>
+      <li>Kubernetes의 경우 Worker는 Pod</li>
+    </ul>
+  </li>
+  <li>Dag Run을 실행하는 과정에서 생기는 로그를 저장</li>
+</ul>
+
+<h3 id="metadata-database">Metadata Database</h3>
+
+<ul>
+  <li>메타 정보를 저장</li>
+  <li>Scheduler에 메타 정보가 쌓임</li>
+  <li>보토 MySQL이나 Postgres를 사용</li>
+  <li>파싱한 DAG 정보, DAG Run 상태와 실행 내용, Task 정보 등을 저장</li>
+  <li>User와 Role(RBAC)에 대한 정보 저장</li>
+  <li>Scheduler와 더불어서 핵심 컴포넌트</li>
+  <li>트러블 슈팅 시, 디버깅을 위해 직접 DB에 연결해서 데이터를 확인하기도 함</li>
+  <li>실제 운영 환경에서는 GCP Cloud SQL이나 AWS Aurora DB 등.. 외부 DB 인스턴스를 사용</li>
+</ul>
+
+<h3 id="webserver">WebServer</h3>
+
+<ul>
+  <li>WebUI를 담당</li>
+  <li>Metadata DB와 통신하며 유저에게 필요한 메타정보를 웹 브라우저에 보여주고 시각화</li>
+  <li>보통 Airflow 사용자들은 이 웹서버를 이용하여 DAG을 ON/OFF 하면서, 현 상황 파악</li>
+  <li>REST API도 제공하기 때문에, Web UI를 통해서 통신하지 않아도 괜찮음</li>
+  <li>웹서버가 당장 작동하지 않아도 Airflow에 큰 장애가 발생하는 것은 아님</li>
+</ul>
+
+<hr />
+
+<h2 id="실제-airflow-구축-및-활용">실제 Airflow 구축 및 활용</h2>
+
+<p>Airflow를 구축하는 방법은 보통 3가지 방법을 사용함</p>
+
+<ol>
+  <li><strong>Managed Airflow (GCP Composer, AWS MWAA)</strong>
+    <ul>
+      <li>클라우드 서비스 형태로 Airflow를 사용하는 방법</li>
+      <li>장점
+        <ul>
+          <li>설치와 구축을 클릭 몇번으로 클라우드 서비스가 진행</li>
+          <li>유조는 DAG 파일을 스토리지(업로드) 형태로 관리</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>비용</li>
+          <li>자유도가 적음, 제약이 많음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>VM + Docker Compose</strong>
+    <ul>
+      <li>직접 VM 위에서 Docker Compose로 Airflow를 배포하는 방법</li>
+      <li>Airflow 구축에 필요한 컴포넌트(Scheduler, Webserver, Database..)를 Docker 컨테이너 형태로 배포</li>
+      <li>장점
+        <ul>
+          <li>Managed Service 보다는 조금 복잡하지만, 어려운 난이도는 아님</li>
+          <li>Docker Compose에 익숙하면 금방 익힐 수 있음</li>
+          <li>하나의 VM만을 이용하기 때문에 단순</li>
+        </ul>
+      </li>
+      <li>단점
+        <ul>
+          <li>각 Docker 컨테이너 별로 환경이 다르기 때문에, 관리 포인트가 늘어남</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Kubernetes + Helm</strong>
+    <ul>
+      <li>Helm 차트로 Airflow를 배포하는 방법</li>
+      <li>Kubernetes는 여러 개의 VM을 동적으로 운영하는 일종의 분산환경, 리소스 사용이 매우 유연함(Scalability가 좋음)</li>
+      <li>특정 시간에 배치 프로세스를 실행시키는 Airflow와 궁합이 매우 잘 맞음</li>
+      <li>Airflow DAG 수가 몇 백개로 늘어나도 노드 오토 스케일링으로 모든 프로세스를 잘 처리할 수 있음</li>
+      <li>쿠버네티스 자체가 난이도가 있음 -&gt; 구축, 운영이 어려움</li>
+    </ul>
+  </li>
+</ol>
+
+<p><img src="../post_images/2023-07-06-ApacheAirflow-1/kuber-airflow-socar.png" alt="kuber-airflow-socar" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">출처 - https://tech.socarcorp.kr/data/2021/06/01/data-engineering-with-airflow.html</p>
+
+<hr />
+
+<h2 id="mlops-관점에서의-airflow">MLOps 관점에서의 Airflow</h2>
+
+<p>데이터 엔지니어링에서 많이 쓰이지만, MLOps에서도 활용가능</p>
+
+<ul>
+  <li>주기적인 실행이 필요한 경우
+    <ul>
+      <li>Batch Training : 1주일 단위로 모델 학습</li>
+      <li>Batch Serving(Batch Inference) : 30분 단위로 인퍼런스</li>
+      <li>인퍼런스 겨로가를 기반으로 일자별, 주차별 모델 퍼포먼스 Report 생성</li>
+      <li>MySQL에 저장된 메타 데이터를 데이터 웨어하우스로 1시간 단위로 옮기기</li>
+      <li>S3, GCS 등 Object Storage</li>
+      <li>Feature Store를 만들기 위해 Batch ETL 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://github.com/zzsza">https://github.com/zzsza</a></li>
+  <li>Naver Connection AI Tech 5th - Product Serving(변성윤)</li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-07-06">06 Jul 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Airflow">Airflow</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Mlops">Mlops</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//Logging/"> &laquo; Logging</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//MLFlow-1/">Introduction to MLflow &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>
