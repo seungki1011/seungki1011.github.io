@@ -7,13 +7,9 @@ image: post_images/versioncontrol.jpeg
 toc: True
 
 ---
-
-<br>
-
+---
 ## Python Versioning
-
 ### Python is Semantic Versioning
-
 1. **파이썬 3.11.x 버전은 아래 마이너 버전(3.10.x, 3.9.x ..)에 호환**
 
    * 3.8.x에서 생성한 코드가 있다면 그대로 3.11.x에 실행해도 문제가 없음
@@ -177,7 +173,7 @@ Powershell 재실행, 필요한 경우 환경 변수 추가
 
 ```pyenv global 3.11.0```으로 shell의 기본 파이썬 버전 설정
 
-<br>
+---
 
 ## 파이썬 프로젝트의 버전 관리
 
@@ -185,13 +181,9 @@ Powershell 재실행, 필요한 경우 환경 변수 추가
 
 하나의 로컬 환경에서 두개 이상의 프로젝트를 진행하면, 각각 사용하는 파이썬이나 패키지의 버전이 달라서 문제가 발생 할 수 있음. 이런 문제를 해결 하고자 가상 환경을 생성해 프로젝트 별로 각자의 환경을 갖게 함.
 
-<br>
-
 ### 가상환경을 만드는 방법
 
 venv, conda, pyenv-virtualenv, pipenv 등 다양한 방법이 있음. 그 중 venv가 파이썬 가상 환경 구축에 많이 사용 됨.
-
-<br>
 
 #### venv
 
@@ -203,8 +195,6 @@ python -m venv "가상 환경 폴더를 만들 경로"
 * venv는 파이썬 내장 모듈
 * 가상 환경 접속 : ```source {가상환경폴더}/bin/activate```
 * 접속하면 shell 왼쪽에 .venv 같은 가상환경 접속이 표시됨
-
-<br>
 
 ##### windows venv activation
 
@@ -223,8 +213,6 @@ path\to\venv\Scripts\Activate.ps1
 ### 패키지 매니저
 
 패키지 매니저는 패키지를 설치하고 버전을 관리해준다. 파이썬의 패키지 매니저에는 pip, poetry, conda 등이 존재한다. (conda는 anaconda 자체의 패키지 매니저로 보는 것이 맞다)
-
-<br>
 
 #### pip
 

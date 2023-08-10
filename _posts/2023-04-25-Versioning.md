@@ -7,13 +7,9 @@ image: post_images/versioning.png
 toc: True
 
 ---
-
-<br>
-
+---
 ## Version and Versioning
-
 ### 버전(Version)
-
 * 소프트웨어 제품의 특정 릴리스에 대한 고유한 식별자
 * 소프트웨어의 출시나 업데이트가 이루어질 때마다 새로운 버전을 부여함
 
