@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/python_1/</loc>
+<lastmod>2022-09-05T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/Software-engineering/</loc>
 <lastmod>2023-04-24T00:00:00+09:00</lastmod>
 </url>
@@ -29,8 +33,16 @@
 <lastmod>2023-04-28T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/objectdetection/</loc>
+<lastmod>2023-04-29T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/Debugging/</loc>
 <lastmod>2023-05-01T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/semantic_segmentation/</loc>
+<lastmod>2023-06-05T00:00:00+09:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/Cloud/</loc>
@@ -81,6 +93,9 @@
 <loc>http://localhost:4000/tags</loc>
 </url>
 <url>
+<loc>http://localhost:4000/category/python/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/category/software-engineering/</loc>
 </url>
 <url>
@@ -90,7 +105,16 @@
 <loc>http://localhost:4000/category/docker/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/category/cv/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/category/object-detection/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/category/debugging/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/category/segmentation/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/category/cloud/</loc>
@@ -130,5 +154,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page4/</loc>
 </url>
 </urlset>

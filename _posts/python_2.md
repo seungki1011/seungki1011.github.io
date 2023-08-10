@@ -1,0 +1,130 @@
+---
+layout: post
+title:  "Python - 2(Formatting, __main__)"
+author: seungki
+categories: [ Python ]
+image: post_images/python logo.png
+toc: True
+
+
+---
+
+---
+
+## Formatting
+
+* 형식(format)에 맞춰서 출력을 하기 위한 여러가지 방법들
+
+### % string
+
+* "%datatype" % (variable) 형태로 format 표현
+
+```python
+print("Art: %5d, Price per unit: %8.2f" % (453, 59.058))
+```
+
+```
+Art:   453, Price per unit:    59.06
+```
+
+```python
+print('%s %s' % ('one', 'two'))
+```
+
+```
+one two
+```
+
+![stringformat](https://user-images.githubusercontent.com/120040458/222113581-3505364d-62e3-49f5-82d6-67008c76821f.PNG)
+
+
+
+### str.format()
+
+```python
+print("product: {0}, Price per unit: {1:.3f}".format("apple", 5.243))
+```
+
+```
+product: apple, Price per unit: 5.243
+```
+
+
+
+### f-string
+
+```python
+name = "cookie"
+price = 500.23
+print(f"product: {name}, price per unit: {price}")
+
+number1 = 3.1415926535
+print(f"{number1:.2f}")
+```
+
+```
+product: cookie, price per unit: 500.23
+3.14
+```
+
+
+
+## Debugging
+
+### 디버깅이란?
+
+* 코드의 오류를 발견하여 수정하는 과정
+* 원인과 해결책을 알아야함
+* 문법적 에러를 찾기 위한 에러  메세지 분석
+* 논리적 에러를 찾기 위한 테스트
+
+### 문법적 오류
+
+* 들여쓰기(indentation error)
+* 오탈자
+* 대소문자 구분 안 함
+
+> 에러 발생시 인터프리터가 알려주기 때문에 에러 메세지를 분석하자
+
+### 논리적 에러
+
+* 뜻 대로 실행이 안되는 코드
+* 중간 중간 프린터문을 찍어서 값 확인
+
+
+
+## if __ _name_ _ _ == "_ _ _main_ _ _"
+
+#### trapezium.py
+
+```python
+# if __name__ == "__main__": 의 의미
+
+def addition(x, y):
+    return x+y
+
+# 사용 안하는 경우 import 하면 main 실행됨
+def main(): 
+    print('if __name__ == "__main__": 사용 안함') 
+    print(addition(10,100))
+
+# main()
+
+if __name__ == "__main__":
+    main()
+```
+
+* 있는 경우
+
+![ifnamemain사용안함](https://user-images.githubusercontent.com/120040458/222111014-447d181c-f13e-441a-831a-a8033bece9a0.PNG)
+
+* 없는 경우
+
+![ifnamemain사용함](https://user-images.githubusercontent.com/120040458/222111017-27d28dde-38bc-44f1-bcf3-ce430e64517a.PNG)
+
+## 참고
+
+---
+
+1. [boostcourse - 머신러닝을 위한 파이썬](https://www.boostcourse.org/ai222)
+2. [Python documentation](https://docs.python.org/3/)

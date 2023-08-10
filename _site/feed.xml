@@ -5,8 +5,8 @@
     <description>머신러닝 엔지니어의 공부 블로그 🙂</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 09 Aug 2023 22:29:58 +0900</pubDate>
-    <lastBuildDate>Wed, 09 Aug 2023 22:29:58 +0900</lastBuildDate>
+    <pubDate>Thu, 10 Aug 2023 20:52:34 +0900</pubDate>
+    <lastBuildDate>Thu, 10 Aug 2023 20:52:34 +0900</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -3415,142 +3415,99 @@ def read_items(item_id: str):
       </item>
     
       <item>
-        <title>Debugging</title>
-        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+        <title>Semantic Segmentation Overview</title>
+        <description>&lt;hr /&gt;
+&lt;h2 id=&quot;semantic-segmentation&quot;&gt;Semantic Segmentation&lt;/h2&gt;
+&lt;h3 id=&quot;what-is-semantic-segmentation&quot;&gt;What is Semantic Segmentation?&lt;/h3&gt;
+&lt;p&gt;Semantic Segmentation은 이미지의 모든 픽셀별로 클래스를 분류하는 task 이다. 말 그대로 pixel wise classification이라서 같은 클래스에 속하더라도 객체를 구분해주지는 않는다.&lt;/p&gt;
 
-&lt;h2 id=&quot;debugging&quot;&gt;Debugging&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/ss1.png&quot; alt=&quot;ss1&quot; style=&quot;zoom:67%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;디버깅이란&quot;&gt;디버깅이란?&lt;/h3&gt;
+&lt;p align=&quot;center&quot;&gt;출처 - CS231n &lt;/p&gt;
 
-&lt;p&gt;오류나 버그를 찾고 수정하는 과정. 이런 디버깅은은 보통 바라는 상황과 실제 상황이 차이가 나는 경우 행해야 하는 경우가 많다.&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;ideas-used-for-semantic-segmentation&quot;&gt;Ideas used for Semantic Segmentation&lt;/h2&gt;
 
-&lt;h3 id=&quot;버그가-발생하는-이유&quot;&gt;버그가 발생하는 이유&lt;/h3&gt;
+&lt;h3 id=&quot;sliding-window&quot;&gt;Sliding Window&lt;/h3&gt;
+
+&lt;p&gt;이미지를 수 많은 작은 단위(crop)으로 나눠서 각자의 영역에 image classification을 진행하는 방법. 이 경우에 computation cost가 굉장히 많이 들고, crop 되는 영역이 겹칠 경우에는 인접한 feature에 대한 공통의 계산을 해야하기 때문에 비효율적이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/sliding window.png&quot; alt=&quot;sliding window&quot; style=&quot;zoom:67%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;출처 - CS231n &lt;/p&gt;
+
+&lt;h3 id=&quot;fully-convolutional-networkfcn&quot;&gt;Fully Convolutional Network(FCN)&lt;/h3&gt;
+
+&lt;p&gt;FC layer가 없는 convolution layer만 구성된 네트워크를 사용하는 방법이다. 이미지가 flatten되는 과정에서 공간정보를 잃게되는데, conv layer만 사용할 경우 공간정보를 유지할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/fc vs FCN.PNG&quot; alt=&quot;fc vs FCN&quot; style=&quot;zoom:150%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;출처 - Fully Convolutional Networks for Semantic Segmentation &lt;/p&gt;
+
+&lt;p&gt;Downsampling 된 이미지 상태에서는 segmentation을 진행 할 수는 없기 때문에 이미지를 다시 키우는 upsampling을 진행한다. Upsampling 방법에는 여러가지가 있지만 대표적으로 deconvolution(transpose convolution) 연산을 이용한다.(수학에서 말하는 deconvolution과는 다른 연산. CNN에서 이야기하는 convolution 연산도 정확하게는 cross corelation 연산이기 때문에 용어 사용에 주의를 할 필요가 있다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/downsample and upsample.png&quot; alt=&quot;downsample and upsample&quot; style=&quot;zoom:80%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;출처 - CS231n &lt;/p&gt;
+
+&lt;h4 id=&quot;upsampling&quot;&gt;Upsampling&lt;/h4&gt;
+
+&lt;h5 id=&quot;unpooling--nearest-neighbor-bed-of-nails&quot;&gt;Unpooling : Nearest Neighbor, Bed of Nails&lt;/h5&gt;
+
+&lt;p&gt;Fixed algorithm을 이용하는 방식. Receptive field를 복사하거나 빈자리에 0을 채워 넣는 방식이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/unpooling.png&quot; alt=&quot;unpooling&quot; style=&quot;zoom:67%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Unpooling - 출처 - CS231n &lt;/p&gt;
+
+&lt;h5 id=&quot;deconvolutiontranspose-convolution&quot;&gt;Deconvolution(Transpose Convolution)&lt;/h5&gt;
+
+&lt;p&gt;Unpooling의 경우 고정된 함수로 진행하는 연산이기 때문에 학습과정을 거치지 않는다. 반면에 deconvolution의 경우 upsampling하는 과정을 학습한다. Deconvolution은 아주 간단하게 생각한다면 convolution 연산을 반대로 한다고 생각하면 된다. 과정을 간단하게 설명하자면, input feature map에서 좌상단 부터 차례대로 scalar 값을 하나씩 뽑고 filter와 곱해서 그 출력을 output region 복사한다. Overlapping 되는 영역을 sum을 해준다. (아래 그림을 참고)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/deconvolution2.PNG&quot; alt=&quot;deconvolution2&quot; style=&quot;zoom:100%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Transposed Convolution - 출처 - Dive into Deep Learning &lt;/p&gt;
+
+&lt;p&gt;Spatial size를 키워주기 위해서 학습가능한 filter를 사용한다고 보면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/no_padding_no_strides_transposed.gif&quot; alt=&quot;no_padding_no_strides_transposed&quot; style=&quot;zoom:100%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Transposed Convolution - 출처 - https://github.com/vdumoulin/conv_arithmetic &lt;/p&gt;
+
+&lt;p&gt;​&lt;/p&gt;
+
+&lt;p&gt;Deconvolution 하는 과정에서 작은 이미지를 과도하게 늘리는 과정에서 feature에 대한 정보가 유실되는 경우가 많다. 이를 해결하기 위해서 FCN에서는 skip architecture를 사용한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;skip-architecture-in-fcnfully-convolutional-networks-for-semantic-segmentation&quot;&gt;Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation)&lt;/h4&gt;
+
+&lt;p&gt;FCN에서 이용한 skip architecture를 간단하게 설명하자면, convolution(encoding path)에서 나온 feature map을 deconvolution(decoding path)에서 나온 결과와 더해주는 것 이다. FCN 논문에서는 low layer information과 high layer information을 combine한다는 표현을 쓴다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/skiparchitecture2.PNG&quot; alt=&quot;skiparchitecture2&quot; style=&quot;zoom:100%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;Skip Architecture - 출처 - Fully Convolutional Networks for Semantic Segmentation &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../post_images/semantic_segmentation/skiparchitecture.PNG&quot; alt=&quot;skiparchitecture&quot; style=&quot;zoom:100%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;FCN - 32, 16, 8 - 출처 - Fully Convolutional Networks for Semantic Segmentation &lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;이런 FCN 개념을 이용한 semantic segmentation은 결국은 convolution network를 통한 downsampling/upsampling을 진행해서 pixel에 대한 cross-entropy를 계산하여 네트워크를 end-to-end로 학습 가능하다.&lt;/p&gt;
+
+&lt;p&gt;Semantic Segmentation은 기본적인 segmentation task이며, 더 많은 요소까지 고려한 다양한 segmentation task들이 존재한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;further-studying&quot;&gt;Further Studying&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;휴먼 에러(실수)
-    &lt;ul&gt;
-      &lt;li&gt;개발 과정 중 문법, 로직 오류&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;실행 환경
-    &lt;ul&gt;
-      &lt;li&gt;OS, 가상 환경, 컨테이너, 하드웨어, 네트워크 상태 등&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;의존성
-    &lt;ul&gt;
-      &lt;li&gt;라이브러리에서 사용하는 다른 라이브러리의 버그로 인한 이슈&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;복잡성
-    &lt;ul&gt;
-      &lt;li&gt;소프트웨어가 복잡해질수록 버그 가능성이 높아질 수 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;잘못된 커뮤니케이션
-    &lt;ul&gt;
-      &lt;li&gt;요구 사항에 대한 misunderstanding&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Instance Segmentation&lt;/li&gt;
+  &lt;li&gt;Panoptic Segmentation&lt;/li&gt;
+  &lt;li&gt;Depth estimation&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;debugging-process&quot;&gt;Debugging Process&lt;/h3&gt;
-
-&lt;p&gt;문제 발생, 문제 인식, 해결책 찾기, 버그 기록, 버그 재현 등의 과정으로 진행할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../post_images/Debugging/debugging2.png&quot; alt=&quot;debugging2&quot; style=&quot;zoom:67%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;출처 - https://www.javatpoint.com/debugging &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;꼭 기록하는 습관을 가지자&lt;/li&gt;
-  &lt;li&gt;답을 찾더라도 항상 교차 검증하자&lt;/li&gt;
-  &lt;li&gt;항상 목적이 뭔지 상기하면서 해결책을 찾자&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;server-management&quot;&gt;Server Management&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;대부분 AI, ML 모델들은 서버에서 동작한다&lt;/li&gt;
-  &lt;li&gt;서버의 관리를 배울 필요성이 있다&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;서버-관리의-목적&quot;&gt;서버 관리의 목적&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;서버를 안정적으로 운영해서 장애를 발생하지 않기 위함&lt;/li&gt;
-  &lt;li&gt;서버에서 작업을 원활하게 진행하기 위함&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;알아야할-지식&quot;&gt;알아야할 지식&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;쉘 커맨드&lt;/li&gt;
-  &lt;li&gt;파일 시스템&lt;/li&gt;
-  &lt;li&gt;네트워크&lt;/li&gt;
-  &lt;li&gt;패키지 관리&lt;/li&gt;
-  &lt;li&gt;성능 모니터링&lt;/li&gt;
-  &lt;li&gt;컨테이너, 오커스트레이팅&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;linux-파일-시스템&quot;&gt;Linux 파일 시스템&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;리눅스는 파일, 폴더 구조를 일관된 방식으로 제공한다. 시스템 구성, 로그 등을 별도로 저장하며 소프트웨어를 설치하는 공간도 따로 제공한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;../post_images/Debugging/linux-directory-structure.png&quot; alt=&quot;linux-directory-structure&quot; style=&quot;zoom:100%;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;출처 - https://linuxconcept.com/linux-file-system-hierarchy/ &lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;파일 공간이 부족할 때 사용하지 않는 파일들을 지워준다. 그러나 한방에 전부 날리는 일은 피하도록 하자.(sudo 명령어로 실수해서 시스템 날려먹는 일 하지말자!)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;파일-시스템의-case-study&quot;&gt;파일 시스템의 Case Study&lt;/h4&gt;
-
-&lt;p&gt;경로나 호스트 머신의 디스크 문제를 인식하기 전에 서버가 어떤 환경에서 실행 중인지 확인하자.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;On Premise 환경, IDC와 같은 물리적으로 접근 가능한 서버 환경인지&lt;/li&gt;
-  &lt;li&gt;클라우드 환경인지&lt;/li&gt;
-  &lt;li&gt;Docker/Kubernetes 같은 컨테이너 환경의 여부&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;네트워크&quot;&gt;네트워크&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;IP, DNS, port, 방화벽 등에 대한 개념을 공부하자&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping&lt;/code&gt; : 서버가 연결되어 있는지, 얼마자 빠른 속도로 데이터가 전송되는 테스트&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nslookup&lt;/code&gt; : 특정 도메인을 찾을 수 있는지, DNS 서버에 연결 가능한지&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;netstat&lt;/code&gt; : 포트 개방 확인(TCP connection), 특정 포트만 확인하고 할 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; 활용,&lt;/p&gt;
-
-    &lt;p&gt;ex. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;netstat -tnlp | grep 3000&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -3559,18 +3516,20 @@ def read_items(item_id: str):
 &lt;hr /&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.geeksforgeeks.org/software-engineering-debugging/&quot;&gt;https://www.geeksforgeeks.org/software-engineering-debugging/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Naver Connection Boostcamp AI Tech 5th - Product Serving(변성윤)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=vT1JzLTH4G4&amp;amp;list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk&quot;&gt;CS231n&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/vdumoulin/conv_arithmetic&quot;&gt;https://github.com/vdumoulin/conv_arithmetic&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1411.4038&quot;&gt;Fully Convolutional Networks for Semantic Segmentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://d2l.ai/&quot;&gt;Dive into Deep Learning&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Mon, 01 May 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/Debugging/</link>
-        <guid isPermaLink="true">http://localhost:4000/Debugging/</guid>
+        <pubDate>Mon, 05 Jun 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/semantic_segmentation/</link>
+        <guid isPermaLink="true">http://localhost:4000/semantic_segmentation/</guid>
         
         
-        <category>Software Engineering</category>
+        <category>CV</category>
         
-        <category>Debugging</category>
+        <category>Segmentation</category>
         
       </item>
     

@@ -1,0 +1,907 @@
+---
+layout: post
+title:  "Python - 8(Exception, Logging)"
+author: seungki
+categories: [ Python ]
+image: post_images/python logo.png
+toc: True
+
+
+---
+
+---
+
+## Exception
+
+* 예외는 예상이 가능한 예외와 불가능한 예외가 있다
+
+### 예상 가능한 예외
+
+* 사전에 인지할 수 있는 예외
+* 사용자의 잘못된 입력 또는 파일 호출 시 파일이 없는 경우 등
+* 개발자가 반드시 명시적으로 정의 해야함
+
+### 예상 불가능한 예외
+
+* 인터프리터 과정에서 발생하는 예외, 개발자 실수
+* 리스트의 범위를 넘어가는 값 호출, 정수를 0으로 나누기 등
+* 수행 불가시 인터프리터가 자동 호출
+
+
+
+## 예외 처리
+
+* 예외가 발생할 경우 후속 조치가 필요
+  1. 없는 파일 호출 - 파일이 없다는 것을 알림
+  2. 게임 이상 종료 - 게임 정보를 저장함
+
+
+
+## Exception handling
+
+### try ~ except
+
+```python
+try: 
+    # 예외 발생 가능한 코드
+except <Exception Type>:
+    # 예외 발생시 대응하는 코드
+```
+
+
+
+#### try ~ except example
+
+* 0으로 숫자를 나눌 때 예외처리 하기
+
+```python
+for i in range(5):
+    try:
+        print(10/i)
+    except ZeroDivisionError:
+        print("do not divide by 0")
+```
+
+```
+do not divide by 0
+10.0
+5.0
+3.3333333333333335
+2.5
+```
+
+
+
+* 보통 맨 끝에는 Exception을 달아줌, 모든 예외를 나타내기에는 좋은 코드는 아님
+
+```python
+for i in range(5):
+    try:
+        print(10/i)
+    except ZeroDivisionError:
+        print("do not divide by 0")
+    except Exception as e:
+        print(e)
+```
+
+
+
+
+
+### exception의 종류
+
+* built-in exception : 기본적으로 제공하는 예외
+
+1. IndexError : list의 index범위를 넘어가는 경우
+2. NameError : 존재하지 않는 변수를 호출 할 때
+3. ZeroDivisionError : 0으로 숫자를 나눌 때
+4. ValueError : 변환할 수 없는 문자/숫자를 변환할 때
+5. FileNotFoundError : 존재하지 않는 파일을 호출할 때
+
+
+
+### 예외 정보 표시하기
+
+```python
+for i in range(5):
+    try:
+        print(10/i)
+    except ZeroDivisionError as e:
+        print(e)
+        print("do not divide by 0")
+```
+
+```
+division by zero
+do not divide by 0
+10.0
+5.0
+3.3333333333333335
+2.5
+```
+
+
+
+### try ~ except ~ else
+
+```python
+try:
+    # 예외 발생 가능 코드
+except <Exception Type>:
+    # 예외 발생시 동작하는 코드
+else:
+    # 예외가 발생하지 않을 때 동작하는 코드
+```
+
+
+
+#### try ~ except ~ else example
+
+```python
+for i in range(5):
+    try:
+        result = 10/i
+    except ZeroDivisionError:
+        print("do not divide by 0")
+    else:
+        print(result)
+```
+
+```
+do not divide by 0
+10.0
+5.0
+3.3333333333333335
+2.5
+```
+
+
+
+### try ~ except ~ finally
+
+```python
+try:
+    # 예외 발생 가능 코드
+except <Exception Type>:
+    # 예외 발생시 동작하는 코드
+finally:
+    # 예외 발생 여부와 상관없이 실행
+```
+
+
+
+#### try ~ except ~ finally example
+
+```python
+try:
+    for i in range(1,5):
+        result = 10/i
+        print(result)
+except ZeroDivisionError:
+    print("do not divide by 0")
+finally:
+    print("종료되었습니다")
+```
+
+```
+10.0
+5.0
+3.3333333333333335
+2.5
+종료되었습니다
+```
+
+
+
+### raise
+
+* 필요에 따라 강제로 예외 발생
+
+```python
+raise <Exception Type>(예외정보)
+```
+
+
+
+#### raise example
+
+```python
+while True:
+    value=input("변환할 정수를 입력해주세요 : ")
+    for digit in value:
+        if digit not in "0123456789":
+            raise ValueError("숫자값을 입력하지 않았습니다")
+    print("정수값으로 변환된 숫자 : ", int(value))
+```
+
+```python
+변환할 정수를 입력해주세요 : a
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+~\AppData\Local\Temp\ipykernel_10184\4244621495.py in <module>
+      3     for digit in value:
+      4         if digit not in "0123456789":
+----> 5             raise ValueError("숫자값을 입력하지 않았습니다")
+      6     print("정수값으로 변환된 숫자 : ", int(value))
+
+ValueError: 숫자값을 입력하지 않았습니다
+```
+
+
+
+### assert
+
+* 특정 조건에 만족하지 않을 경우 예외 발생
+
+```python
+assert 예외조건
+```
+
+#### assert example
+
+```python
+def get_binary_number(decimal_number):
+    assert isinstance(decimal_number, int)
+    return bin(decimal_number)
+
+print(get_binary_number(10))
+```
+
+```
+0b1010
+```
+
+```python
+print(get_binary_number("sadf"))
+```
+
+```python
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+~\AppData\Local\Temp\ipykernel_10184\488716815.py in <module>
+----> 1 print(get_binary_number("sadf"))
+
+~\AppData\Local\Temp\ipykernel_10184\3506293914.py in get_binary_number(decimal_number)
+      1 def get_binary_number(decimal_number):
+----> 2     assert isinstance(decimal_number, int)
+      3     return bin(decimal_number)
+      4 
+      5 print(get_binary_number(10))
+
+AssertionError: 
+```
+
+
+
+## File Handling
+
+* 파일 시스템은 os에서 파일을 저장하는 트리구조 저장체계
+
+### directory
+
+* 폴더 또는 디렉토리로 불림
+* 파일과 다른 디렉토리를 포함 가능
+
+#### file
+
+* 컴퓨터에서 정보를 저장하는 논리적인 단위
+* 파일은 파일명과 확장자로 식별
+* 실행, 쓰기, 읽기 등이 가능
+
+### file의 종류
+
+* text과 binary 파일
+* 컴퓨터는 text파일을 처리하기 위해 binary로 변환시킴
+* 모든 text 파일도 실제로는 binary file
+* text 파일은 ASCII/Unicode 문자열 집합으로 저장되어서 사람이 읽을 수 있음
+
+
+
+### python file i/o
+
+* 파이썬은 파일 처리를 위해 open 키워드 사용
+
+```python
+f=open("<파일이름>","접근모드")
+f.close()
+```
+
+##### 파일열기 모드
+
+* r , 읽기모드 - 파일을 읽기만 할 때 사용
+* w, 쓰기모드 - 파일에 내용을 쓸 때 사용
+* a, 추가모드 - 파일의 마지막에 새로운 내용을 추가 시킬 때 사용
+
+
+
+### File read
+
+* read() - txt 파일 안에 있는 내용을 문자열로 반환
+
+```python
+# 대상파일이 같은 폴더에 있을 경우
+f = open("practice_text.txt", "r")
+contents=f.read()
+print(contents)
+f.close()
+```
+
+```
+this is sentence 1
+this is sentence 2
+this is sentence 3
+this is sentence 4
+this is sentence 5
+this is sentence 6
+bye bye~
+```
+
+
+
+* with 구문과 함께 사용하는 경우
+* indentation에서 벗어나면 close
+
+```python
+# with 구문과 함께 사용하기
+with open("practice_text.txt","r") as my_file:
+    contents=my_file.read()
+    print(type(contents), contents)
+```
+
+```
+<class 'str'> this is sentence 1
+this is sentence 2
+this is sentence 3
+this is sentence 4
+this is sentence 5
+this is sentence 6
+bye bye~
+```
+
+
+
+* 한 줄씩 읽어서 list type으로 반환
+
+```python
+# 한 줄씩 읽어서 list type으로 반환
+with open("practice_text.txt","r") as my_file:
+    content_list=my_file.readlines() # 파일 전체를 list로 반환
+    print(type(content_list))
+    print(content_list)
+```
+
+```
+<class 'list'>
+['this is sentence 1\n', 'this is sentence 2\n', 'this is sentence 3\n', 'this is sentence 4\n', 'this is sentence 5\n', 'this is sentence 6\n', 'bye bye~']
+```
+
+
+
+* 실행 시 마다 한 줄씩 읽어 오기
+* 그 때 마다 메모리에 올림
+
+```python
+# 실행 시 마다 한 줄 씩 읽어 오기
+with open("practice_text.txt","r") as my_file:
+    i=0
+    while True:
+        line=my_file.readline() # 한 줄 씩, readlines()와 다름
+        if not line:
+            break
+        print(str(i)+"==="+line.replace("\n","")) # 한 줄씩 값 출력
+        i+=1
+```
+
+```
+0===this is sentence 1
+1===this is sentence 2
+2===this is sentence 3
+3===this is sentence 4
+4===this is sentence 5
+5===this is sentence 6
+6===bye bye~
+```
+
+
+
+### File write
+
+* 인코딩은 utf8
+
+```python
+f=open("count_log.txt","w",encoding="utf8")
+for i in range(1,11):
+    data=f"{i} 번째 줄입니다. \n"
+    f.write(data)
+f.close()
+```
+
+count_log.txt
+
+```
+1 번째 줄입니다. 
+2 번째 줄입니다. 
+3 번째 줄입니다. 
+4 번째 줄입니다. 
+5 번째 줄입니다. 
+6 번째 줄입니다. 
+7 번째 줄입니다. 
+8 번째 줄입니다. 
+9 번째 줄입니다. 
+10 번째 줄입니다. 
+```
+
+
+
+* 추가 모드 "a"
+
+```python
+f=open("count_log.txt","a",encoding="utf8")
+for i in range(1,4):
+    data=f"{i} 번째 추가된 줄입니다. \n"
+    f.write(data)
+f.close()
+```
+
+```
+1 번째 줄입니다. 
+2 번째 줄입니다. 
+3 번째 줄입니다. 
+4 번째 줄입니다. 
+5 번째 줄입니다. 
+6 번째 줄입니다. 
+7 번째 줄입니다. 
+8 번째 줄입니다. 
+9 번째 줄입니다. 
+10 번째 줄입니다. 
+1 번째 추가된 줄입니다. 
+2 번째 추가된 줄입니다. 
+3 번째 추가된 줄입니다. 
+```
+
+
+
+## 파이썬 directory 다루기
+
+* os 모듈을 사용하여 디렉토리 다루기
+
+```python
+import os
+os.mkdir("log") # 현재주소에서 log라는 폴더 생성
+```
+
+* 디렉토리가 있는지 확인하기
+
+```python
+if not os.path.isdir("log2"): # log2라는 디렉토리가 없으면 메세지 출력후 디렉토리 생성
+    print("log2 is made")
+    os.mksir("log2")
+```
+
+```
+log2 is made
+```
+
+* 디렉토리가 존재하면 사용하는 예외처리
+
+```python
+try:
+    os.mkdir("log")
+except FileExistsError as e:
+    print("already created")
+```
+
+```
+already created
+```
+
+* os.path.exists() 
+
+```python
+os.path.exists("log") # 존재하면 True 반환
+```
+
+```
+True 
+```
+
+* shutil.copy() - 파일 복사
+
+```python
+import shutil
+
+source = "count_log.txt"
+dest = os.path.join("log","empty_log.txt") # join 사용 권장
+
+shutil.copy(source,dest) # dest에서 log 폴더에 empty_log.txt를 만들고 source를 empty_log에
+```
+
+```
+'log\\empty_log.txt'
+```
+
+
+
+* pathlib 모듈을 사용해서 path를 객체로 다룸
+
+```python
+import pathlib
+cwd = pathlib.Path.cwd()
+print(cwd)
+print(cwd.parent)
+print(cwd.parent.parent)
+```
+
+```
+C:\Users\KIMSEUNGKI\python_practice
+C:\Users\KIMSEUNGKI
+C:\Users
+```
+
+```python
+print(list(cwd.parents))
+```
+
+```
+[WindowsPath('C:/Users/KIMSEUNGKI'), WindowsPath('C:/Users'), WindowsPath('C:/')]
+```
+
+
+
+## Log 파일 생성하기
+
+* 디렉토리의 유무, 파일의 유무 확인 후
+
+```python
+import os
+if not os.path.isdir("log"):
+    os.mkdir("log")
+if not os.path.exists("log\count_log.txt"):
+    f=open("log\count_log.txt","w",encoding="utf8")
+    f.write("기록이 시작됩니다\n")
+    f.close
+
+f=open("log\count_log.txt","a",encoding="utf8")
+import random, datetime
+for i in range(1,5):
+    stamp=str(datetime.datetime.now())
+    value=random.random()*1000000
+    log_line=stamp+"\t"+str(value)+"값이 생성되었습니다"+"\n"
+    f.write(log_line)
+f.close()
+```
+
+* log\count_log.txt
+
+```
+기록이 시작됩니다
+2023-03-05 16:22:16.344776	172857.09505431302값이 생성되었습니다
+2023-03-05 16:22:16.344776	833191.7616896472값이 생성되었습니다
+2023-03-05 16:22:16.344776	430916.5337239962값이 생성되었습니다
+2023-03-05 16:22:16.344776	635487.9829742208값이 생성되었습니다
+```
+
+
+
+## Pickle
+
+* 파이썬 객체를 영속화(persistence)하는 built-in 객체
+* 데이터, object 등 실행중 정보를 저장하고 불러와서 사용한다
+* 저장해야하는 정보, 계산 결과(모델) 등 활용이 많음
+
+```python
+import pickle
+
+f=open("list.pickle","wb")
+test=[1,2,3,4,5]
+pickle.dump(test,f)
+f.close()
+
+f=open("list.pickle","rb")
+test_pickle=pickle.load(f)
+print(test_pickle)
+f.close()
+```
+
+```
+[1, 2, 3, 4, 5]
+```
+
+
+
+## Logging Handling
+
+### Logging - 로그 남기기
+
+* 프로그램이 실행되는 동안 일어나는 정보를 기록으로 남기기
+* 유저의 접근, 프로그램의 예외, 특정 함수의 사용 등
+* console 화면에 출력, 파일에 남기기, DB에 남기기 등
+* 기록된 로그를 분석하여 의미있는 결과를 도출 할 수 있음
+* 실행시점에서 남겨야하는 기록, 개발시점에서 남겨야하는 기록
+
+### Print vs Logging
+
+* 기록을 print로 남기는 것도 가능은 함
+* 그러나 console 창에만 남기는 기록은 분석시 사용 불가
+* 때로는 레벨별(개발, 운영)로 기록을 남길 필요도 있음
+* 모듈별로 별도의 logging을 남길 필요도 있음
+* 이런 기능을 체계적으로 지원하는 모듈이 필요함
+
+### Logging module
+
+* 파이썬의 기본 Log 관리 모듈
+
+```python
+import logging
+
+logging.debug("틀렸습니다")
+logging.info("확인해주세요")
+logging.warning("주의해주세요") # 파이썬의 기본 logging level은 warning부터 시작
+logging.error("에러입니다")
+logging.critical("심각한 문제")
+```
+
+```
+WARNING:root:주의해주세요
+ERROR:root:에러입니다
+CRITICAL:root:심각한 문제
+```
+
+
+
+### Logging Level
+
+* 프로그램 진행 상황에 따라 다른 Level의 Log를 출력함
+* 개발 시점, 운영 시점 마다 다른 Log가 남을 수 있도록 지원함
+* Debug > Info > Warning > Error > Critical
+* Log 관리시 가장 기본이 되는 설정 정보
+
+![loglevel1](https://user-images.githubusercontent.com/120040458/222882662-cc44bbbe-99c0-40fd-a2d1-3ab949f23cff.PNG)
+
+
+
+```python
+import logging
+
+if __name__=="__main__":
+    
+    # logger = logging.getLogger("main")
+    logging.basicConfig(level=logging.DEBUG) # logging level을 DEBUG로 셋팅
+    # logger.setLevel(logging.WARNING)
+
+    logger.debug("틀렸습니다")
+    logger.info("확인해주세요")
+    logger.warning("주의해주세요")
+    logger.error("에러입니다")
+    logger.critical("심각한 문제")
+```
+
+```
+DEBUG:root:틀렸습니다
+INFO:root:확인해주세요
+WARNING:root:주의해주세요
+ERROR:root:에러입니다
+CRITICAL:root:심각한 문제
+```
+
+
+
+```python
+import logging
+
+if __name__=="__main__":
+    
+    logger = logging.getLogger("main")
+    logging.basicConfig(level=logging.DEBUG) # logging level을 DEBUG로 셋팅
+    logger.setLevel(logging.WARNING) # WARNING level 부터 log 출력
+    
+    steam_handler = logging.FileHandler("my.log", mode="a",encoding="utf8") # my.log 라는 파일에 로그내용 추가
+    logger.addHandler(steam_handler)
+
+    logger.debug("틀렸습니다")
+    logger.info("확인해주세요")
+    logger.warning("주의해주세요")
+    logger.error("에러입니다")
+    logger.critical("심각한 문제")
+```
+
+```
+WARNING:main:주의해주세요
+ERROR:main:에러입니다
+CRITICAL:main:심각한 문제
+```
+
+
+
+## Logging을 위한 사전 셋팅
+
+* 실제 프로그램을 실행할 땐 여러가지 설정이 필요
+* 데이터 파일의 위치, 파일 저장 장소, Operation Type 같은 정보를 설정 해줄 방법이 필요
+
+
+
+### Configparser
+
+* 프로그램의 실행 설정을 file에 저장함
+* section, key, value 값의 형태로 설정된 설정 파일을 사용
+* 설정파일을 Dict type으로 호출후 사용
+
+* example.cfg
+
+```
+[SectionOne]
+Status: Single
+Name: Derek
+Value: Yes
+Age: 30
+Single: True
+
+[SectionTwo]
+FavoriteColor = Green
+```
+
+```python
+import configparser
+
+config = configparser.ConfigParser()
+config.sections()
+
+config.read("example.cfg")
+config.sections()
+
+for key in config["SectionOne"]:
+    value = config["SectionOne"][key]
+    print(key, value)
+    
+config["SectionOne"]["status"]
+```
+
+```
+status Single
+name Derek
+value Yes
+age 30
+single True
+'Single'
+```
+
+
+
+### Argparser
+
+* console 창에서 프로그램 실행시 Setting 정보를 저장함
+* 거의 모든 console 기반 파이썬 프로그램 기본으로 제공
+* 특수 모듈도 많이 존재하지만, 일반적으로 argparser 사용
+* Command Line Option 이라고 부름
+
+* 콘솔에서 특정 argument에 따라 특정 옵션을 주는 것을 볼 수 있음
+
+![argparser1](https://user-images.githubusercontent.com/120040458/222886015-e0fd4d95-df3c-4152-9252-89aa293413d5.PNG)
+
+
+
+arg_sum.py
+
+```python
+import argparse
+
+parser = argparse.ArgumentParser(description="sum two integers")
+
+parser.add_argument(
+    "-a", "--a_value",
+    dest="a", help="A integer", type=int,
+    required=True
+)
+
+parser.add_argument( 
+    "-b", "--b_value",  # 짧은 이름, 긴 이름
+    dest="b", help="B integer", type=int, # 표시명, 설명, argument type
+    required=True
+)
+
+args = parser.parse_args()
+print(args)
+print(args.a)
+print(args.b)
+print(args.a+args.b)
+```
+
+
+
+![argparser2](https://user-images.githubusercontent.com/120040458/222886703-e43f0d9d-02c3-431d-a8dc-67b4d1ecbb97.PNG)
+
+
+
+### argparser example
+
+* 사용자가 미리 설정을 만들어서 실험이 가능함
+
+```python
+def main():
+parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+parser.add_argument('--batch-size', type=int, default=64, metavar='N', help='input batch size for training (default: 64)')
+parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N', help='input batch size for testing (default: 1000)')
+parser.add_argument('--epochs', type=int, default=10, metavar='N', help='number of epochs to train (default: 10)')
+parser.add_argument('--lr', type=fl0at, default=0.01, metavar='LR', help='learning rate (default: 0.01 )')
+parser.add_argument('--momentum', type=fl0at, default=0.5, metavar='M', help='SGD momentum (default: O.5)')
+parser.add_argument('--no-cuda', action='store_true', default=False, help='disables CUDA training')
+parser.add_argument(‘--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
+parser.add_argument('--save-model', action='store_true', default=False, help='For Saving the current Model')
+args = parser.parse_args()
+
+if _name_ == '_main_':
+main()
+```
+
+
+
+## Logging 적용하기
+
+
+
+### Logging formatter
+
+* Log의 결과값의 format을 지정해줄 수 있음
+
+```python
+import logging
+
+formatter = logging.Formatter("%(asctime)s %(levelname)s %(process)d %(message)s")
+```
+
+```
+2018-01-18 22:47:04,385 ERROR 4410 ERROR occurred
+2018-01-18 22:47:22,458 ERROR 4439 ERROR occurred
+2018-01-18 22:47:22,458 INFO 4439 HERE WE ARE
+2018-01-18 22:47:24,680 ERROR 4443 ERROR occurred
+2018-01-18 22:47:24,681 INFO 4443 HERE WE ARE
+2018-01-18 22:47:24,970 ERROR 4445 ERROR occurred
+2018-01-18 22:47:24,970 INFO 4445 HERE WE ARE
+```
+
+
+
+### Log config file
+
+
+
+#### logging.conf
+
+```
+[loggers]
+keys=root
+
+[handlers]
+keys=consoleHandler
+
+[formatters]
+keys=simpleFormatter
+
+[logger_root]
+level=DEBUG
+handlers=consoleHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+formatter=simpleFormatter
+args=(sys.stdout,)
+
+[formatter_simpleFormatter]
+format=%(asctime)s - %(levelname)s - %(process)d - %(message)s
+datefmt=%m/%d/%Y %I:%M:%S %p
+```
+
+
+
+```python
+logging.config.fileConfig("logging.conf")
+logger=logging.getLogger()
+```
+
+## 참고
+
+---
+
+1. [boostcourse - 머신러닝을 위한 파이썬](https://www.boostcourse.org/ai222)
+2. [Python documentation](https://docs.python.org/3/)

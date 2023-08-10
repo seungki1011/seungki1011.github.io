@@ -1,0 +1,258 @@
+---
+layout: post
+title:  "Python - 4(Call-by-)"
+author: seungki
+categories: [ Python ]
+image: post_images/python logo.png
+toc: True
+
+
+---
+
+---
+
+## 함수 호출 방식
+
+### Call by Value
+
+* 값에 의한 호출
+* 함수에 인자를 넘길 때 값만 넘김
+* 함수 내에 인자 값 병경 시, 호출자에게 영향을 주지 않음
+
+```python
+a = [1,2,3,4,5]
+```
+
+```python
+def swap_value (x, y):
+    temp=x
+    x=y
+    y=temp
+
+swap_value(a[1],a[2])
+print(a)
+```
+
+```
+[1, 2, 3, 4, 5]
+```
+
+
+
+### Call by Reference
+
+* 참조에 의한 호출
+* 함수에 인자를 넘길 때 메모리 주소를 넘김
+* 함수 내에 인자 값 변경 시, 호출자의 값도 변경됨
+
+```python
+def swap_offset(offset_x,offset_y): # 리스트 a 자체를 만지기 때문에 값의 할당이 일어남
+    temp=a[offset_x]
+    a[offset_x]=a[offset_y]
+    a[offset_y]=temp
+
+swap_offset(1,2) # 1,2번 인덱스의 값을 서로 swap
+print(a)
+```
+
+```
+[1, 3, 2, 4, 5]
+```
+
+
+
+### Call by Object Reference
+
+* 객체 참조에 의한 호출
+* 파이썬은 객체의 주소가 함수로 전달되는 방식
+* 전달된 객체를 참조하여 변경시 호출자에게 영향을 줌
+* 새로운 객체를 만들 경우 호출자에게 영향을 주지 않음
+
+#### 예시
+
+```python
+def spam(eggs):
+    eggs.append(1) # 기존 객체의 주소값에 1 추가
+    eggs=[2,3] # 새로운 객체 생성(연결 끊어짐)
+    eggs.append(2)
+    print(eggs)
+    
+ham=[0]
+spam(ham)
+print(ham) # [0,1]
+```
+
+```
+[2, 3, 2]
+[0, 1]
+```
+
+
+
+```python
+def swap_reference(list_parameter,offset_x,offset_y): # 리스트 자체를 넘겨줘서 값이 할당됨
+    # temp_list=list_parameter[:] # 값을 복사해서 사용하는 것이 좋음
+    temp=list_parameter[offset_x]
+    list_parameter[offset_x]=list_parameter[offset_y]
+    list_parameter[offset_y]=temp
+
+swap_reference(a,3,4) # 3,4번 인덱스의 값 서로 swap
+print(a)
+```
+
+```
+[1, 3, 2, 5, 4]
+```
+
+
+
+## Function type hints
+
+* 사용자에게 인터페이스를 명확히 알려줄 수 있음
+* 함수의 문서화시 parameter에 대한 정보를 명확히 알 수 있음
+* 코드의 방생 가능한 오류를 사전에 확인 가능
+* 전체적인 안정성 확보
+
+
+
+#### 사용방법
+
+```python
+def do_function(var_name: var_type) -> return_type:
+    pass
+```
+
+#### 예시
+
+```python
+def type_hint_example(name:str) -> str:
+    return f"Hello, {name}"
+```
+
+```python
+print(type_hint_example("BOB"))
+```
+
+```
+Hello, BOB
+```
+
+
+
+## Docstring
+
+* 파이썬 함수에 대한 상세스펙을 사전에 작성
+* 세 개의 따옴표로 docstring 영력 표시(함수명 아래)
+
+``` python
+def some_function(argument1):
+    """Summary or Description of the Function
+
+    Parameters:
+    argument1 (int): Description of arg1
+
+    Returns:
+    int:Returning value
+
+   """
+
+    return argument1
+
+print(some_function.__doc__)
+```
+
+```
+Summary or Description of the Function
+
+    Parameters:
+    argument1 (int): Description of arg1
+
+    Returns:
+    int:Returning value
+```
+
+### docstring 쉽게 생성하기
+
+* vscode의 extension을 사용해서 쉽게 추가 가능
+* ctrl shift p + docstring
+
+
+
+## 함수 작성 가이드라인
+
+* 함수는 가능하면 짧게 작성
+* 함수 이름에 함수의 역할, 의도를 명확히 들어낼 것
+* 하나의 함수에는 유사한 역할을 하는 코드만 포함
+* 인자로 받은 값 자체를 바꾸진 말 것(임시 변수 선언)
+
+
+
+### 함수를 만드는 상황
+
+* 공통적으로 사용되는 코드는 함수로 변환
+* 복잡한 수식은 식별 가능한 이름의 함수로 변환
+* 복잡한 조건은 식별 가능한 이름의 함수로 변환
+
+
+
+## Coding Convention
+
+### 파이썬의 코딩 컨벤션
+
+* 보토은 팀마다, 프로젝트마다 다름
+* 중요한 건 일관성
+* 읽기 좋은 코드가 좋은 코드
+
+### 구체적으로
+
+* 한 줄은 최대 79자 까지 권장
+* 들여쓰기는 4space 권장
+* 불필요한 공백 피하기
+* = 연산자는 1칸 이상 안 뛰움
+* 불필요한 주석은 삭제
+* 코드의 마지막에는 항상 한 줄 추가
+* 소문자 l, 대문자 O, 대문자 I 금지
+* 함수명은 소문자로 구성, 필요하면 밑줄로 나눔
+
+
+
+### flake8 모듈
+
+* 파이썬 코딩 컨벤션은 flake8로 체크
+
+```
+conda install -c anaconda flake8
+```
+
+* 사용법
+
+```
+flake8 <파일명>
+```
+
+```
+flake8 flake8_test.py
+```
+
+
+
+### black 모듈
+
+* black 모듈을 활용하여 pep8 like 수준을 준수
+
+* 사용법
+
+```
+black <파일명>
+```
+
+```
+black black_test.py
+```
+
+## 참고
+
+---
+
+1. [boostcourse - 머신러닝을 위한 파이썬](https://www.boostcourse.org/ai222)
+2. [Python documentation](https://docs.python.org/3/)

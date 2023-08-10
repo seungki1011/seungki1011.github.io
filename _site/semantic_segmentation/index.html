@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Semantic Segmentation Overview | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Semantic Segmentation Overview | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Semantic Segmentation Overview" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Semantic Segmentation What is Semantic Segmentation? Semantic Segmentation은 이미지의 모든 픽셀별로 클래스를 분류하는 task 이다. 말 그대로 pixel wise classification이라서 같은 클래스에 속하더라도 객체를 구분해주지는 않는다. 출처 - CS231n Ideas used for Semantic Segmentation Sliding Window 이미지를 수 많은 작은 단위(crop)으로 나눠서 각자의 영역에 image classification을 진행하는 방법. 이 경우에 computation cost가 굉장히 많이 들고, crop 되는 영역이 겹칠 경우에는 인접한 feature에 대한 공통의 계산을 해야하기 때문에 비효율적이다. 출처 - CS231n Fully Convolutional Network(FCN) FC layer가 없는 convolution layer만 구성된 네트워크를 사용하는 방법이다. 이미지가 flatten되는 과정에서 공간정보를 잃게되는데, conv layer만 사용할 경우 공간정보를 유지할 수 있다. 출처 - Fully Convolutional Networks for Semantic Segmentation Downsampling 된 이미지 상태에서는 segmentation을 진행 할 수는 없기 때문에 이미지를 다시 키우는 upsampling을 진행한다. Upsampling 방법에는 여러가지가 있지만 대표적으로 deconvolution(transpose convolution) 연산을 이용한다.(수학에서 말하는 deconvolution과는 다른 연산. CNN에서 이야기하는 convolution 연산도 정확하게는 cross corelation 연산이기 때문에 용어 사용에 주의를 할 필요가 있다.) 출처 - CS231n Upsampling Unpooling : Nearest Neighbor, Bed of Nails Fixed algorithm을 이용하는 방식. Receptive field를 복사하거나 빈자리에 0을 채워 넣는 방식이다. Unpooling - 출처 - CS231n Deconvolution(Transpose Convolution) Unpooling의 경우 고정된 함수로 진행하는 연산이기 때문에 학습과정을 거치지 않는다. 반면에 deconvolution의 경우 upsampling하는 과정을 학습한다. Deconvolution은 아주 간단하게 생각한다면 convolution 연산을 반대로 한다고 생각하면 된다. 과정을 간단하게 설명하자면, input feature map에서 좌상단 부터 차례대로 scalar 값을 하나씩 뽑고 filter와 곱해서 그 출력을 output region 복사한다. Overlapping 되는 영역을 sum을 해준다. (아래 그림을 참고) Transposed Convolution - 출처 - Dive into Deep Learning Spatial size를 키워주기 위해서 학습가능한 filter를 사용한다고 보면 된다. Transposed Convolution - 출처 - https://github.com/vdumoulin/conv_arithmetic ​ Deconvolution 하는 과정에서 작은 이미지를 과도하게 늘리는 과정에서 feature에 대한 정보가 유실되는 경우가 많다. 이를 해결하기 위해서 FCN에서는 skip architecture를 사용한다. Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation) FCN에서 이용한 skip architecture를 간단하게 설명하자면, convolution(encoding path)에서 나온 feature map을 deconvolution(decoding path)에서 나온 결과와 더해주는 것 이다. FCN 논문에서는 low layer information과 high layer information을 combine한다는 표현을 쓴다. Skip Architecture - 출처 - Fully Convolutional Networks for Semantic Segmentation FCN - 32, 16, 8 - 출처 - Fully Convolutional Networks for Semantic Segmentation Summary 이런 FCN 개념을 이용한 semantic segmentation은 결국은 convolution network를 통한 downsampling/upsampling을 진행해서 pixel에 대한 cross-entropy를 계산하여 네트워크를 end-to-end로 학습 가능하다. Semantic Segmentation은 기본적인 segmentation task이며, 더 많은 요소까지 고려한 다양한 segmentation task들이 존재한다. Further Studying Instance Segmentation Panoptic Segmentation Depth estimation 참고 CS231n https://github.com/vdumoulin/conv_arithmetic Fully Convolutional Networks for Semantic Segmentation Dive into Deep Learning" />
+<meta property="og:description" content="Semantic Segmentation What is Semantic Segmentation? Semantic Segmentation은 이미지의 모든 픽셀별로 클래스를 분류하는 task 이다. 말 그대로 pixel wise classification이라서 같은 클래스에 속하더라도 객체를 구분해주지는 않는다. 출처 - CS231n Ideas used for Semantic Segmentation Sliding Window 이미지를 수 많은 작은 단위(crop)으로 나눠서 각자의 영역에 image classification을 진행하는 방법. 이 경우에 computation cost가 굉장히 많이 들고, crop 되는 영역이 겹칠 경우에는 인접한 feature에 대한 공통의 계산을 해야하기 때문에 비효율적이다. 출처 - CS231n Fully Convolutional Network(FCN) FC layer가 없는 convolution layer만 구성된 네트워크를 사용하는 방법이다. 이미지가 flatten되는 과정에서 공간정보를 잃게되는데, conv layer만 사용할 경우 공간정보를 유지할 수 있다. 출처 - Fully Convolutional Networks for Semantic Segmentation Downsampling 된 이미지 상태에서는 segmentation을 진행 할 수는 없기 때문에 이미지를 다시 키우는 upsampling을 진행한다. Upsampling 방법에는 여러가지가 있지만 대표적으로 deconvolution(transpose convolution) 연산을 이용한다.(수학에서 말하는 deconvolution과는 다른 연산. CNN에서 이야기하는 convolution 연산도 정확하게는 cross corelation 연산이기 때문에 용어 사용에 주의를 할 필요가 있다.) 출처 - CS231n Upsampling Unpooling : Nearest Neighbor, Bed of Nails Fixed algorithm을 이용하는 방식. Receptive field를 복사하거나 빈자리에 0을 채워 넣는 방식이다. Unpooling - 출처 - CS231n Deconvolution(Transpose Convolution) Unpooling의 경우 고정된 함수로 진행하는 연산이기 때문에 학습과정을 거치지 않는다. 반면에 deconvolution의 경우 upsampling하는 과정을 학습한다. Deconvolution은 아주 간단하게 생각한다면 convolution 연산을 반대로 한다고 생각하면 된다. 과정을 간단하게 설명하자면, input feature map에서 좌상단 부터 차례대로 scalar 값을 하나씩 뽑고 filter와 곱해서 그 출력을 output region 복사한다. Overlapping 되는 영역을 sum을 해준다. (아래 그림을 참고) Transposed Convolution - 출처 - Dive into Deep Learning Spatial size를 키워주기 위해서 학습가능한 filter를 사용한다고 보면 된다. Transposed Convolution - 출처 - https://github.com/vdumoulin/conv_arithmetic ​ Deconvolution 하는 과정에서 작은 이미지를 과도하게 늘리는 과정에서 feature에 대한 정보가 유실되는 경우가 많다. 이를 해결하기 위해서 FCN에서는 skip architecture를 사용한다. Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation) FCN에서 이용한 skip architecture를 간단하게 설명하자면, convolution(encoding path)에서 나온 feature map을 deconvolution(decoding path)에서 나온 결과와 더해주는 것 이다. FCN 논문에서는 low layer information과 high layer information을 combine한다는 표현을 쓴다. Skip Architecture - 출처 - Fully Convolutional Networks for Semantic Segmentation FCN - 32, 16, 8 - 출처 - Fully Convolutional Networks for Semantic Segmentation Summary 이런 FCN 개념을 이용한 semantic segmentation은 결국은 convolution network를 통한 downsampling/upsampling을 진행해서 pixel에 대한 cross-entropy를 계산하여 네트워크를 end-to-end로 학습 가능하다. Semantic Segmentation은 기본적인 segmentation task이며, 더 많은 요소까지 고려한 다양한 segmentation task들이 존재한다. Further Studying Instance Segmentation Panoptic Segmentation Depth estimation 참고 CS231n https://github.com/vdumoulin/conv_arithmetic Fully Convolutional Networks for Semantic Segmentation Dive into Deep Learning" />
+<link rel="canonical" href="http://localhost:4000/semantic_segmentation/" />
+<meta property="og:url" content="http://localhost:4000/semantic_segmentation/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/semanticsegmen.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-06-05T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/semanticsegmen.jpeg" />
+<meta property="twitter:title" content="Semantic Segmentation Overview" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-06-05T00:00:00+09:00","datePublished":"2023-06-05T00:00:00+09:00","description":"Semantic Segmentation What is Semantic Segmentation? Semantic Segmentation은 이미지의 모든 픽셀별로 클래스를 분류하는 task 이다. 말 그대로 pixel wise classification이라서 같은 클래스에 속하더라도 객체를 구분해주지는 않는다. 출처 - CS231n Ideas used for Semantic Segmentation Sliding Window 이미지를 수 많은 작은 단위(crop)으로 나눠서 각자의 영역에 image classification을 진행하는 방법. 이 경우에 computation cost가 굉장히 많이 들고, crop 되는 영역이 겹칠 경우에는 인접한 feature에 대한 공통의 계산을 해야하기 때문에 비효율적이다. 출처 - CS231n Fully Convolutional Network(FCN) FC layer가 없는 convolution layer만 구성된 네트워크를 사용하는 방법이다. 이미지가 flatten되는 과정에서 공간정보를 잃게되는데, conv layer만 사용할 경우 공간정보를 유지할 수 있다. 출처 - Fully Convolutional Networks for Semantic Segmentation Downsampling 된 이미지 상태에서는 segmentation을 진행 할 수는 없기 때문에 이미지를 다시 키우는 upsampling을 진행한다. Upsampling 방법에는 여러가지가 있지만 대표적으로 deconvolution(transpose convolution) 연산을 이용한다.(수학에서 말하는 deconvolution과는 다른 연산. CNN에서 이야기하는 convolution 연산도 정확하게는 cross corelation 연산이기 때문에 용어 사용에 주의를 할 필요가 있다.) 출처 - CS231n Upsampling Unpooling : Nearest Neighbor, Bed of Nails Fixed algorithm을 이용하는 방식. Receptive field를 복사하거나 빈자리에 0을 채워 넣는 방식이다. Unpooling - 출처 - CS231n Deconvolution(Transpose Convolution) Unpooling의 경우 고정된 함수로 진행하는 연산이기 때문에 학습과정을 거치지 않는다. 반면에 deconvolution의 경우 upsampling하는 과정을 학습한다. Deconvolution은 아주 간단하게 생각한다면 convolution 연산을 반대로 한다고 생각하면 된다. 과정을 간단하게 설명하자면, input feature map에서 좌상단 부터 차례대로 scalar 값을 하나씩 뽑고 filter와 곱해서 그 출력을 output region 복사한다. Overlapping 되는 영역을 sum을 해준다. (아래 그림을 참고) Transposed Convolution - 출처 - Dive into Deep Learning Spatial size를 키워주기 위해서 학습가능한 filter를 사용한다고 보면 된다. Transposed Convolution - 출처 - https://github.com/vdumoulin/conv_arithmetic ​ Deconvolution 하는 과정에서 작은 이미지를 과도하게 늘리는 과정에서 feature에 대한 정보가 유실되는 경우가 많다. 이를 해결하기 위해서 FCN에서는 skip architecture를 사용한다. Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation) FCN에서 이용한 skip architecture를 간단하게 설명하자면, convolution(encoding path)에서 나온 feature map을 deconvolution(decoding path)에서 나온 결과와 더해주는 것 이다. FCN 논문에서는 low layer information과 high layer information을 combine한다는 표현을 쓴다. Skip Architecture - 출처 - Fully Convolutional Networks for Semantic Segmentation FCN - 32, 16, 8 - 출처 - Fully Convolutional Networks for Semantic Segmentation Summary 이런 FCN 개념을 이용한 semantic segmentation은 결국은 convolution network를 통한 downsampling/upsampling을 진행해서 pixel에 대한 cross-entropy를 계산하여 네트워크를 end-to-end로 학습 가능하다. Semantic Segmentation은 기본적인 segmentation task이며, 더 많은 요소까지 고려한 다양한 segmentation task들이 존재한다. Further Studying Instance Segmentation Panoptic Segmentation Depth estimation 참고 CS231n https://github.com/vdumoulin/conv_arithmetic Fully Convolutional Networks for Semantic Segmentation Dive into Deep Learning","headline":"Semantic Segmentation Overview","image":"http://localhost:4000/post_images/semanticsegmen.jpeg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/semantic_segmentation/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/semantic_segmentation/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Semantic Segmentation Overview&url=http://localhost:4000/semantic_segmentation/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/semantic_segmentation/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/semantic_segmentation/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Semantic Segmentation Overview</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/semanticsegmen.jpeg" alt="Semantic Segmentation Overview">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#semantic-segmentation">Semantic Segmentation</a>
+    <ul>
+      <li><a href="#what-is-semantic-segmentation">What is Semantic Segmentation?</a></li>
+    </ul>
+  </li>
+  <li><a href="#ideas-used-for-semantic-segmentation">Ideas used for Semantic Segmentation</a>
+    <ul>
+      <li><a href="#sliding-window">Sliding Window</a></li>
+      <li><a href="#fully-convolutional-networkfcn">Fully Convolutional Network(FCN)</a>
+        <ul>
+          <li><a href="#upsampling">Upsampling</a>
+            <ul>
+              <li><a href="#unpooling--nearest-neighbor-bed-of-nails">Unpooling : Nearest Neighbor, Bed of Nails</a></li>
+              <li><a href="#deconvolutiontranspose-convolution">Deconvolution(Transpose Convolution)</a></li>
+            </ul>
+          </li>
+          <li><a href="#skip-architecture-in-fcnfully-convolutional-networks-for-semantic-segmentation">Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation)</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-studying">Further Studying</a></li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+<h2 id="semantic-segmentation">Semantic Segmentation</h2>
+<h3 id="what-is-semantic-segmentation">What is Semantic Segmentation?</h3>
+<p>Semantic Segmentation은 이미지의 모든 픽셀별로 클래스를 분류하는 task 이다. 말 그대로 pixel wise classification이라서 같은 클래스에 속하더라도 객체를 구분해주지는 않는다.</p>
+
+<p><img src="../post_images/semantic_segmentation/ss1.png" alt="ss1" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">출처 - CS231n </p>
+
+<hr />
+
+<h2 id="ideas-used-for-semantic-segmentation">Ideas used for Semantic Segmentation</h2>
+
+<h3 id="sliding-window">Sliding Window</h3>
+
+<p>이미지를 수 많은 작은 단위(crop)으로 나눠서 각자의 영역에 image classification을 진행하는 방법. 이 경우에 computation cost가 굉장히 많이 들고, crop 되는 영역이 겹칠 경우에는 인접한 feature에 대한 공통의 계산을 해야하기 때문에 비효율적이다.</p>
+
+<p><img src="../post_images/semantic_segmentation/sliding window.png" alt="sliding window" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">출처 - CS231n </p>
+
+<h3 id="fully-convolutional-networkfcn">Fully Convolutional Network(FCN)</h3>
+
+<p>FC layer가 없는 convolution layer만 구성된 네트워크를 사용하는 방법이다. 이미지가 flatten되는 과정에서 공간정보를 잃게되는데, conv layer만 사용할 경우 공간정보를 유지할 수 있다.</p>
+
+<p><img src="../post_images/semantic_segmentation/fc vs FCN.PNG" alt="fc vs FCN" style="zoom:150%;" class="center-image" /></p>
+
+<p align="center">출처 - Fully Convolutional Networks for Semantic Segmentation </p>
+
+<p>Downsampling 된 이미지 상태에서는 segmentation을 진행 할 수는 없기 때문에 이미지를 다시 키우는 upsampling을 진행한다. Upsampling 방법에는 여러가지가 있지만 대표적으로 deconvolution(transpose convolution) 연산을 이용한다.(수학에서 말하는 deconvolution과는 다른 연산. CNN에서 이야기하는 convolution 연산도 정확하게는 cross corelation 연산이기 때문에 용어 사용에 주의를 할 필요가 있다.)</p>
+
+<p><img src="../post_images/semantic_segmentation/downsample and upsample.png" alt="downsample and upsample" style="zoom:80%;" class="center-image" /></p>
+
+<p align="center">출처 - CS231n </p>
+
+<h4 id="upsampling">Upsampling</h4>
+
+<h5 id="unpooling--nearest-neighbor-bed-of-nails">Unpooling : Nearest Neighbor, Bed of Nails</h5>
+
+<p>Fixed algorithm을 이용하는 방식. Receptive field를 복사하거나 빈자리에 0을 채워 넣는 방식이다.</p>
+
+<p><img src="../post_images/semantic_segmentation/unpooling.png" alt="unpooling" style="zoom:67%;" class="center-image" /></p>
+
+<p align="center">Unpooling - 출처 - CS231n </p>
+
+<h5 id="deconvolutiontranspose-convolution">Deconvolution(Transpose Convolution)</h5>
+
+<p>Unpooling의 경우 고정된 함수로 진행하는 연산이기 때문에 학습과정을 거치지 않는다. 반면에 deconvolution의 경우 upsampling하는 과정을 학습한다. Deconvolution은 아주 간단하게 생각한다면 convolution 연산을 반대로 한다고 생각하면 된다. 과정을 간단하게 설명하자면, input feature map에서 좌상단 부터 차례대로 scalar 값을 하나씩 뽑고 filter와 곱해서 그 출력을 output region 복사한다. Overlapping 되는 영역을 sum을 해준다. (아래 그림을 참고)</p>
+
+<p><img src="../post_images/semantic_segmentation/deconvolution2.PNG" alt="deconvolution2" style="zoom:100%;" class="center-image" /></p>
+
+<p align="center">Transposed Convolution - 출처 - Dive into Deep Learning </p>
+
+<p>Spatial size를 키워주기 위해서 학습가능한 filter를 사용한다고 보면 된다.</p>
+
+<p><img src="../post_images/semantic_segmentation/no_padding_no_strides_transposed.gif" alt="no_padding_no_strides_transposed" style="zoom:100%;" class="center-image" /></p>
+
+<p align="center">Transposed Convolution - 출처 - https://github.com/vdumoulin/conv_arithmetic </p>
+
+<p>​</p>
+
+<p>Deconvolution 하는 과정에서 작은 이미지를 과도하게 늘리는 과정에서 feature에 대한 정보가 유실되는 경우가 많다. 이를 해결하기 위해서 FCN에서는 skip architecture를 사용한다.</p>
+
+<h4 id="skip-architecture-in-fcnfully-convolutional-networks-for-semantic-segmentation">Skip Architecture in FCN(Fully Convolutional Networks for Semantic Segmentation)</h4>
+
+<p>FCN에서 이용한 skip architecture를 간단하게 설명하자면, convolution(encoding path)에서 나온 feature map을 deconvolution(decoding path)에서 나온 결과와 더해주는 것 이다. FCN 논문에서는 low layer information과 high layer information을 combine한다는 표현을 쓴다.</p>
+
+<p><img src="../post_images/semantic_segmentation/skiparchitecture2.PNG" alt="skiparchitecture2" style="zoom:100%;" class="center-image" /></p>
+
+<p align="center">Skip Architecture - 출처 - Fully Convolutional Networks for Semantic Segmentation </p>
+
+<p><img src="../post_images/semantic_segmentation/skiparchitecture.PNG" alt="skiparchitecture" style="zoom:100%;" class="center-image" /></p>
+
+<p align="center">FCN - 32, 16, 8 - 출처 - Fully Convolutional Networks for Semantic Segmentation </p>
+
+<hr />
+
+<h2 id="summary">Summary</h2>
+
+<p>이런 FCN 개념을 이용한 semantic segmentation은 결국은 convolution network를 통한 downsampling/upsampling을 진행해서 pixel에 대한 cross-entropy를 계산하여 네트워크를 end-to-end로 학습 가능하다.</p>
+
+<p>Semantic Segmentation은 기본적인 segmentation task이며, 더 많은 요소까지 고려한 다양한 segmentation task들이 존재한다.</p>
+
+<hr />
+
+<h2 id="further-studying">Further Studying</h2>
+
+<ol>
+  <li>Instance Segmentation</li>
+  <li>Panoptic Segmentation</li>
+  <li>Depth estimation</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://www.youtube.com/watch?v=vT1JzLTH4G4&amp;list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk">CS231n</a></li>
+  <li><a href="https://github.com/vdumoulin/conv_arithmetic">https://github.com/vdumoulin/conv_arithmetic</a></li>
+  <li><a href="https://arxiv.org/abs/1411.4038">Fully Convolutional Networks for Semantic Segmentation</a></li>
+  <li><a href="https://d2l.ai/">Dive into Deep Learning</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-06-05">05 Jun 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#CV">CV</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Segmentation">Segmentation</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//Debugging/"> &laquo; Debugging</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//Cloud/">Cloud Computing &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>
