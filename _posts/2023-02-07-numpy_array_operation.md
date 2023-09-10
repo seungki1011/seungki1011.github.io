@@ -6,20 +6,11 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
-Numpy에서 배열의 연산
-
-
-
 ## 배열 연산
-
 * numpy에서 배열 연산은 벡터화(vectorized) 연산을 사용
 * 일반적으로 numpy의 범용 함수(universal functions)를 통해서 구현
 * 배열 요소에 대한 반복적인 계산을 효율적으로 수행
-
-
 
 ### Axis의 의미
 

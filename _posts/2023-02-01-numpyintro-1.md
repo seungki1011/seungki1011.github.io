@@ -6,11 +6,8 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
 ## Numpy란?
-
 * Numerical Python의 약자
 * 과학 계산용 패키지
 * N차원 배열 객체, 범용적 데이터 처리 등에 사용 가능한 다차원 컨테이너

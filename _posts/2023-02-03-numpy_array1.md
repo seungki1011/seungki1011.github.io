@@ -6,14 +6,9 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
 ## 배열 값 삽입, 수정, 삭제, 복사
-
 > 원본 배열이 변경되지 않는 이유는 속도적인 면에서 이점이 있기 때문
-
-
 
 ### 배열 값 삽입
 

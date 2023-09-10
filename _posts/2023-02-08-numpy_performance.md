@@ -6,13 +6,9 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
 ## Numpy performance check
-
 ### timeit
-
 * Jupyter 환경에서 코드의 퍼포먼스 체크하는 함수
 
 ```python

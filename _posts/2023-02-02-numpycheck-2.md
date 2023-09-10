@@ -6,11 +6,8 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
 ## 배열 조회
-
 ### 배열 속성 정보
 
 ```python

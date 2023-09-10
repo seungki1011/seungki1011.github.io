@@ -6,15 +6,9 @@ categories: [ Numpy ]
 image: post_images/numpylogo.png
 toc: True
 ---
-
 ---
-
-Numpy에서 배열의 변환
-
 ## 배열 변환
-
 ### 배열 전치(Transpose) 및 축 변경
-
 #### T 메소드
 
 * 2차원 배열 T 메소드
