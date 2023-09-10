@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Numpy - 5(Array Operations 3) | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Numpy - 5(Array Operations 3) | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Numpy - 5(Array Operations 3)" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="배열 연산 numpy에서 배열 연산은 벡터화(vectorized) 연산을 사용 일반적으로 numpy의 범용 함수(universal functions)를 통해서 구현 배열 요소에 대한 반복적인 계산을 효율적으로 수행 Axis의 의미 element의 합을 구해주는 sum()을 이용해서 설명하면 Matrix 1 2 test_matrix = np.arange(1,13).reshape(3,4) test_matrix 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) axis=1 1 test_matrix.sum(axis=1) # 같은 row 방향으로 sum 1 array([10, 26, 42]) axis=0 1 test_matrix.sum(axis=0) # 같은 col 방향으로 sum 1 array([15, 18, 21, 24]) 3rd order tensor 1 2 3 test_matrix = np.arange(1,13).reshape(3,4) third_order_tensor = np.stack([test_matrix,test_matrix,test_matrix],axis=0) third_order_tensor 1 2 3 4 5 6 7 8 9 10 11 array([[[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]]) axis=2 1 third_order_tensor.sum(axis=2) # 같은 row방향으로 sum 1 2 3 array([[10, 26, 42], [10, 26, 42], [10, 26, 42]]) axis=1 1 third_order_tensor.sum(axis=1) # 같은 col방향으로 sum 1 2 3 array([[15, 18, 21, 24], [15, 18, 21, 24], [15, 18, 21, 24]]) axis=0 1 third_order_tensor.sum(axis=0) # 깊이 방향으로 sum 1 2 3 array([[ 3, 6, 9, 12], [15, 18, 21, 24], [27, 30, 33, 36]]) Mean &amp; Std Mean 평균 구하기 1 2 test_array = np.arange(1,13).reshape(3,4) test_array 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) 1 test_array.mean() 1 6.5 1 test_array.mean(axis=0) 1 array([5., 6., 7., 8.]) Std 표준편차 구하기 1 test_array.std() 1 3.452052529534663 1 test_array.std(axis=1) 1 array([1.11803399, 1.11803399, 1.11803399]) Mathematical Functions numpy는 다양한 수학 연산자를 제공함 absolute(), abs() : 절대값 함수 square(), sqrt() : 제곱, 제곱근 함수 cumsum() : 누적합 계산 diff() : 차분 계산 prod() : 곱 계산 dot() : 점곱 계산 matmul() : 행렬곱 계산 tensordot() : 텐서곱 계산 cross() : 벡터곱 계산 inner() : 내적 계산 outer() : 외적 계산 var() : 분산 계산 min() : 최소값 max() : 최대값 argmin() : 최소값 인덱스 argmax() : 최대값 인덱스 median() : 중앙값 이 외에도 지수함수, 로그함수, 삼각함수 등 여러가지 함수 제공 Basic Array Operations 1 test_a = np.array([[1,2,3],[4,5,6]], float) + operation 1 test_a + test_a 1 2 array([[ 2., 4., 6.], [ 8., 10., 12.]]) - operation 1 test_a - test_a 1 2 array([[0., 0., 0.], [0., 0., 0.]]) * operation element-wise operation, dot-product와 다름 1 test_a * test_a # * operation은 element-wise operation, 같은 위치의 값들 끼리 계산 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Dot product matrix의 기본 연산, dot() 함수 사용 1 2 3 test_a = np.arange(1,7).reshape(2,3) test_b = np.arange(7,13).reshape(3,2) test_a.dot(test_b) 1 2 array([[ 58, 64], [139, 154]]) Broadcasting shape이 다른 배열 간 연산을 지원하는 기능 Matrix - Scalar , Vector - Scalar 연산 1 2 test_matrix = np.array([[1,2,3],[4,5,6]],float) scalar = 3 덧셈 1 test_matrix + scalar # Matrix-Scalar 덧셈 1 2 array([[4., 5., 6.], [7., 8., 9.]]) 뺄셈 1 test_matrix - scalar # Matrix-Scalar 뺄셈 1 2 array([[-2., -1., 0.], [ 1., 2., 3.]]) 곱셈 1 test_matrix * scalar # Matrix-Scalar 곱셈 1 2 array([[ 3., 6., 9.], [12., 15., 18.]]) 나눗셈 1 test_matrix / 5 # Matrix-Scalar 나눗셈 1 2 array([[0.2, 0.4, 0.6], [0.8, 1. , 1.2]]) 몫 1 test_matrix // 0.2 # Matrix-Scalar 몫 1 2 array([[ 4., 9., 14.], [19., 24., 29.]]) 제곱 1 test_matrix ** 2 # Matrix-Scalar 제곱 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Vector - Matrix 연산 1 2 3 test_matrix = np.arange(1,13).reshape(4,3) test_vector = np.arange(10,40,10) test_matrix + test_vector 1 2 3 4 array([[11, 22, 33], [14, 25, 36], [17, 28, 39], [20, 31, 42]]) Comparison (비교연산) All &amp; Any Array의 데이터 전부(and) 또는 일부(or)가 조건에 만족하는지 여부 반환 1 2 a = np.arange(10) a 1 array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 1 np.any(a&gt;5), np.any(a&lt;0) # any는 하나라도 조건에 만족하면 True 1 (True, False) 1 np.all(a&gt;5), np.all(a&lt;10) # all은 모두가 조건에 만족해야 True 1 (False, True) Array Comparison Operation numpy는 배열의 크기가 동일 할 때 element간 비교의 결과를 Boolean type으로 반환 1 2 3 test_a = np.array([1,3,0], float) test_b = np.array([5,2,1], float) test_a &gt; test_b 1 array([False, True, False]) 1 test_a == test_b 1 array([False, False, False]) 1 (test_a &gt; test_b).any() # any는 하나라도 true면 true 1 True And, Not, Or operation logical_and() 1 2 a = np.array([1,3,0], float) np.logical_and(a&gt;0, a&lt;3) # and 조건 condition 1 array([ True, False, False]) logical_not() 1 2 b = np.array([True,False,True], bool) np.logical_not(b) 1 array([False, True, False]) logical_or() 1 2 c = np.array([False,True,False],bool) np.logical_or(b,c) 1 array([ True, True, True]) np.where() where(condition, True, False) 1 2 a = np.array([1,3,0], float) np.where(a&gt;0,3,2) # True면 3 반환, False면 2 반환 1 array([3, 3, 2]) 조건을 만족하는 Index 반환 1 2 3 a = np.arange(10) print(a) np.where(a&gt;5) 1 2 [0 1 2 3 4 5 6 7 8 9] (array([6, 7, 8, 9], dtype=int64),) np.isnan() NaN일 경우 True 반환 1 2 a = np.array([1, np.NaN, np.Inf], float) np.isnan(a) # not a number, NaN일 경우 True 반환 1 array([False, True, False]) np.isfinite() finite number일 경우 True 반환 1 np.isfinite(a) # finite number일 경우 True 반환 1 array([ True, False, False]) argmax &amp; argmin array내 최대값 또는 최소값의 index 반환 1 2 a = np.array([1,2,4,5,8,78,23,3]) np.argmax(a), np.argmin(a) 1 (5, 0) axis 기반의 반환 1 2 a = np.array([[1,2,4,7],[9,88,6,45],[9,76,3,4]]) print(a) 1 2 3 [[ 1 2 4 7] [ 9 88 6 45] [ 9 76 3 4]] 1 np.argmax(a,axis=1) # 각 row의 최대값의 index 반환 1 array([3, 1, 1], dtype=int64) 1 np.argmin(a,axis=0) # 각 col의 최소값의 index 반환 1 array([0, 0, 2, 2], dtype=int64) 참고 Numpy 한번에 제대로 배우기 이수안 컴퓨터 연구소 부스트 코스 AI numpy - 최성철" />
+<meta property="og:description" content="배열 연산 numpy에서 배열 연산은 벡터화(vectorized) 연산을 사용 일반적으로 numpy의 범용 함수(universal functions)를 통해서 구현 배열 요소에 대한 반복적인 계산을 효율적으로 수행 Axis의 의미 element의 합을 구해주는 sum()을 이용해서 설명하면 Matrix 1 2 test_matrix = np.arange(1,13).reshape(3,4) test_matrix 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) axis=1 1 test_matrix.sum(axis=1) # 같은 row 방향으로 sum 1 array([10, 26, 42]) axis=0 1 test_matrix.sum(axis=0) # 같은 col 방향으로 sum 1 array([15, 18, 21, 24]) 3rd order tensor 1 2 3 test_matrix = np.arange(1,13).reshape(3,4) third_order_tensor = np.stack([test_matrix,test_matrix,test_matrix],axis=0) third_order_tensor 1 2 3 4 5 6 7 8 9 10 11 array([[[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]]) axis=2 1 third_order_tensor.sum(axis=2) # 같은 row방향으로 sum 1 2 3 array([[10, 26, 42], [10, 26, 42], [10, 26, 42]]) axis=1 1 third_order_tensor.sum(axis=1) # 같은 col방향으로 sum 1 2 3 array([[15, 18, 21, 24], [15, 18, 21, 24], [15, 18, 21, 24]]) axis=0 1 third_order_tensor.sum(axis=0) # 깊이 방향으로 sum 1 2 3 array([[ 3, 6, 9, 12], [15, 18, 21, 24], [27, 30, 33, 36]]) Mean &amp; Std Mean 평균 구하기 1 2 test_array = np.arange(1,13).reshape(3,4) test_array 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) 1 test_array.mean() 1 6.5 1 test_array.mean(axis=0) 1 array([5., 6., 7., 8.]) Std 표준편차 구하기 1 test_array.std() 1 3.452052529534663 1 test_array.std(axis=1) 1 array([1.11803399, 1.11803399, 1.11803399]) Mathematical Functions numpy는 다양한 수학 연산자를 제공함 absolute(), abs() : 절대값 함수 square(), sqrt() : 제곱, 제곱근 함수 cumsum() : 누적합 계산 diff() : 차분 계산 prod() : 곱 계산 dot() : 점곱 계산 matmul() : 행렬곱 계산 tensordot() : 텐서곱 계산 cross() : 벡터곱 계산 inner() : 내적 계산 outer() : 외적 계산 var() : 분산 계산 min() : 최소값 max() : 최대값 argmin() : 최소값 인덱스 argmax() : 최대값 인덱스 median() : 중앙값 이 외에도 지수함수, 로그함수, 삼각함수 등 여러가지 함수 제공 Basic Array Operations 1 test_a = np.array([[1,2,3],[4,5,6]], float) + operation 1 test_a + test_a 1 2 array([[ 2., 4., 6.], [ 8., 10., 12.]]) - operation 1 test_a - test_a 1 2 array([[0., 0., 0.], [0., 0., 0.]]) * operation element-wise operation, dot-product와 다름 1 test_a * test_a # * operation은 element-wise operation, 같은 위치의 값들 끼리 계산 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Dot product matrix의 기본 연산, dot() 함수 사용 1 2 3 test_a = np.arange(1,7).reshape(2,3) test_b = np.arange(7,13).reshape(3,2) test_a.dot(test_b) 1 2 array([[ 58, 64], [139, 154]]) Broadcasting shape이 다른 배열 간 연산을 지원하는 기능 Matrix - Scalar , Vector - Scalar 연산 1 2 test_matrix = np.array([[1,2,3],[4,5,6]],float) scalar = 3 덧셈 1 test_matrix + scalar # Matrix-Scalar 덧셈 1 2 array([[4., 5., 6.], [7., 8., 9.]]) 뺄셈 1 test_matrix - scalar # Matrix-Scalar 뺄셈 1 2 array([[-2., -1., 0.], [ 1., 2., 3.]]) 곱셈 1 test_matrix * scalar # Matrix-Scalar 곱셈 1 2 array([[ 3., 6., 9.], [12., 15., 18.]]) 나눗셈 1 test_matrix / 5 # Matrix-Scalar 나눗셈 1 2 array([[0.2, 0.4, 0.6], [0.8, 1. , 1.2]]) 몫 1 test_matrix // 0.2 # Matrix-Scalar 몫 1 2 array([[ 4., 9., 14.], [19., 24., 29.]]) 제곱 1 test_matrix ** 2 # Matrix-Scalar 제곱 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Vector - Matrix 연산 1 2 3 test_matrix = np.arange(1,13).reshape(4,3) test_vector = np.arange(10,40,10) test_matrix + test_vector 1 2 3 4 array([[11, 22, 33], [14, 25, 36], [17, 28, 39], [20, 31, 42]]) Comparison (비교연산) All &amp; Any Array의 데이터 전부(and) 또는 일부(or)가 조건에 만족하는지 여부 반환 1 2 a = np.arange(10) a 1 array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 1 np.any(a&gt;5), np.any(a&lt;0) # any는 하나라도 조건에 만족하면 True 1 (True, False) 1 np.all(a&gt;5), np.all(a&lt;10) # all은 모두가 조건에 만족해야 True 1 (False, True) Array Comparison Operation numpy는 배열의 크기가 동일 할 때 element간 비교의 결과를 Boolean type으로 반환 1 2 3 test_a = np.array([1,3,0], float) test_b = np.array([5,2,1], float) test_a &gt; test_b 1 array([False, True, False]) 1 test_a == test_b 1 array([False, False, False]) 1 (test_a &gt; test_b).any() # any는 하나라도 true면 true 1 True And, Not, Or operation logical_and() 1 2 a = np.array([1,3,0], float) np.logical_and(a&gt;0, a&lt;3) # and 조건 condition 1 array([ True, False, False]) logical_not() 1 2 b = np.array([True,False,True], bool) np.logical_not(b) 1 array([False, True, False]) logical_or() 1 2 c = np.array([False,True,False],bool) np.logical_or(b,c) 1 array([ True, True, True]) np.where() where(condition, True, False) 1 2 a = np.array([1,3,0], float) np.where(a&gt;0,3,2) # True면 3 반환, False면 2 반환 1 array([3, 3, 2]) 조건을 만족하는 Index 반환 1 2 3 a = np.arange(10) print(a) np.where(a&gt;5) 1 2 [0 1 2 3 4 5 6 7 8 9] (array([6, 7, 8, 9], dtype=int64),) np.isnan() NaN일 경우 True 반환 1 2 a = np.array([1, np.NaN, np.Inf], float) np.isnan(a) # not a number, NaN일 경우 True 반환 1 array([False, True, False]) np.isfinite() finite number일 경우 True 반환 1 np.isfinite(a) # finite number일 경우 True 반환 1 array([ True, False, False]) argmax &amp; argmin array내 최대값 또는 최소값의 index 반환 1 2 a = np.array([1,2,4,5,8,78,23,3]) np.argmax(a), np.argmin(a) 1 (5, 0) axis 기반의 반환 1 2 a = np.array([[1,2,4,7],[9,88,6,45],[9,76,3,4]]) print(a) 1 2 3 [[ 1 2 4 7] [ 9 88 6 45] [ 9 76 3 4]] 1 np.argmax(a,axis=1) # 각 row의 최대값의 index 반환 1 array([3, 1, 1], dtype=int64) 1 np.argmin(a,axis=0) # 각 col의 최소값의 index 반환 1 array([0, 0, 2, 2], dtype=int64) 참고 Numpy 한번에 제대로 배우기 이수안 컴퓨터 연구소 부스트 코스 AI numpy - 최성철" />
+<link rel="canonical" href="http://localhost:4000/numpy_array_operation/" />
+<meta property="og:url" content="http://localhost:4000/numpy_array_operation/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/numpylogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-07T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/numpylogo.png" />
+<meta property="twitter:title" content="Numpy - 5(Array Operations 3)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-02-07T00:00:00+09:00","datePublished":"2023-02-07T00:00:00+09:00","description":"배열 연산 numpy에서 배열 연산은 벡터화(vectorized) 연산을 사용 일반적으로 numpy의 범용 함수(universal functions)를 통해서 구현 배열 요소에 대한 반복적인 계산을 효율적으로 수행 Axis의 의미 element의 합을 구해주는 sum()을 이용해서 설명하면 Matrix 1 2 test_matrix = np.arange(1,13).reshape(3,4) test_matrix 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) axis=1 1 test_matrix.sum(axis=1) # 같은 row 방향으로 sum 1 array([10, 26, 42]) axis=0 1 test_matrix.sum(axis=0) # 같은 col 방향으로 sum 1 array([15, 18, 21, 24]) 3rd order tensor 1 2 3 test_matrix = np.arange(1,13).reshape(3,4) third_order_tensor = np.stack([test_matrix,test_matrix,test_matrix],axis=0) third_order_tensor 1 2 3 4 5 6 7 8 9 10 11 array([[[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]], [[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]]) axis=2 1 third_order_tensor.sum(axis=2) # 같은 row방향으로 sum 1 2 3 array([[10, 26, 42], [10, 26, 42], [10, 26, 42]]) axis=1 1 third_order_tensor.sum(axis=1) # 같은 col방향으로 sum 1 2 3 array([[15, 18, 21, 24], [15, 18, 21, 24], [15, 18, 21, 24]]) axis=0 1 third_order_tensor.sum(axis=0) # 깊이 방향으로 sum 1 2 3 array([[ 3, 6, 9, 12], [15, 18, 21, 24], [27, 30, 33, 36]]) Mean &amp; Std Mean 평균 구하기 1 2 test_array = np.arange(1,13).reshape(3,4) test_array 1 2 3 array([[ 1, 2, 3, 4], [ 5, 6, 7, 8], [ 9, 10, 11, 12]]) 1 test_array.mean() 1 6.5 1 test_array.mean(axis=0) 1 array([5., 6., 7., 8.]) Std 표준편차 구하기 1 test_array.std() 1 3.452052529534663 1 test_array.std(axis=1) 1 array([1.11803399, 1.11803399, 1.11803399]) Mathematical Functions numpy는 다양한 수학 연산자를 제공함 absolute(), abs() : 절대값 함수 square(), sqrt() : 제곱, 제곱근 함수 cumsum() : 누적합 계산 diff() : 차분 계산 prod() : 곱 계산 dot() : 점곱 계산 matmul() : 행렬곱 계산 tensordot() : 텐서곱 계산 cross() : 벡터곱 계산 inner() : 내적 계산 outer() : 외적 계산 var() : 분산 계산 min() : 최소값 max() : 최대값 argmin() : 최소값 인덱스 argmax() : 최대값 인덱스 median() : 중앙값 이 외에도 지수함수, 로그함수, 삼각함수 등 여러가지 함수 제공 Basic Array Operations 1 test_a = np.array([[1,2,3],[4,5,6]], float) + operation 1 test_a + test_a 1 2 array([[ 2., 4., 6.], [ 8., 10., 12.]]) - operation 1 test_a - test_a 1 2 array([[0., 0., 0.], [0., 0., 0.]]) * operation element-wise operation, dot-product와 다름 1 test_a * test_a # * operation은 element-wise operation, 같은 위치의 값들 끼리 계산 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Dot product matrix의 기본 연산, dot() 함수 사용 1 2 3 test_a = np.arange(1,7).reshape(2,3) test_b = np.arange(7,13).reshape(3,2) test_a.dot(test_b) 1 2 array([[ 58, 64], [139, 154]]) Broadcasting shape이 다른 배열 간 연산을 지원하는 기능 Matrix - Scalar , Vector - Scalar 연산 1 2 test_matrix = np.array([[1,2,3],[4,5,6]],float) scalar = 3 덧셈 1 test_matrix + scalar # Matrix-Scalar 덧셈 1 2 array([[4., 5., 6.], [7., 8., 9.]]) 뺄셈 1 test_matrix - scalar # Matrix-Scalar 뺄셈 1 2 array([[-2., -1., 0.], [ 1., 2., 3.]]) 곱셈 1 test_matrix * scalar # Matrix-Scalar 곱셈 1 2 array([[ 3., 6., 9.], [12., 15., 18.]]) 나눗셈 1 test_matrix / 5 # Matrix-Scalar 나눗셈 1 2 array([[0.2, 0.4, 0.6], [0.8, 1. , 1.2]]) 몫 1 test_matrix // 0.2 # Matrix-Scalar 몫 1 2 array([[ 4., 9., 14.], [19., 24., 29.]]) 제곱 1 test_matrix ** 2 # Matrix-Scalar 제곱 1 2 array([[ 1., 4., 9.], [16., 25., 36.]]) Vector - Matrix 연산 1 2 3 test_matrix = np.arange(1,13).reshape(4,3) test_vector = np.arange(10,40,10) test_matrix + test_vector 1 2 3 4 array([[11, 22, 33], [14, 25, 36], [17, 28, 39], [20, 31, 42]]) Comparison (비교연산) All &amp; Any Array의 데이터 전부(and) 또는 일부(or)가 조건에 만족하는지 여부 반환 1 2 a = np.arange(10) a 1 array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 1 np.any(a&gt;5), np.any(a&lt;0) # any는 하나라도 조건에 만족하면 True 1 (True, False) 1 np.all(a&gt;5), np.all(a&lt;10) # all은 모두가 조건에 만족해야 True 1 (False, True) Array Comparison Operation numpy는 배열의 크기가 동일 할 때 element간 비교의 결과를 Boolean type으로 반환 1 2 3 test_a = np.array([1,3,0], float) test_b = np.array([5,2,1], float) test_a &gt; test_b 1 array([False, True, False]) 1 test_a == test_b 1 array([False, False, False]) 1 (test_a &gt; test_b).any() # any는 하나라도 true면 true 1 True And, Not, Or operation logical_and() 1 2 a = np.array([1,3,0], float) np.logical_and(a&gt;0, a&lt;3) # and 조건 condition 1 array([ True, False, False]) logical_not() 1 2 b = np.array([True,False,True], bool) np.logical_not(b) 1 array([False, True, False]) logical_or() 1 2 c = np.array([False,True,False],bool) np.logical_or(b,c) 1 array([ True, True, True]) np.where() where(condition, True, False) 1 2 a = np.array([1,3,0], float) np.where(a&gt;0,3,2) # True면 3 반환, False면 2 반환 1 array([3, 3, 2]) 조건을 만족하는 Index 반환 1 2 3 a = np.arange(10) print(a) np.where(a&gt;5) 1 2 [0 1 2 3 4 5 6 7 8 9] (array([6, 7, 8, 9], dtype=int64),) np.isnan() NaN일 경우 True 반환 1 2 a = np.array([1, np.NaN, np.Inf], float) np.isnan(a) # not a number, NaN일 경우 True 반환 1 array([False, True, False]) np.isfinite() finite number일 경우 True 반환 1 np.isfinite(a) # finite number일 경우 True 반환 1 array([ True, False, False]) argmax &amp; argmin array내 최대값 또는 최소값의 index 반환 1 2 a = np.array([1,2,4,5,8,78,23,3]) np.argmax(a), np.argmin(a) 1 (5, 0) axis 기반의 반환 1 2 a = np.array([[1,2,4,7],[9,88,6,45],[9,76,3,4]]) print(a) 1 2 3 [[ 1 2 4 7] [ 9 88 6 45] [ 9 76 3 4]] 1 np.argmax(a,axis=1) # 각 row의 최대값의 index 반환 1 array([3, 1, 1], dtype=int64) 1 np.argmin(a,axis=0) # 각 col의 최소값의 index 반환 1 array([0, 0, 2, 2], dtype=int64) 참고 Numpy 한번에 제대로 배우기 이수안 컴퓨터 연구소 부스트 코스 AI numpy - 최성철","headline":"Numpy - 5(Array Operations 3)","image":"http://localhost:4000/post_images/numpylogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/numpy_array_operation/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/numpy_array_operation/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Numpy - 5(Array Operations 3)&url=http://localhost:4000/numpy_array_operation/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/numpy_array_operation/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/numpy_array_operation/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Numpy - 5(Array Operations 3)</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/numpylogo.png" alt="Numpy - 5(Array Operations 3)">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#배열-연산">배열 연산</a>
+    <ul>
+      <li><a href="#axis의-의미">Axis의 의미</a>
+        <ul>
+          <li><a href="#matrix">Matrix</a></li>
+          <li><a href="#3rd-order-tensor">3rd order tensor</a></li>
+        </ul>
+      </li>
+      <li><a href="#mean--std">Mean &amp; Std</a>
+        <ul>
+          <li><a href="#mean">Mean</a></li>
+          <li><a href="#std">Std</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#mathematical-functions">Mathematical Functions</a></li>
+  <li><a href="#basic-array-operations">Basic Array Operations</a>
+    <ul>
+      <li><a href="#-operation">+ operation</a></li>
+      <li><a href="#--operation">- operation</a></li>
+      <li><a href="#-operation-1">* operation</a></li>
+      <li><a href="#dot-product">Dot product</a></li>
+      <li><a href="#broadcasting">Broadcasting</a>
+        <ul>
+          <li><a href="#matrix---scalar--vector---scalar-연산">Matrix - Scalar , Vector - Scalar 연산</a></li>
+          <li><a href="#vector---matrix-연산">Vector - Matrix 연산</a></li>
+        </ul>
+      </li>
+      <li><a href="#comparison-비교연산">Comparison (비교연산)</a>
+        <ul>
+          <li><a href="#all--any">All &amp; Any</a></li>
+          <li><a href="#array-comparison-operation">Array Comparison Operation</a></li>
+          <li><a href="#and-not-or-operation">And, Not, Or operation</a></li>
+          <li><a href="#npwhere">np.where()</a></li>
+          <li><a href="#npisnan">np.isnan()</a></li>
+          <li><a href="#npisfinite">np.isfinite()</a></li>
+          <li><a href="#argmax--argmin">argmax &amp; argmin</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+<h2 id="배열-연산">배열 연산</h2>
+<ul>
+  <li>numpy에서 배열 연산은 벡터화(vectorized) 연산을 사용</li>
+  <li>일반적으로 numpy의 범용 함수(universal functions)를 통해서 구현</li>
+  <li>배열 요소에 대한 반복적인 계산을 효율적으로 수행</li>
+</ul>
+
+<h3 id="axis의-의미">Axis의 의미</h3>
+
+<ul>
+  <li>element의 합을 구해주는 sum()을 이용해서 설명하면</li>
+</ul>
+
+<h4 id="matrix">Matrix</h4>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218387722-fc1efe60-31fa-4c4a-a379-8ce5ae30c960.PNG" alt="axis_sum1" style="zoom:100%;" class="center-image" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">test_matrix</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>array([[ 1,  2,  3,  4],
+       [ 5,  6,  7,  8],
+       [ 9, 10, 11, 12]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis=1</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 같은 row 방향으로 sum
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([10, 26, 42])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis=0</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 같은 col 방향으로 sum
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([15, 18, 21, 24])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="3rd-order-tensor">3rd order tensor</h4>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218387726-7fedd53d-da2e-4842-af8f-02dea5e4b697.PNG" alt="axis_sum2" style="zoom:90%;" class="center-image" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">third_order_tensor</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">stack</span><span class="p">([</span><span class="n">test_matrix</span><span class="p">,</span><span class="n">test_matrix</span><span class="p">,</span><span class="n">test_matrix</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">third_order_tensor</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>array([[[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]],
+
+       [[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]],
+
+       [[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis=2</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">third_order_tensor</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 같은 row방향으로 sum
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>array([[10, 26, 42],
+       [10, 26, 42],
+       [10, 26, 42]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis=1</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">third_order_tensor</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 같은 col방향으로 sum
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>array([[15, 18, 21, 24],
+       [15, 18, 21, 24],
+       [15, 18, 21, 24]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis=0</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">third_order_tensor</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 깊이 방향으로 sum
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>array([[ 3,  6,  9, 12],
+       [15, 18, 21, 24],
+       [27, 30, 33, 36]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="mean--std">Mean &amp; Std</h3>
+
+<h4 id="mean">Mean</h4>
+
+<ul>
+  <li>평균 구하기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">test_array</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">test_array</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>array([[ 1,  2,  3,  4],
+       [ 5,  6,  7,  8],
+       [ 9, 10, 11, 12]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_array</span><span class="p">.</span><span class="nf">mean</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>6.5
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_array</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([5., 6., 7., 8.])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="std">Std</h4>
+
+<ul>
+  <li>표준편차 구하기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_array</span><span class="p">.</span><span class="nf">std</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>3.452052529534663
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_array</span><span class="p">.</span><span class="nf">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([1.11803399, 1.11803399, 1.11803399])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h2 id="mathematical-functions">Mathematical Functions</h2>
+
+<ul>
+  <li>
+    <p>numpy는 다양한 수학 연산자를 제공함</p>
+  </li>
+  <li>absolute(), abs() : 절대값 함수</li>
+  <li>
+    <p>square(), sqrt() : 제곱, 제곱근 함수</p>
+  </li>
+  <li>cumsum() : 누적합 계산</li>
+  <li>diff() : 차분 계산</li>
+  <li>prod() : 곱 계산</li>
+  <li>dot() : 점곱 계산</li>
+  <li>matmul() : 행렬곱 계산</li>
+  <li>tensordot() : 텐서곱 계산</li>
+  <li>cross() : 벡터곱 계산</li>
+  <li>inner() : 내적 계산</li>
+  <li>outer() : 외적 계산</li>
+  <li>var() : 분산 계산</li>
+  <li>min() : 최소값</li>
+  <li>max() : 최대값</li>
+  <li>argmin() : 최소값 인덱스</li>
+  <li>argmax() : 최대값 인덱스</li>
+  <li>median() : 중앙값</li>
+</ul>
+
+<p>이 외에도 지수함수, 로그함수, 삼각함수 등 여러가지 함수 제공</p>
+
+<hr />
+
+<h2 id="basic-array-operations">Basic Array Operations</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span> <span class="nb">float</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="-operation">+ operation</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">+</span> <span class="n">test_a</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 2.,  4.,  6.],
+       [ 8., 10., 12.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="--operation">- operation</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">-</span> <span class="n">test_a</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[0., 0., 0.],
+       [0., 0., 0.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="-operation-1">* operation</h3>
+
+<ul>
+  <li>element-wise operation, dot-product와 다름</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">*</span> <span class="n">test_a</span> <span class="c1"># * operation은 element-wise operation, 같은 위치의 값들 끼리 계산
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 1.,  4.,  9.],
+       [16., 25., 36.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="dot-product">Dot product</h3>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218392765-f7c96859-b41f-449f-9800-fafea92a03dc.PNG" alt="dot_product" /></p>
+
+<ul>
+  <li>matrix의 기본 연산, dot() 함수 사용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">test_b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">13</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">test_a</span><span class="p">.</span><span class="nf">dot</span><span class="p">(</span><span class="n">test_b</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 58,  64],
+       [139, 154]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="broadcasting">Broadcasting</h3>
+
+<ul>
+  <li>shape이 다른 배열 간 연산을 지원하는 기능</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218393402-25b57733-d870-4d92-a759-4b5d66512b65.PNG" alt="broadcasting1" /></p>
+
+<h4 id="matrix---scalar--vector---scalar-연산">Matrix - Scalar , Vector - Scalar 연산</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">scalar</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>덧셈</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">+</span> <span class="n">scalar</span> <span class="c1"># Matrix-Scalar 덧셈
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[4., 5., 6.],
+       [7., 8., 9.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>뺄셈</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">-</span> <span class="n">scalar</span> <span class="c1"># Matrix-Scalar 뺄셈
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[-2., -1.,  0.],
+       [ 1.,  2.,  3.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>곱셈</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">*</span> <span class="n">scalar</span> <span class="c1"># Matrix-Scalar 곱셈
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 3.,  6.,  9.],
+       [12., 15., 18.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>나눗셈</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">/</span> <span class="mi">5</span> <span class="c1"># Matrix-Scalar 나눗셈
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[0.2, 0.4, 0.6],
+       [0.8, 1. , 1.2]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>몫</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">//</span> <span class="mf">0.2</span> <span class="c1"># Matrix-Scalar 몫
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 4.,  9., 14.],
+       [19., 24., 29.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>제곱</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># Matrix-Scalar 제곱
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>array([[ 1.,  4.,  9.],
+       [16., 25., 36.]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="vector---matrix-연산">Vector - Matrix 연산</h4>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218404024-c183ed6b-e655-4719-8bf0-13a7e3a8a6de.PNG" alt="vector_matrix_broadcast" style="zoom:80%;" class="center-image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/218404280-2df91c7b-4f19-453f-b133-94a2ca0decd2.PNG" alt="vector_matrix_broadcast2" style="zoom:90%;" class="center-image" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">test_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">test_vector</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">test_matrix</span> <span class="o">+</span> <span class="n">test_vector</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>array([[11, 22, 33],
+       [14, 25, 36],
+       [17, 28, 39],
+       [20, 31, 42]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="comparison-비교연산">Comparison (비교연산)</h3>
+
+<h4 id="all--any">All &amp; Any</h4>
+
+<ul>
+  <li>Array의 데이터 전부(and) 또는 일부(or)가 조건에 만족하는지 여부 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">a</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">np</span><span class="p">.</span><span class="nf">any</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">any</span><span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># any는 하나라도 조건에 만족하면 True
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>(True, False)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">np</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># all은 모두가 조건에 만족해야 True
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>(False, True)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="array-comparison-operation">Array Comparison Operation</h4>
+
+<ul>
+  <li>numpy는 배열의 크기가 동일 할 때 element간 비교의 결과를 Boolean type으로 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">test_b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">test_a</span> <span class="o">&gt;</span> <span class="n">test_b</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([False,  True, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">test_a</span> <span class="o">==</span> <span class="n">test_b</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([False, False, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">(</span><span class="n">test_a</span> <span class="o">&gt;</span> <span class="n">test_b</span><span class="p">).</span><span class="nf">any</span><span class="p">()</span> <span class="c1"># any는 하나라도 true면 true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>True
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="and-not-or-operation">And, Not, Or operation</h4>
+
+<ul>
+  <li>logical_and()</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">logical_and</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># and 조건 condition
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([ True, False, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>logical_not()</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="bp">True</span><span class="p">,</span><span class="bp">False</span><span class="p">,</span><span class="bp">True</span><span class="p">],</span> <span class="nb">bool</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">logical_not</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([False,  True, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>logical_or()</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="bp">False</span><span class="p">,</span><span class="bp">True</span><span class="p">,</span><span class="bp">False</span><span class="p">],</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">logical_or</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([ True,  True,  True])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="npwhere">np.where()</h4>
+
+<ul>
+  <li>where(condition, True, False)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># True면 3 반환, False면 2 반환
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([3, 3, 2])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>조건을 만족하는 Index 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>[0 1 2 3 4 5 6 7 8 9]
+(array([6, 7, 8, 9], dtype=int64),)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="npisnan">np.isnan()</h4>
+
+<ul>
+  <li>NaN일 경우 True 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">Inf</span><span class="p">],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">isnan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># not a number, NaN일 경우 True 반환
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([False,  True, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="npisfinite">np.isfinite()</h4>
+
+<ul>
+  <li>finite number일 경우 True 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">np</span><span class="p">.</span><span class="nf">isfinite</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># finite number일 경우 True 반환
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([ True, False, False])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="argmax--argmin">argmax &amp; argmin</h4>
+
+<ul>
+  <li>array내 최대값 또는 최소값의 index 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">np</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="nf">argmin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>(5, 0)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>axis 기반의 반환</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">9</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">45</span><span class="p">],[</span><span class="mi">9</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>[[ 1  2  4  7]
+ [ 9 88  6 45]
+ [ 9 76  3  4]]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">np</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 각 row의 최대값의 index 반환
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([3, 1, 1], dtype=int64)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">np</span><span class="p">.</span><span class="nf">argmin</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 각 col의 최소값의 index 반환
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>array([0, 0, 2, 2], dtype=int64)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://colab.research.google.com/drive/1qEBbLwNJ0FZA6h1BWHm5wu4mrJhbg3ty?usp=sharing">Numpy 한번에 제대로 배우기</a></li>
+  <li><a href="https://www.youtube.com/watch?v=mirZPrWwvao">이수안 컴퓨터 연구소</a></li>
+  <li><a href="https://www.boostcourse.org/onlyboostcampaitech5/lecture/1456479?isDesc=false">부스트 코스 AI numpy - 최성철</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-02-07">07 Feb 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Numpy">Numpy</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//numpy_array_transform/"> &laquo; Numpy - 4(Array Operations 2)</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//numpy_io/">Numpy - 6(Data I/O) &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Numpy">Numpy (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Pandas">Pandas (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

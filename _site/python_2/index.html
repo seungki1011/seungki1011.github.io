@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Python - 2(Formatting, __main__) | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Python - 2(Formatting, main) | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Python - 2(Formatting, main)" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Formatting 형식(format)에 맞춰서 출력을 하기 위한 여러가지 방법들 % string “%datatype” % (variable) 형태로 format 표현 1 print(&quot;Art: %5d, Price per unit: %8.2f&quot; % (453, 59.058)) 1 Art: 453, Price per unit: 59.06 1 print(&#39;%s %s&#39; % (&#39;one&#39;, &#39;two&#39;)) 1 one two str.format() 1 print(&quot;product: {0}, Price per unit: {1:.3f}&quot;.format(&quot;apple&quot;, 5.243)) 1 product: apple, Price per unit: 5.243 f-string 1 2 3 4 5 6 name = &quot;cookie&quot; price = 500.23 print(f&quot;product: {name}, price per unit: {price}&quot;) number1 = 3.1415926535 print(f&quot;{number1:.2f}&quot;) 1 2 product: cookie, price per unit: 500.23 3.14 Debugging 디버깅이란? 코드의 오류를 발견하여 수정하는 과정 원인과 해결책을 알아야함 문법적 에러를 찾기 위한 에러 메세지 분석 논리적 에러를 찾기 위한 테스트 문법적 오류 들여쓰기(indentation error) 오탈자 대소문자 구분 안 함 에러 발생시 인터프리터가 알려주기 때문에 에러 메세지를 분석하자 논리적 에러 뜻 대로 실행이 안되는 코드 중간 중간 프린터문을 찍어서 값 확인 Namespace Example 1 trapezium.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # if __name__ == &quot;__main__&quot;: 의 의미 def addition(x, y): return x+y # 사용 안하는 경우 import 하면 main 실행됨 def main(): print(&#39;if __name__ == &quot;__main__&quot;: 사용 안함&#39;) print(addition(10,100)) # main() if __name__ == &quot;__main__&quot;: main() 있는 경우 없는 경우 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation" />
+<meta property="og:description" content="Formatting 형식(format)에 맞춰서 출력을 하기 위한 여러가지 방법들 % string “%datatype” % (variable) 형태로 format 표현 1 print(&quot;Art: %5d, Price per unit: %8.2f&quot; % (453, 59.058)) 1 Art: 453, Price per unit: 59.06 1 print(&#39;%s %s&#39; % (&#39;one&#39;, &#39;two&#39;)) 1 one two str.format() 1 print(&quot;product: {0}, Price per unit: {1:.3f}&quot;.format(&quot;apple&quot;, 5.243)) 1 product: apple, Price per unit: 5.243 f-string 1 2 3 4 5 6 name = &quot;cookie&quot; price = 500.23 print(f&quot;product: {name}, price per unit: {price}&quot;) number1 = 3.1415926535 print(f&quot;{number1:.2f}&quot;) 1 2 product: cookie, price per unit: 500.23 3.14 Debugging 디버깅이란? 코드의 오류를 발견하여 수정하는 과정 원인과 해결책을 알아야함 문법적 에러를 찾기 위한 에러 메세지 분석 논리적 에러를 찾기 위한 테스트 문법적 오류 들여쓰기(indentation error) 오탈자 대소문자 구분 안 함 에러 발생시 인터프리터가 알려주기 때문에 에러 메세지를 분석하자 논리적 에러 뜻 대로 실행이 안되는 코드 중간 중간 프린터문을 찍어서 값 확인 Namespace Example 1 trapezium.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # if __name__ == &quot;__main__&quot;: 의 의미 def addition(x, y): return x+y # 사용 안하는 경우 import 하면 main 실행됨 def main(): print(&#39;if __name__ == &quot;__main__&quot;: 사용 안함&#39;) print(addition(10,100)) # main() if __name__ == &quot;__main__&quot;: main() 있는 경우 없는 경우 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation" />
+<link rel="canonical" href="http://localhost:4000/python_2/" />
+<meta property="og:url" content="http://localhost:4000/python_2/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/python%20logo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-05T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/python%20logo.png" />
+<meta property="twitter:title" content="Python - 2(Formatting, main)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2022-09-05T00:00:00+09:00","datePublished":"2022-09-05T00:00:00+09:00","description":"Formatting 형식(format)에 맞춰서 출력을 하기 위한 여러가지 방법들 % string “%datatype” % (variable) 형태로 format 표현 1 print(&quot;Art: %5d, Price per unit: %8.2f&quot; % (453, 59.058)) 1 Art: 453, Price per unit: 59.06 1 print(&#39;%s %s&#39; % (&#39;one&#39;, &#39;two&#39;)) 1 one two str.format() 1 print(&quot;product: {0}, Price per unit: {1:.3f}&quot;.format(&quot;apple&quot;, 5.243)) 1 product: apple, Price per unit: 5.243 f-string 1 2 3 4 5 6 name = &quot;cookie&quot; price = 500.23 print(f&quot;product: {name}, price per unit: {price}&quot;) number1 = 3.1415926535 print(f&quot;{number1:.2f}&quot;) 1 2 product: cookie, price per unit: 500.23 3.14 Debugging 디버깅이란? 코드의 오류를 발견하여 수정하는 과정 원인과 해결책을 알아야함 문법적 에러를 찾기 위한 에러 메세지 분석 논리적 에러를 찾기 위한 테스트 문법적 오류 들여쓰기(indentation error) 오탈자 대소문자 구분 안 함 에러 발생시 인터프리터가 알려주기 때문에 에러 메세지를 분석하자 논리적 에러 뜻 대로 실행이 안되는 코드 중간 중간 프린터문을 찍어서 값 확인 Namespace Example 1 trapezium.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # if __name__ == &quot;__main__&quot;: 의 의미 def addition(x, y): return x+y # 사용 안하는 경우 import 하면 main 실행됨 def main(): print(&#39;if __name__ == &quot;__main__&quot;: 사용 안함&#39;) print(addition(10,100)) # main() if __name__ == &quot;__main__&quot;: main() 있는 경우 없는 경우 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation","headline":"Python - 2(Formatting, main)","image":"http://localhost:4000/post_images/python%20logo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/python_2/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/python_2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Python - 2(Formatting, __main__)&url=http://localhost:4000/python_2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/python_2/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/python_2/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Python - 2(Formatting, __main__)</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/python logo.png" alt="Python - 2(Formatting, __main__)">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#formatting">Formatting</a>
+    <ul>
+      <li><a href="#-string">% string</a></li>
+      <li><a href="#strformat">str.format()</a></li>
+      <li><a href="#f-string">f-string</a></li>
+    </ul>
+  </li>
+  <li><a href="#debugging">Debugging</a>
+    <ul>
+      <li><a href="#디버깅이란">디버깅이란?</a></li>
+      <li><a href="#문법적-오류">문법적 오류</a></li>
+      <li><a href="#논리적-에러">논리적 에러</a></li>
+    </ul>
+  </li>
+  <li><a href="#namespace">Namespace</a>
+    <ul>
+      <li><a href="#example-1">Example 1</a>
+        <ul>
+          <li><a href="#trapeziumpy">trapezium.py</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+<h2 id="formatting">Formatting</h2>
+<ul>
+  <li>형식(format)에 맞춰서 출력을 하기 위한 여러가지 방법들
+    <h3 id="-string">% string</h3>
+  </li>
+  <li>“%datatype” % (variable) 형태로 format 표현</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Art: %5d, Price per unit: %8.2f</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="mi">453</span><span class="p">,</span> <span class="mf">59.058</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Art:   453, Price per unit:    59.06
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">%s %s</span><span class="sh">'</span> <span class="o">%</span> <span class="p">(</span><span class="sh">'</span><span class="s">one</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">two</span><span class="sh">'</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>one two
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/222113581-3505364d-62e3-49f5-82d6-67008c76821f.PNG" alt="stringformat" /></p>
+
+<h3 id="strformat">str.format()</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">product: {0}, Price per unit: {1:.3f}</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="sh">"</span><span class="s">apple</span><span class="sh">"</span><span class="p">,</span> <span class="mf">5.243</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>product: apple, Price per unit: 5.243
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="f-string">f-string</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cookie</span><span class="sh">"</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mf">500.23</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">product: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">, price per unit: </span><span class="si">{</span><span class="n">price</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">number1</span> <span class="o">=</span> <span class="mf">3.1415926535</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">number1</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>product: cookie, price per unit: 500.23
+3.14
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h2 id="debugging">Debugging</h2>
+
+<h3 id="디버깅이란">디버깅이란?</h3>
+
+<ul>
+  <li>코드의 오류를 발견하여 수정하는 과정</li>
+  <li>원인과 해결책을 알아야함</li>
+  <li>문법적 에러를 찾기 위한 에러  메세지 분석</li>
+  <li>논리적 에러를 찾기 위한 테스트</li>
+</ul>
+
+<h3 id="문법적-오류">문법적 오류</h3>
+
+<ul>
+  <li>들여쓰기(indentation error)</li>
+  <li>오탈자</li>
+  <li>대소문자 구분 안 함</li>
+</ul>
+
+<blockquote>
+  <p>에러 발생시 인터프리터가 알려주기 때문에 에러 메세지를 분석하자</p>
+</blockquote>
+
+<h3 id="논리적-에러">논리적 에러</h3>
+
+<ul>
+  <li>뜻 대로 실행이 안되는 코드</li>
+  <li>중간 중간 프린터문을 찍어서 값 확인</li>
+</ul>
+
+<hr />
+
+<h2 id="namespace">Namespace</h2>
+
+<h3 id="example-1">Example 1</h3>
+
+<h4 id="trapeziumpy">trapezium.py</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c1"># if __name__ == "__main__": 의 의미
+</span>
+<span class="k">def</span> <span class="nf">addition</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+
+<span class="c1"># 사용 안하는 경우 import 하면 main 실행됨
+</span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">if __name__ == </span><span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="s">: 사용 안함</span><span class="sh">'</span><span class="p">)</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="nf">addition</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># main()
+</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="nf">main</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>있는 경우</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/222111014-447d181c-f13e-441a-831a-a8033bece9a0.PNG" alt="ifnamemain사용안함" /></p>
+
+<ul>
+  <li>없는 경우</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/120040458/222111017-27d28dde-38bc-44f1-bcf3-ce430e64517a.PNG" alt="ifnamemain사용함" /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://www.boostcourse.org/ai222">boostcourse - 머신러닝을 위한 파이썬</a></li>
+  <li><a href="https://docs.python.org/3/">Python documentation</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2022-09-05">05 Sep 2022</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Python">Python</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//python_1/"> &laquo; Python - 1(Introduction)</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//python_3/">Python - 3(String Methods) &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Numpy">Numpy (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Pandas">Pandas (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

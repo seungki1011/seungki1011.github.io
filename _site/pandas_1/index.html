@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Pandas - 1(Introduction) | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Pandas - 1(Introduction) | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Pandas - 1(Introduction)" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pandas 소개 Pandas란? 구조화된 데이터의 처리를 지원하는 python 라이브러리 고성능 array 계산 라이브러리인 numpy와 통합하여, 강력한 스프레드시트 처리 기능을 제공 인덱싱, 연산용 함수, 전처리 함수 등을 제공 부동 소수점이 아닌 데이터 뿐만 아니라 부동 소수점 데이터에서도 결측 데이터(NaN)를 쉽게 처리 데이터 세트의 유연한 재구성 및 피벗 축의 계층적 라벨링(눈금당 여러 개의 라벨 가질 수 있음) 시계열 특정 기능 : 날짜 범위 생성, 주파수 변환, moving window 통계, 날짜 이동 및 지연 Pandas 시작하기 Pandas 라이브러리 호출 1 import pandas as pd Pandas Data Loading read_csv() csv 타입 데이터 로드 sep(구분자)은 정규표현식을 이용해서 지정 1 2 3 data_url = &#39;https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data&#39;# data url df_data = pd.read_csv(data_url, sep=&#39;\s+&#39;, header=None) # csv 타입 데이터 로드, seperate은 빈공간으로 지정, column 없음 head() 1 df_data.head() # 처음 다섯줄 출력 columns column의 이름 지정 1 2 3 4 df_data.columns = [ &#39;CRIM&#39;,&#39;ZN&#39;, &#39;INDUS&#39;, &#39;CHAS&#39;, &#39;NOX&#39;, &#39;RM&#39;, &#39;AGE&#39;, &#39;DIS&#39;, &#39;RAD&#39;, &#39;TAX&#39;, &#39;PTRATIO&#39; ,&#39;B&#39;, &#39;LSTAT&#39;, &#39;MEDV&#39;] # Column Header 이름 지정 df_data.head()   CRIM ZN INDUS CHAS NOX RM AGE DIS RAD TAX PTRATIO B LSTAT MEDV 0 0.00632 18.0 2.31 0 0.538 6.575 65.2 4.0900 1 296.0 15.3 396.90 4.98 24.0 1 0.02731 0.0 7.07 0 0.469 6.421 78.9 4.9671 2 242.0 17.8 396.90 9.14 21.6 2 0.02729 0.0 7.07 0 0.469 7.185 61.1 4.9671 2 242.0 17.8 392.83 4.03 34.7 3 0.03237 0.0 2.18 0 0.458 6.998 45.8 6.0622 3 222.0 18.7 394.63 2.94 33.4 4 0.06905 0.0 2.18 0 0.458 7.147 54.2 6.0622 3 222.0 18.7 396.90 5.33 36.2 values dataframe의 numpy 형태의 값을 불러옴 pandas는 결국 numpy 기반으로 만들어졌기 때문에 값의 형태는 numpy 형태임 1 df_data.values 1 2 3 4 5 6 7 8 9 10 11 12 13 array([[6.3200e-03, 1.8000e+01, 2.3100e+00, ..., 3.9690e+02, 4.9800e+00, 2.4000e+01], [2.7310e-02, 0.0000e+00, 7.0700e+00, ..., 3.9690e+02, 9.1400e+00, 2.1600e+01], [2.7290e-02, 0.0000e+00, 7.0700e+00, ..., 3.9283e+02, 4.0300e+00, 3.4700e+01], ..., [6.0760e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 5.6400e+00, 2.3900e+01], [1.0959e-01, 0.0000e+00, 1.1930e+01, ..., 3.9345e+02, 6.4800e+00, 2.2000e+01], [4.7410e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 7.8800e+00, 1.1900e+01]]) type은 당연히 ndarray로 나옴 1 type(df_data.values) # numpy의 ndarray 타입 1 numpy.ndarray Pandas의 구성 출처: https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html series는 하나의 벡터로 볼 수 있음 data table 전체는 dataframe 참고 부스트코스 AI 기초다지기 pandas l - 최성철 https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html" />
+<meta property="og:description" content="Pandas 소개 Pandas란? 구조화된 데이터의 처리를 지원하는 python 라이브러리 고성능 array 계산 라이브러리인 numpy와 통합하여, 강력한 스프레드시트 처리 기능을 제공 인덱싱, 연산용 함수, 전처리 함수 등을 제공 부동 소수점이 아닌 데이터 뿐만 아니라 부동 소수점 데이터에서도 결측 데이터(NaN)를 쉽게 처리 데이터 세트의 유연한 재구성 및 피벗 축의 계층적 라벨링(눈금당 여러 개의 라벨 가질 수 있음) 시계열 특정 기능 : 날짜 범위 생성, 주파수 변환, moving window 통계, 날짜 이동 및 지연 Pandas 시작하기 Pandas 라이브러리 호출 1 import pandas as pd Pandas Data Loading read_csv() csv 타입 데이터 로드 sep(구분자)은 정규표현식을 이용해서 지정 1 2 3 data_url = &#39;https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data&#39;# data url df_data = pd.read_csv(data_url, sep=&#39;\s+&#39;, header=None) # csv 타입 데이터 로드, seperate은 빈공간으로 지정, column 없음 head() 1 df_data.head() # 처음 다섯줄 출력 columns column의 이름 지정 1 2 3 4 df_data.columns = [ &#39;CRIM&#39;,&#39;ZN&#39;, &#39;INDUS&#39;, &#39;CHAS&#39;, &#39;NOX&#39;, &#39;RM&#39;, &#39;AGE&#39;, &#39;DIS&#39;, &#39;RAD&#39;, &#39;TAX&#39;, &#39;PTRATIO&#39; ,&#39;B&#39;, &#39;LSTAT&#39;, &#39;MEDV&#39;] # Column Header 이름 지정 df_data.head()   CRIM ZN INDUS CHAS NOX RM AGE DIS RAD TAX PTRATIO B LSTAT MEDV 0 0.00632 18.0 2.31 0 0.538 6.575 65.2 4.0900 1 296.0 15.3 396.90 4.98 24.0 1 0.02731 0.0 7.07 0 0.469 6.421 78.9 4.9671 2 242.0 17.8 396.90 9.14 21.6 2 0.02729 0.0 7.07 0 0.469 7.185 61.1 4.9671 2 242.0 17.8 392.83 4.03 34.7 3 0.03237 0.0 2.18 0 0.458 6.998 45.8 6.0622 3 222.0 18.7 394.63 2.94 33.4 4 0.06905 0.0 2.18 0 0.458 7.147 54.2 6.0622 3 222.0 18.7 396.90 5.33 36.2 values dataframe의 numpy 형태의 값을 불러옴 pandas는 결국 numpy 기반으로 만들어졌기 때문에 값의 형태는 numpy 형태임 1 df_data.values 1 2 3 4 5 6 7 8 9 10 11 12 13 array([[6.3200e-03, 1.8000e+01, 2.3100e+00, ..., 3.9690e+02, 4.9800e+00, 2.4000e+01], [2.7310e-02, 0.0000e+00, 7.0700e+00, ..., 3.9690e+02, 9.1400e+00, 2.1600e+01], [2.7290e-02, 0.0000e+00, 7.0700e+00, ..., 3.9283e+02, 4.0300e+00, 3.4700e+01], ..., [6.0760e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 5.6400e+00, 2.3900e+01], [1.0959e-01, 0.0000e+00, 1.1930e+01, ..., 3.9345e+02, 6.4800e+00, 2.2000e+01], [4.7410e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 7.8800e+00, 1.1900e+01]]) type은 당연히 ndarray로 나옴 1 type(df_data.values) # numpy의 ndarray 타입 1 numpy.ndarray Pandas의 구성 출처: https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html series는 하나의 벡터로 볼 수 있음 data table 전체는 dataframe 참고 부스트코스 AI 기초다지기 pandas l - 최성철 https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html" />
+<link rel="canonical" href="http://localhost:4000/pandas_1/" />
+<meta property="og:url" content="http://localhost:4000/pandas_1/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/pandaslogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-10T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/pandaslogo.png" />
+<meta property="twitter:title" content="Pandas - 1(Introduction)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-02-10T00:00:00+09:00","datePublished":"2023-02-10T00:00:00+09:00","description":"Pandas 소개 Pandas란? 구조화된 데이터의 처리를 지원하는 python 라이브러리 고성능 array 계산 라이브러리인 numpy와 통합하여, 강력한 스프레드시트 처리 기능을 제공 인덱싱, 연산용 함수, 전처리 함수 등을 제공 부동 소수점이 아닌 데이터 뿐만 아니라 부동 소수점 데이터에서도 결측 데이터(NaN)를 쉽게 처리 데이터 세트의 유연한 재구성 및 피벗 축의 계층적 라벨링(눈금당 여러 개의 라벨 가질 수 있음) 시계열 특정 기능 : 날짜 범위 생성, 주파수 변환, moving window 통계, 날짜 이동 및 지연 Pandas 시작하기 Pandas 라이브러리 호출 1 import pandas as pd Pandas Data Loading read_csv() csv 타입 데이터 로드 sep(구분자)은 정규표현식을 이용해서 지정 1 2 3 data_url = &#39;https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data&#39;# data url df_data = pd.read_csv(data_url, sep=&#39;\\s+&#39;, header=None) # csv 타입 데이터 로드, seperate은 빈공간으로 지정, column 없음 head() 1 df_data.head() # 처음 다섯줄 출력 columns column의 이름 지정 1 2 3 4 df_data.columns = [ &#39;CRIM&#39;,&#39;ZN&#39;, &#39;INDUS&#39;, &#39;CHAS&#39;, &#39;NOX&#39;, &#39;RM&#39;, &#39;AGE&#39;, &#39;DIS&#39;, &#39;RAD&#39;, &#39;TAX&#39;, &#39;PTRATIO&#39; ,&#39;B&#39;, &#39;LSTAT&#39;, &#39;MEDV&#39;] # Column Header 이름 지정 df_data.head()   CRIM ZN INDUS CHAS NOX RM AGE DIS RAD TAX PTRATIO B LSTAT MEDV 0 0.00632 18.0 2.31 0 0.538 6.575 65.2 4.0900 1 296.0 15.3 396.90 4.98 24.0 1 0.02731 0.0 7.07 0 0.469 6.421 78.9 4.9671 2 242.0 17.8 396.90 9.14 21.6 2 0.02729 0.0 7.07 0 0.469 7.185 61.1 4.9671 2 242.0 17.8 392.83 4.03 34.7 3 0.03237 0.0 2.18 0 0.458 6.998 45.8 6.0622 3 222.0 18.7 394.63 2.94 33.4 4 0.06905 0.0 2.18 0 0.458 7.147 54.2 6.0622 3 222.0 18.7 396.90 5.33 36.2 values dataframe의 numpy 형태의 값을 불러옴 pandas는 결국 numpy 기반으로 만들어졌기 때문에 값의 형태는 numpy 형태임 1 df_data.values 1 2 3 4 5 6 7 8 9 10 11 12 13 array([[6.3200e-03, 1.8000e+01, 2.3100e+00, ..., 3.9690e+02, 4.9800e+00, 2.4000e+01], [2.7310e-02, 0.0000e+00, 7.0700e+00, ..., 3.9690e+02, 9.1400e+00, 2.1600e+01], [2.7290e-02, 0.0000e+00, 7.0700e+00, ..., 3.9283e+02, 4.0300e+00, 3.4700e+01], ..., [6.0760e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 5.6400e+00, 2.3900e+01], [1.0959e-01, 0.0000e+00, 1.1930e+01, ..., 3.9345e+02, 6.4800e+00, 2.2000e+01], [4.7410e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 7.8800e+00, 1.1900e+01]]) type은 당연히 ndarray로 나옴 1 type(df_data.values) # numpy의 ndarray 타입 1 numpy.ndarray Pandas의 구성 출처: https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html series는 하나의 벡터로 볼 수 있음 data table 전체는 dataframe 참고 부스트코스 AI 기초다지기 pandas l - 최성철 https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html","headline":"Pandas - 1(Introduction)","image":"http://localhost:4000/post_images/pandaslogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pandas_1/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/pandas_1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Pandas - 1(Introduction)&url=http://localhost:4000/pandas_1/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/pandas_1/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pandas_1/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Pandas - 1(Introduction)</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/pandaslogo.png" alt="Pandas - 1(Introduction)">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#pandas-소개">Pandas 소개</a>
+    <ul>
+      <li><a href="#pandas란">Pandas란?</a></li>
+    </ul>
+  </li>
+  <li><a href="#pandas-시작하기">Pandas 시작하기</a>
+    <ul>
+      <li><a href="#pandas-라이브러리-호출">Pandas 라이브러리 호출</a></li>
+      <li><a href="#pandas-data-loading">Pandas Data Loading</a>
+        <ul>
+          <li><a href="#read_csv">read_csv()</a></li>
+          <li><a href="#head">head()</a></li>
+          <li><a href="#columns">columns</a></li>
+          <li><a href="#values">values</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#pandas의-구성">Pandas의 구성</a></li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+
+<h2 id="pandas-소개">Pandas 소개</h2>
+
+<h3 id="pandas란">Pandas란?</h3>
+
+<ul>
+  <li>구조화된 데이터의 처리를 지원하는 python 라이브러리</li>
+  <li>고성능 array 계산 라이브러리인 numpy와 통합하여, 강력한 스프레드시트 처리 기능을 제공</li>
+  <li>인덱싱, 연산용 함수, 전처리 함수 등을 제공</li>
+  <li>부동 소수점이 아닌 데이터 뿐만 아니라 부동 소수점 데이터에서도 결측 데이터(NaN)를 쉽게 처리</li>
+  <li>데이터 세트의 유연한 재구성 및 피벗</li>
+  <li>축의 계층적 라벨링(눈금당 여러 개의 라벨 가질 수 있음)</li>
+  <li>시계열 특정 기능 : 날짜 범위 생성, 주파수 변환, moving window 통계, 날짜 이동 및 지연</li>
+</ul>
+
+<hr />
+
+<h2 id="pandas-시작하기">Pandas 시작하기</h2>
+
+<h3 id="pandas-라이브러리-호출">Pandas 라이브러리 호출</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="pandas-data-loading">Pandas Data Loading</h3>
+
+<h4 id="read_csv">read_csv()</h4>
+
+<ul>
+  <li>csv 타입 데이터 로드</li>
+  <li>sep(구분자)은 정규표현식을 이용해서 지정</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">data_url</span> <span class="o">=</span> <span class="sh">'</span><span class="s">https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data</span><span class="sh">'</span><span class="c1"># data url
+</span><span class="n">df_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sh">'</span><span class="s">\s+</span><span class="sh">'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> 
+<span class="c1"># csv 타입 데이터 로드, seperate은 빈공간으로 지정, column 없음
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="head">head()</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df_data</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span> <span class="c1"># 처음 다섯줄 출력
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="columns">columns</h4>
+
+<ul>
+  <li>column의 이름 지정</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">df_data</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">'</span><span class="s">CRIM</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">ZN</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">INDUS</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">CHAS</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">NOX</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">RM</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">AGE</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">DIS</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">RAD</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">TAX</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">PTRATIO</span><span class="sh">'</span> <span class="p">,</span><span class="sh">'</span><span class="s">B</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">LSTAT</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">MEDV</span><span class="sh">'</span><span class="p">]</span> 
+<span class="c1"># Column Header 이름 지정
+</span><span class="n">df_data</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: right">CRIM</th>
+      <th style="text-align: right">ZN</th>
+      <th style="text-align: right">INDUS</th>
+      <th style="text-align: right">CHAS</th>
+      <th style="text-align: right">NOX</th>
+      <th style="text-align: right">RM</th>
+      <th style="text-align: right">AGE</th>
+      <th style="text-align: right">DIS</th>
+      <th style="text-align: right">RAD</th>
+      <th style="text-align: right">TAX</th>
+      <th style="text-align: right">PTRATIO</th>
+      <th style="text-align: right">B</th>
+      <th style="text-align: right">LSTAT</th>
+      <th style="text-align: right">MEDV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td style="text-align: right">0.00632</td>
+      <td style="text-align: right">18.0</td>
+      <td style="text-align: right">2.31</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0.538</td>
+      <td style="text-align: right">6.575</td>
+      <td style="text-align: right">65.2</td>
+      <td style="text-align: right">4.0900</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">296.0</td>
+      <td style="text-align: right">15.3</td>
+      <td style="text-align: right">396.90</td>
+      <td style="text-align: right">4.98</td>
+      <td style="text-align: right">24.0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td style="text-align: right">0.02731</td>
+      <td style="text-align: right">0.0</td>
+      <td style="text-align: right">7.07</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0.469</td>
+      <td style="text-align: right">6.421</td>
+      <td style="text-align: right">78.9</td>
+      <td style="text-align: right">4.9671</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">242.0</td>
+      <td style="text-align: right">17.8</td>
+      <td style="text-align: right">396.90</td>
+      <td style="text-align: right">9.14</td>
+      <td style="text-align: right">21.6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td style="text-align: right">0.02729</td>
+      <td style="text-align: right">0.0</td>
+      <td style="text-align: right">7.07</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0.469</td>
+      <td style="text-align: right">7.185</td>
+      <td style="text-align: right">61.1</td>
+      <td style="text-align: right">4.9671</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">242.0</td>
+      <td style="text-align: right">17.8</td>
+      <td style="text-align: right">392.83</td>
+      <td style="text-align: right">4.03</td>
+      <td style="text-align: right">34.7</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td style="text-align: right">0.03237</td>
+      <td style="text-align: right">0.0</td>
+      <td style="text-align: right">2.18</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0.458</td>
+      <td style="text-align: right">6.998</td>
+      <td style="text-align: right">45.8</td>
+      <td style="text-align: right">6.0622</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">222.0</td>
+      <td style="text-align: right">18.7</td>
+      <td style="text-align: right">394.63</td>
+      <td style="text-align: right">2.94</td>
+      <td style="text-align: right">33.4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td style="text-align: right">0.06905</td>
+      <td style="text-align: right">0.0</td>
+      <td style="text-align: right">2.18</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0.458</td>
+      <td style="text-align: right">7.147</td>
+      <td style="text-align: right">54.2</td>
+      <td style="text-align: right">6.0622</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">222.0</td>
+      <td style="text-align: right">18.7</td>
+      <td style="text-align: right">396.90</td>
+      <td style="text-align: right">5.33</td>
+      <td style="text-align: right">36.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="values">values</h4>
+
+<ul>
+  <li>
+    <p>dataframe의 numpy 형태의 값을 불러옴</p>
+  </li>
+  <li>
+    <p>pandas는 결국 numpy 기반으로 만들어졌기 때문에 값의 형태는 numpy 형태임</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df_data</span><span class="p">.</span><span class="n">values</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>array([[6.3200e-03, 1.8000e+01, 2.3100e+00, ..., 3.9690e+02, 4.9800e+00,
+        2.4000e+01],
+       [2.7310e-02, 0.0000e+00, 7.0700e+00, ..., 3.9690e+02, 9.1400e+00,
+        2.1600e+01],
+       [2.7290e-02, 0.0000e+00, 7.0700e+00, ..., 3.9283e+02, 4.0300e+00,
+        3.4700e+01],
+       ...,
+       [6.0760e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 5.6400e+00,
+        2.3900e+01],
+       [1.0959e-01, 0.0000e+00, 1.1930e+01, ..., 3.9345e+02, 6.4800e+00,
+        2.2000e+01],
+       [4.7410e-02, 0.0000e+00, 1.1930e+01, ..., 3.9690e+02, 7.8800e+00,
+        1.1900e+01]])
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>type은 당연히 ndarray로 나옴</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nf">type</span><span class="p">(</span><span class="n">df_data</span><span class="p">.</span><span class="n">values</span><span class="p">)</span> <span class="c1"># numpy의 ndarray 타입
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>numpy.ndarray
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h2 id="pandas의-구성">Pandas의 구성</h2>
+
+<p><img src="../post_images/2023-02-10-pandas_1/pandas-structures-annotated.png" alt="pandas-structures-annotated" style="zoom: 45%;" class="center-image" /></p>
+
+<p align="center">출처: https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html</p>
+
+<ul>
+  <li>series는 하나의 벡터로 볼 수 있음</li>
+  <li>data table 전체는 dataframe</li>
+</ul>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://www.boostcourse.org/ai100/lecture/739182?isDesc=false">부스트코스 AI 기초다지기 pandas l - 최성철</a></li>
+  <li><a href="https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html">https://geo-python-site.readthedocs.io/en/latest/notebooks/L5/exploring-data-using-pandas.html</a></li>
+</ol>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-02-10">10 Feb 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Pandas">Pandas</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//numpy_performance/"> &laquo; Numpy - 7(Numpy Performance)</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//pandas_2/">Pandas - 2(Series) &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Numpy">Numpy (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Pandas">Pandas (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

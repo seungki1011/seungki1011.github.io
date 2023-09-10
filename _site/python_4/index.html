@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Python - 4(Call-by-) | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Python - 4(Call-by-) | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Python - 4(Call-by-)" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="함수 호출 방식 Call by Value 값에 의한 호출 함수에 인자를 넘길 때 값만 넘김 함수 내에 인자 값 병경 시, 호출자에게 영향을 주지 않음 1 a = [1,2,3,4,5] 1 2 3 4 5 6 7 def swap_value (x, y): temp=x x=y y=temp swap_value(a[1],a[2]) print(a) 1 [1, 2, 3, 4, 5] Call by Reference 참조에 의한 호출 함수에 인자를 넘길 때 메모리 주소를 넘김 함수 내에 인자 값 변경 시, 호출자의 값도 변경됨 1 2 3 4 5 6 7 def swap_offset(offset_x,offset_y): # 리스트 a 자체를 만지기 때문에 값의 할당이 일어남 temp=a[offset_x] a[offset_x]=a[offset_y] a[offset_y]=temp swap_offset(1,2) # 1,2번 인덱스의 값을 서로 swap print(a) 1 [1, 3, 2, 4, 5] Call by Object Reference 객체 참조에 의한 호출 파이썬은 객체의 주소가 함수로 전달되는 방식 전달된 객체를 참조하여 변경시 호출자에게 영향을 줌 새로운 객체를 만들 경우 호출자에게 영향을 주지 않음 예시 1 2 3 4 5 6 7 8 9 def spam(eggs): eggs.append(1) # 기존 객체의 주소값에 1 추가 eggs=[2,3] # 새로운 객체 생성(연결 끊어짐) eggs.append(2) print(eggs) ham=[0] spam(ham) print(ham) # [0,1] 1 2 [2, 3, 2] [0, 1] 1 2 3 4 5 6 7 8 def swap_reference(list_parameter,offset_x,offset_y): # 리스트 자체를 넘겨줘서 값이 할당됨 # temp_list=list_parameter[:] # 값을 복사해서 사용하는 것이 좋음 temp=list_parameter[offset_x] list_parameter[offset_x]=list_parameter[offset_y] list_parameter[offset_y]=temp swap_reference(a,3,4) # 3,4번 인덱스의 값 서로 swap print(a) 1 [1, 3, 2, 5, 4] Function type hints 사용자에게 인터페이스를 명확히 알려줄 수 있음 함수의 문서화시 parameter에 대한 정보를 명확히 알 수 있음 코드의 발생 가능한 오류를 사전에 확인 가능 전체적인 안정성 확보 사용방법 1 2 def do_function(var_name: var_type) -&gt; return_type: pass 예시 1 2 def type_hint_example(name:str) -&gt; str: return f&quot;Hello, {name}&quot; 1 print(type_hint_example(&quot;BOB&quot;)) 1 Hello, BOB Docstring 파이썬 함수에 대한 상세스펙을 사전에 작성 세 개의 따옴표로 docstring 영력 표시(함수명 아래) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 def some_function(argument1): &quot;&quot;&quot;Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value &quot;&quot;&quot; return argument1 print(some_function.__doc__) 1 2 3 4 5 6 7 Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value docstring 쉽게 생성하기 vscode의 extension을 사용해서 쉽게 추가 가능 ctrl shift p + docstring 함수 작성 가이드라인 함수는 가능하면 짧게 작성 함수 이름에 함수의 역할, 의도를 명확히 들어낼 것 하나의 함수에는 유사한 역할을 하는 코드만 포함 인자로 받은 값 자체를 바꾸진 말 것(임시 변수 선언) 함수를 만드는 상황 공통적으로 사용되는 코드는 함수로 변환 복잡한 수식은 식별 가능한 이름의 함수로 변환 복잡한 조건은 식별 가능한 이름의 함수로 변환 Coding Convention 파이썬의 코딩 컨벤션 보토은 팀마다, 프로젝트마다 다름 중요한 건 일관성 읽기 좋은 코드가 좋은 코드 구체적으로 한 줄은 최대 79자 까지 권장 들여쓰기는 4space 권장 불필요한 공백 피하기 = 연산자는 1칸 이상 안 뛰움 불필요한 주석은 삭제 코드의 마지막에는 항상 한 줄 추가 소문자 l, 대문자 O, 대문자 I 금지 함수명은 소문자로 구성, 필요하면 밑줄로 나눔 flake8 모듈 파이썬 코딩 컨벤션은 flake8로 체크 1 conda install -c anaconda flake8 사용법 1 flake8 &lt;파일명&gt; 1 flake8 flake8_test.py black 모듈 black 모듈을 활용하여 pep8 like 수준을 준수 사용법 1 black &lt;파일명&gt; 1 black black_test.py Commit hook을 이용 https://pre-commit.com/ 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation https://pre-commit.com/" />
+<meta property="og:description" content="함수 호출 방식 Call by Value 값에 의한 호출 함수에 인자를 넘길 때 값만 넘김 함수 내에 인자 값 병경 시, 호출자에게 영향을 주지 않음 1 a = [1,2,3,4,5] 1 2 3 4 5 6 7 def swap_value (x, y): temp=x x=y y=temp swap_value(a[1],a[2]) print(a) 1 [1, 2, 3, 4, 5] Call by Reference 참조에 의한 호출 함수에 인자를 넘길 때 메모리 주소를 넘김 함수 내에 인자 값 변경 시, 호출자의 값도 변경됨 1 2 3 4 5 6 7 def swap_offset(offset_x,offset_y): # 리스트 a 자체를 만지기 때문에 값의 할당이 일어남 temp=a[offset_x] a[offset_x]=a[offset_y] a[offset_y]=temp swap_offset(1,2) # 1,2번 인덱스의 값을 서로 swap print(a) 1 [1, 3, 2, 4, 5] Call by Object Reference 객체 참조에 의한 호출 파이썬은 객체의 주소가 함수로 전달되는 방식 전달된 객체를 참조하여 변경시 호출자에게 영향을 줌 새로운 객체를 만들 경우 호출자에게 영향을 주지 않음 예시 1 2 3 4 5 6 7 8 9 def spam(eggs): eggs.append(1) # 기존 객체의 주소값에 1 추가 eggs=[2,3] # 새로운 객체 생성(연결 끊어짐) eggs.append(2) print(eggs) ham=[0] spam(ham) print(ham) # [0,1] 1 2 [2, 3, 2] [0, 1] 1 2 3 4 5 6 7 8 def swap_reference(list_parameter,offset_x,offset_y): # 리스트 자체를 넘겨줘서 값이 할당됨 # temp_list=list_parameter[:] # 값을 복사해서 사용하는 것이 좋음 temp=list_parameter[offset_x] list_parameter[offset_x]=list_parameter[offset_y] list_parameter[offset_y]=temp swap_reference(a,3,4) # 3,4번 인덱스의 값 서로 swap print(a) 1 [1, 3, 2, 5, 4] Function type hints 사용자에게 인터페이스를 명확히 알려줄 수 있음 함수의 문서화시 parameter에 대한 정보를 명확히 알 수 있음 코드의 발생 가능한 오류를 사전에 확인 가능 전체적인 안정성 확보 사용방법 1 2 def do_function(var_name: var_type) -&gt; return_type: pass 예시 1 2 def type_hint_example(name:str) -&gt; str: return f&quot;Hello, {name}&quot; 1 print(type_hint_example(&quot;BOB&quot;)) 1 Hello, BOB Docstring 파이썬 함수에 대한 상세스펙을 사전에 작성 세 개의 따옴표로 docstring 영력 표시(함수명 아래) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 def some_function(argument1): &quot;&quot;&quot;Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value &quot;&quot;&quot; return argument1 print(some_function.__doc__) 1 2 3 4 5 6 7 Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value docstring 쉽게 생성하기 vscode의 extension을 사용해서 쉽게 추가 가능 ctrl shift p + docstring 함수 작성 가이드라인 함수는 가능하면 짧게 작성 함수 이름에 함수의 역할, 의도를 명확히 들어낼 것 하나의 함수에는 유사한 역할을 하는 코드만 포함 인자로 받은 값 자체를 바꾸진 말 것(임시 변수 선언) 함수를 만드는 상황 공통적으로 사용되는 코드는 함수로 변환 복잡한 수식은 식별 가능한 이름의 함수로 변환 복잡한 조건은 식별 가능한 이름의 함수로 변환 Coding Convention 파이썬의 코딩 컨벤션 보토은 팀마다, 프로젝트마다 다름 중요한 건 일관성 읽기 좋은 코드가 좋은 코드 구체적으로 한 줄은 최대 79자 까지 권장 들여쓰기는 4space 권장 불필요한 공백 피하기 = 연산자는 1칸 이상 안 뛰움 불필요한 주석은 삭제 코드의 마지막에는 항상 한 줄 추가 소문자 l, 대문자 O, 대문자 I 금지 함수명은 소문자로 구성, 필요하면 밑줄로 나눔 flake8 모듈 파이썬 코딩 컨벤션은 flake8로 체크 1 conda install -c anaconda flake8 사용법 1 flake8 &lt;파일명&gt; 1 flake8 flake8_test.py black 모듈 black 모듈을 활용하여 pep8 like 수준을 준수 사용법 1 black &lt;파일명&gt; 1 black black_test.py Commit hook을 이용 https://pre-commit.com/ 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation https://pre-commit.com/" />
+<link rel="canonical" href="http://localhost:4000/python_4/" />
+<meta property="og:url" content="http://localhost:4000/python_4/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/python%20logo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-06T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/python%20logo.png" />
+<meta property="twitter:title" content="Python - 4(Call-by-)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2022-09-06T00:00:00+09:00","datePublished":"2022-09-06T00:00:00+09:00","description":"함수 호출 방식 Call by Value 값에 의한 호출 함수에 인자를 넘길 때 값만 넘김 함수 내에 인자 값 병경 시, 호출자에게 영향을 주지 않음 1 a = [1,2,3,4,5] 1 2 3 4 5 6 7 def swap_value (x, y): temp=x x=y y=temp swap_value(a[1],a[2]) print(a) 1 [1, 2, 3, 4, 5] Call by Reference 참조에 의한 호출 함수에 인자를 넘길 때 메모리 주소를 넘김 함수 내에 인자 값 변경 시, 호출자의 값도 변경됨 1 2 3 4 5 6 7 def swap_offset(offset_x,offset_y): # 리스트 a 자체를 만지기 때문에 값의 할당이 일어남 temp=a[offset_x] a[offset_x]=a[offset_y] a[offset_y]=temp swap_offset(1,2) # 1,2번 인덱스의 값을 서로 swap print(a) 1 [1, 3, 2, 4, 5] Call by Object Reference 객체 참조에 의한 호출 파이썬은 객체의 주소가 함수로 전달되는 방식 전달된 객체를 참조하여 변경시 호출자에게 영향을 줌 새로운 객체를 만들 경우 호출자에게 영향을 주지 않음 예시 1 2 3 4 5 6 7 8 9 def spam(eggs): eggs.append(1) # 기존 객체의 주소값에 1 추가 eggs=[2,3] # 새로운 객체 생성(연결 끊어짐) eggs.append(2) print(eggs) ham=[0] spam(ham) print(ham) # [0,1] 1 2 [2, 3, 2] [0, 1] 1 2 3 4 5 6 7 8 def swap_reference(list_parameter,offset_x,offset_y): # 리스트 자체를 넘겨줘서 값이 할당됨 # temp_list=list_parameter[:] # 값을 복사해서 사용하는 것이 좋음 temp=list_parameter[offset_x] list_parameter[offset_x]=list_parameter[offset_y] list_parameter[offset_y]=temp swap_reference(a,3,4) # 3,4번 인덱스의 값 서로 swap print(a) 1 [1, 3, 2, 5, 4] Function type hints 사용자에게 인터페이스를 명확히 알려줄 수 있음 함수의 문서화시 parameter에 대한 정보를 명확히 알 수 있음 코드의 발생 가능한 오류를 사전에 확인 가능 전체적인 안정성 확보 사용방법 1 2 def do_function(var_name: var_type) -&gt; return_type: pass 예시 1 2 def type_hint_example(name:str) -&gt; str: return f&quot;Hello, {name}&quot; 1 print(type_hint_example(&quot;BOB&quot;)) 1 Hello, BOB Docstring 파이썬 함수에 대한 상세스펙을 사전에 작성 세 개의 따옴표로 docstring 영력 표시(함수명 아래) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 def some_function(argument1): &quot;&quot;&quot;Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value &quot;&quot;&quot; return argument1 print(some_function.__doc__) 1 2 3 4 5 6 7 Summary or Description of the Function Parameters: argument1 (int): Description of arg1 Returns: int:Returning value docstring 쉽게 생성하기 vscode의 extension을 사용해서 쉽게 추가 가능 ctrl shift p + docstring 함수 작성 가이드라인 함수는 가능하면 짧게 작성 함수 이름에 함수의 역할, 의도를 명확히 들어낼 것 하나의 함수에는 유사한 역할을 하는 코드만 포함 인자로 받은 값 자체를 바꾸진 말 것(임시 변수 선언) 함수를 만드는 상황 공통적으로 사용되는 코드는 함수로 변환 복잡한 수식은 식별 가능한 이름의 함수로 변환 복잡한 조건은 식별 가능한 이름의 함수로 변환 Coding Convention 파이썬의 코딩 컨벤션 보토은 팀마다, 프로젝트마다 다름 중요한 건 일관성 읽기 좋은 코드가 좋은 코드 구체적으로 한 줄은 최대 79자 까지 권장 들여쓰기는 4space 권장 불필요한 공백 피하기 = 연산자는 1칸 이상 안 뛰움 불필요한 주석은 삭제 코드의 마지막에는 항상 한 줄 추가 소문자 l, 대문자 O, 대문자 I 금지 함수명은 소문자로 구성, 필요하면 밑줄로 나눔 flake8 모듈 파이썬 코딩 컨벤션은 flake8로 체크 1 conda install -c anaconda flake8 사용법 1 flake8 &lt;파일명&gt; 1 flake8 flake8_test.py black 모듈 black 모듈을 활용하여 pep8 like 수준을 준수 사용법 1 black &lt;파일명&gt; 1 black black_test.py Commit hook을 이용 https://pre-commit.com/ 참고 boostcourse - 머신러닝을 위한 파이썬 Python documentation https://pre-commit.com/","headline":"Python - 4(Call-by-)","image":"http://localhost:4000/post_images/python%20logo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/python_4/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/python_4/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Python - 4(Call-by-)&url=http://localhost:4000/python_4/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/python_4/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/python_4/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Python - 4(Call-by-)</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/python logo.png" alt="Python - 4(Call-by-)">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#함수-호출-방식">함수 호출 방식</a>
+    <ul>
+      <li><a href="#call-by-value">Call by Value</a></li>
+      <li><a href="#call-by-reference">Call by Reference</a></li>
+      <li><a href="#call-by-object-reference">Call by Object Reference</a>
+        <ul>
+          <li><a href="#예시">예시</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#function-type-hints">Function type hints</a>
+    <ul>
+      <li><a href="#사용방법">사용방법</a>
+        <ul>
+          <li><a href="#예시-1">예시</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#docstring">Docstring</a>
+    <ul>
+      <li><a href="#docstring-쉽게-생성하기">docstring 쉽게 생성하기</a></li>
+    </ul>
+  </li>
+  <li><a href="#함수-작성">함수 작성</a>
+    <ul>
+      <li><a href="#가이드라인">가이드라인</a></li>
+      <li><a href="#함수를-만드는-상황">함수를 만드는 상황</a></li>
+    </ul>
+  </li>
+  <li><a href="#coding-convention">Coding Convention</a>
+    <ul>
+      <li><a href="#파이썬의-코딩-컨벤션">파이썬의 코딩 컨벤션</a></li>
+      <li><a href="#구체적으로">구체적으로</a></li>
+      <li><a href="#flake8-모듈">flake8 모듈</a></li>
+      <li><a href="#black-모듈">black 모듈</a></li>
+      <li><a href="#commit-hook을-이용">Commit hook을 이용</a></li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <hr />
+<h2 id="함수-호출-방식">함수 호출 방식</h2>
+<h3 id="call-by-value">Call by Value</h3>
+<ul>
+  <li>값에 의한 호출</li>
+  <li>함수에 인자를 넘길 때 값만 넘김</li>
+  <li>함수 내에 인자 값 병경 시, 호출자에게 영향을 주지 않음</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">swap_value</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">temp</span><span class="o">=</span><span class="n">x</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">y</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">temp</span>
+
+<span class="nf">swap_value</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>[1, 2, 3, 4, 5]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="call-by-reference">Call by Reference</h3>
+
+<ul>
+  <li>참조에 의한 호출</li>
+  <li>함수에 인자를 넘길 때 메모리 주소를 넘김</li>
+  <li>함수 내에 인자 값 변경 시, 호출자의 값도 변경됨</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">swap_offset</span><span class="p">(</span><span class="n">offset_x</span><span class="p">,</span><span class="n">offset_y</span><span class="p">):</span> <span class="c1"># 리스트 a 자체를 만지기 때문에 값의 할당이 일어남
+</span>    <span class="n">temp</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">offset_x</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">offset_x</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">offset_y</span><span class="p">]</span>
+    <span class="n">a</span><span class="p">[</span><span class="n">offset_y</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span>
+
+<span class="nf">swap_offset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 1,2번 인덱스의 값을 서로 swap
+</span><span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>[1, 3, 2, 4, 5]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="call-by-object-reference">Call by Object Reference</h3>
+
+<ul>
+  <li>객체 참조에 의한 호출</li>
+  <li>파이썬은 객체의 주소가 함수로 전달되는 방식</li>
+  <li>전달된 객체를 참조하여 변경시 호출자에게 영향을 줌</li>
+  <li>새로운 객체를 만들 경우 호출자에게 영향을 주지 않음</li>
+</ul>
+
+<h4 id="예시">예시</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">spam</span><span class="p">(</span><span class="n">eggs</span><span class="p">):</span>
+    <span class="n">eggs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 기존 객체의 주소값에 1 추가
+</span>    <span class="n">eggs</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># 새로운 객체 생성(연결 끊어짐)
+</span>    <span class="n">eggs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">eggs</span><span class="p">)</span>
+    
+<span class="n">ham</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nf">spam</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ham</span><span class="p">)</span> <span class="c1"># [0,1]
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>[2, 3, 2]
+[0, 1]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">swap_reference</span><span class="p">(</span><span class="n">list_parameter</span><span class="p">,</span><span class="n">offset_x</span><span class="p">,</span><span class="n">offset_y</span><span class="p">):</span> <span class="c1"># 리스트 자체를 넘겨줘서 값이 할당됨
+</span>    <span class="c1"># temp_list=list_parameter[:] # 값을 복사해서 사용하는 것이 좋음
+</span>    <span class="n">temp</span><span class="o">=</span><span class="n">list_parameter</span><span class="p">[</span><span class="n">offset_x</span><span class="p">]</span>
+    <span class="n">list_parameter</span><span class="p">[</span><span class="n">offset_x</span><span class="p">]</span><span class="o">=</span><span class="n">list_parameter</span><span class="p">[</span><span class="n">offset_y</span><span class="p">]</span>
+    <span class="n">list_parameter</span><span class="p">[</span><span class="n">offset_y</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span>
+
+<span class="nf">swap_reference</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 3,4번 인덱스의 값 서로 swap
+</span><span class="nf">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>[1, 3, 2, 5, 4]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h2 id="function-type-hints">Function type hints</h2>
+
+<ul>
+  <li>사용자에게 인터페이스를 명확히 알려줄 수 있음</li>
+  <li>함수의 문서화시 parameter에 대한 정보를 명확히 알 수 있음</li>
+  <li>코드의 발생 가능한 오류를 사전에 확인 가능</li>
+  <li>전체적인 안정성 확보</li>
+</ul>
+
+<h3 id="사용방법">사용방법</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">do_function</span><span class="p">(</span><span class="n">var_name</span><span class="p">:</span> <span class="n">var_type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">return_type</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="예시-1">예시</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">type_hint_example</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="sh">"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="nf">type_hint_example</span><span class="p">(</span><span class="sh">"</span><span class="s">BOB</span><span class="sh">"</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Hello, BOB
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h2 id="docstring">Docstring</h2>
+
+<ul>
+  <li>파이썬 함수에 대한 상세스펙을 사전에 작성</li>
+  <li>세 개의 따옴표로 docstring 영력 표시(함수명 아래)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span><span class="n">argument1</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">Summary or Description of the Function
+
+    Parameters:
+    argument1 (int): Description of arg1
+
+    Returns:
+    int:Returning value
+
+   </span><span class="sh">"""</span>
+
+    <span class="k">return</span> <span class="n">argument1</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">some_function</span><span class="p">.</span><span class="n">__doc__</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>Summary or Description of the Function
+
+    Parameters:
+    argument1 (int): Description of arg1
+
+    Returns:
+    int:Returning value
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="docstring-쉽게-생성하기">docstring 쉽게 생성하기</h3>
+
+<ul>
+  <li>vscode의 extension을 사용해서 쉽게 추가 가능</li>
+  <li>ctrl shift p + docstring</li>
+</ul>
+
+<hr />
+
+<h2 id="함수-작성">함수 작성</h2>
+
+<h3 id="가이드라인">가이드라인</h3>
+
+<ul>
+  <li>함수는 가능하면 짧게 작성</li>
+  <li>함수 이름에 함수의 역할, 의도를 명확히 들어낼 것</li>
+  <li>하나의 함수에는 유사한 역할을 하는 코드만 포함</li>
+  <li>인자로 받은 값 자체를 바꾸진 말 것(임시 변수 선언)</li>
+</ul>
+
+<h3 id="함수를-만드는-상황">함수를 만드는 상황</h3>
+
+<ul>
+  <li>공통적으로 사용되는 코드는 함수로 변환</li>
+  <li>복잡한 수식은 식별 가능한 이름의 함수로 변환</li>
+  <li>복잡한 조건은 식별 가능한 이름의 함수로 변환</li>
+</ul>
+
+<hr />
+
+<h2 id="coding-convention">Coding Convention</h2>
+
+<h3 id="파이썬의-코딩-컨벤션">파이썬의 코딩 컨벤션</h3>
+
+<ul>
+  <li>보토은 팀마다, 프로젝트마다 다름</li>
+  <li>중요한 건 일관성</li>
+  <li>읽기 좋은 코드가 좋은 코드</li>
+</ul>
+
+<h3 id="구체적으로">구체적으로</h3>
+
+<ul>
+  <li>한 줄은 최대 79자 까지 권장</li>
+  <li>들여쓰기는 4space 권장</li>
+  <li>불필요한 공백 피하기</li>
+  <li>= 연산자는 1칸 이상 안 뛰움</li>
+  <li>불필요한 주석은 삭제</li>
+  <li>코드의 마지막에는 항상 한 줄 추가</li>
+  <li>소문자 l, 대문자 O, 대문자 I 금지</li>
+  <li>함수명은 소문자로 구성, 필요하면 밑줄로 나눔</li>
+</ul>
+
+<h3 id="flake8-모듈">flake8 모듈</h3>
+
+<ul>
+  <li>파이썬 코딩 컨벤션은 flake8로 체크</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>conda install -c anaconda flake8
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>사용법</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>flake8 &lt;파일명&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>flake8 flake8_test.py
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="black-모듈">black 모듈</h3>
+
+<ul>
+  <li>
+    <p>black 모듈을 활용하여 pep8 like 수준을 준수</p>
+  </li>
+  <li>
+    <p>사용법</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>black &lt;파일명&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>black black_test.py
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="commit-hook을-이용">Commit hook을 이용</h3>
+
+<ul>
+  <li><a href="https://pre-commit.com/">https://pre-commit.com/</a></li>
+</ul>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://www.boostcourse.org/ai222">boostcourse - 머신러닝을 위한 파이썬</a></li>
+  <li><a href="https://docs.python.org/3/">Python documentation</a></li>
+  <li><a href="https://pre-commit.com/">https://pre-commit.com/</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2022-09-06">06 Sep 2022</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Python">Python</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//python_3/"> &laquo; Python - 3(String Methods)</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//python_5/">Python - 5(Pythonic Coding) &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Numpy">Numpy (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Pandas">Pandas (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

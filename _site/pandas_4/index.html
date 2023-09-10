@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Pandas - 4(Selection, Drop) | Seungki1011's Dev Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Pandas - 4(Selection, Drop) | Seungki1011’s Dev Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Pandas - 4(Selection, Drop)" />
+<meta name="author" content="seungki" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Selection &amp; Drop Selection Selection with column names head() 제일 상단 부터 안에 적힌 수 만큼 데이터를 가져옴 1 2 df = pd.read_excel(&quot;./pandas_data/excel-comp-data.xlsx&quot;) df.head()   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 한개의 column 선택시, series 객체 1 df[&quot;account&quot;].head(2) # 상단 부터 2개의 데이터 가져옴 1 2 3 0 211829 1 320563 Name: account, dtype: int64 1개 이상의 column 선택시, dataframe 객체 1 df[[&quot;account&quot;, &quot;street&quot;, &quot;state&quot;]].head(3) # 대괄호로 묶은 리스트 형태로 넣어야함   account street state 0 211829 34456 Sean Highway Texas 1 320563 1311 Alvis Tunnel NorthCarolina 2 648336 62184 Schamberger Underpass Apt. 231 Iowa Selection with index number dataframe[:n] row 기준으로 데이터 가져옴 column 이름 없이 사용하는 index number는 row기준 표시 1 df[:3]   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 column 이름과 함께 row index 사용시, 해당 column만 1 df[&quot;account&quot;][:3] 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 Series Selection series[:n] 특정 series의 데이터를 가져와서 특정 인덱스 까지의 데이터 뽑기 1 2 account_series = df[&quot;account&quot;] # &quot;account&quot;의 series 데이터 가져옴 account_series[:3] # &quot;account&quot;의 series에서 상단에서 3번째 data까지 가져옴 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 series[[a,b,c,..]] 명시한 인덱스들에 해당하는 데이터 뽑기 1 account_series[[1,5,2]] # 인덱스 번호에 해당하는 데이터 가져오기 1 2 3 4 1 320563 5 132971 2 648336 Name: account, dtype: int64 series[condition] boolean index를 이용해서 조건에 맞는 데이터만 뽑기 1 account_series[account_series&lt;250000] 1 2 3 4 5 6 7 8 9 10 11 12 0 211829 3 109996 4 121213 5 132971 6 145068 7 205217 8 209744 9 212303 10 214098 11 231907 12 242368 Name: account, dtype: int64 Index Change 인덱스 변경하기 원래 index는 0~ 부터 시작하는 숫자 데이터를 분류하다 보면 특정 케이스를 식별(identify) 할 수 있는 데이터가 존재 함 (ex. 주민등록번호,전화번호) 그 series의 데이터를 index로 사용 할 수 있음 1 2 df.index = df[&quot;account&quot;] # &quot;account&quot; series를 인덱스로 사용 df.head()   account name street city state postal-code Jan Feb Mar account                   211829 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 1 2 del df[&quot;account&quot;] # &quot;account&quot; series가 그대로 남아있기 때문에 지워준다 df.head()   name street city state postal-code Jan Feb Mar account                 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 인덱스 재설정하기 그냥 0~ 부터의 숫자를 인덱스로 사용하기 merge가 없을 경우 편함 1 2 df.index = list(range(0,15)) df.head()   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 Basic, loc, iloc Selection basic dataframe[[column list]] [:n] column과 index number를 사용 1 df[[&quot;name&quot;,&quot;street&quot;]][:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel loc[[index name list],[column list]] index name과 column 사용 1 df.loc[[211829,320563],[&quot;name&quot;,&quot;street&quot;]]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel iloc[] index number와 column number 사용 1 df.iloc[:3,:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 column name과 index number 사용 1 df[[&quot;name&quot;, &quot;street&quot;]].iloc[:4]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Drop 1 df.head(8)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(i) index number로 drop 1 df.head(8).drop(1)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop([a,b,c..]) 한개 이상의 index number로 drop 1 df.head(8).drop([0,1,2,3])   name street city state postal-code Jan Feb Mar 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(“column”, axis=i) axis 지정으로 축을 기준으로 drop 1 df.head(5).drop(&quot;city&quot;, axis=1) # column 중 &quot;city&quot; drop   name street state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 1 df.head(5).drop(3, axis=0) # 3번 row drop, 사실상 그냥 drop(i)와 같음   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 inplace = True로 원본에서 삭제 pandas는 원본의 내용을 쉽게 삭제 안함 원본을 변경하기 위해서는 inplace = True를 추가해야함 1 2 df.drop(&quot;city&quot;,axis=1,inplace=True) df.head()   account name street state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 참고 부스트코스 AI 기초다지기 pandas l - 최성철" />
+<meta property="og:description" content="Selection &amp; Drop Selection Selection with column names head() 제일 상단 부터 안에 적힌 수 만큼 데이터를 가져옴 1 2 df = pd.read_excel(&quot;./pandas_data/excel-comp-data.xlsx&quot;) df.head()   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 한개의 column 선택시, series 객체 1 df[&quot;account&quot;].head(2) # 상단 부터 2개의 데이터 가져옴 1 2 3 0 211829 1 320563 Name: account, dtype: int64 1개 이상의 column 선택시, dataframe 객체 1 df[[&quot;account&quot;, &quot;street&quot;, &quot;state&quot;]].head(3) # 대괄호로 묶은 리스트 형태로 넣어야함   account street state 0 211829 34456 Sean Highway Texas 1 320563 1311 Alvis Tunnel NorthCarolina 2 648336 62184 Schamberger Underpass Apt. 231 Iowa Selection with index number dataframe[:n] row 기준으로 데이터 가져옴 column 이름 없이 사용하는 index number는 row기준 표시 1 df[:3]   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 column 이름과 함께 row index 사용시, 해당 column만 1 df[&quot;account&quot;][:3] 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 Series Selection series[:n] 특정 series의 데이터를 가져와서 특정 인덱스 까지의 데이터 뽑기 1 2 account_series = df[&quot;account&quot;] # &quot;account&quot;의 series 데이터 가져옴 account_series[:3] # &quot;account&quot;의 series에서 상단에서 3번째 data까지 가져옴 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 series[[a,b,c,..]] 명시한 인덱스들에 해당하는 데이터 뽑기 1 account_series[[1,5,2]] # 인덱스 번호에 해당하는 데이터 가져오기 1 2 3 4 1 320563 5 132971 2 648336 Name: account, dtype: int64 series[condition] boolean index를 이용해서 조건에 맞는 데이터만 뽑기 1 account_series[account_series&lt;250000] 1 2 3 4 5 6 7 8 9 10 11 12 0 211829 3 109996 4 121213 5 132971 6 145068 7 205217 8 209744 9 212303 10 214098 11 231907 12 242368 Name: account, dtype: int64 Index Change 인덱스 변경하기 원래 index는 0~ 부터 시작하는 숫자 데이터를 분류하다 보면 특정 케이스를 식별(identify) 할 수 있는 데이터가 존재 함 (ex. 주민등록번호,전화번호) 그 series의 데이터를 index로 사용 할 수 있음 1 2 df.index = df[&quot;account&quot;] # &quot;account&quot; series를 인덱스로 사용 df.head()   account name street city state postal-code Jan Feb Mar account                   211829 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 1 2 del df[&quot;account&quot;] # &quot;account&quot; series가 그대로 남아있기 때문에 지워준다 df.head()   name street city state postal-code Jan Feb Mar account                 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 인덱스 재설정하기 그냥 0~ 부터의 숫자를 인덱스로 사용하기 merge가 없을 경우 편함 1 2 df.index = list(range(0,15)) df.head()   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 Basic, loc, iloc Selection basic dataframe[[column list]] [:n] column과 index number를 사용 1 df[[&quot;name&quot;,&quot;street&quot;]][:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel loc[[index name list],[column list]] index name과 column 사용 1 df.loc[[211829,320563],[&quot;name&quot;,&quot;street&quot;]]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel iloc[] index number와 column number 사용 1 df.iloc[:3,:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 column name과 index number 사용 1 df[[&quot;name&quot;, &quot;street&quot;]].iloc[:4]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Drop 1 df.head(8)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(i) index number로 drop 1 df.head(8).drop(1)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop([a,b,c..]) 한개 이상의 index number로 drop 1 df.head(8).drop([0,1,2,3])   name street city state postal-code Jan Feb Mar 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(“column”, axis=i) axis 지정으로 축을 기준으로 drop 1 df.head(5).drop(&quot;city&quot;, axis=1) # column 중 &quot;city&quot; drop   name street state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 1 df.head(5).drop(3, axis=0) # 3번 row drop, 사실상 그냥 drop(i)와 같음   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 inplace = True로 원본에서 삭제 pandas는 원본의 내용을 쉽게 삭제 안함 원본을 변경하기 위해서는 inplace = True를 추가해야함 1 2 df.drop(&quot;city&quot;,axis=1,inplace=True) df.head()   account name street state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 참고 부스트코스 AI 기초다지기 pandas l - 최성철" />
+<link rel="canonical" href="http://localhost:4000/pandas_4/" />
+<meta property="og:url" content="http://localhost:4000/pandas_4/" />
+<meta property="og:site_name" content="Seungki1011’s Dev Blog" />
+<meta property="og:image" content="http://localhost:4000/post_images/pandaslogo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-14T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/post_images/pandaslogo.png" />
+<meta property="twitter:title" content="Pandas - 4(Selection, Drop)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"seungki"},"dateModified":"2023-02-14T00:00:00+09:00","datePublished":"2023-02-14T00:00:00+09:00","description":"Selection &amp; Drop Selection Selection with column names head() 제일 상단 부터 안에 적힌 수 만큼 데이터를 가져옴 1 2 df = pd.read_excel(&quot;./pandas_data/excel-comp-data.xlsx&quot;) df.head()   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 한개의 column 선택시, series 객체 1 df[&quot;account&quot;].head(2) # 상단 부터 2개의 데이터 가져옴 1 2 3 0 211829 1 320563 Name: account, dtype: int64 1개 이상의 column 선택시, dataframe 객체 1 df[[&quot;account&quot;, &quot;street&quot;, &quot;state&quot;]].head(3) # 대괄호로 묶은 리스트 형태로 넣어야함   account street state 0 211829 34456 Sean Highway Texas 1 320563 1311 Alvis Tunnel NorthCarolina 2 648336 62184 Schamberger Underpass Apt. 231 Iowa Selection with index number dataframe[:n] row 기준으로 데이터 가져옴 column 이름 없이 사용하는 index number는 row기준 표시 1 df[:3]   account name street city state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 column 이름과 함께 row index 사용시, 해당 column만 1 df[&quot;account&quot;][:3] 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 Series Selection series[:n] 특정 series의 데이터를 가져와서 특정 인덱스 까지의 데이터 뽑기 1 2 account_series = df[&quot;account&quot;] # &quot;account&quot;의 series 데이터 가져옴 account_series[:3] # &quot;account&quot;의 series에서 상단에서 3번째 data까지 가져옴 1 2 3 4 0 211829 1 320563 2 648336 Name: account, dtype: int64 series[[a,b,c,..]] 명시한 인덱스들에 해당하는 데이터 뽑기 1 account_series[[1,5,2]] # 인덱스 번호에 해당하는 데이터 가져오기 1 2 3 4 1 320563 5 132971 2 648336 Name: account, dtype: int64 series[condition] boolean index를 이용해서 조건에 맞는 데이터만 뽑기 1 account_series[account_series&lt;250000] 1 2 3 4 5 6 7 8 9 10 11 12 0 211829 3 109996 4 121213 5 132971 6 145068 7 205217 8 209744 9 212303 10 214098 11 231907 12 242368 Name: account, dtype: int64 Index Change 인덱스 변경하기 원래 index는 0~ 부터 시작하는 숫자 데이터를 분류하다 보면 특정 케이스를 식별(identify) 할 수 있는 데이터가 존재 함 (ex. 주민등록번호,전화번호) 그 series의 데이터를 index로 사용 할 수 있음 1 2 df.index = df[&quot;account&quot;] # &quot;account&quot; series를 인덱스로 사용 df.head()   account name street city state postal-code Jan Feb Mar account                   211829 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 1 2 del df[&quot;account&quot;] # &quot;account&quot; series가 그대로 남아있기 때문에 지워준다 df.head()   name street city state postal-code Jan Feb Mar account                 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 320563 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 121213 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 인덱스 재설정하기 그냥 0~ 부터의 숫자를 인덱스로 사용하기 merge가 없을 경우 편함 1 2 df.index = list(range(0,15)) df.head()   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 Basic, loc, iloc Selection basic dataframe[[column list]] [:n] column과 index number를 사용 1 df[[&quot;name&quot;,&quot;street&quot;]][:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel loc[[index name list],[column list]] index name과 column 사용 1 df.loc[[211829,320563],[&quot;name&quot;,&quot;street&quot;]]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel iloc[] index number와 column number 사용 1 df.iloc[:3,:2]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 column name과 index number 사용 1 df[[&quot;name&quot;, &quot;street&quot;]].iloc[:4]   name street account     211829 Kerluke, Koepp and Hilpert 34456 Sean Highway 320563 Walter-Trantow 1311 Alvis Tunnel 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Drop 1 df.head(8)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(i) index number로 drop 1 df.head(8).drop(1)   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Hyattburgh Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop([a,b,c..]) 한개 이상의 index number로 drop 1 df.head(8).drop([0,1,2,3])   name street city state postal-code Jan Feb Mar 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 5 Williamson, Schumm and Hettinger 89403 Casimer Spring Jeremieburgh Arkansas 62785 150000 120000 35000 6 Casper LLC 340 Consuela Bridge Apt. 400 Lake Gabriellaton Mississipi 18008 62000 120000 70000 7 Kovacek-Johnston 91971 Cronin Vista Suite 601 Deronville RhodeIsland 53461 145000 95000 35000 drop(“column”, axis=i) axis 지정으로 축을 기준으로 drop 1 df.head(5).drop(&quot;city&quot;, axis=1) # column 중 &quot;city&quot; drop   name street state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 1 df.head(5).drop(3, axis=0) # 3번 row drop, 사실상 그냥 drop(i)와 같음   name street city state postal-code Jan Feb Mar 0 Kerluke, Koepp and Hilpert 34456 Sean Highway New Jaycob Texas 28752 10000 62000 35000 1 Walter-Trantow 1311 Alvis Tunnel Port Khadijah NorthCarolina 38365 95000 45000 35000 2 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 New Lilianland Iowa 76517 91000 120000 35000 4 Bauch-Goldner 7274 Marissa Common Shanahanchester California 49681 162000 120000 35000 inplace = True로 원본에서 삭제 pandas는 원본의 내용을 쉽게 삭제 안함 원본을 변경하기 위해서는 inplace = True를 추가해야함 1 2 df.drop(&quot;city&quot;,axis=1,inplace=True) df.head()   account name street state postal-code Jan Feb Mar 0 211829 Kerluke, Koepp and Hilpert 34456 Sean Highway Texas 28752 10000 62000 35000 1 320563 Walter-Trantow 1311 Alvis Tunnel NorthCarolina 38365 95000 45000 35000 2 648336 Bashirian, Kunde and Price 62184 Schamberger Underpass Apt. 231 Iowa 76517 91000 120000 35000 3 109996 D’Amore, Gleichner and Bode 155 Fadel Crescent Apt. 144 Maine 46021 45000 120000 10000 4 121213 Bauch-Goldner 7274 Marissa Common California 49681 162000 120000 35000 참고 부스트코스 AI 기초다지기 pandas l - 최성철","headline":"Pandas - 4(Selection, Drop)","image":"http://localhost:4000/post_images/pandaslogo.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pandas_4/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"seungki"},"url":"http://localhost:4000/pandas_4/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<link href="/assets/css/custom.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Seungki1011's Dev Blog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About Me</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li> -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Seungki1011's Dev Blog</h1>
+    <p class="lead">
+        머신러닝 엔지니어의 공부 블로그 🙂
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Pandas - 4(Selection, Drop)&url=http://localhost:4000/pandas_4/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/pandas_4/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/pandas_4/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar.png" alt="Seungki">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Seungki</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">Trying to find a career for ML engineering in Seoul & Pangyo.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Pandas - 4(Selection, Drop)</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/post_images/pandaslogo.png" alt="Pandas - 4(Selection, Drop)">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                    
+                    <div class="toc mt-4 mb-4 lead">
+                        <h3 class="font-weight-bold">Summary</h3>
+                        <ul>
+  <li><a href="#selection--drop">Selection &amp; Drop</a>
+    <ul>
+      <li><a href="#selection">Selection</a>
+        <ul>
+          <li><a href="#selection-with-column-names">Selection with column names</a>
+            <ul>
+              <li><a href="#head">head()</a></li>
+            </ul>
+          </li>
+          <li><a href="#selection-with-index-number">Selection with index number</a>
+            <ul>
+              <li><a href="#dataframen">dataframe[:n]</a></li>
+            </ul>
+          </li>
+          <li><a href="#series-selection">Series Selection</a>
+            <ul>
+              <li><a href="#seriesn">series[:n]</a></li>
+              <li><a href="#seriesabc">series[[a,b,c,..]]</a></li>
+              <li><a href="#seriescondition">series[condition]</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#index-change">Index Change</a>
+        <ul>
+          <li><a href="#인덱스-변경하기">인덱스 변경하기</a></li>
+          <li><a href="#인덱스-재설정하기">인덱스 재설정하기</a></li>
+        </ul>
+      </li>
+      <li><a href="#basic-loc-iloc-selection">Basic, loc, iloc Selection</a>
+        <ul>
+          <li><a href="#basic">basic</a></li>
+          <li><a href="#locindex-name-listcolumn-list">loc[[index name list],[column list]]</a></li>
+          <li><a href="#iloc">iloc[]</a></li>
+        </ul>
+      </li>
+      <li><a href="#drop">Drop</a>
+        <ul>
+          <li><a href="#dropi">drop(i)</a></li>
+          <li><a href="#dropabc">drop([a,b,c..])</a></li>
+          <li><a href="#dropcolumn-axisi">drop(“column”, axis=i)</a></li>
+          <li><a href="#inplace--true로-원본에서-삭제">inplace = True로 원본에서 삭제</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#참고">참고</a></li>
+</ul>
+                    </div>
+                
+                <!-- End Toc -->
+                <h2 id="selection--drop">Selection &amp; Drop</h2>
+
+<h3 id="selection">Selection</h3>
+
+<h4 id="selection-with-column-names">Selection with column names</h4>
+
+<h5 id="head">head()</h5>
+
+<ul>
+  <li>제일 상단 부터 안에 적힌 수 만큼 데이터를 가져옴</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_excel</span><span class="p">(</span><span class="sh">"</span><span class="s">./pandas_data/excel-comp-data.xlsx</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: center">account</th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td style="text-align: center">109996</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td style="text-align: center">121213</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>한개의 column 선택시, series 객체</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">].</span><span class="nf">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 상단 부터 2개의 데이터 가져옴
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>0    211829
+1    320563
+Name: account, dtype: int64
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>1개 이상의 column 선택시, dataframe 객체</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">street</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">state</span><span class="sh">"</span><span class="p">]].</span><span class="nf">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 대괄호로 묶은 리스트 형태로 넣어야함
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">account</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">state</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">Texas</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">NorthCarolina</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">Iowa</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="selection-with-index-number">Selection with index number</h4>
+
+<h5 id="dataframen">dataframe[:n]</h5>
+
+<ul>
+  <li>row 기준으로 데이터 가져옴</li>
+  <li>column 이름 없이 사용하는 index number는 row기준 표시</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">account</th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>column 이름과 함께 row index 사용시, 해당 column만</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">][:</span><span class="mi">3</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>0    211829
+1    320563
+2    648336
+Name: account, dtype: int64
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="series-selection">Series Selection</h4>
+
+<h5 id="seriesn">series[:n]</h5>
+
+<ul>
+  <li>특정 series의 데이터를 가져와서 특정 인덱스 까지의 데이터 뽑기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">account_series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># "account"의 series 데이터 가져옴
+</span><span class="n">account_series</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># "account"의 series에서 상단에서 3번째 data까지 가져옴
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre> 0    211829
+ 1    320563
+ 2    648336
+ Name: account, dtype: int64
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h5 id="seriesabc">series[[a,b,c,..]]</h5>
+
+<ul>
+  <li>명시한 인덱스들에 해당하는 데이터 뽑기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">account_series</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="c1"># 인덱스 번호에 해당하는 데이터 가져오기
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>1    320563
+5    132971
+2    648336
+Name: account, dtype: int64
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h5 id="seriescondition">series[condition]</h5>
+
+<ul>
+  <li>boolean index를 이용해서 조건에 맞는 데이터만 뽑기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">account_series</span><span class="p">[</span><span class="n">account_series</span><span class="o">&lt;</span><span class="mi">250000</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>0     211829
+3     109996
+4     121213
+5     132971
+6     145068
+7     205217
+8     209744
+9     212303
+10    214098
+11    231907
+12    242368
+Name: account, dtype: int64
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="index-change">Index Change</h3>
+
+<h4 id="인덱스-변경하기">인덱스 변경하기</h4>
+
+<ul>
+  <li>원래 index는 0~ 부터 시작하는 숫자</li>
+  <li>데이터를 분류하다 보면 특정 케이스를 식별(identify) 할 수 있는 데이터가 존재 함 (ex. 주민등록번호,전화번호)</li>
+  <li>그 series의 데이터를 index로 사용 할 수 있음</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># "account" series를 인덱스로 사용
+</span><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">account</th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">109996</td>
+      <td style="text-align: center">109996</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">121213</td>
+      <td style="text-align: center">121213</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="sh">"</span><span class="s">account</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># "account" series가 그대로 남아있기 때문에 지워준다
+</span><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">109996</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">121213</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="인덱스-재설정하기">인덱스 재설정하기</h4>
+
+<ul>
+  <li>그냥 0~ 부터의 숫자를 인덱스로 사용하기</li>
+  <li>merge가 없을 경우 편함</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="basic-loc-iloc-selection">Basic, loc, iloc Selection</h3>
+
+<h4 id="basic">basic</h4>
+
+<ul>
+  <li>dataframe[[column list]] [:n]</li>
+  <li>column과 index number를 사용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">street</span><span class="sh">"</span><span class="p">]][:</span><span class="mi">2</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="locindex-name-listcolumn-list">loc[[index name list],[column list]]</h4>
+
+<ul>
+  <li>index name과 column 사용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">211829</span><span class="p">,</span><span class="mi">320563</span><span class="p">],[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">street</span><span class="sh">"</span><span class="p">]]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="iloc">iloc[]</h4>
+
+<ul>
+  <li>index number와 column number 사용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>column name과 index number 사용</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">[[</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">street</span><span class="sh">"</span><span class="p">]].</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">account</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">109996</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="drop">Drop</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: center">Williamson, Schumm and Hettinger</td>
+      <td style="text-align: center">89403 Casimer Spring</td>
+      <td style="text-align: center">Jeremieburgh</td>
+      <td style="text-align: center">Arkansas</td>
+      <td style="text-align: center">62785</td>
+      <td style="text-align: center">150000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: center">Casper LLC</td>
+      <td style="text-align: center">340 Consuela Bridge Apt. 400</td>
+      <td style="text-align: center">Lake Gabriellaton</td>
+      <td style="text-align: center">Mississipi</td>
+      <td style="text-align: center">18008</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">70000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td style="text-align: center">Kovacek-Johnston</td>
+      <td style="text-align: center">91971 Cronin Vista Suite 601</td>
+      <td style="text-align: center">Deronville</td>
+      <td style="text-align: center">RhodeIsland</td>
+      <td style="text-align: center">53461</td>
+      <td style="text-align: center">145000</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="dropi">drop(i)</h4>
+
+<ul>
+  <li>index number로 drop</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">8</span><span class="p">).</span><span class="nf">drop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Hyattburgh</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">5</td>
+      <td style="text-align: center">Williamson, Schumm and Hettinger</td>
+      <td style="text-align: center">89403 Casimer Spring</td>
+      <td style="text-align: center">Jeremieburgh</td>
+      <td style="text-align: center">Arkansas</td>
+      <td style="text-align: center">62785</td>
+      <td style="text-align: center">150000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">6</td>
+      <td style="text-align: center">Casper LLC</td>
+      <td style="text-align: center">340 Consuela Bridge Apt. 400</td>
+      <td style="text-align: center">Lake Gabriellaton</td>
+      <td style="text-align: center">Mississipi</td>
+      <td style="text-align: center">18008</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">70000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td style="text-align: center">Kovacek-Johnston</td>
+      <td style="text-align: center">91971 Cronin Vista Suite 601</td>
+      <td style="text-align: center">Deronville</td>
+      <td style="text-align: center">RhodeIsland</td>
+      <td style="text-align: center">53461</td>
+      <td style="text-align: center">145000</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="dropabc">drop([a,b,c..])</h4>
+
+<ul>
+  <li>한개 이상의 index number로 drop</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">8</span><span class="p">).</span><span class="nf">drop</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td style="text-align: center">Williamson, Schumm and Hettinger</td>
+      <td style="text-align: center">89403 Casimer Spring</td>
+      <td style="text-align: center">Jeremieburgh</td>
+      <td style="text-align: center">Arkansas</td>
+      <td style="text-align: center">62785</td>
+      <td style="text-align: center">150000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td style="text-align: center">Casper LLC</td>
+      <td style="text-align: center">340 Consuela Bridge Apt. 400</td>
+      <td style="text-align: center">Lake Gabriellaton</td>
+      <td style="text-align: center">Mississipi</td>
+      <td style="text-align: center">18008</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">70000</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td style="text-align: center">Kovacek-Johnston</td>
+      <td style="text-align: center">91971 Cronin Vista Suite 601</td>
+      <td style="text-align: center">Deronville</td>
+      <td style="text-align: center">RhodeIsland</td>
+      <td style="text-align: center">53461</td>
+      <td style="text-align: center">145000</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="dropcolumn-axisi">drop(“column”, axis=i)</h4>
+
+<ul>
+  <li>axis 지정으로 축을 기준으로 drop</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">drop</span><span class="p">(</span><span class="sh">"</span><span class="s">city</span><span class="sh">"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># column 중 "city" drop
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 3번 row drop, 사실상 그냥 drop(i)와 같음
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right"> </th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">city</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">0</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">New Jaycob</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">Port Khadijah</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">2</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">New Lilianland</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">Shanahanchester</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h4 id="inplace--true로-원본에서-삭제">inplace = True로 원본에서 삭제</h4>
+
+<ul>
+  <li>pandas는 원본의 내용을 쉽게 삭제 안함</li>
+  <li>원본을 변경하기 위해서는 inplace = True를 추가해야함</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">df</span><span class="p">.</span><span class="nf">drop</span><span class="p">(</span><span class="sh">"</span><span class="s">city</span><span class="sh">"</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="nf">head</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">account</th>
+      <th style="text-align: center">name</th>
+      <th style="text-align: center">street</th>
+      <th style="text-align: center">state</th>
+      <th style="text-align: center">postal-code</th>
+      <th style="text-align: center">Jan</th>
+      <th style="text-align: center">Feb</th>
+      <th style="text-align: center">Mar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">0</td>
+      <td style="text-align: center">211829</td>
+      <td style="text-align: center">Kerluke, Koepp and Hilpert</td>
+      <td style="text-align: center">34456 Sean Highway</td>
+      <td style="text-align: center">Texas</td>
+      <td style="text-align: center">28752</td>
+      <td style="text-align: center">10000</td>
+      <td style="text-align: center">62000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">1</td>
+      <td style="text-align: center">320563</td>
+      <td style="text-align: center">Walter-Trantow</td>
+      <td style="text-align: center">1311 Alvis Tunnel</td>
+      <td style="text-align: center">NorthCarolina</td>
+      <td style="text-align: center">38365</td>
+      <td style="text-align: center">95000</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2</td>
+      <td style="text-align: center">648336</td>
+      <td style="text-align: center">Bashirian, Kunde and Price</td>
+      <td style="text-align: center">62184 Schamberger Underpass Apt. 231</td>
+      <td style="text-align: center">Iowa</td>
+      <td style="text-align: center">76517</td>
+      <td style="text-align: center">91000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">3</td>
+      <td style="text-align: center">109996</td>
+      <td style="text-align: center">D’Amore, Gleichner and Bode</td>
+      <td style="text-align: center">155 Fadel Crescent Apt. 144</td>
+      <td style="text-align: center">Maine</td>
+      <td style="text-align: center">46021</td>
+      <td style="text-align: center">45000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">10000</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">4</td>
+      <td style="text-align: center">121213</td>
+      <td style="text-align: center">Bauch-Goldner</td>
+      <td style="text-align: center">7274 Marissa Common</td>
+      <td style="text-align: center">California</td>
+      <td style="text-align: center">49681</td>
+      <td style="text-align: center">162000</td>
+      <td style="text-align: center">120000</td>
+      <td style="text-align: center">35000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h2 id="참고">참고</h2>
+
+<hr />
+
+<ol>
+  <li><a href="https://www.boostcourse.org/ai100/lecture/739182?isDesc=false">부스트코스 AI 기초다지기 pandas l - 최성철</a></li>
+</ol>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2023-02-14">14 Feb 2023</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Pandas">Pandas</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//pandas_3/"> &laquo; Pandas - 3(DataFrame)</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//pandas_5/">Pandas - 5(DataFrame Operation) &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'roadtoml'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+<!-- Bottom Alert Bar
+================================================== -->
+<div class="alertbar">
+	<div class="container text-center">
+		<span class="center-vertically"> <a href="https://github.com/seungki1011" target="_blank"><img src="../assets/images/github-mark.png" alt="Seungki1011's Dev Blog"><b class="bold-with-margin">&nbsp; My Github</b></a></span>
+        <!-- <form action="" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group">
+            <input type="email" placeholder="Email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form> -->
+	</div>
+</div>
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Python">Python (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Numpy">Numpy (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Pandas">Pandas (7)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Software-Engineering">Software Engineering (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Linux">Linux (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Docker">Docker (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CV">CV (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Object-Detection">Object Detection (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Debugging">Debugging (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Segmentation">Segmentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Cloud">Cloud (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#CI/CD">CI/CD (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Backend">Backend (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#FastAPI">FastAPI (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#DB">DB (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Data">Data (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Airflow">Airflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Mlops">Mlops (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLflow">MLflow (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#MLops">MLops (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#BentoML">BentoML (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2023 Seungki1011's Dev Blog 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//roadtoml.disqus.com/count.js"></script>
+
+
+</body>
+</html>

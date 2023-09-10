@@ -9,7 +9,6 @@ toc: True
 ---
 ## 배열 조회
 ### 배열 속성 정보
-
 ```python
 def array_info(array):
     print(array)
@@ -21,8 +20,6 @@ def array_info(array):
     print("nbytes:", array.nbytes) # 전체 배열의 byte 크기
     print("strides:", array.strides) # 한 item(element)를 넘어가는데 필요한 byte크기
 ```
-
-
 
 * 1차원 배열
 
