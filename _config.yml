@@ -5,7 +5,7 @@ description: "머신러닝 엔지니어의 공부 블로그 🙂"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 url: 'https://seungki.github.io/'
-baseurl: 'https://seungki.github.io/'
+baseurl: ''
 google_analytics: ''
 disqus: 'roadtoml'
 mailchimp-list: ''
