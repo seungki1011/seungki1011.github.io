@@ -2,7 +2,7 @@
 name: "Seungki1011's Dev Blog"
 title: "Seungki1011's Dev Blog"
 description: "머신러닝 엔지니어의 공부 블로그 🙂"
-logo: 'assets/images/logo.png'
+logo: 'assets/images/blog_logo.png'
 favicon: 'assets/images/favicon.ico'
 url: 'https://seungki.github.io/'
 baseurl: ''
