@@ -2,11 +2,10 @@ import praw
 import os
 
 # Reddit API authentication debugging - 1
-print(os.environ['REDDIT_CLIENT_ID'])
-print(os.environ['REDDIT_CLIENT_SECRET'])
-print(os.environ['REDDIT_USER_AGENT'])
+# print(os.environ['REDDIT_CLIENT_ID'])
+# print(os.environ['REDDIT_CLIENT_SECRET'])
+# print(os.environ['REDDIT_USER_AGENT'])
 
-# Reddit API authentication debugging - 2
 reddit = praw.Reddit(
     client_id=os.environ['REDDIT_CLIENT_ID'],
     client_secret=os.environ['REDDIT_CLIENT_SECRET'],
