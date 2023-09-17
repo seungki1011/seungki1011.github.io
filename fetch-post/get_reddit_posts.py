@@ -43,7 +43,7 @@ try:
     current_date = datetime.date.today().strftime("%Y-%m-%d")
     
     # Define the file path with the current date and the 'reddit-posts' folder
-    file_path = os.path.join("reddit-posts", f"{current_date}-reddit_news_posts.md")
+    file_path = os.path.join("/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/reddit-posts", f"{current_date}-reddit_news_posts.md")
 
     # Ensure the 'reddit-posts' folder exists; create it if not
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
