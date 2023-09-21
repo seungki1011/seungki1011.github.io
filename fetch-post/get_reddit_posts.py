@@ -50,14 +50,13 @@ try:
 
     # Front matter containing metadata
     front_matter = f"""---
-    layout: post
-    title: "Reddit News {current_date}"
-    author: seungki
-    categories: [Reddit]
-    image: post_images/redditlogo.png
-    toc: True
-    ---
-    """
+layout: post
+title: "Reddit News {current_date}"
+author: seungki
+image: post_images/redditlogo.png
+toc: True
+---
+"""
     
     # Write the titles and content of the news posts to the text file
     with open(file_path, 'w', encoding='utf-8') as file:
