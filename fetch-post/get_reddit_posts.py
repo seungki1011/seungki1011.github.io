@@ -50,7 +50,7 @@ try:
 
     # Front matter containing metadata
     front_matter = f"""---
-layout: post
+layout: news-post
 title: "Reddit News {current_date}"
 author: seungki
 image: post_images/redditlogo.png
