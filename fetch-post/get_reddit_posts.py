@@ -43,20 +43,32 @@ try:
     current_date = datetime.date.today().strftime("%Y-%m-%d")
     
     # Define the file path with the current date and the 'reddit-posts' folder
-    file_path = os.path.join("/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/reddit-posts", f"{current_date}-reddit_news_posts.md")
+    file_path = os.path.join("/Users/seungkikim/Desktop/seungki1011.github.io/_news", f"{current_date}-reddit_news_posts.md")
 
     # Ensure the 'reddit-posts' folder exists; create it if not
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
+    # Front matter containing metadata
+    front_matter = f"""---
+    layout: post
+    title: "Reddit News {current_date}"
+    author: seungki
+    categories: [Reddit]
+    image: post_images/redditlogo.png
+    toc: True
+    ---
+    """
+    
     # Write the titles and content of the news posts to the text file
     with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(front_matter)
+        
         for i, post in enumerate(news_posts, start=1):
-            if i != 1:
-                file.write("---")
-                file.write("\n")
+            file.write("---")
+            file.write("\n")
             file.write(f"## [{i}] \"{post.title}\"\n")
             file.write(f"{post.selftext}\n\n")
-            file.write(f"Reddit URL: {post.url}\n\n")
+            file.write(f"[URL of Post]({post.url})\n\n")
             
             print(f'Title: {post.title}')
             print(f"Content: {post.selftext}")

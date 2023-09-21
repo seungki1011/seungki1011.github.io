@@ -2,7 +2,7 @@
 layout: post
 title:  "Introduction to Apache Airflow"
 author: seungki
-categories: [ Airflow, Mlops ]
+categories: [ Airflow, MLops ]
 image: post_images/apacheairflowlogo.png
 toc: True
 

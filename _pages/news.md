@@ -1,11 +1,10 @@
 ---
-layout: default
+layout: reddit
 title: News
 permalink: /news
-comments: true
 ---
 
-{% if page.url == "/" %}
+{% if page.url == "/news" %}
 
 <!-- Featured
 ================================================== -->
@@ -42,7 +41,7 @@ comments: true
 
     <div class="row listrecent">
 
-        {% for post in paginator.news %}
+        {% for post in site.news %}
 
         {% include postbox.html %}
 
