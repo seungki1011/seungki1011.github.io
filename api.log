@@ -1,0 +1,9 @@
+/Users/seungkikim/.pyenv/versions/3.10.0/bin/python: can't open file '/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/get_reddit_posts.py': [Errno 1] Operation not permitted
+/Users/seungkikim/.pyenv/versions/3.10.0/bin/python: can't open file '/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/get_reddit_posts.py': [Errno 1] Operation not permitted
+/Users/seungkikim/.pyenv/versions/3.10.0/bin/python: can't open file '/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/get_reddit_posts.py': [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/Users/seungkikim/Desktop/seungki1011.github.io/fetch-post/get_reddit_posts.py", line 11, in <module>
+    client_id=os.environ['REDDIT_CLIENT_ID'],
+  File "/Users/seungkikim/.pyenv/versions/3.10.0/lib/python3.10/os.py", line 679, in __getitem__
+    raise KeyError(key) from None
+KeyError: 'REDDIT_CLIENT_ID'
