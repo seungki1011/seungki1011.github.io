@@ -1,0 +1,118 @@
+---
+layout: news-post
+title: "Reddit News 2023-09-23"
+author: seungki
+image: post_images/redditlogo.png
+toc: True
+---
+---
+## [1] "GPT-5 is coming it's codename: Gobi"
+OpenAI is reportedly accelerating efforts to release an advanced multimodal LLM called GPT-Vision, codenamed **Gobi.**  ([Source](https://www.theinformation.com/articles/openai-hustles-to-beat-google-to-launch-multimodal-llm))
+
+**The Promise of Multimodal AI**
+
+* ***Processes Text and Images:*** Multimodal LLMs can understand and generate content combining text and images, offering expanded capabilities.
+* **GPT-Vision is stuck in safety reviews:** but “OpenAI’s engineers seem close to satisfying legal concerns.”
+* ***Key Edge Over Rivals***: Launching first with multimodal abilities could give OpenAI a critical advantage over competitors.
+
+**OpenAI's Reported Rush to Release Gobi**
+
+* ***Aiming to Beat Google:*** OpenAI seems intent on launching Gobi before Google can debut [Gemini](https://www.theinformation.com/articles/google-nears-release-of-gemini-ai-to-rival-openai) to dominate the multimodal space.
+* **Expanding GPT-4's Abilities:** Gobi may build on GPT-4 by adding enhanced visual and multimodal features that OpenAI previewed earlier.
+* ***The Enduring Nature of Progress***: Both firms recognize the long-term, competitive nature of AI advancement.
+
+**TL;DR:** OpenAI looks to stay ahead of Google in the AI race by rushing to launch an advanced multimodal LLM before Google's Gemini, a preemptive move that could disrupt Google's plans and ambitions.
+
+**PS:** Get the latest AI developments, tools, and use cases by joining one of the [fastest growing AI newsletters.](https://www.theedge.so/subscribe) Join 5000+ professionals getting smarter in AI.
+
+[URL of Post](https://www.reddit.com/r/ArtificialInteligence/comments/16mx186/gpt5_is_coming_its_codename_gobi/)
+
+---
+## [2] "AI that’s smarter than humans? Americans say a firm “no thank you.”"
+63% of Americans want regulation to actively prevent superintelligent AI, a new poll reveals.
+
+If you want to stay ahead of the curve in AI and tech, [look here first](https://dupple.com/techpresso).
+
+**Public Opinion on Superintelligent AI**
+
+* **Skeptical Majority:** 63% of Americans believe regulation should actively prevent AI superintelligence.
+* **Companies' Goals:** Organizations like OpenAI aim to develop artificial general intelligence (AGI), assuming its existence benefits humanity.
+* **Voices of Dissent:** Concerns arise that the pursuit of AGI is driven by a select few without public consensus on its potential risks.
+
+**Tech Sector Power and Influence**
+
+* **Historical Ideology:** The belief in technological solutionism, or technology as a solution to major problems, dates back centuries.
+* **Modern-Day Acceleration:** Today's tech acceleration in the U.S. is driven by capitalism and the race against foreign powers, championed by Silicon Valley.
+* **Disconnect with Public:** Many Americans now distrust tech leaders, associating technological progress with potential societal disruptions.
+
+[Source (Vox)](https://www.vox.com/future-perfect/2023/9/19/23879648/americans-artificial-general-intelligence-ai-policy-poll)
+
+**PS:** **If you enjoyed this post**, you’ll love my [ML-powered newsletter](https://dupple.com/techpresso?utm_source=reddit&utm_medium=social&utm_campaign=post) that summarizes the best AI/tech news from 50+ media. It’s already being read by **6,500+** **professionals** from **OpenAI, Google, Meta**…
+
+[URL of Post](https://www.reddit.com/r/ArtificialInteligence/comments/16nnq2c/ai_thats_smarter_than_humans_americans_say_a_firm/)
+
+---
+## [3] "Two-minute Daily AI Update (Date: 09/21/2023): News from OpenAI, Amazon, Google DeepMind, GitHub, Uber, and NVIDIA"
+Continuing with the exercise of sharing an easily digestible and smaller version of the main updates of the day in the world of AI.  
+
+
+* **OpenAI unveils DALL·E 3**  
+\- It understands significantly more nuance and detail than its previous systems. DALL·E 3 is now in research preview and will be available to ChatGPT Plus and Enterprise customers in October via the API and in Labs later this fall. It is built natively on ChatGPT, which lets you use ChatGPT as a brainstorming partner and refiner of your prompts.
+* **Amazon brings generative AI to Alexa and Fire TV**  
+\- At its annual devices event, Amazon introduced generative AI updates for its Fire TV voice search to bring more conversational ways to interact with Alexa and discover new content.  
+\- It will also use a new generative AI model to power improved experiences across its Echo family of devices.
+* **Google DeepMind’s ‘Language Modeling Is Compression’**  
+\- This paper views the prediction problem through the lens of compression and evaluates the compression capabilities of large (foundation) models. It shows that LLMs are powerful general-purpose predictors and that the compression viewpoint provides novel insights into scaling laws, tokenization, and in-context learning.
+* **GitHub’s Copilot Chat will now be available to individual users**  
+\- It is available in public beta for GitHub Copilot individual users in Visual Studio and Visual Studio Code.
+* **Uber Eats to roll out AI-powered assistant**  
+\- It will help users find deals and explore different food options seamlessly.
+* **NVIDIA to train 50,000 Infosys employees on AI technology**  
+\- Infosys will set up NVIDIA Centre of Excellence to train and certify employees on NVIDIA’s AI technologies. Also, NVIDIA’s AI Enterprise ecosystem of models, tools, runtimes, and GPU systems will be brought to Infosys’s AI-first offering Topaz.
+
+More detailed breakdown of these news and innovations in the [daily newsletter](https://theaiedge.substack.com/p/openai-unveils-dalle3-amazon-ai-updates-deepmind).
+
+[URL of Post](https://www.reddit.com/r/ArtificialInteligence/comments/16oi0cn/twominute_daily_ai_update_date_09212023_news_from/)
+
+---
+## [4] "Google's Bard can now access all of your Google apps"
+Google today expanded its AI chatbot Bard with new capabilities, allowing it to tap into users' Gmail, Drive, Maps and other Google services. ([Source](https://techcrunch.com/2023/09/19/googles-bard-chatbot-can-now-tap-into-your-google-apps-double-check-answers-and-more/))
+
+**Bard's New Integrations with Google Apps**
+
+* ***Access to Personal Data***: Bard can now pull user information from Gmail, Drive, etc. to customize responses, if users opt in.
+* ***Powerful but Concerning:*** This allows for very personalized answers, but some may worry about privacy despite Google's assurances.
+* ***Double Checking Responses:*** Users can tap a button to validate Bard's answers against Google Search results.
+* ***Collaboration Feature***: People can now build on Bard chats shared via links to collectively ask questions.
+* ***Multilingual Expansion:*** Bard's existing capabilities now work in 40 more languages beyond English.
+
+**TL;DR:** Google updated Bard with new features like Gmail integration to boost its capabilities, but needs to carefully balance utility and user trust. It also expanded language support as it continues working to improve Bard.
+
+[URL of Post](https://www.reddit.com/r/ArtificialInteligence/comments/16mxi5l/googles_bard_can_now_access_all_of_your_google/)
+
+---
+## [5] "Sean Penn to Hollywood studios wanting actors’ likenesses for AI: ‘I want your daughter’s’"
+Sean Penn confronts Hollywood studios over their intent to use AI to exploit actors' likenesses, suggesting they trade their children's likenesses if they want his.
+
+If you want to stay ahead of the curve in AI and tech, [look here first](https://dupple.com/techpresso?utm_source=reddit&utm_medium=social&utm_campaign=post).
+
+**Sean Penn Challenges Hollywood on AI Use**
+
+* **Provocative Trade Offer**: Sean Penn proposes Hollywood executives trade their daughters' likeness if they want to use his for AI purposes.
+* **A Stand Against Exploitation**: Penn expresses anger over the potential use of AI to exploit actors' voices and faces for upcoming projects.
+
+**Recent Struggles with AI in Entertainment**
+
+* **Studios vs. Actors and Writers**: Ongoing negotiations have pitted studios against actors and writers on the topic of AI use. There's been a prolonged strike for better contracts.
+* **Studios Invest in AI**: Major companies like Netflix and Disney have started offering lucrative salaries for AI-related roles in the entertainment industry.
+
+**Penn's Morality Argument**
+
+* **Indecent Proposal**: Penn stresses that the studios' intent isn't just about business but represents a moral failing in the industry.
+
+[Source (NYPost)](https://nypost.com/2023/09/13/sean-penn-slams-studios-for-wanting-actors-likenesses-for-ai/)
+
+**PS:** **If you enjoyed this post**, you’ll love my [ML-powered newsletter](https://dupple.com/techpresso?utm_source=reddit&utm_medium=social&utm_campaign=post) that summarizes the best AI/tech news from 50+ media. It’s already being read by **6,500+** **professionals** from **OpenAI, Google, Meta**…
+
+[URL of Post](https://www.reddit.com/r/ArtificialInteligence/comments/16kyiun/sean_penn_to_hollywood_studios_wanting_actors/)
+
