@@ -16,6 +16,10 @@ git commit -m "$commit_message"
 # Push changes to the remote repository (adjust branch and remote name as needed)
 branch_name="main"
 remote_name="origin"
-git push "$remote_name" "$branch_name"
+
+# Get the access token from the environment variable
+GITHUB_TOKEN=$GITHUB_TOKEN
+
+git push https://$GITHUB_TOKEN@github.com/seungki1011/seungki1011.github.io.git "$branch_name"
 
 echo "Git automation script executed successfully."
