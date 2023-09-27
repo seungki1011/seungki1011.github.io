@@ -20,3 +20,11 @@ Git automation script executed successfully.
 To https://github.com/seungki1011/seungki1011.github.io.git
    1a39714..983e543  main -> main
 Git automation script executed successfully.
+[main 4c8a2ea] Docs: Automated commit for Reddit news
+ 4 files changed, 985 insertions(+)
+ create mode 100644 _news/2023-09-25-reddit_news_posts.md
+ create mode 100644 _news/2023-09-26-reddit_news_posts.md
+To https://github.com/seungki1011/seungki1011.github.io.git
+   983e543..4c8a2ea  main -> main
+Git automation script executed successfully.
+warning: in the working copy of '_posts/2022-09-07-python_6.md', CRLF will be replaced by LF the next time Git touches it
