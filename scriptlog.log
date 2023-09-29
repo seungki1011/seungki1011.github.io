@@ -34,3 +34,9 @@ warning: in the working copy of '_posts/2022-09-07-python_6.md', CRLF will be re
 To https://github.com/seungki1011/seungki1011.github.io.git
    4c8a2ea..5f85db4  main -> main
 Git automation script executed successfully.
+[main 73480e0] Docs: Automated commit for Reddit news
+ 3 files changed, 480 insertions(+)
+ create mode 100644 _news/2023-09-29-reddit_news_posts.md
+To https://github.com/seungki1011/seungki1011.github.io.git
+   5f85db4..73480e0  main -> main
+Git automation script executed successfully.
