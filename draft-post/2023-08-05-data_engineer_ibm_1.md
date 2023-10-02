@@ -1,10 +1,10 @@
 ---
-layout: post
-title:  "(Coursera)Modern Data Ecosystem & Role of Data Engineering"
-author: seungki
-categories: [ Data Engineering ]
-image: post_images/ibm_coursera.png
-toc: True
+# layout: post
+# title:  "(Coursera)Modern Data Ecosystem & Role of Data Engineering"
+# author: seungki
+# categories: [ Data Engineering ]
+# image: post_images/ibm_coursera.png
+# toc: True
 
 
 ---
