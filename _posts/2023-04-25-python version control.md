@@ -281,9 +281,13 @@ Poetry 설치는 [공식문서](https://python-poetry.org/docs/) 참조
 
 * 패키지의 설치는 ```poetry add``` 명령어로 설치한다. ```-D``` 옵션을 붙일 경우 개발 환경에서만 사용할 패키지를 설치 할 수 있음. 
 
-ex. ```add black -D```
+* ex. ```add black -D```
 
 * ```pyproject.toml``` 에서 dev 환경과 build 환경을 나눠서 관리 할 수 있기 때문에 정교한 패키지 관리가 가능함.
+
+* 기존 프로젝트에 toml과 lock 파일이 존재하는 경우 ```poetry install```로 가상환경을 만들어서 dependecy를 설치
+
+* 만들어진 가상환경을 실행하기 위해서는 ```poetry shell```, 끄기 위해서는 ```deactivate```
 
 <br>
 
