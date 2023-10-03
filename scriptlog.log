@@ -46,3 +46,17 @@ To https://github.com/seungki1011/seungki1011.github.io.git
    73480e0..3944095  main -> main
 Git automation script executed successfully.
 warning: in the working copy of '_posts/2022-09-07-python_6.md', CRLF will be replaced by LF the next time Git touches it
+[main 34dc1ed] Docs: Automated commit for Reddit news
+ 11 files changed, 1463 insertions(+)
+ create mode 100644 _news/2023-09-30-reddit_news_posts.md
+ create mode 100644 _news/2023-10-02-reddit_news_posts.md
+ create mode 100644 draft-post/2023-05-05-leet_code_python_1.md
+ create mode 100644 draft-post/2023-05-06-leet_code_python_2.md
+ create mode 100644 draft-post/2023-05-07-leet_code_python_3.md
+ create mode 100644 draft-post/2023-08-05-data_engineer_ibm_1.md
+ create mode 100644 post_images/2023-08-05-data_engineer_ibm_1/data-sources.png
+ create mode 100644 post_images/2023-08-05-data_engineer_ibm_1/data_ecosystem.jpeg
+ create mode 100644 post_images/coursera_ibm.png
+To https://github.com/seungki1011/seungki1011.github.io.git
+   3944095..34dc1ed  main -> main
+Git automation script executed successfully.
