@@ -59,5 +59,5 @@
 
 ---
 
-1. [Coursera - IBM Introduction to Data Engineering](https://www.coursera.org/learn/introduction-to-data-engineering/lecture/Kcbi0/modern-data-ecosystem)
+1. [Coursera - IBM Introduction to Data Engineering](https://www.coursera.org/learn/introduction-to-data-engineering/)
 2. [https://www.sisense.com/blog/the-6-functions-of-a-data-team/](https://www.sisense.com/blog/the-6-functions-of-a-data-team/)

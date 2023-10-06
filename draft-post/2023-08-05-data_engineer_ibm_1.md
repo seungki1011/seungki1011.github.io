@@ -81,6 +81,6 @@
 
 ---
 
-1. [Coursera - IBM Introduction to Data Engineering](https://www.coursera.org/learn/introduction-to-data-engineering/lecture/Kcbi0/modern-data-ecosystem)
+1. [Coursera - IBM Introduction to Data Engineering](https://www.coursera.org/learn/introduction-to-data-engineering/)
 2. [https://www.fico.com/blogs/using-alternative-data-credit-risk-modelling](https://www.fico.com/blogs/using-alternative-data-credit-risk-modelling)
 3. [https://www.datameer.com/blog/the-how-to-guide-for-understanding-data-ecosystems](https://www.datameer.com/blog/the-how-to-guide-for-understanding-data-ecosystems)

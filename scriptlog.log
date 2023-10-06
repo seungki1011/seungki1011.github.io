@@ -66,3 +66,16 @@ Git automation script executed successfully.
 To https://github.com/seungki1011/seungki1011.github.io.git
    4dfc98d..91764b3  main -> main
 Git automation script executed successfully.
+[main 443e0d3] Docs: Automated commit for Reddit news
+ 14 files changed, 466 insertions(+), 6 deletions(-)
+ create mode 100644 _news/2023-10-06-reddit_news_posts.md
+ create mode 100644 draft-post/2023-08-06-data_engineer_ibm_2.md
+ create mode 100644 draft-post/2023-08-08-data_engineer_ibm_3.md
+ create mode 100644 draft-post/2023-08-10-data_engineer_ibm_4.md
+ create mode 100644 post_images/2023-08-05-data_engineer_ibm_1/enterprise data env.png
+ create mode 100644 "post_images/2023-08-05-data_engineer_ibm_1/\354\212\244\355\201\254\353\246\260\354\203\267 2023-10-05 \354\230\244\354\240\204 12.50.48.png"
+ create mode 100644 post_images/2023-08-06-data_engineer_ibm_2/Data-Team-5.png
+ create mode 100644 post_images/2023-08-08-data_engineer_ibm_3/dataeng-example.png
+To https://github.com/seungki1011/seungki1011.github.io.git
+   91764b3..443e0d3  main -> main
+Git automation script executed successfully.

@@ -28,7 +28,7 @@ toc: True
 * 크론 표현식은 Batcj Process의 스케쥴링을 정의한 표현식
   * 이 표현식은 다른 Batch Process 도구에서도 자주 사용됨
 
-<img src="../post_images/2023-07-06-ApacheAirflow-1/스크린샷 2023-07-08 오전 11.21.17.png" alt="스크린샷 2023-07-08 오전 11.21.17" style="zoom:50%;" class="center-image"/>
+<img src="../post_images/2023-07-06-ApacheAirflow-1/cron.png" alt="cron" style="zoom:67%;" class='center-image'/>
 
 <p align='center'> 출처 - https://docs.aws.amazon.com/elemental-cl3/latest/apireference/channel-scheduling-cron-syntax-summary.html</p>
 
