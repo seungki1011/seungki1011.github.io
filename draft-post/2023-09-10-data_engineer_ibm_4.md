@@ -68,7 +68,7 @@
 * 스프레드 시트, 센서 데이터, 네트워크 로그 데이터, 서버 로그 데이터 등이 여기에 포함
 * 보통 관계형 데이터베이스(SQL Database)에 저장되고 표쥰 데이터 분석 방법 및 도구를 이용해 분석
 
-<img src="../post_images/2023-08-10-data_engineer_ibm_4/정형.png" alt="정형" style="zoom: 50%;" class='center-image'/>
+<img src="../post_images/2023-08-10-data_engineer_ibm_4/struct.png" alt="struct" style="zoom:33%;" class='center-image'/>
 
 <p align='center'>출처 - https://www.coursera.org/learn/introduction-to-data-engineering</p>
 
@@ -80,7 +80,7 @@
 * XML 및 JSON 형식은 일반적으로 반정형 데이터를 저장하고 교환하는데 사용할 수 있음
   * 서버와 클라이언트간 데이터를 주고 받기위해 사용되는 경우가 많다
 
-<img src="../post_images/2023-08-10-data_engineer_ibm_4/반정형.png" alt="반정형" style="zoom:50%;" class='center-image'/>
+<img src="../post_images/2023-08-10-data_engineer_ibm_4/semi-struct.png" alt="semi-struct" style="zoom:33%;" class='center-image'/>
 
 <p align='center'>출처 - https://www.coursera.org/learn/introduction-to-data-engineering</p>
 
@@ -92,7 +92,7 @@
 * 문서 파일 등에 저장하고 수동 분석을 하는 경우도 있음
 * 보통 NoSQL 데이터베이스에 저장하고 분석툴을 이용해 분석
 
-<img src="../post_images/2023-08-10-data_engineer_ibm_4/비정형.png" alt="비정형" style="zoom:50%;" class='center-image'/>
+<img src="../post_images/2023-08-10-data_engineer_ibm_4/unstruct.png" alt="unstruct" style="zoom:33%;" class='center-image'/>
 
 <p align='center'>출처 - https://www.coursera.org/learn/introduction-to-data-engineering</p>
 

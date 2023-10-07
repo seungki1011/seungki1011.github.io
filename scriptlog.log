@@ -79,3 +79,20 @@ Git automation script executed successfully.
 To https://github.com/seungki1011/seungki1011.github.io.git
    91764b3..443e0d3  main -> main
 Git automation script executed successfully.
+[main 49c8928] Docs: Automated commit for Reddit news
+ 20 files changed, 597 insertions(+), 9 deletions(-)
+ create mode 100644 _news/2023-10-07-reddit_news_posts.md
+ create mode 100644 draft-post/2023-08-10-data_engineer_ibm_4(additional exp).md
+ create mode 100644 draft-post/2023-08-11-data_engineer_ibm_5.md
+ rename "post_images/2023-07-03-Backend/\354\212\244\355\201\254\353\246\260\354\203\267 2023-07-02 \354\230\244\355\233\204 5.55.37.png" => post_images/2023-07-03-Backend/header-body.png (100%)
+ rename "post_images/2023-07-06-ApacheAirflow-1/\354\212\244\355\201\254\353\246\260\354\203\267 2023-07-08 \354\230\244\354\240\204 11.21.17.png" => post_images/2023-07-06-ApacheAirflow-1/cron.png (100%)
+ create mode 100644 post_images/2023-08-10-data_engineer_ibm_4(additional exp)/Difference-between-OLAP-and-OLTP-in-DBMS-2.webp
+ create mode 100644 post_images/2023-08-10-data_engineer_ibm_4/data-eng-ecosys.png
+ create mode 100644 "post_images/2023-08-10-data_engineer_ibm_4/\353\260\230\354\240\225\355\230\225.png"
+ create mode 100644 "post_images/2023-08-10-data_engineer_ibm_4/\353\271\204\354\240\225\355\230\225.png"
+ create mode 100644 "post_images/2023-08-10-data_engineer_ibm_4/\354\240\225\355\230\225.png"
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/nonrelation vs relation.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/rdbms vs nosql.webp
+To https://github.com/seungki1011/seungki1011.github.io.git
+   443e0d3..49c8928  main -> main
+Git automation script executed successfully.
