@@ -1,17 +1,14 @@
 ---
-# layout: post
-# title:  "(Introduction to Data Engineering - 3) Responsibilties and Skillsets of a Data Engineer"
-# author: seungki
-# categories: [ Data Engineering ]
-# tags: [Coursera]
-# image: post_images/ibm_coursera.png
-# toc: True
-
-
----
+layout: post
+title:  "(Introduction to Data Engineering - 3) Responsibilties and Skillsets of a Data Engineer"
+author: seungki
+categories: [ Data Engineering ]
+tags: [Coursera]
+image: post_images/coursera_ibm.png
+toc: True
 
 ---
-
+---
 해당 포스트는 코세라의 IBM Data Engineering 코스를 한글로 다시 정리한 내용입니다.
 
 ---

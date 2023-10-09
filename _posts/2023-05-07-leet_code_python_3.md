@@ -1,14 +1,15 @@
 ---
-# layout: post
-# title:  "코딩 테스트를 위한 파이썬 - 2"
-# author: seungki
-# categories: [ Python ]
-# tags: [코딩 테스트]
-# image: post_images/python logo.png
-# toc: True
-
+layout: post
+title:  "코딩 테스트를 위한 파이썬 - 2"
+author: seungki
+categories: [ Python ]
+tags: [코딩 테스트]
+image: post_images/python logo.png
+toc: True
 
 ---
+---
+코딩 테스트를 위한 파이썬
 
 ---
 

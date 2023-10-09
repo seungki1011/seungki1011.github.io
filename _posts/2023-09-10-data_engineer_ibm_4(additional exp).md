@@ -1,17 +1,14 @@
 ---
-# layout: post
-# title:  "OLTP/OLAP, ACID, Metadata"
-# author: seungki
-# categories: [ Data Engineering ]
-# tags: [Terminology, ACID]
-# image: post_images/ibm_coursera.png
-# toc: True
-
-
----
+layout: post
+title:  "OLTP/OLAP, ACID, Metadata"
+author: seungki
+categories: [ Data Engineering ]
+tags: [Terminology, ACID]
+image: post_images/data-eng-sdxl.png
+toc: True
 
 ---
-
+---
 해당 포스트는 이전 포스트에서 정리한 내용에 대한 추가 설명 및 용어 정리입니다.
 
 ---
@@ -153,5 +150,5 @@ ACID가 나타내는 것은 다음과 같다.
 1. [https://www.geeksforgeeks.org/difference-between-olap-and-oltp-in-dbms/](https://www.geeksforgeeks.org/difference-between-olap-and-oltp-in-dbms/)
 1. [https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/transactions.html#](https://docs.oracle.com/en/database/oracle/oracle-database/19/cncpt/transactions.html#)
 1. [https://www.tutorialspoint.com/dwh/dwh_metadata_concepts.htm](https://www.tutorialspoint.com/dwh/dwh_metadata_concepts.htm)
-1. [한국어 나무위키 메타데이터 설명](https://namu.wiki/w/%EB%A9%94%ED%83%80%EB%8D%B0%EC%9D%B4%ED%84%B0)
-1. [영어 나무위키 메타데이터 설명](https://en.wikipedia.org/wiki/Metadata)
+1. [KOR 나무위키 메타데이터 설명](https://namu.wiki/w/%EB%A9%94%ED%83%80%EB%8D%B0%EC%9D%B4%ED%84%B0)
+1. [ENG 나무위키 메타데이터 설명](https://en.wikipedia.org/wiki/Metadata)

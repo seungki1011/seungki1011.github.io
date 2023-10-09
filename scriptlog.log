@@ -96,3 +96,32 @@ Git automation script executed successfully.
 To https://github.com/seungki1011/seungki1011.github.io.git
    443e0d3..49c8928  main -> main
 Git automation script executed successfully.
+[main 6fe8683] Docs: Automated commit for Reddit news
+ 26 files changed, 732 insertions(+), 73 deletions(-)
+ create mode 100644 _news/2023-10-08-reddit_news_posts.md
+ delete mode 100644 draft-post/2023-08-11-data_engineer_ibm_5.md
+ rename draft-post/{2023-08-05-data_engineer_ibm_1.md => 2023-09-05-data_engineer_ibm_1.md} (100%)
+ rename draft-post/{2023-08-06-data_engineer_ibm_2.md => 2023-09-06-data_engineer_ibm_2.md} (100%)
+ rename draft-post/{2023-08-08-data_engineer_ibm_3.md => 2023-09-08-data_engineer_ibm_3.md} (100%)
+ rename draft-post/{2023-08-10-data_engineer_ibm_4(additional exp).md => 2023-09-10-data_engineer_ibm_4(additional exp).md} (100%)
+ rename draft-post/{2023-08-10-data_engineer_ibm_4.md => 2023-09-10-data_engineer_ibm_4.md} (92%)
+ create mode 100644 draft-post/2023-09-11-data_engineer_ibm_5.md
+ create mode 100644 draft-post/2023-09-12-data_engineer_ibm_6.md
+ create mode 100644 draft-post/2023-09-14-data_engineer_ibm_7.md
+ create mode 100644 post_images/2023-08-10-data_engineer_ibm_4/semi-struct.png
+ create mode 100644 post_images/2023-08-10-data_engineer_ibm_4/struct.png
+ create mode 100644 post_images/2023-08-10-data_engineer_ibm_4/unstruct.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/data warehouses example.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/data-lake.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/data-mart.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/data-warehouse-architec.png
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/rdbms vs nosql-6676113.webp
+ create mode 100644 post_images/2023-08-11-data_engineer_ibm_5/types-of-nosql-datastores.png
+ create mode 100644 post_images/2023-09-12-data_engineer_ibm_6/data integration flow.png
+ create mode 100644 post_images/2023-09-12-data_engineer_ibm_6/elt.png
+ create mode 100644 post_images/2023-09-12-data_engineer_ibm_6/etl.png
+ create mode 100644 post_images/2023-09-14-data_engineer_ibm_7/5v.webp
+ create mode 100644 post_images/2023-09-14-data_engineer_ibm_7/bigdataV.png
+To https://github.com/seungki1011/seungki1011.github.io.git
+   49c8928..6fe8683  main -> main
+Git automation script executed successfully.
