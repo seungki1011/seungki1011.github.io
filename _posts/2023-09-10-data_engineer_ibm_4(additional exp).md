@@ -6,6 +6,7 @@ categories: [ Data Engineering ]
 tags: [Terminology, ACID]
 image: post_images/data-eng-sdxl.png
 toc: True
+featured: True
 
 ---
 ---

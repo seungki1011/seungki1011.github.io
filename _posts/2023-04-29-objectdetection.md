@@ -5,7 +5,7 @@ author: seungki
 categories: [ CV, Object Detection ]
 image: post_images/objectdetection.jpeg
 toc: True
-featured: True
+# featured: True
 
 ---
 ---

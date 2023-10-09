@@ -5,7 +5,7 @@ author: seungki
 categories: [ CV, Segmentation ]
 image: post_images/semanticsegmen.jpeg
 toc: True
-featured: True
+# featured: True
 
 
 ---
