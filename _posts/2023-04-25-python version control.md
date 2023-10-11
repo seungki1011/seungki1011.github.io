@@ -289,6 +289,8 @@ Poetry 설치는 [공식문서](https://python-poetry.org/docs/) 참조
 
 * 만들어진 가상환경을 실행하기 위해서는 ```poetry shell```, 끄기 위해서는 ```deactivate```
 
+* ```poetry env info``` 명령어로 현재 활성화된 poetry 쉘의 정보 확인
+
 <br>
 
 ## 참고
