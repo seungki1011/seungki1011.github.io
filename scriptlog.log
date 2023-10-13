@@ -125,3 +125,10 @@ Git automation script executed successfully.
 To https://github.com/seungki1011/seungki1011.github.io.git
    49c8928..6fe8683  main -> main
 Git automation script executed successfully.
+warning: in the working copy of '_posts/2023-04-25-python version control.md', CRLF will be replaced by LF the next time Git touches it
+[main 40b5587] Docs: Automated commit for Reddit news
+ 3 files changed, 198 insertions(+)
+ create mode 100644 _news/2023-10-12-reddit_news_posts.md
+fatal: could not read Password for 'https://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@github.com': Device not configured
+Git automation script executed successfully.
+warning: in the working copy of '_posts/2023-02-12-pandas_2.md', CRLF will be replaced by LF the next time Git touches it
