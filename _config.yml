@@ -1,7 +1,7 @@
 # Site
 name: "Seungki1011's Dev Blog"
 title: "Seungki1011's Dev Blog"
-description: "ML 공부 블로그 🙂"
+description: "Data Engineering 공부 블로그 🙂"
 logo: 'assets/images/blog_logo.png'
 favicon: 'assets/images/favicon.ico'
 url: 'https://seungki1011.github.io'
@@ -22,7 +22,7 @@ authors:
     email: kimseungki1011@gmail.com
     web: 
     twitter: 
-    description: "Trying to find a career for ML engineering in Seoul & Pangyo."
+    description: "Trying to find a career for Data engineering in Seoul & Pangyo."
 
 # Plugins
 plugins:
