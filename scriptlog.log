@@ -148,3 +148,13 @@ Git automation script executed successfully.
  create mode 100644 _news/2023-10-17-reddit_news_posts.md
 fatal: could not read Password for 'https://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@github.com': Device not configured
 Git automation script executed successfully.
+[main 6567e6a] Docs: Automated commit for Reddit news
+ 8 files changed, 411 insertions(+)
+ create mode 100644 _news/2023-10-21-reddit_news_posts.md
+ create mode 100644 draft-post/2023-08-16-sql_1.md
+ create mode 100644 draft-post/2023-08-17-sql_2.md
+ create mode 100644 post_images/2023-08-16-sql_1/sample_db.png
+ create mode 100644 post_images/2023-08-16-sql_1/storedprodcedure.png
+ create mode 100644 post_images/mysqllogo.png
+fatal: could not read Password for 'https://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@github.com': Device not configured
+Git automation script executed successfully.
