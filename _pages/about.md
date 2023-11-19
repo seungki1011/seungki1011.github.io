@@ -39,7 +39,7 @@ comments: true
     </div>
   </li>
   <li>
-    <div><a target="_blank" href="https://www.notion.so/"><img src="../notion-logo.svg" width="16" height="16" alt="Notion SVG" /> Notion</a></div>
+    <div><a target="_blank" href="https://www.notion.so/"><img src="notion-logo.svg" width="16" height="16" alt="Notion SVG" /> Notion</a></div>
   </li>
   <li>
     <div><a target="_blank" href="https://www.linkedin.com/"><i class="fa-brands fa-linkedin" style="color: #000000;"></i> LinkedIn</a></div>

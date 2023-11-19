@@ -5,7 +5,7 @@ description: "Data Engineering 공부 블로그 🙂"
 logo: 'assets/images/blog_logo.png'
 favicon: 'assets/images/favicon.ico'
 url: 'https://seungki1011.github.io'
-baseurl: ''
+baseurl: '/seungki1011.github.io'
 google_analytics: ''
 disqus: 'roadtoml'
 mailchimp-list: ''
