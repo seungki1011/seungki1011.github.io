@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "코딩 테스트를 위한 파이썬 - 1"
+title:  "코딩 테스트를 위한 파이썬 (1)"
 author: seungki
 categories: [ Python ]
 tags: [코딩 테스트]

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numpy - 2(배열 조회)"
+title:  "Numpy (2)(배열 조회)"
 author: seungki
 categories: [ Numpy ]
 image: post_images/numpylogo.png

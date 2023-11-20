@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numpy - 4(Array Operations 2)"
+title:  "Numpy (4)(Array Operations 2)"
 author: seungki
 categories: [ Numpy ]
 image: post_images/numpylogo.png

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Linux Basic - 2"
+title:  "Linux Basics (2)"
 author: seungki
 categories: [ Linux ]
 image: post_images/linuxlogo.png

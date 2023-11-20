@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Shell Script Basic - 1"
+title:  "Shell Script Basics (1)"
 author: seungki
 categories: [ Linux ]
 image: post_images/linuxlogo.png

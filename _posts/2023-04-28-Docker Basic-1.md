@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Docker Basic - 1"
+title:  "Docker Basics (1)"
 author: seungki
 categories: [ Docker ]
 image: post_images/dockerlogo.png

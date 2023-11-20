@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numpy - 7(Numpy Performance)"
+title:  "Numpy (7)(Numpy Performance)"
 author: seungki
 categories: [ Numpy ]
 image: post_images/numpylogo.png

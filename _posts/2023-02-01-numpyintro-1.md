@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numpy - 1(Introduction)"
+title:  "Numpy (1)(Introduction)"
 author: seungki
 categories: [ Numpy ]
 image: post_images/numpylogo.png
