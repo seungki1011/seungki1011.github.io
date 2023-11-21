@@ -133,7 +133,8 @@ kimseungki@DESKTOP-1P30XXX:~
 
 ```echo `쉘커맨드` ``` 입력시 쉘 커맨드의 결과를 출력
 
-* ex. ```echo `pwd` ```
+* ```echo `pwd` ```
+* ```echo $(ls ~/)```
 
 <br>
 
