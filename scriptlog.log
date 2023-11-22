@@ -195,3 +195,25 @@ Git automation script executed successfully.
 fatal: could not read Password for 'https://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@github.com': Device not configured
 Git automation script executed successfully.
 warning: in the working copy of '_posts/2023-04-26-Basic Linux-1.md', CRLF will be replaced by LF the next time Git touches it
+[main c3c5146] Docs: Automated commit for Reddit news
+ 18 files changed, 570 insertions(+), 1 deletion(-)
+ create mode 100644 _news/2023-11-22-reddit_news_posts.md
+ create mode 100644 _posts/2023-08-27-linux-total-summary-1.md
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/cd1.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/chmod1.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/df-h.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/diff1.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/diff2.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/du-h.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/du.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/grep pipe.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/grep1.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/grep2.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/help.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/man.png
+ create mode 100644 post_images/2023-08-27-linux-total-summary-1/sed1.png
+fatal: could not read Password for 'https://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@github.com': Device not configured
+Git automation script executed successfully.
+warning: in the working copy of '_posts/2023-04-26-Basic Linux-1.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '_posts/2023-04-26-Shell-Script-1.md', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '_posts/2023-04-27-Basic Linux-2.md', CRLF will be replaced by LF the next time Git touches it

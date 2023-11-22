@@ -27,7 +27,53 @@ toc: True
 * Standard Output, STDOUT, 1 : 출력(터미널에 나오는 값)
 * Standard Error , STDERR, 2 : 디버깅 정보나 에러 출력
 
-<br>
+---
+
+## 환경 변수(Enviroment Variable)
+
+### 환경 변수 소개
+
+* OS level에서 선언하는 변수
+* 해당 운영체제 환경에서 실행되는 프로세스가 모두 참조 가능
+* 사용하는 경우
+  * 자주 사용하는 경로를 저장
+  * 기존 변수를 이용한 새로운 변수 저장
+  * 프로세스가 실행중 참조할 값을 미리 환경변수에 할당하고 프로세스 실행
+  * 여러 프로세스가 참조해야하는 값을 환경변수에 할당
+
+### 임시 선언
+
+* ```export ENV_VAR_NAME=value```
+* 시스템 재부팅 또는 로그아웃 시 환경변수 값이 사라짐
+* 설정한 환경변수는 ```$ENV_VAR_NAME```으로 불러올수 있음
+
+### 기존 변수 활용
+
+* ```export ENV_VAR_NAME=$ENV_VAR_NAME:{다른내용}```
+* ```$ENV_VAR_NAME```으로 기존 환경변수 사용함
+
+### 유저레벨 선언
+
+* 특정 유저에게 영구적으로 적용하고 싶은 경우
+* ```~/.bash_profile``` 파일 수정 (홈디렉토리에 존재)
+  * user가 처음 로그인할 때 수행됨
+* bash shell로 접속했을 때만 동작
+  * sh 또는 zsh로 접속시 동작하지 않음
+
+### 영구히 선언
+
+* 모든 유저에게 영구히 적용
+* ```/etc/profile``` 파일 수정
+* ```sudo```권한 필요
+
+### $PATH
+
+* 운영체제가 명령어의 실행파일을 찾는 경로
+* ```which```가 활용
+* 추가하기 위해서는 ```export PATH=$PATH:{경로}```
+* 프로그램을 설치해서 명령어를 사용할 수 있다는 것은, 해당 프로그램에 대한 PATH를 추가했거나 기존의 PATH에 설치했기 때문
+
+---
 
 ## Redirection and Pipe
 
@@ -38,15 +84,13 @@ toc: True
 
 * 스트림의 흐름을 바꿔주는 것이라고 이해하면 편하다.
 
-<br>
-
 ### Pipe
 
 * 프로그램의 출력을 다른 프로그램의 입력으로 사용하고 싶을 때 사용한다. 예를 들어 A라는 명령어의 output을 B의 input으로 사용하고 싶을 경우 처럼, 다양한 커맨드를 조합하는 방식으로 사용 할 수 있다.
 
 * ```ls | grep "vi"``` : 현재 폴더에 있는 파일 명 중 "vi" 가 들어간 단어를 찾기 
 
-<br>
+---
 
 ## 서버에서 자주 사용하는 쉘 커맨드
 
@@ -58,11 +102,7 @@ toc: True
 
 * ```-f``` : full format으로 자세히 보여줌
 
-
-
 <img src="../post_images/Basic Linux2/ps.PNG" alt="ps" style="zoom:100%;" class="center-image"/>
-
-<br>
 
 ### curl
 
@@ -72,15 +112,11 @@ toc: True
 
 * ```curl``` 외에도 ```httpie``` 또는 ```Postman``` 등이 있다.
 
-<br>
-
 ### df
 
 * Disk Free의 약자. 현재 사용 중인 디스크의 용량을 확일 할 수 있다.
 
 * ```-h``` : 읽기 쉬운 형태로 출력
-
-<br>
 
 ### scp
 
@@ -100,8 +136,6 @@ toc: True
 
 * ```scp user@ip:remote_directory user2@ip2:target_remote_directory```
 
-<br>
-
 ### nohup
 
 * 터미널 종료 후에도 계속 작업이 유지하도록 실행한다(백그라운드 실행)
@@ -117,8 +151,6 @@ toc: True
 
 * Log는 nohup.out에 저장 된다. 
 
-<br>
-
 ### chmod
 
 * Change Mod의 약자. 파일의 권한을 변경하는 경우 사용한다. 유닉스에서 파일이나 디엑토리의 시스템 모드를 변경한다. 
@@ -129,15 +161,10 @@ toc: True
 
 #### Permission
 
-```r``` : Read, 4
-
-```w``` : write, 2
-
-```x``` : execute, 1
-
-```-``` : Denied
-
-<br>
+* ```r``` : Read, 4
+* ```w``` : write, 2
+* ```x``` : execute, 1
+* ```-``` : Denied
 
 ## 참고
 
