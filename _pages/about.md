@@ -12,7 +12,7 @@ comments: true
 <div class="row justify-content-between">
 <div class="col-md-8 pr-5">
 
-<p>머신러닝 엔지니어를 목표로 공부하고 있습니다. 기록하기를 좋아합니다. 📋</p>
+<p>데이터 엔지니어를 목표로 공부하고 있습니다. 기록하기를 좋아합니다. 📋</p>
 <hr>
 
 <h3>🧑‍🎓 Education</h3>
