@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: Seungki # the main title
 
-tagline: 개발 블로그 by seungki1011 # it will display as the sub-title
+tagline: 데이터 엔지니어링, 백엔드를 다룹니다.  # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   데이터 엔지니어링과 백엔드 개발을 주로 다루는 개발 블로그. A develop blog mainly about data engineering and backend development.
@@ -28,8 +28,8 @@ url: "https://seungki1011.github.io"
 github:
   username: seungki1011 # change to your github username
 
-twitter:
-  username: twitter_username # change to your twitter username
+# twitter:
+#   username: twitter_username # change to your twitter username
 
 social:
   # Change to your full name.
@@ -110,7 +110,7 @@ comments:
   provider: # [disqus | utterances | giscus]
   # The provider options are as follows:
   disqus:
-    shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
+    shortname: roadtoml # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
   # utterances settings › https://utteranc.es/
   utterances:
     repo: # <gh-username>/<repo>
