@@ -10,6 +10,8 @@ math: true
 mermaid: true
 ---
 
+---
+
 ## 요구 사항
 
 요구 사항을 정해보자.
