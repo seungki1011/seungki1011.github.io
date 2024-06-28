@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: Seungki # the main title
 
-tagline: 데이터 엔지니어링, 백엔드를 다룹니다.  # it will display as the sub-title
+tagline: 데이터 엔지니어링, 백엔드 공부.  # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   데이터 엔지니어링과 백엔드 개발을 주로 다루는 개발 블로그. A develop blog mainly about data engineering and backend development.
