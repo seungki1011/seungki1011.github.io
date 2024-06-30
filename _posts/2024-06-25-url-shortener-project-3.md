@@ -76,16 +76,22 @@ public class UrlMapping {
 
 ---
 
-## 이슈 1 : `UnexpectedRollbackException`
+## 이슈 1 : UnexpectedRollbackException
 
 ### 이슈 발생 배경
 
 * 동일한 URL로 URL 단축을 위한 `POST` 요청을 보내게 되면 첫 번째 요청은 정상적으로 수행되지만, 두 번째 요청에서`ConstraintViolationException`이 발생한다.
 * `ConstraintViolationException`이 발생하는 원인은 동일한 URL에 대해서는 같은 숏코드가 나오고, 중복 숏코드를 처리하는 로직을 구현하지 않았기 때문이다.
+
+
+
 * 중복된 숏코드를 처리하기 위해서 다음의 중복 처리 로직을 구현하기로 했다.
   * 만약 `shortenUrl(originalUrl)`을 통해 숏코드를 생성했을 때 `ConstraintViolationException`이 발생한다면, 서비스 계충에서 잡아서 핸들링한다.
   * 핸들링 로직은 원본 URL에 램덤 솔트(salt)를 추가해서 솔트를 추가한 URL로 숏코드를 재생성하는 방법을 사용한다. 물론 원본 URL은 동일하게 저장한다.
   * 예시) `https://abc123.com` + `saltvalue` = `https://abc123.comsaltvalue`
+
+
+
 * 문제는 다음과 같다
   * `@Transactional`이 붙은 테스트 코드에서 `shortenUrl`을 같은 `originalUrl`로 호출하는 경우 정상적으로 예외를 핸들링하고 숏코드로 새로운 값으로 재생성하는 것을 확인할 수 있었다
   * **컨트롤러 계층 테스트를 위해서 동일한 URL(`originalUrl`)로 포스트 요청을 두 번하는 경우, 두 번째 요청에서 `UnexpectedRollbackException`이 발생하고, 예상한대로 동작하지 않는다는 문제가 발생한다.**
@@ -114,7 +120,9 @@ public class UrlMapping {
 
 ### 이슈 재현
 
-이슈 상황을 재연해보자.
+이슈 상황을 재현해보자.
+
+<br>
 
 `UrlMappingRepository`
 
@@ -306,16 +314,16 @@ public class TestDuplicateShortcode {
 
 <br>
 
-여기서 알 수 있는 것은, 만약 내 서비스 계층과 레포지토리 계층에 전부 `@Transactional`을 설정해서 사용하더라도, 전파 옵션이 `REQUIRED`로 설정되어 있는 한, 하나의 트랜잭셔이라도 `rollback-only`로 표시되어 있으면 전체 트랜잭션도 롤백된다. 
+여기서 알 수 있는 것은, 만약 나의 서비스 계층과 레포지토리 계층에 전부 `@Transactional`을 설정해서 사용하더라도, 전파 옵션이 `REQUIRED`로 설정되어 있는 한, 하나의 트랜잭셔이라도 `rollback-only`로 표시되어 있으면 전체 트랜잭션도 롤백된다. 
 
-아래 그림으로 만약 레포지토리 계층의 `save()`에 `@Transactional`을 적용하는 경우이다.
+아래 그림은 레포지토리 계층의 `save()`에 `@Transactional`을 적용하는 경우이다.
 
 <br>
 
 ![clickreq](../post_images/2024-06-25-url-shortener-project-3/required.png){: width="972" height="589" }_현재 프로젝트의 레포지토리 계층에 @Transactional을 적용하는 경우_
 
-* 이전에 레포지토리의 `save()`에 `@Transactional`을 적용하지 않았던 케이스와 다른 점
-  * 전체 트랜잭션이 `rollback-only`로 표시되는 것이 아니라, 내부 트랜잭션인 `트랜잭션2`가 `rollback-only`로 표시된다
+* 이전에 레포지토리 계층의 `save()`에 `@Transactional`을 적용하지 않았던 케이스와 다른 점은
+  * 전체 트랜잭션이 `rollback-only`로 표시되는 것이 아니라, 내부 트랜잭션인 `트랜잭션2`가 `rollback-only`로 표시된다.
   * 외부 트랜잭션의 커밋 시점에서 `rollback-only`를 확인해서 `UnexpectedRollbackException`가 발생한다.
 
 <br>
@@ -326,7 +334,7 @@ public class TestDuplicateShortcode {
 
 ---
 
-### `Propagation.REQUIRES_NEW`
+### Propagation.REQUIRES_NEW
 
 전파 옵션인 `Propagation.REQUIRES_NEW`를 사용하게 되면, 항상 새로운 트랜잭션을 만들게 된다. 
 
