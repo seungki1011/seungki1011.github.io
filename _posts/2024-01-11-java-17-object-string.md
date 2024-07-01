@@ -40,7 +40,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 <br>
 
-<p align="center">   <img src="img/object.gif" alt="object" style="width: 80%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-11-java-17-object-string/object.gif" alt="object" style="width: 80%;"> </p>
 
 <p align='center'>https://www.cs.auckland.ac.nz/references/java/java1.5/tutorial/java/IandI/subclasses.html</p>
 
@@ -52,7 +52,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 부모 클래스(`ParentClass`)와 부모 클래스를 상속 받는 자식 클래스(`ChildClass`)가 있다고 하자. `ParentClass`는 `Object` 클래스를 묵시적으로 상속 받았기 때문에 메모리에도 함께 생성된다.
 
-<p align="center">   <img src="img/object2.png" alt="object" style="width: 90%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-11-java-17-object-string/object2.png" alt="object" style="width: 90%;"> </p>
 
 <p align='center'>Object 상속</p>
 

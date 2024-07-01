@@ -35,7 +35,7 @@ class Outer {
 
 <br>
 
-<p align="center">   <img src="img/nested1.png" alt="nested" style="width: 95%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/nested1.png" alt="nested" style="width: 95%;"> </p>
 
 <p align="center">중첩 클래스의 분류</p>
 
@@ -145,7 +145,7 @@ public class NestedOuter {
 
 
 
-<p align="center">   <img src="img/static1.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/static1.png" alt="nested" style="width: 100%;"> </p>
 
 * 정적 중첩 클래스 앞에는 `static`이 붙는다
 
@@ -177,7 +177,7 @@ public class NestedOuterMain {
 }
 ```
 
-<p align="center">   <img src="img/static2.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/static2.png" alt="nested" style="width: 100%;"> </p>
 
 * 정적 중첩 클래스는 `new 바깥클래스.중첩클래스()` 로 생성할 수 있다
   * 예) `NestedOuter.Nested nested = new NestedOuter.Nested();`
@@ -216,7 +216,7 @@ public class NestedOuterMain {
 
 <br>
 
-<p align="center">   <img src="img/static3.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/static3.png" alt="nested" style="width: 100%;"> </p>
 
 * 리펙토링 전에는 개발자는 `Network`과 `NetworkMessage`를 둘다 사용해야 하나 헷갈려할 것이다
   * 두 클래스의 코드를 직접 확인하고 나서야, `Network` 클래스만 사용하고, `NetworkMessage`는 `Network` 안에서만 사용된다는 것을 알 수 있을 것이다
@@ -262,7 +262,7 @@ public class InnerOuter { // 바깥 클래스
 }
 ```
 
-<p align="center">   <img src="img/inner1.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/inner1.png" alt="nested" style="width: 100%;"> </p>
 
 * 내부 클래스는 앞에 `static` 이 붙지 않는다
   * 쉽게 이야기해서 인스턴스 멤버가 된다
@@ -289,7 +289,7 @@ public class InnerOuterMain {
 }
 ```
 
-<p align="center">   <img src="img/inner2.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/inner2.png" alt="nested" style="width: 100%;"> </p>
 
 * `InnerOuter.Inner inner = outer.new Inner()` : 내부 클래스 생성
   * 내부 클래스는 바깥 클래스의 인스턴스에 소속되어야 한다
@@ -316,7 +316,7 @@ public class InnerOuterMain {
 
 <br>
 
-<p align="center">   <img src="img/inner3.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/inner3.png" alt="nested" style="width: 100%;"> </p>
 
 ```java
 public class CarMain {
@@ -358,7 +358,7 @@ public class CarMain {
 
 <br>
 
-<p align="center">   <img src="img/local1.png" alt="nested" style="width: 70%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/local1.png" alt="nested" style="width: 70%;"> </p>
 
 <p align='center'>지역 클래스는 내부 클래스</p>
 
@@ -434,7 +434,7 @@ public class LocalOuterV2 {
 
 
 
-<p align="center">   <img src="img/local2.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/local2.png" alt="nested" style="width: 100%;"> </p>
 
 * 지역 변수는 내부 클래스의 한 종류이기 때문에, 내부 클래스가 가지는 특징을 전부 가진다
 * 매개 변수도 지역 변수의 한 종류이다
@@ -544,11 +544,11 @@ public class LocalOuter {
 
 <br>
 
-<p align="center">   <img src="img/vc3.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/vc3.png" alt="nested" style="width: 100%;"> </p>
 
 <br>
 
-<p align="center">   <img src="img/vc4.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/vc4.png" alt="nested" style="width: 100%;"> </p>
 
 <br>
 
@@ -558,7 +558,7 @@ public class LocalOuter {
 
 <br>
 
-<p align="center">   <img src="img/lvc3.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/lvc3.png" alt="nested" style="width: 100%;"> </p>
 
 * `LocalPrinter`(지역 클래스) 인스턴스 생성 시도
   * 지역 클래스의 인스턴스를 생성할 때 지역 클래스가 접근하는 지역 변수를 확인한다
@@ -576,7 +576,7 @@ public class LocalOuter {
 
 <br>
 
-<p align="center">   <img src="img/lvc4.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/lvc4.png" alt="nested" style="width: 100%;"> </p>
 
 * 이제 캡쳐한 지역 변수를 지역 클래스 인스턴스를 통해서 접근할 수 있다
 * 정리하자면 `paramVar`, `localVar`를 스택 영역의 지역 변수에 접근하는 것이 아니라, 지역 클래스 인스턴스에 있는 캡쳐한 변수에 접근한다 (어차피 스택 프레임이 제거 되면서 스택 영역의 변수는 접근하지도 못함)
@@ -600,7 +600,7 @@ public class LocalOuter {
 
 <br>
 
-<p align="center">   <img src="img/ef1.png" alt="nested" style="width: 90%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/ef1.png" alt="nested" style="width: 90%;"> </p>
 
 * 캡쳐 변수의 값을 변경하면 안되는 이유
   * 지역 변수의 값을 변경하면 인스턴스에 캡처한 변수의 값도 변경해야 한다
@@ -665,7 +665,7 @@ public class AnonymousOuter {
 }
 ```
 
-<p align="center">   <img src="img/ac1.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/ac1.png" alt="nested" style="width: 100%;"> </p>
 
 * 익명 클래스는 클래스의 본문(body)을 정의하면서 동시에 생성
 * 익명 클래스는 부모 클래스를 상속 받거나, 또는 인터페이스를 구현해야 한다
@@ -749,7 +749,7 @@ public interface Process {
 }
 ```
 
-<p align="center">   <img src="img/ac2.png" alt="nested" style="width: 100%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-15-java-20-nested-class/ac2.png" alt="nested" style="width: 100%;"> </p>
 
 * 외부에서 코드 조각을 전달하기 위해서 인스턴스를 전달하고, 인스턴스에 있는 메서드를 호출하면 된다
 

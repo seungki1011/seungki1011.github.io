@@ -24,7 +24,7 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="img/popvsoop.jpeg" alt="POP vs OOP" style="width: 90%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-03-java-8-oop-intro/popvsoop.jpeg" alt="POP vs OOP" style="width: 90%;"> </p>
 
 <p align='center'>https://simplesnippets.tech/java-introduction-to-object-oriented-programming-oop/</p>
 
@@ -114,7 +114,7 @@ Current value = 3
 
 <br>
 
-<p align="center">   <img src="img/encapsulation.png" alt="encapsulation" style="width: 90%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-03-java-8-oop-intro/encapsulation.png" alt="encapsulation" style="width: 90%;"> </p>
 
 <p align='center'>https://waytoeasylearn.com/learn/encapsulation/</p>
 

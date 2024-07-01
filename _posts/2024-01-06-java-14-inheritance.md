@@ -95,7 +95,7 @@ Filling up the car!
 * ```ElectricCar```과 ```GasCar```는 공통으로 사용하는 ```move()```가 존재함
   * ```move()``` : 모든 자동차들이 공통으로 가지는 기능(이동)
 
-<p align="center">   <img src="img/NoInheritance.png" alt="Inheritance" style="width: 50%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/NoInheritance.png" alt="Inheritance" style="width: 50%;"> </p>
 
 <p align='center'>상속받지 않은 두 클래스</p>
 
@@ -171,7 +171,7 @@ The car is currently moving on ground!
 
 <br>
 
-<p align="center">   <img src="img/Inheritance2.png" alt="Inheritance" style="width: 50%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/Inheritance2.png" alt="Inheritance" style="width: 50%;"> </p>
 
 <p align='center'>상속받는 경우</p>
 
@@ -242,7 +242,7 @@ This vehicle used the brake!
 
 <br>
 
-<p align="center">   <img src="img/Inheritance3.png" alt="Inheritance" style="width: 70%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/Inheritance3.png" alt="Inheritance" style="width: 70%;"> </p>
 
 <p align='center'>Multilevel Inheritance</p>
 
@@ -261,7 +261,7 @@ ElectricCar e1 = new ElectricCar();
 
 <br>
 
-<p align="center">   <img src="img/Inheritance4.png" alt="Inheritance" style="width: 70%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/Inheritance4.png" alt="Inheritance" style="width: 70%;"> </p>
 
 <p align='center'>Inheritance Memory Allocation</p>
 
@@ -376,7 +376,7 @@ This aircraft used the brake!
 This vehicle used the brake!
 ```
 
-<p align="center">   <img src="img/Inheritance5.png" alt="Inheritance" style="width: 30%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/Inheritance5.png" alt="Inheritance" style="width: 30%;"> </p>
 
 <p align='center'>Overriding</p>
 
@@ -391,7 +391,7 @@ This vehicle used the brake!
 
 <br>
 
-<p align="center">   <img src="img/protected1.png" alt="Inheritance" style="width: 40%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/protected1.png" alt="Inheritance" style="width: 40%;"> </p>
 
 <br>
 
@@ -701,7 +701,7 @@ ClassC, a = 10, b = 20, c = 30
 
 <br>
 
-<p align="center">   <img src="img/super2.png" alt="Inheritance" style="width: 70%;"> </p>
+<p align="center">   <img src="../post_images/2024-01-06-java-14-inheritance/super2.png" alt="Inheritance" style="width: 70%;"> </p>
 
 <p align='center'>생성자 호출 순서</p>
 

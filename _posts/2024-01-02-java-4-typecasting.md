@@ -12,7 +12,7 @@ mermaid: true
 
 ---
 
-## 1) Typecasting
+## Typecasting
 
 * 형변환
 * 자료형을 다른 형태로 변경하는 것
@@ -21,7 +21,7 @@ mermaid: true
 
 ---
 
-### 1.1 자동 형변환(Widening Type Casting)
+### 자동 형변환(Widening Type Casting)
 
 * 자동 형변환, 묵시적 형변환 등에 해당
 
@@ -36,8 +36,6 @@ mermaid: true
   * 예시 overflow 문제
 
 <br>
-
-[아래 코드](https://github.com/seungki1011/Data-Engineering/blob/main/java/start-java/src/main/java/de/java/typecasting/tc1.java)
 
 ```java
 public class tc1 {
@@ -73,7 +71,7 @@ doubleVal is 5.0
 
 ---
 
-### 1.2 명시적 형변환(Narrow Type Casting)
+### 명시적 형변환(Narrow Type Casting)
 
 * 명시적 형변환, 강제 형변환 등에 해당
 * 큰 범위의 값을 작은 범위의 값에 넣을 경우 명시적으로 형변환을 해야한다
