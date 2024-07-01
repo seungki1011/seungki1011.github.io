@@ -414,7 +414,7 @@ public void save(UrlMapping urlMapping) {
 
 <br>
 
-![clickreq](../post_images/2024-06-25-url-shortener-project-3/test.png){: width="972" height="589" }_테스트 코드 실행_
+![clickreq](../post_images/2024-06-25-url-shortener-project-3/test.png){: width="640" height="150" }_테스트 코드 실행_
 
 
 
