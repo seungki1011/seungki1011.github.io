@@ -21,7 +21,7 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-04-java-10-package/package1.png" alt="package" style="width: 50%;"> </p>
+![package](../post_images/2024-01-04-java-10-package/package1.png)
 
 
 ```java

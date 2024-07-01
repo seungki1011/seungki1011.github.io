@@ -35,9 +35,9 @@ mermaid: true
 
 
 
-<p align="center">   <img src="../post_images/2024-01-26-java-24-collections/collection1.png" alt="collection inheritance" style="width: 100%;"> </p>
+![collection inheritance](../post_images/2024-01-26-java-24-collections/collection1.png)
 
-<p align="center">   <img src="../post_images/2024-01-26-java-24-collections/collection2.png" alt="map inheritance" style="width: 100%;"> </p>
+![map inheritance](../post_images/2024-01-26-java-24-collections/collection2.png)
 
 <p align='center'>geeksforgeeks - java collection inheritence</p>
 

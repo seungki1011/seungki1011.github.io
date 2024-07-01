@@ -34,7 +34,7 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-05-java-11-access-modifier/accessmod1.png" alt="access modifier" style="width: 70%;"> </p>
+![access modifier](../post_images/2024-01-05-java-11-access-modifier/accessmod1.png)
 
 <p align='center'>자바의 정석 - 기초</p>
 
@@ -48,7 +48,7 @@ mermaid: true
 
 ### 2.1 Field, Method (접근 제어자의 사용)
 
-<p align="center">   <img src="../post_images/2024-01-05-java-11-access-modifier/accessmod2.png" alt="access modifier" style="width: 60%;"> </p>
+![access modifier](../post_images/2024-01-05-java-11-access-modifier/accessmod2.png)
 
 <br>
 

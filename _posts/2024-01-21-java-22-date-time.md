@@ -224,7 +224,7 @@ date.getTime() after date.clear(): Thu Jan 01 00:00:00 KST 1970
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/javatime1.png" alt="javatime" style="width: 100%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/javatime1.png)
 
 <p align='center'>java.time overview</p>
 
@@ -813,7 +813,7 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/temporal1.png" alt="javatime" style="width: 100%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/temporal1.png)
 
 <p align = "center">https://o7planning.org/13747/java-duration</p>
 
@@ -846,7 +846,7 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/chrono.png" alt="javatime" style="width: 100%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/chrono.png)
 
 <br>
 
@@ -863,13 +863,13 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 **`ChronoUnit` 단위**
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/unittypes.png" alt="javatime" style="width: 60%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/unittypes.png)
 
 <br>
 
 **`ChronoUnit` 메서드**
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/unitmethod2.png" alt="javatime" style="width: 80%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/unitmethod2.png)
 
 <p align="center">https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoUnit.html</p>
 
@@ -956,15 +956,15 @@ ChronoUnit.MINUTES.between(lt1, lt2) = 10
 
 **`ChronoField` 종류**
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/field1.png" alt="javatime" style="width: 60%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/field1.png)
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/field2.png" alt="javatime" style="width: 60%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/field2.png)
 
 <br>
 
 **`ChronoField` 메서드**
 
-<p align="center">   <img src="../post_images/2024-01-21-java-22-date-time/fieldmethod.png" alt="javatime" style="width: 80%;"> </p>
+![javatime](../post_images/2024-01-21-java-22-date-time/fieldmethod.png)
 
 <p align="center">https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoField.html</p>
 

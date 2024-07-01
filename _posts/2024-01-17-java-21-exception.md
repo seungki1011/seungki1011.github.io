@@ -30,7 +30,7 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/exception0.png" alt="exception hiearchy" style="width: 100%;"> </p>
+![exception hiearchy](../post_images/2024-01-17-java-21-exception/exception0.png)
 
 <p align='center'>https://www.javacodemonk.com/java-exception-class-hierarchy-92e8224e</p>
 
@@ -75,13 +75,13 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/e1.png" alt="exception" style="width: 85%;"> </p>
+![exception](../post_images/2024-01-17-java-21-exception/e1.png)
 
 <p align="center">예외를 처리하는 경우</p>
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/e2.png" alt="exception" style="width: 100%;"> </p>
+![exception](../post_images/2024-01-17-java-21-exception/e2.png)
 
 <p align="center">예외의 기본 규칙</p>
 
@@ -235,7 +235,7 @@ Arithmetic Exception has occurred.
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/exlayer3.png" alt="exception" style="width: 85%;"> </p>
+![exception](../post_images/2024-01-17-java-21-exception/exlayer3.png)
 
 <p align="center">예외 계층</p>
 
@@ -532,7 +532,7 @@ Handled Exception in main
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/t1.png" alt="throws" style="width: 100%;"> </p>
+![throws](../post_images/2024-01-17-java-21-exception/t1.png)
 
 * ```main```에서 ```method1``` 호출 → ```method1```에서 ```method2``` 호출 → ```method2```에서 예외 발생 → ```method2```에서 발생한 예외를 호출자로 던짐(이 경우 ```method1```) → ```method1```에서 예외를 호출자로 던짐(이 경우 ```main```)
 * ```main```에서 ```try-catch```로 예외 처리를 함
@@ -563,7 +563,7 @@ Handled Exception in main
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/e3.png" alt="checked vs unchecked" style="width: 90%;"> </p>
+![checked vs unchecked](../post_images/2024-01-17-java-21-exception/e3.png)
 
 <p align="center">예외 분류</p>
 
@@ -577,7 +577,7 @@ Handled Exception in main
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/check1.png" alt="checked vs unchecked" style="width: 100%;"> </p>
+![checked vs unchecked](../post_images/2024-01-17-java-21-exception/check1.png)
 
 <p align="center">체크 예외(Checked Exception)</p>
 
@@ -897,7 +897,7 @@ Writing data to Data2.txt!
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/checke1.png" alt="checked vs unchecked" style="width: 100%;"> </p>
+![checked vs unchecked](../post_images/2024-01-17-java-21-exception/checke1.png)
 
 <p align="center">예외 처리 지옥</p>
 
@@ -937,7 +937,7 @@ Writing data to Data2.txt!
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/uncheck1.png" alt="checked vs unchecked" style="width: 100%;"> </p>
+![checked vs unchecked](../post_images/2024-01-17-java-21-exception/uncheck1.png)
 
 <p align="center">언체크 예외, 공통 예외 처리</p>
 
@@ -967,7 +967,7 @@ Writing data to Data2.txt!
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-17-java-21-exception/uncheck2.png" alt="checked vs unchecked" style="width: 80%;"> </p>
+![checked vs unchecked](../post_images/2024-01-17-java-21-exception/uncheck2.png)
 
 * 사용할 예외들은 `RuntimeException`의 자손
 * 쉽게 말해서 사용할 예외들이 언체크 예외임

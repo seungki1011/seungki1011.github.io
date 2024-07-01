@@ -294,7 +294,7 @@ list = [a, b, c]
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-24-java-23-generics/generic1.png" alt="generic" style="width: 80%;"> </p>
+![generic](../post_images/2024-01-24-java-23-generics/generic1.png)
 
 <p align = 'center'>Integer 대신 Long을 사용해야 함</p>
 
@@ -735,7 +735,7 @@ public class GenericMethodClass<T> {
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-24-java-23-generics/generic2.png" alt="generic" style="width: 80%;"> </p>
+![generic](../post_images/2024-01-24-java-23-generics/generic2.png)
 
 <br>
 

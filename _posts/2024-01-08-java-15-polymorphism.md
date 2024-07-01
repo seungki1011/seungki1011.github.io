@@ -219,7 +219,7 @@ Exception in thread "main" java.lang.ClassCastException: de.java.polymorphism.Pa
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-08-java-15-polymorphism/DownCasting1.png" alt="DownCast Runtime Error" style="width: 90%;"> </p>
+![DownCast Runtime Error](../post_images/2024-01-08-java-15-polymorphism/DownCasting1.png)
 
 * 다운 캐스팅을 안전하게 사용하기 위해서 ```instanceof``` 사용 가능 (인스턴스 타입 확인)
 
@@ -602,7 +602,7 @@ Moo~
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-08-java-15-polymorphism/Polymorphism1.png" alt="Usage of polymorphism" style="width: 90%;"> </p>
+![Usage of polymorphism](../post_images/2024-01-08-java-15-polymorphism/Polymorphism1.png)
 
 <br>
 
@@ -969,7 +969,7 @@ Used Honk! Bing Bong~
 
 <br>
 
-<p align="center">   <img src="../post_images/2024-01-08-java-15-polymorphism/Interface1.png" alt="Interface" style="width: 90%;"> </p>
+![Interface](../post_images/2024-01-08-java-15-polymorphism/Interface1.png)
 
 * 다중 구현에서 다이아몬드 문제를 발생하지 않는다
   * ```Fly```, ```Move``` 인터페이스에 둘다 추상 메서드 ```move```가 존재하지만 두 인터페이스 다중 구현시 ```move```는 하나만 구현하기 때문에 메서드 선택이 문제인 다이아몬드 문제는 존재하지 않음
