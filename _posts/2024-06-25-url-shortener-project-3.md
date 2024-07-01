@@ -339,7 +339,7 @@ public class TestDuplicateShortcode {
 
 전파 옵션인 `Propagation.REQUIRES_NEW`를 사용하게 되면, 항상 새로운 트랜잭션을 만들게 된다. 
 
-쉽게 말해서 외부 트랜잭션과 내부 트랜잭션을 완전히 분리해서 사용할 수 있게 된다. 완전히 분리해서 별도의 물리 트랜잭션으로 사용하기 때문에, 당연히 커밋과 롤백도 각각 별도로 이루어지게 된다.
+쉽게 말해서 외부 트랜잭션과 내부 트랜잭션을 완전히 분리해서 사용할 수 있게 된다. 완전히 분리해서 별도의 물리 트랜잭션으로 사용하기 때문에, 당연히 커밋과 롤백도 각각 별도로 이루어지게 된다. 이렇게 되면 트랜잭션이 `rollback-only`로 표시되어 롤백되어도 다른 트랜잭션에 영향을 주지 않는다.
 
 <br>
 
@@ -347,7 +347,7 @@ public class TestDuplicateShortcode {
 
 <br>
 
-결론적으로 `UnexpectedRollbackException`를 해결하기 위해서 예외가 발생해서 `rollback-only`로 표시 될 수 있는 레포지토리 계층의 트랜잭션의 전파 속성을 `REQUIRES_NEW`로 사용하면 해결할 수 있을거로 예상이 된다.
+결론적으로 `UnexpectedRollbackException`를 해결하기 위해서는 레포지토리 계층 `save()`의 트랜잭션의 전파 속성을 `REQUIRES_NEW`로 사용하면 해결할 수 있을거로 예상이 된다.
 
 <br>
 
