@@ -106,13 +106,14 @@ public class UrlMapping {
 
 ![clickreq](../post_images/2024-06-25-url-shortener-project-3/constraint2.png){: width="972" height="589" }_ConstraintViolationException 발생_
 
-* 테스트 코드에서는 숏코드가 중복되면 `ConstraintViolationException` 발생하고, 서비스 계층에서 정상적으로 처리하는 것 까지 확인 가능
+* 테스트 코드에서는 숏코드가 중복되면 `ConstraintViolationException` 발생하고, 서비스 계층에서 정상적으로 처리하는 것 까지 확인 가능하다
+* 내 예상은, 아마 `@Test`에서 동작하는 `@Transactional`의 특수성 때문에 정상적으로 동작하는 것 같지만, 다시 알아볼 예정이다
 
 <br>
 
 ![clickreq](../post_images/2024-06-25-url-shortener-project-3/rollbackexception.png){: width="972" height="589" }_동일한 URL POST 요청 두 번_ 
 
-* 동일한 URL에 대해서 `POST` 요청을 두 번 수행하는 경우, 두 번째 요청에서 `UnexpectedRollbackException` 발생
+* 반면에 동일한 URL에 대해서 `POST` 요청을 두 번 수행하는 경우, 두 번째 요청에서 `UnexpectedRollbackException` 발생
 
 <br>
 
@@ -350,17 +351,78 @@ public class TestDuplicateShortcode {
 
 <br>
 
+> `REQUIRES_NEW` 사용시 주의점은 새로운 트랜잭션을 위해 커넥션을 추가로 사용하기 때문에 성능에 영향을 줄 수 있다. 현재 프로젝트의 경우, 중복 숏코드 처리가 자주 일어나는 상황이 아니기 때문에 크게 신경쓰지 않아도 될 것 같다.
+{: .prompt-warning }
+
+<br>
+
 ---
 
 ### 문제 해결
 
-코드로 해결 방안을 적용해보자.
+코드에 해결 방안을 적용해보자.
 
 <br>
 
+`UrlShortenerService`
+
+```java
+@Transactional
+public String shortenUrl(String originalUrl) {
+    String shortcode = null;
+    try {
+        shortcode = saveUrlMapping(originalUrl);
+        em.flush();
+        log.info("[No Duplication] shortcode = {}", shortcode);
+    } catch (DataIntegrityViolationException | ConstraintViolationException e) {
+        log.info("[Exception!] ", e);
+        shortcode = handleShortcodeDuplication(originalUrl);
+    }
+    return shortcode;
+}
+
+public String saveUrlMapping(String originalUrl) {
+    String shortcode = generateShortcode(originalUrl);
+    UrlMapping urlMapping = new UrlMapping(shortcode, originalUrl, LocalDateTime.now());
+    umr.save(urlMapping);
+    return shortcode;
+}
+
+public String handleShortcodeDuplication(String originalUrl) {
+    String newShortcode = generateShortcodeWithSalt(originalUrl);
+    log.info("[Shortcode Duplication] Salted shortcode = {}", newShortcode);
+    UrlMapping urlMapping = new UrlMapping(newShortcode, originalUrl, LocalDateTime.now());
+    umr.save(urlMapping);
+    return newShortcode;
+}
+```
+
+<br>
+
+`UrlMappingRepository`
+
+```java
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+public void save(UrlMapping urlMapping) {
+    em.persist(urlMapping);
+}
+```
+
+<br>
+
+테스트 코드를 실행해보면 이전과 다르게 전부 통과하는 것을 확인할 수 있다.
+
+<br>
+
+![clickreq](../post_images/2024-06-25-url-shortener-project-3/test.png){: width="972" height="589" }_테스트 코드 실행_
 
 
 
+<br>
+
+---
+
+## 이슈 2
 
 
 
