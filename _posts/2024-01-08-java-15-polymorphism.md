@@ -264,7 +264,7 @@ public class CastMain2 {
 
 ---
 
-## 3) ```instanceof```
+## 3) instanceof
 
 * **참조변수가 참조하는 인스턴스의 실제 타입을 체크하는데 사용**
 * 연산 결과는 ```true``` or ```false```
@@ -335,8 +335,6 @@ Is poly5 a instance of GrandChild? : false
   * 불가능하면 ```false```
 
 <br>
-
-[```InstanceOfMain2.java```](https://github.com/seungki1011/Data-Engineering/blob/main/java/start-java/src/main/java/de/java/polymorphism/InstanceOfMain2.java)
 
 ```java
 public class InstanceOfMain2 {
@@ -416,7 +414,7 @@ public class Child extends Parent {
 }
 ```
 
-[```OverridingMain1.java```](https://github.com/seungki1011/Data-Engineering/blob/main/java/start-java/src/main/java/de/java/polymorphism/overriding/OverridingMain1.java)
+<br>
 
 ```java
 public class OverridingMain1 {

@@ -14,7 +14,7 @@ mermaid: true
 
 ## 1) 예외, 에러(Exception, Error)
 
-### 1.1 예외(`Exception`) 소개
+### 1.1 예외 소개
 
 * 예외(`Exception`)는 개발자가 프로그램에서 구현한 코딩 로직의 실수 또는 사용자의 영향으로 발생한다
 
@@ -100,7 +100,7 @@ mermaid: true
 
 ---
 
-## 2) 예외 발생시키기(```throw```)
+## 2) 예외 발생시키기(throw)
 
 * 예외 발생시키기
 * 예외를 생성 후 ```throw``` 키워드를 이용해서 예외를 발생 시킬 수 있다
@@ -131,9 +131,9 @@ e.getMessage : Exception was made(This is the message)
 
 ---
 
-## 3) 예외 처리하기(`try-catch`)
+## 3) 예외 잡기(try-catch)
 
-### 3.1 `try-catch` 소개
+### 3.1 try-catch 소개
 
 * 예외 처리
 * 프로그램 실행 시 발생할 수 있는 예외에 대비한 코드를 작성
@@ -349,7 +349,7 @@ Exception 발생!
 
 ---
 
-### 3.3 멀티 `catch` (`|`)
+### 3.3 Multi catch (|)
 
 `|`를 이용해서 여러 예외를 한번에 잡을 수 있다.
 
@@ -462,9 +462,9 @@ java.lang.ArithmeticException: / by zero
 
 ---
 
-## 5) 예외 던지기(`throws`)
+## 5) 예외 던지기(throws)
 
-### 5.1 `throws` 소개
+### 5.1 throws 소개
 
 * 예외를 호출자로 떠넘길 수 있음
   * 메서드가 호출시 발생가능한 예외를 호출하는 쪽에 예외를 던질 수 있음
@@ -494,7 +494,7 @@ void method() throws ExceptionA, ExceptionB {
 
 ---
 
-### 5.2 `throws`가 처리되는 과정
+### 5.2 throws가 처리되는 과정
 
 이전의 [예외의 기본 규칙](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99)에서 설명했던 과정을 다른 예시로 한번 더 살펴보자.
 
@@ -627,7 +627,7 @@ Handled Exception in main
 
 ---
 
-## 7) ```try-catch-finally```
+## 7) try-catch-finally
 
 `finally`에 대해서 알아보자.
 
@@ -708,9 +708,9 @@ Writing data to data.txt!
 
 ---
 
-## 8) ```try-with-resource```
+## 8) try-with-resource
 
-### 8.1 `try-with-resource` 소개
+### 8.1 try-with-resource 소개
 
 애플리케이션에서 외부 자원을 사용하는 경우 반드시 외부 자원을 해제해야 한다(리소스 누수, 등의 문제 방지). 이를 해결하기 위해서 `finally` 구문으로 자원 할당을 해제하는 방식으로 코드를 구현했다. `try`에서 외부 자원을 이용하고, `finally`로 외부 자원을 반납하는 패턴이 자주 사용되면서, 자바7 부터 `try-with-resources`라는 편의 기능이 도입되었다.
 
@@ -1131,14 +1131,6 @@ public class Main {
 
 * 위에서는 `println`을 사용했지만, 애플리케이션을 개발할때는 로깅 
 * 필요하면 `instanceof` 와 같이 예외 객체의 타입을 확인해서 별도의 추가 처리도 가능
-
-<br>
-
----
-
-## Further Reading
-
-* 트랜잭션 내의 예외 처리
 
 <br>
 

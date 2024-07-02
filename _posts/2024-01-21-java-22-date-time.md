@@ -68,7 +68,7 @@ mermaid: true
 
 <br>
 
-#### 1.2.1 `java.util.Date`
+#### 1.2.1 java.util.Date
 
 * 날짜와 시간을 다루기 위한 클래스
 
@@ -124,7 +124,7 @@ new Date(1000).compareTo(new Date()) = -1
 
 ---
 
-#### 1.2.2 `java.util.Calendar`
+#### 1.2.2 java.util.Calendar
 
 * ```Date```를 개선한 클래스
   * 타임존 지원 개선
@@ -203,7 +203,7 @@ date.getTime() after date.clear(): Thu Jan 01 00:00:00 KST 1970
 
 ---
 
-#### 1.2.3 `java.time`
+#### 1.2.3 java.time
 
 * 기존의 외부 라이브러리인 `Joda-Time`을 가져와서 Java8에서 표준 API로 도입
 
@@ -237,7 +237,7 @@ date.getTime() after date.clear(): Thu Jan 01 00:00:00 KST 1970
 
 ---
 
-## 2) ```java.time``` 패키지
+## 2) java.time 패키지
 
 `java.time` 패키지의 특징을 다시 살펴보자.
 
@@ -256,7 +256,7 @@ date.getTime() after date.clear(): Thu Jan 01 00:00:00 KST 1970
 
 ---
 
-### 2.1 ```LocalDate```
+### 2.1 LocalDate
 
 * 시간 없이 Year-Month-Day를 다루기 위한 클래스
   * 예) `2024-01-04`
@@ -317,7 +317,7 @@ public class LocalDateMain {
 
 ---
 
-### 2.2 ```LocalTime```
+### 2.2 LocalTime
 
 * 시간만 다루고 싶을 때 사용한다
   * 예) `08:20:30.213`
@@ -359,7 +359,7 @@ public class LocalTimeMain {
 
 ---
 
-### 2.3 ```LocalDateTime```
+### 2.3 LocalDateTime
 
 * ```LocalDate```, ```LocalTime``` 둘다 사용하는 경우 (날짜와 시간 둘다 표현해야 하는 경우)
   * ```LocalDate```, `LocalTime`를 합쳐놓은 걸로 생각하면 편함
@@ -443,7 +443,7 @@ public class LocalDateTimeMain {
 
 ---
 
-### 2.4 ```ZonedDateTime```
+### 2.4 ZonedDateTime
 
 * 타임존을 적용한 ```DateTime```
 
@@ -467,7 +467,7 @@ public class LocalDateTimeMain {
 
 <br>
 
-#### 2.4.1 `ZoneId`
+#### 2.4.1 ZoneId
 
 ```java
 public class ZoneIdMain {
@@ -508,7 +508,7 @@ Etc/GMT+8 | ZoneRules[currentStandardOffset=-08:00]
 
 ---
 
-#### 2.4.2 `ZonedDateTime`
+#### 2.4.2 ZonedDateTime
 
 `ZonedDateTime` 은 `LocalDateTime` 에 시간대 정보인 `ZoneId` 가 합쳐진 것이다.
 
@@ -568,7 +568,7 @@ ZonedDateTime.of(2030, 1, 1, 13, 30, 50, 0, ZoneId.of("Asia/Seoul")) = 2030-01-0
 
 ---
 
-### 2.5 `OffsetDateTime`
+### 2.5 OffsetDateTime
 
 `OffsetDateTime`은 `LocalDateTime`에 UTC 오프셋 정보인 `ZoneOffset`이 합쳐진 것이다.
 
@@ -625,7 +625,7 @@ OffsetDateTime.of(ldt, ZoneOffset.of("+01:00")) = 2030-01-01T13:30:50+01:00
 
 ---
 
-###  2.6 `Period`, `Duration`
+###  2.6 Period, Duration
 
 * 날짜와 시간 사이의 간격(기간)을 표현하기 위해 ```Period```, ```Duration```을 사용한다
 * [```Period```](https://docs.oracle.com/javase/8/docs/api/java/time/Period.html) : 두 날짜 사이의 간격을 년, 월, 일로 나타낸다
@@ -709,7 +709,7 @@ Duration.ofMinutes(30) = PT30M
 
 ---
 
-### 2.7 ```Instant```
+### 2.7 Instant
 
 `Instant` 는 UTC(협정 세계시)를 기준으로 하는, 시간의 한 지점을 나타낸다.
 
@@ -805,11 +805,11 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 ---
 
-## 3) `TemporalAccessor`, `TemporalAmount`, `ChronoUnit`
+## 3) TemporalAccessor, TemporalAmount, ChronoUnit
 
 날짜와 시간의 핵심 인터페이스에 대해 알아보자.
 
-### 3.1  `TemporalAccessor`, `TemporalAmount`
+### 3.1  TemporalAccessor, TemporalAmount
 
 <br>
 
@@ -840,7 +840,7 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 ---
 
-### 3.2 `ChronoUnit`, `ChronoField`
+### 3.2 ChronoUnit, ChronoField
 
 시간 단위와 시간 필드인 `ChronoUnit`, `ChronoField`에 대해서 알아보자.
 
@@ -852,7 +852,7 @@ epochStart.plusSeconds(3600).getEpochSecond() = 3600
 
 ---
 
-#### 3.2.1 `ChronoUnit`
+#### 3.2.1 ChronoUnit
 
 * `TemporalUnit` 인터페이스는 날짜와 시간을 측정하는 단위를 나타낸다
 * 주로 사용되는 구현체는 `java.time.temporal.ChronoUnit` 열거형(`Enum`)을 사용한다
@@ -930,7 +930,7 @@ ChronoUnit.MINUTES.between(lt1, lt2) = 10
 
 ---
 
-#### 3.2.2 `ChronoField`
+#### 3.2.2 ChronoField
 
 * `TemporalField` 인터페이스는 날짜와 시간을 나타내는데 사용된다
 * 주로 사용되는 구현체는 `java.time.temporal.ChronoField` 열거형을 사용한다
@@ -1132,7 +1132,7 @@ ldt.plus(Period.ofYears(10)) = 2032-03-10T15:20:59
 
 ---
 
-### 4.3 `with()`
+### 4.3 with()
 
 `with()`를 이용해서 날짜와 시간을 조작해보자.
 
@@ -1182,9 +1182,9 @@ LocalDateTime.of(2020, 10, 5, 12, 30, 59).withYear(2020) = 2020-10-05T12:30:59
 
 ---
 
-## 5) ```Formatter```
+## 5) 포맷터(Formatter)
 
-* 미리 정의된 형식 사용
+* 미리 정의된 형식을 사용하기 위해서 사용한다
 * [https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)
 * ```ISO_DATE```, `ISO_DATE_TIME`,  ```MEDIUM```등 은 필요한 형식에 따라 설정해서 사용하면 됨
 
@@ -1266,8 +1266,6 @@ MEDIUM, Locale.KOREA 포맷팅 결과 : 2030. 1. 15. 오전 9:30:00
 
 * ```DecimalFormat```
 * ```SimpleDateFormat```
-
-<br>
 
 ---
 

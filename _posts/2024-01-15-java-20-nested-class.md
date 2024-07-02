@@ -586,7 +586,7 @@ public class LocalOuter {
 
 ---
 
-#### 4.3.2 effectively `final`
+#### 4.3.2 effectively-final
 
 지역 클래스가 접근하는 지역 변수는 절대로 중간에 값이 변하면 안된다. 따라서 `final`로 선언하거나, 사실상(effectively) `final`이어야 함.
 

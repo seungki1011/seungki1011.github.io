@@ -12,19 +12,18 @@ mermaid: true
 
 ---
 
-## 1) Primitive vs Reference
-
-* [기본형(Primitive Type) vs 참조형(Reference Type)](https://github.com/seungki1011/Data-Engineering/tree/main/java/(002)%20Basic%20Syntax#1-variables)
-
-
+## 1) 기본형, 참조형(Primitive vs Reference)
 
 * 기본형은 실제 사용하는 값을 담는다
   * 기본형은 연산이 가능
+  * 기본형은 원시형이라고도 부른다
+  * 예) `int i = 0` 
 
 
 
 * 참조형은 객체의 메모리 주소를 담는다(참조값)
   * ```.```을 통해 멤버 변수에 접근해서 연산에 사용
+  * 예) `Student s = new Student();`
 
 <br>
 
@@ -32,9 +31,8 @@ mermaid: true
 
 ## 2) 참조형 대입
 
-* 참조형에 대입하는 경우 변수에 들어가 있는 참조값을 복사해서 대입하는 것
-* 주소만 복사되는 것
-* 주소를 가르킬 수 있는 방법이 하나 더 늘어난걸로 생각하면 쉬움!
+* 참조형에 대입하는 경우 변수에 들어가 있는 참조값을 복사해서 대입하는 것이다
+* 주소만 복사되는 것이다
 
 
 
@@ -93,17 +91,15 @@ Unit name: Firebat| Attack: 50| Defense: 250
 
 ---
 
-## 4) NullPointerException
+## 4) NullPointerException(NPE)
 
-* ```null```값을 가지는 객체/변수를 호출하는 경우 발생
+* ```null```값을 가지는 객체를 호출하는 경우 발생한다
   * ```.```을 통해 ```null```값에 접근하는 경우
   * 예시: ```null```값을 가진 객체에 대해 메소드를 호출하는 경우
 
 
 
-* null safe하게 코딩하는 것이 중요
-
-<br>
+* `null safe`하게 코딩하는 것이 중요하다 
 
 ---
 

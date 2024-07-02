@@ -12,9 +12,9 @@ mermaid: true
 
 ---
 
-## 1) `Object` 클래스
+## 1) Object 클래스
 
-### 1.1 `java.lang` 패키지
+### 1.1 java.lang 패키지
 
 Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지이다.
 
@@ -34,7 +34,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 ---
 
-### 1.2 `Object` 클래스 소개
+### 1.2 Object 클래스 소개
 
  `Object` 클래스에 대해서 알아보자.
 
@@ -83,7 +83,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 ---
 
-### 1.3 `Object` 배열
+### 1.3 Object 배열
 
  `Object`는 모든 타입의 객체를 담을 수 있다. 따라서 `Object[]`를 만들면 모든 타입의 객체를 담을 수 있는 배열을 만들 수 있다.
 
@@ -151,7 +151,7 @@ The number of objects : 3
 
 ---
 
-### 1.4 `toString()`
+### 1.4 toString()
 
 * `Object.toString()` 메서드는 객체의 정보를 문자열 형태로 제공한다
 * 디버깅과 로깅에 활용할 수 있다
@@ -244,7 +244,7 @@ String refValue = Integer.toHexString(System.identityHashCode(item));
 
 ---
 
-### 1.5 `equals()`
+### 1.5 equals()
 
 `Object`는 동등성 비교를 위한 `equals()` 메서드를 제공한다.
 
@@ -366,9 +366,9 @@ public class UserV2 {
 
 ---
 
-## 2) `String` 클래스
+## 2) String 클래스
 
-### 2.1 `String` 클래스 소개
+### 2.1 String 클래스 소개
 
 자바에서 문자를 다루는 대표적인 2 가지 타입.
 
@@ -419,7 +419,7 @@ public final class String {
 
 ---
 
-### 2.2 `String` 객체 비교
+### 2.2 String 객체 비교
 
 `String` 객체 끼리 비교할 때는 `==`가 아닌 `equals()`로 비교를 해야한다.
 
@@ -481,7 +481,7 @@ public class EqualsTest {
 
 ---
 
-### 2.3 `String`은 불변 객체
+### 2.3 String은 불변 객체
 
 `String`은 [불변 객체(immutable object)](https://github.com/seungki1011/Data-Engineering/tree/main/java/(027)%20Immutable%20Object#2-%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4immutable-object)이다. 생성 이후에 절대로 내부의 값을 변경할 수 없다.
 
@@ -521,7 +521,7 @@ str3 = Hello world!
 
 ---
 
-### 2.4 `String` 메서드
+### 2.4 String 메서드
 
 `String` 클래스는 문자열을 편리하게 다루기 위한 다양한 메서드를 제공한다.
 
@@ -769,7 +769,7 @@ result = Apple-Banana-Orange
 
 ---
 
-### 2.5 `StringBuilder`
+### 2.5 StringBuilder
 
 불변인 `String`의 단점은 기존 불변의 단점과 유사하다. `String` 문자열을 더하거나 변경을 할 때 마다 계속 새로운 객체를 생성해야한다. 많은 변경이 필요한 경우에는 많은 `String` 객체를 생성하고 GC 해야한다. 결과적으로 서버의 CPU, 메모리 자원을 더 소모하게 된다.
 

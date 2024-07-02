@@ -103,7 +103,7 @@ Filling up the car!
 
 ---
 
-### 1.3 상속하는 경우 (```extends```)
+### 1.3 상속하는 경우 (extends)
 
 * ```extends```를 사용해서 상속하는 경우
 * 공통으로 가지는 메서드를 포함하는 조상 클래스를 만들고 자손 클래스가 상속 받게하면 됨
@@ -384,7 +384,7 @@ This vehicle used the brake!
 
 ---
 
-## 5) `protected`
+## 5) protected
 
 * ```protected``` : 같은 패키지안에서의 호출은 허용
   * 또한 패키지가 달라도 상속 관계의 호출은 허용
@@ -501,7 +501,7 @@ Private method in the parent package, parent class.
 
 ---
 
-## 6) ```super```
+## 6) super
 
 * 참조 변수 ```super```
 * ```this```같은 경우 인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어 있음
@@ -594,7 +594,7 @@ called bark() : Barking. Bow wow!
 
 ---
 
-## 7) ```super()```
+## 7) super()
 
 * 조상 클래스의 생성자
 * ```this()```의 경우 내 클래스의 생성자를 호출하는 것

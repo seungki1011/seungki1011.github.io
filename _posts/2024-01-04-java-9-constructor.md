@@ -29,8 +29,7 @@ mermaid: true
 
 
 
-* [접근 제어자(access modifier)](https://github.com/seungki1011/Data-Engineering/tree/main/java/(011)%20Access%20Modifier)를 명시하지 않으면 생성자는 기본적으로 ```package-private```이 됨(같은 패키지 내에서만 접근 가능)
-  * 접근 제어자에서 추가 설명
+* [접근 제어자(access modifier)](https://seungki1011.github.io/posts/java-11-access-modifier/#1-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4%EC%9E%90access-modifier)를 명시하지 않으면 생성자는 기본적으로 ```package-private```이 됨(같은 패키지 내에서만 접근 가능)
 
 <br>
 
@@ -174,9 +173,9 @@ Car car = new Car(); // 기본 생성자 호출
 
 ---
 
-## 5) 생성자 오버로딩(Constructor Overloading_
+## 5) 생성자 오버로딩(Constructor Overloading)
 
-* 생성자를 추가해서 [오버로딩](https://github.com/seungki1011/Data-Engineering/tree/main/java/(005)%20Method#4-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9overloading) 가능
+* 생성자를 추가해서 [오버로딩](https://seungki1011.github.io/posts/java-5-method/#4-%EC%98%A4%EB%B2%84%EB%A1%9C%EB%94%A9overloading)이 가능하다
 
 <br>
 
@@ -221,13 +220,13 @@ Product name: Laptop, Price: 1000000, Rating: 7.0
 
 ## 6) this()
 
-* 같은 클래스의 다른 생성자를 호출할 때 사용
-  * 생성자 내부에서 자신의 생성자 호출
+* 같은 클래스의 다른 생성자를 호출할 때 사용한다
+  * 생성자 내부에서 자신의 생성자를 호출한다
 
 
 
-* ```this()```를 이용한 생성자 호출은 생성자의 첫 문장에서만 가능
-* 코드의 재사용성 증가를 위해 사용(중복 제거)
+* ```this()```를 이용한 생성자 호출은 생성자의 첫 문장에서만 가능하다
+* 코드의 재사용성 증가를 위해 사용한다(중복 제거)
 
 <br>
 

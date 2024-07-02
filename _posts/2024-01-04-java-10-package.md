@@ -12,11 +12,10 @@ mermaid: true
 
 ---
 
-## 1) Package
+## 1) 패키지(Package)
 
-* 패키지
 * 서로 관련된 클래스들의 묶음(Package)
-* 패키지는 폴더로 볼 수 있음
+* 패키지는 폴더로 볼 수 있다
   * 패키지안에 패키지가 들어갈 수 있음(하위 패키지)
 
 <br>
@@ -40,11 +39,11 @@ public class NewPackage1 {
 
 ---
 
-## 2) `import`
+## 2) 임포트(import)
 
-### 2.1 `import`
+### 2.1 import
 
-* ```import```는 사용할 클래스가 속한 패키지를 지정하는데 사용함
+* ```import```는 사용할 클래스가 속한 패키지를 지정하는데 사용한다
 * ```import```문 사용시 클래스를 사용할 때 패키지명(풀네임)을 생략할 수 있음
 * 같은 패키지 내의 클래스를 사용하는 경우 ```import```없이 또는 패키지 경로를 생략 가능한 상태로 사용 가능
 
@@ -53,6 +52,7 @@ public class NewPackage1 {
 * 같은 이름의 클래스가 있는 경우 ``import``는 둘중 하나만 선택 가능
   * 자주 사용하는 클래스를 ```import```
   * 자주 사용하지 않는 클래스는 풀 경로를 적어서 사용
+    * 풀 경로를 나중에 `static import`라고 해서 클래스, 경로명 없이 사용 가능하다
 
 <br>
 
@@ -81,12 +81,6 @@ class ImportTest {
 
 <br>
 
-> 1. ```package```
-> 2. ```import```
-> 3. ```class``` 선언
-
-<br>
-
 ---
 
 ### 2.2 static import
@@ -99,8 +93,7 @@ class ImportTest {
 
 ## 3) 패키지 관례(Package Convention)
 
-* [자바 관례 참고](https://github.com/seungki1011/Data-Engineering/tree/main/java/(002)%20Basic%20Syntax#2-java-convention)
-* 관례라는 것은 무조건 지켜야 하는 것은 아님
+* 관례라고 해서 무조건 지켜야 하는 것은 아님
 * **패키지 이름은 모두 소문자**
 
 

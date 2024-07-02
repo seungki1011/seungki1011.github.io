@@ -844,7 +844,7 @@ resultBioUnit = BioUnit{name='질럿2', hp=150}
 
 ---
 
-## 4) 와일드카드(Wildcard, `<?>`)
+## 4) 와일드카드(Wildcard, <?>)
 
 ### 4.1 와일드카드 설명
 

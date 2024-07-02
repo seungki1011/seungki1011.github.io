@@ -12,7 +12,7 @@ mermaid: true
 
 ---
 
-## 1) ```Collection``` 프레임워크
+## 1) 컬렉션 프레임워크(Collection)
 
 * ```Collection```(다수의 객체)을 다루기 위한 프레임워크
 * 데이터를 다루기 위한 자료구조를 표현하고 사용할 수 있는 클래스들 제공
@@ -31,7 +31,7 @@ mermaid: true
 
 ---
 
-## 2) ```Collection```
+## 2) 컬렉션의 구조
 
 
 
@@ -47,9 +47,9 @@ mermaid: true
 
 ---
 
-## 3) `Iterable`, `Iterator`
+## 3) Iterable, Iterator
 
-### 3.1 `Iterable`, `Iterator` 설명
+### 3.1 Iterable, Iterator 설명
 
 자료 구조를 순회하기 위해서는 순회 방법에 대한 로직이 필요하다. 가령 배열을 인덱스 하나씩 증가시키면서 요소를 순회한다면, 연결 리스트는 `node.next`를 이용해서 `null`이 나올때 까지 순회한다. 이 처럼 각 자료 구조마다 순회하는 방법이 다르기 때문에, 자료 구조의 구현 방법과 관계 없이 모든 자료 구조를 동일한 방법으로 순회할 수 있는 추상화된 인터페이스가 있다면 개발자 입장에서는 편리할 것이다.
 
@@ -87,7 +87,7 @@ public interface Iterator<E> {
 
 ---
 
-### 3.2 `Iterator` 구현
+### 3.2 Iterator 구현
 
 * 컬렉션에 저장된 요소들을 읽어오는 방법을 표준화한 인터페이스
 * 컬렉션에 ```iterator()```를 호출해서 ```Iterator```를 구현한 객체를 얻어서 사용한다
@@ -215,7 +215,7 @@ value = 4
 
 ---
 
-## 4) ```List```
+## 4) List
 
 * 순서가 있고, 중복을 허용한다
 * [Java docs - ```List```](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
@@ -224,7 +224,7 @@ value = 4
 
 <br>
 
-### 4.1 ```ArrayList```
+### 4.1 ArrayList
 
 * 저장공간으로 배열 사용(배열 기반)
 
@@ -323,7 +323,7 @@ The ArrayList contains Grape
 
 ---
 
-### 4.2 ```LinkedList```
+### 4.2 LinkedList
 
 * 배열의 단점
   * 크기 변경 불가. 더 큰 배열을 사용하기 위해서는 큰 배열 생성 → 복사 → 참조 변경의 과정을 거쳐야 함
@@ -394,7 +394,7 @@ Mango
 
 ---
 
-## 5) ```Set```
+## 5) Set
 
 * 순서가 없고, 중복을 허용하지 않는다
   * 순서를 유지하고 싶으면 ```LinkedHashSet``` 사용 가능
@@ -407,7 +407,7 @@ Mango
 
 <br>
 
-### 5.1 ```HashSet```
+### 5.1 HashSet
 
 * 저장에 해시 알고리즘(hash algorithm) 사용
 
@@ -579,7 +579,7 @@ HashSet is now empty.
 
 ---
 
-### 5.2 ```TreeSet```
+### 5.2 TreeSet
 
 * 정렬과 탐색에 유리
 
@@ -750,7 +750,7 @@ treeSet.tailSet(6) = [6, 8]
 
 ---
 
-## 6) ```Map```
+## 6) Map
 
 * 순서가 없고, 키의 중복은 허용하지 않는다 (값의 중복은 가능)
   * 순서 유지가 필요하다면 ```LinkedHashMap``` 사용
@@ -779,7 +779,7 @@ treeSet.tailSet(6) = [6, 8]
 ---
 
 
-### 6.1 ```HashMap```
+### 6.1 HashMap
 
 * 보통 ```HashMap```을 많이 사용함
 * ```HashMap```은 동기화 되어있지 않음 (Synchronization x)
@@ -863,7 +863,7 @@ HashMap after clearing: {}
 
 ---
 
-## 7) ```Stack```, ```Queue```, ```ArrayDeque```
+## 7) Stack, Queue, ArrayDeque
 
 * ```Stack``` : Last in First Out (LIFO)
 * ```Queue``` : First in First Out (FIFO)
@@ -881,7 +881,7 @@ HashMap after clearing: {}
 
 ---
 
-### 7.1 ```ArrayDeque```
+### 7.1 ArrayDeque
 
 * 실무에서는 대부분 `ArrayDeque` 사용
 * 양 끝에서 삽입과 반환이 가능함
@@ -961,7 +961,7 @@ The returned element after pop(): Urgent Task 1
 
 ---
 
-## 8) ```Comparable``` & ```Comparator```
+## 8) Comparable, Comparator
 
 * 객체를 비교하기 위해서 사용(정렬 기준을 제시)
 * ```sort()``` 디폴트는 오름차순
@@ -975,7 +975,7 @@ The returned element after pop(): Urgent Task 1
 
 ---
 
-### 8.1 `Comparator`
+### 8.1 Comparator
 
 배열을 정렬하는 하는 상황이라고 가정해보자. 정렬을 하기 위해서는 `sort()`를 사용할 때 `Comparator`(비교자)를 넘겨줘서 정렬을 할 수 있다. 
 
@@ -1099,7 +1099,7 @@ array = [2, 1, 3, 4]
 
 ---
 
-### 8.2 ```Comparable```
+### 8.2 Comparable
 
 바로 이전에 설명했던 것 처럼 객체의 `Comparable` 인터페이스를 구현하면, 해당 `Comparable`이 객체의 디폴트 정렬 방식이 된다. 이런 디폴트 정렬 방식을 자연 순서(Natural Ordering)라고 한다. 
 
@@ -1279,7 +1279,7 @@ IdComparator().reversed() : [Customer{id='Cindy', age=20}, Customer{id='Bob', ag
 
 ---
 
-### 8.3 `Comparable`, `Comparator` 예시
+### 8.3 Comparable, Comparator 예시
 
 `Comparable`을 다시 한번 사용해보자.
 
@@ -1440,7 +1440,7 @@ Fruit{name='Grape', quantity=19}
 
 ---
 
-## 9) 컬렉션 유틸(`Collections`)
+## 9) 컬렉션 유틸(Collections)
 
 컬렉션을 편리하게 다룰 수 있는 유틸에 대해 알아보자.
 
@@ -1619,7 +1619,7 @@ list = [1, 2, 3, 100]
 
 ---
 
-### 9.3 멀티스레드 동기화(`synchronizedXxx()`)
+### 9.3 멀티스레드 동기화(synchronizedXxx())
 
 멀티스레드 상황에서 동기화 문제가 발생하지 않도록 컬렉션을 변경하는 방법에 대해 알아보자.
 
