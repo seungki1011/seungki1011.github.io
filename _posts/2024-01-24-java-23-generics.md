@@ -881,7 +881,7 @@ ArrayList<? extends Product> list = new ArrayList<Computer>(); // 가능
 
 코드를 통해 더 자세히 알아보자.
 
-이후의 코드에서 이전의 [`GenericBox`](https://github.com/seungki1011/Data-Engineering/blob/main/java/(019)%20Generics/generics/src/main/java/de/generic/box/GenericBox.java)를 다시 사용할 것이다.
+이후의 코드에서 이전의 `GenericBox`를 다시 사용할 것이다.
 
 <br>
 

@@ -472,7 +472,7 @@ java.lang.ArithmeticException: / by zero
 
 
 * ```throws```가 붙은 메서드는 반드시 ```try``` 블럭내에 호출되어야 함
-* 이전 [예외의 기본 규칙](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99)에서 예외를 던지는 것을 기억하자
+* 이전 [예외의 기본 규칙](https://seungki1011.github.io/posts/java-21-exception/#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99)에서 예외를 던지는 것을 기억하자
 
 <br>
 
@@ -496,7 +496,7 @@ void method() throws ExceptionA, ExceptionB {
 
 ### 5.2 throws가 처리되는 과정
 
-이전의 [예외의 기본 규칙](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99)에서 설명했던 과정을 다른 예시로 한번 더 살펴보자.
+이전의 [예외의 기본 규칙](https://seungki1011.github.io/posts/java-21-exception/#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99)에서 설명했던 과정을 다른 예시로 한번 더 살펴보자.
 
 <br>
 
@@ -573,7 +573,7 @@ Handled Exception in main
 
 ### 6.2 체크 예외(Checked Exception)
 
-체크 예외에서 예외를 던지는 과정을 다시 한번 더 살펴보자. (이전의 [예외 기본 규칙](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99), [`throws`가 처리되는 과정](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#52-throws%EA%B0%80-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EA%B3%BC%EC%A0%95)과 내용이 상당수 겹칠 수 있다)
+체크 예외에서 예외를 던지는 과정을 다시 한번 더 살펴보자. (이전의 [예외 기본 규칙](https://seungki1011.github.io/posts/java-21-exception/#11-%EC%98%88%EC%99%B8-%EA%B8%B0%EB%B3%B8-%EA%B7%9C%EC%B9%99), [`throws`가 처리되는 과정](https://seungki1011.github.io/posts/java-21-exception/#52-throws%EA%B0%80-%EC%B2%98%EB%A6%AC%EB%90%98%EB%8A%94-%EA%B3%BC%EC%A0%95)과 내용이 상당수 겹칠 수 있다)
 
 <br>
 
@@ -745,7 +745,7 @@ public interface AutoCloseable {
 
 코드를 통해 더 자세히 알아보자.
 
-코드는 뒤에서 다룰 [언체크 예외 사용 예시](https://github.com/seungki1011/Data-Engineering/tree/main/java/(016)%20Exception#922-%EC%96%B8%EC%B2%B4%ED%81%AC-%EC%98%88%EC%99%B8-%EC%98%88%EC%8B%9C) 코드의 일부이다.
+코드는 뒤에서 다룰 [언체크 예외 사용 예시](https://seungki1011.github.io/posts/java-21-exception/#922-%EC%96%B8%EC%B2%B4%ED%81%AC-%EC%98%88%EC%99%B8-%EC%98%88%EC%8B%9C) 코드의 일부이다.
 
 ```java
 public class NetworkClient implements AutoCloseable { // AutoCloseable 구현

@@ -16,7 +16,7 @@ mermaid: true
 
 ### 1.1 상속 소개
 
-* 상속은 기존의 클래스를 재사용해서 새로운 클래스를 작성하는 것
+* 상속은 기존의 클래스를 재사용해서 새로운 클래스를 작성하는 것이다
   * 기존 클래스의 필드와 메서드를 재사용하게 해줌
 
 
@@ -32,7 +32,7 @@ mermaid: true
 
 ---
 
-### 1.2 상속하지 않는 경우 (Without Inheritence)
+### 1.2 상속을 사용하지 않는 경우
 
 ```ElectricCar```
 
@@ -95,6 +95,8 @@ Filling up the car!
 * ```ElectricCar```과 ```GasCar```는 공통으로 사용하는 ```move()```가 존재함
   * ```move()``` : 모든 자동차들이 공통으로 가지는 기능(이동)
 
+<br>
+
 ![Inheritance](../post_images/2024-01-06-java-14-inheritance/NoInheritance.png)
 
 <p align='center'>상속받지 않은 두 클래스</p>
@@ -105,8 +107,8 @@ Filling up the car!
 
 ### 1.3 상속하는 경우 (extends)
 
-* ```extends```를 사용해서 상속하는 경우
-* 공통으로 가지는 메서드를 포함하는 조상 클래스를 만들고 자손 클래스가 상속 받게하면 됨
+* ```extends```를 사용해서 상속하는 경우를 살펴보자
+* 공통으로 가지는 메서드를 포함하는 조상 클래스를 만들고 자손 클래스가 상속 받게하면 된다
 
 <br>
 
@@ -182,13 +184,13 @@ The car is currently moving on ground!
 ## 2) 단일 상속(Single Inheritance)
 
 * **Java는 단일 상속만을 허용한다**
-  * Java는 다중 상속(multiple inheritance)을 허용하지 않음
-  * Java는 [인터페이스(interface)](https://github.com/seungki1011/Data-Engineering/tree/main/java/(015)%20Polymorphism#7-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4interface)를 사용해서 다중 상속과 비슷한 것을 사용 가능
-  * 다중 상속 허용시 발생하는 [다이아몬드 문제](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem) 또는 클래스 계층의 복잡화 같은 문제들 때문
+  * Java는 다중 상속(multiple inheritance)을 허용하지 않는다
+  * Java는 [인터페이스(interface)](https://seungki1011.github.io/posts/java-15-polymorphism/#7-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4interface)를 사용해서 다중 상속과 비슷한 것을 사용 가능
+  * 다중 상속을 허용하지 않는 이유는 다중 상속 허용시 발생하는 [다이아몬드 문제](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem) 또는 클래스 계층의 복잡화 같은 문제들 때문이다
 
 
 
-* 부모 클래스가 부모 클래스를 가지는 multi-level inheritance는 가능하다
+* 부모 클래스가 부모 클래스를 가지는 다층 상속(multi-level inheritance)는 가능하다
 
 <br>
 
@@ -252,8 +254,7 @@ This vehicle used the brake!
 
 ## 3) Java 상속의 메모리 할당 구조
 
-* Java 상속의 메모리 할당 구조(Java Inheritance Memory Allocation)
-* **상속 관계의 인스턴스를 생성하면 그 인스턴스에는 부모 자식을 모두 포함해서 인스턴스를 생성함**
+* **상속 관계의 인스턴스를 생성하면 그 인스턴스에는 부모 자식을 모두 포함해서 인스턴스를 생성한다**
 
 ```java
 ElectricCar e1 = new ElectricCar();
@@ -282,9 +283,8 @@ ElectricCar e1 = new ElectricCar();
 
 ---
 
-## 4) Method Overriding
+## 4) 메서드 오버라이딩(Method Overriding)
 
-* 메서드 오버라이딩
 * 조상 클래스로 부터 상속받은 메서드의 내용을 상속받는 클래스에 맞게 변경하는 것
   * 쉽게 말하자면 상속 받은 조상 클래스의 메서드를 자신에 맞게 덮어쓰는 것 (부모 클래스에 있는 메소드를 재정의하는 것)
 
@@ -504,12 +504,12 @@ Private method in the parent package, parent class.
 ## 6) super
 
 * 참조 변수 ```super```
-* ```this```같은 경우 인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어 있음
-  * 지역변수와 인스턴스 변수를 구분할때 사용
+* ```this``` 같은 경우 인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어 있다
+  * 지역변수와 인스턴스 변수를 구분할때 사용한다
 
 
 
-* ```super```도 ```this```와 유사함
+* ```super```도 ```this```와 유사하다
   * 조상 클래스의 멤버와 자신의 멤버를 구별하는데 사용
 
 
@@ -607,7 +607,7 @@ called bark() : Barking. Bow wow!
 
 
 * **자식 클래스의 생성자에서 부모 클래스의 생성자를 반드시 호출해야 됨**
-  * 기본 생성자의 경우 ```super()```생략 가능
+  * 기본 생성자의 경우 ```super()``` 생략 가능
 
 <br>
 
@@ -704,8 +704,6 @@ ClassC, a = 10, b = 20, c = 30
 ![Inheritance](../post_images/2024-01-06-java-14-inheritance/super2.png)
 
 <p align='center'>생성자 호출 순서</p>
-
-<br>
 
 ---
 

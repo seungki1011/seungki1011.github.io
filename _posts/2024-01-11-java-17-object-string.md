@@ -483,7 +483,7 @@ public class EqualsTest {
 
 ### 2.3 String은 불변 객체
 
-`String`은 [불변 객체(immutable object)](https://github.com/seungki1011/Data-Engineering/tree/main/java/(027)%20Immutable%20Object#2-%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4immutable-object)이다. 생성 이후에 절대로 내부의 값을 변경할 수 없다.
+`String`은 [불변 객체(immutable object)](https://seungki1011.github.io/posts/java-16-immutable/#2-%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4immutable-object)이다. 생성 이후에 절대로 내부의 값을 변경할 수 없다.
 
 * `private final byte[] value;`
 * 불변이기 때문에, `String` 값을 다루는 메서드들은 전부 반환값이 있다
@@ -839,7 +839,7 @@ str = olleH
 
 * `StringBuilder`는 가변이기 때문에, 하나의 `StringBuilder` 객체 안에서 문자열을 추가, 삭제, 수정 등을 계속 할 수 있다
   * 가변이기 때문에 변경을 할 때 마다 객체를 생성하지 않는다
-  * 가변이기 때문에 [사이드 이펙트](https://github.com/seungki1011/Data-Engineering/tree/main/java/(027)%20Immutable%20Object#12-%EC%82%AC%EC%9D%B4%EB%93%9C-%EC%9D%B4%ED%8E%99%ED%8A%B8side-effect)를 조심해야 한다 
+  * 가변이기 때문에 [사이드 이펙트](https://seungki1011.github.io/posts/java-16-immutable/#12-%EC%82%AC%EC%9D%B4%EB%93%9C-%EC%9D%B4%ED%8E%99%ED%8A%B8side-effect)를 조심해야 한다 
 
 
 
