@@ -5,7 +5,6 @@ author: seungki1011
 date: 2023-12-29 12:30:00 +0900
 categories: [Java]
 tags: [java]
-pin: true
 math: true
 mermaid: true
 ---
