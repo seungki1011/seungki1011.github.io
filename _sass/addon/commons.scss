@@ -79,6 +79,14 @@ img {
   }
 }
 
+// title color for h2 ~ h6
+$neon-green: #37a368;
+
+.me-2, .me-3, .me-4, .me-5, .me-6 {
+  color: $neon-green;
+  font-size: 120%; // Increase font size by 20%
+}
+
 blockquote {
   border-left: 5px solid var(--blockquote-border-color);
   padding-left: 1rem;
@@ -195,6 +203,7 @@ i {
 }
 
 #panel-wrapper {
+  font-size: 130%;
   /* the headings */
   .panel-heading {
     font-family: inherit;
@@ -1328,6 +1337,7 @@ search {
   main,
   #panel-wrapper {
     margin-top: 0;
+    // font-size: 127%;
   }
 
   #topbar-title,
