@@ -5,7 +5,6 @@ author: seungki1011
 date: 2024-01-27 12:30:00 +0900
 categories: [CS, 자료구조]
 tags: [data structure]
-pin: true
 math: true
 mermaid: true
 ---
