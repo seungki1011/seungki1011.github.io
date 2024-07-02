@@ -679,7 +679,10 @@ $btn-mb: 0.5rem;
   overflow-y: auto;
   width: $sidebar-width;
   z-index: 99;
-  background: var(--sidebar-bg);
+  // background: var(--sidebar-bg);
+  background: url(/assets/img/sidebar-1.png);
+  background-size: auto;
+  background-position: center;
   border-right: 1px solid var(--sidebar-border-color);
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -740,13 +743,15 @@ $btn-mb: 0.5rem;
       @extend %clickable-transition;
       @extend %sidebar-link-hover;
 
-      color: var(--site-title-color);
+      // color: var(--site-title-color);
+      color: rgba(27, 25, 25, 0.99);
     }
   }
 
   .site-subtitle {
     font-size: 95%;
-    color: var(--site-subtitle-color);
+    // color: var(--site-subtitle-color);
+    color: rgba(27, 25, 25, 0.99);
     margin-top: 0.25rem;
     word-spacing: 1px;
     -webkit-user-select: none;
@@ -771,27 +776,32 @@ $btn-mb: 0.5rem;
         align-items: center;
         border-radius: 0.75rem;
         font-weight: 600;
-
+        
+        
         &:hover {
-          background-color: var(--sidebar-hover-bg);
+          // background-color: var(--sidebar-hover-bg);
+          background-color: rgba(82, 76, 76, 0.444);
         }
-
+        // 호버시 아이콘 설정
         i {
           font-size: 95%;
           opacity: 0.8;
           margin-right: 1.5rem;
+          color: rgba(9, 9, 9, 0.99);
         }
-
+        // 호버시 텍스트 설정
         span {
           font-size: 90%;
           letter-spacing: 0.2px;
+          color: rgba(9, 9, 9, 0.99);
         }
       }
 
       &.active {
         .nav-link {
           color: var(--sidebar-active-color);
-          background-color: var(--sidebar-hover-bg);
+          // background-color: var(--sidebar-hover-bg);
+          background-color: rgba(82, 76, 76, 0.444);
 
           span {
             opacity: 1;
