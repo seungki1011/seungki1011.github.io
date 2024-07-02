@@ -3,7 +3,7 @@ title: (HTTP - 6) HTTP 쿠키
 description: HTTP 쿠키(Cookie)에 대해서
 author: seungki1011
 date: 2024-02-17 12:30:00 +0900
-categories: [CS, 네트워크, HTTP]
+categories: [CS, HTTP]
 tags: [network, http, cookie]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (HTTP - 5) HTTP 헤더
 description: HTTP 헤더에 대해서
 author: seungki1011
 date: 2024-02-16 12:30:00 +0900
-categories: [CS, 네트워크, HTTP]
+categories: [CS, HTTP]
 tags: [network, http]
 math: true
 mermaid: true

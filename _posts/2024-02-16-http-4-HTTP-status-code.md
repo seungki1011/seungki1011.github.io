@@ -3,7 +3,7 @@ title: (HTTP - 4) HTTP 상태 코드(Status Code)
 description: HTTP의 상태코드에 대해서
 author: seungki1011
 date: 2024-02-16 12:30:00 +0900
-categories: [CS, 네트워크, HTTP]
+categories: [CS, HTTP]
 tags: [network, http]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (HTTP - 1) 웹 통신
 description: 인터넷의 원리, IP, TCP, UDP, PORT, DNS, URI에 대해서
 author: seungki1011
 date: 2024-02-13 12:30:00 +0900
-categories: [CS, 네트워크, HTTP]
+categories: [CS, HTTP]
 tags: [network, http]
 math: true
 mermaid: true
