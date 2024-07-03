@@ -1,6 +1,6 @@
 ---
-title: (Spring 원리 - 1)
-description:
+title: (Spring 원리 - 3) 스프링 없는 자바 애플리케이션에 OOD 적용하기
+description: 순수 자바 애플리케이션에 객체지향 설계를 적용하고, 스프링으로 전환해보기
 author: seungki1011
 date: 2024-02-20 12:30:00 +0900
 categories: [Backend, Spring 원리]

@@ -1,6 +1,6 @@
 ---
-title: (Spring 원리 - 1)
-description:
+title: (Spring 원리 - 5) 컴포넌트 스캔(Component Scan), 의존성 주입(DI), 자동 주입(@Autowired)
+description: 컴포넌트 스캔, 의존성 주입(DI), DI 자동 주입에 대해서
 author: seungki1011
 date: 2024-02-28 12:30:00 +0900
 categories: [Backend, Spring 원리]

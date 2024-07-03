@@ -1,13 +1,27 @@
 ---
-title: (Spring 원리 - 1)
-description:
+title: (Spring 원리 - 1) 객체 지향 설계, SOLID
+description: 객체지향 설계와 SOLID 원칙, 스프링에 들어가기 전에 알아두면 좋은 내용들
 author: seungki1011
 date: 2024-02-15 12:30:00 +0900
 categories: [Backend, Spring 원리]
-tags: [spring]
+tags: [spring, SOLID]
 math: true
 mermaid: true
 ---
+
+---
+
+## 1. 객체 지향 설계(Object Oriented Design)
+
+**SOLID**란 객체 지향 설계의 5가지 원칙이다. 각 원칙은 다음과 같다.
+
+1. Single Responsibility Principle(SRP) : 단일 책임 원칙
+1. Open Close Principle(OCP) : 개방 폐쇄 원칙
+1. Liskov Substitution Principle(LSP) : 리스코프 치환 원칙
+1. Interface Segragation Principle(ISP) : 인터페이스 분리 원칙
+1. Dependency Inversion Principle(DIP) : 의존관계 역전 원칙
+
+<br>
 
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: (Spring 원리 - 1)
-description:
+title: (Spring 원리 - 4) 스프링 컨테이너, 빈의 원리
+description: 스프링 컨테이너, 빈, 싱글톨 패턴에 대해서
 author: seungki1011
 date: 2024-02-23 12:30:00 +0900
 categories: [Backend, Spring 원리]
