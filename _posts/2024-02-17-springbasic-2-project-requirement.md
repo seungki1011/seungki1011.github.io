@@ -225,7 +225,7 @@ public class MemberServiceImpl implements MemberService{
     // 구현 객체를 선택해야 함
     private final MemberRepository memberRepository = new MemoryMemberRepository();
     
-  	@Override
+    @Override
     public void join(Member member) {
         memberRepository.save(member);
     }
@@ -249,7 +249,7 @@ public class MemberServiceImpl implements MemberService{
 
 <br>
 
-```MemberServiceTest```
+`MemberServiceTest`
 
 ```java
 public class MemberServiceTest {
@@ -276,7 +276,7 @@ public class MemberServiceTest {
 
 <br>
 
-지금까지 개발한 회원 도메인에서 문제가 존재한다. ```MemberServiceImpl```에서 추상화(```MemberRepository```)에도 의존하고 구현체(```MemoryMemberRepository```)에도 의존하고 있음. 즉 DIP를 위반하고 있다.
+지금까지 개발한 회원 도메인에서 문제가 존재한다. `MemberServiceImpl`에서 추상화(`MemberRepository`)에도 의존하고 구현체(`MemoryMemberRepository`)에도 의존하고 있음. 즉 DIP를 위반하고 있다.
 
 <br>
 
@@ -464,7 +464,7 @@ public class OrderServiceImpl implements OrderService{
 
 <br>
 
-```OrderServiceTest```
+`OrderServiceTest`
 
 ```java
 public class OrderServiceTest {
