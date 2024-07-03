@@ -23,6 +23,8 @@ MySQL 컨테이너를 생성하고 실행해보면서, 도커의 사용법을 �
 
 MySQL 컨테이너 이미지를 빌드하기 위한 Dockerfile을 작성해보자. Dockerfile을 작성할 때 실제 이름은 `Dockerfile`이어야 한다.
 
+<br>
+
 ```Dockerfile```
 
 ```dockerfile
@@ -271,7 +273,7 @@ docker exec -it mysql-test /bin/bash
 
 그럼 이제 볼륨을 한번 생성해보자.
 
-```dockerfile
+```
 docker volume create mysql_data
 ```
 
