@@ -34,7 +34,7 @@ mermaid: true
 
 ## 2. 스케쥴, 직렬화 가능(Schedule, Serializability)
 
-이전의 [ACID에서의 Isolation]()에서 이용한 예제를 다시 이용하겠다.
+이전의 [ACID에서의 Isolation](https://seungki1011.github.io/posts/rdbms-4-transaction/#isolation%EA%B2%A9%EB%A6%AC%EC%84%B1)에서 이용한 예제를 다시 이용하겠다.
 
  ```A```가 ```B```에게 20만원을 이체할 때 ```B```가 동시에 ATM에서 자기 계좌로 30마원을 입금하는 상황이라고 가정하자. 이때 이 트랜잭션이 가능한 여러 형태의 동작을 케이스 별로 살펴보자.
 
@@ -69,7 +69,7 @@ mermaid: true
  ![mysql](../post_images/2024-02-29-rdbms-5-concurrency-control/case4.png)
 
 * Case 4의 경우 ```B```의 ```balance```를 이미 ```read```한 상황에서 30만원 입금에 대한 ```Transaction2```가 일어난 후, 기존의 ```Transaction1```에서 읽은 ```balance```에 대해서 ```write``` 작업이 실행되면서 기존의 30만원 입금이 사라졌다
-* Case 4의 경우를 Lost Update라고 하며, 뒤의 [Isolation Level]()에서 더 자세히 살펴볼 예정
+* Case 4의 경우를 Lost Update라고 하며, 뒤의 [Isolation Level](https://seungki1011.github.io/posts/rdbms-6-isolation-level/#lost-update)에서 더 자세히 살펴볼 예정
 
 <br>
 
@@ -292,7 +292,7 @@ Recoverability에 대해서 알아보자.
 
 지금까지 다룬 내용을 결론 내자면 다음과 같다.
 
-> Concurrency control provides Serializability and Recoverability
+> Concurrency control provides Serializability and Recoverability.
 
 ---
 

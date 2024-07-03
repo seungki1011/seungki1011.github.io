@@ -153,7 +153,7 @@ SQL 표준에서 정의한 3가지 이상 현상만으로 모든 이상현상을
 
 ## Snapshot Isolation
 
-**Snapshot Isolation**은 기존의 SQL 표준에서 정의하는 4 가지 Isolation Level와는 다르게 동작한다. 들어가기에 앞서 아주 간단히 설명하자면, Snapshot Isolation은 Lock을 이용하는 것이 아니라 Transaction을 시작하는 시점의 데이터베이스의 스냅샷을 찍어서 consistency를 유지한다.
+**Snapshot Isolation**은 기존의 SQL 표준에서 정의하는 4 가지 Isolation Level와는 다르게 동작한다. 들어가기에 앞서 아주 간단히 설명하자면, Snapshot Isolation은 Lock을 이용하는 것이 아니라 트랜잭션을 시작하는 시점의 데이터베이스의 스냅샷을 찍어서 정합성을 유지한다.
 
 Snapshot Isolation은 여러 버전(multi version)의 스냅샷을 관리하는 MVCC(Multi Version Concurrency Control)로 구현했다고 볼 수 있다. (MVCC는 뒤에서 더 자세히 다룰 예정) 
 
