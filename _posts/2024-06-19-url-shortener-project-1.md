@@ -31,7 +31,7 @@ _Bitly를 사용해서 URL 단축_
 
 위에서 볼 수 있듯이 기존의 긴 URL을 짧아진 URL 링크를 통해서 접근할 수 있다.
 
-**짧아진 링크를 살펴보면 도메인인 `https://bit.ly/`뒤에 `3VzBS9q`라는 문자 조합이 붙어 있는 것을 확인할 수 있다. 이 문자 조합을 [슬러그(slug)](https://developer.mozilla.org/ko/docs/Glossary/Slug) 또는 숏코드(shortcode)라고 부른다. URL 단축의 핵심이 원본 URL을 유일한 숏코드로 매핑하는 로직을 구현하는 것이다.**
+**짧아진 링크를 살펴보면 도메인인 `https://bit.ly/`뒤에 `3VzBS9q`라는 문자 조합이 붙어 있는 것을 확인할 수 있다. 이 문자 조합을 [슬러그(slug)](https://developer.mozilla.org/ko/docs/Glossary/Slug) 또는 숏코드(shortcode)라고 부른다. URL 단축의 핵심은 원본 URL을 유일한 숏코드로 매핑하는 로직을 구현하는 것이다.**
 
 Bitly는 회원 가입해서 사용하는 경우, URL 단축 기능 외에도 해당 링크를 몇 명이 눌렀는지에 대한 통계 데이터를 확인할 수 있는 기능도 제공한다. 일단은 회원 가입 기능을 배제하고, 비회원이 사용하는 경우 원본 URL의 중복을 허용하지 않는 방식의 서비스를 고려하자.
 
