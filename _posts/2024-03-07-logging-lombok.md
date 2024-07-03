@@ -1,5 +1,5 @@
 ---
-title: 스프링에서 로깅(Logging), Lomok 적용법
+title: 스프링에서 로깅(Logging), Lombok 적용법
 description: 로깅 라이브러리의 사용과 롬복을 적용하는 방법에 대해서
 author: seungki1011
 date: 2024-03-07 12:30:00 +0900
