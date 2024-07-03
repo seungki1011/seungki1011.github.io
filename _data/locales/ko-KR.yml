@@ -23,8 +23,8 @@ search:
   no_results: 검색 결과가 없습니다.
 
 panel:
-  lastmod: 최근 업데이트
-  trending_tags: 인기 태그
+  lastmod: recent updates
+  trending_tags: recent tags
   toc: Contents
 
 copyright:
