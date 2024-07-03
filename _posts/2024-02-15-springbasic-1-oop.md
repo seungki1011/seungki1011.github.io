@@ -3,7 +3,7 @@ title: (Spring 원리 - 1) 객체 지향 설계, SOLID
 description: 객체지향 설계와 SOLID 원칙, 스프링에 들어가기 전에 알아두면 좋은 내용들
 author: seungki1011
 date: 2024-02-15 12:30:00 +0900
-categories: [Backend, Spring 원리]
+categories: [Backend, Spring]
 tags: [spring, SOLID]
 math: true
 mermaid: true
