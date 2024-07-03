@@ -27,8 +27,9 @@ mermaid: true
 >
 > * [SLF4J](http://www.slf4j.org) : 다양한 로그 라이브러리들을 통합해서 인터페이스로 제공
 > * [Logback](http://logback.qos.ch) : SLF4J를 구현한 구현체로 생각하면 편하다
->   * 실무에서는 기본적으로 제공하는 Logback을 대부분 사용
-    {: .prompt-info }
+> * 실무에서는 기본적으로 제공하는 Logback을 대부분 사용
+{: .prompt-info }
+
 
 <br>
 
@@ -165,13 +166,13 @@ dependencies {
 
 <br>
 
-<p align="center">   <img src="img/lombok1.png" alt="spring MVC" style="width: 90%;"> </p>
+![lombok](../post_images/2024-03-07-logging-lombok/lombok1.png)
 
 * 인텔이제이 ```settings```의 ```Plugins```에서 ```Lombok```을 인스톨한다
 
 <br>
 
-<p align="center">   <img src="img/lombok2.png" alt="spring MVC" style="width: 90%;"> </p>
+![lombok](../post_images/2024-03-07-logging-lombok/lombok2.png)
 
 * ```settings```의 `Annotation Processors`에서 `Enable annotation processing`을 체크하고 적용해야 한다
 
