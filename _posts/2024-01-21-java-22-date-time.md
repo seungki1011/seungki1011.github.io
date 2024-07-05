@@ -52,6 +52,7 @@ mermaid: true
 >
 > * 서울(UTC+9)과 베를린(UTC+1) 사이의 타임존 차이는 8시간. 서울이 9시면 베를린이 1시.
 > * DST 적용시 타임존 차이가 변할 수 있음
+{: .prompt-info }
 
 <br>
 
@@ -248,8 +249,6 @@ date.getTime() after date.clear(): Thu Jan 01 00:00:00 KST 1970
 <br>
 
 `java.time`이 제공하는 각 클래스에 대해 자세히 알아보자.
-
-> 시간과 날짜를 계산하는 방법은 여러가지가 있음. 여러 방법을 찾아보면서 적용해보면서 차이를 알아가면 됨.
 
 <br>
 
@@ -619,6 +618,8 @@ OffsetDateTime.of(ldt, ZoneOffset.of("+01:00")) = 2030-01-01T13:30:50+01:00
 > <br>
 >
 > 많은 경우, 글로벌 서비스를 개발하지 않는 이상 `LocalDateTime` 사용
+{: .prompt-tip }
+
 
 <br>
 

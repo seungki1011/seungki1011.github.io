@@ -11,7 +11,7 @@ mermaid: true
 
 ---
 
-> 포스트에서 설명하는 컬렉션들은 [자료구조]()에서 상세히 설명한다.
+> 포스트에서 설명하는 컬렉션들은 [자료구조](https://seungki1011.github.io/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/)에서 상세히 설명한다.
 
 ---
 
@@ -210,9 +210,10 @@ value = 4
 
 <br>
 
-> 참고로 `Map`에 반복자를 사용하기 위해서는 `keySet()`, `values()` 등을 통해서 호출한 후에 사용해야 한다.
+> 참고로 `Map`에 반복자를 사용하기 위해서는 `keySet()`, `values()`등을 통해서 호출한 후에 사용해야 한다.
 >
 > `Map`은 `Iterable` 인터페이스를 구현하지 않는다.
+{: .prompt-warning }
 
 <br>
 
@@ -224,8 +225,6 @@ value = 4
 * [Java docs - ```List```](https://docs.oracle.com/javase/8/docs/api/java/util/List.html)
 
 ---
-
-<br>
 
 ### 4.1 ArrayList
 
@@ -407,8 +406,6 @@ Mango
 * [Java docs - ```Set```](https://docs.oracle.com/javase/8/docs/api/java/util/Set.html)
 
 ---
-
-<br>
 
 ### 5.1 HashSet
 
@@ -958,7 +955,10 @@ The returned element after pop(): Urgent Task 1
 
 * ```offerFirst```, ```offerLast```는 ```addFirst```, ```addLast```와 다르게 큐의 크기 문제가 발생시 ```false```를 반환한다. (```addFirst```는 ```IllegalStateException``` )
 
+<br>
+
 > `IllegalStateException` - if the element cannot be added at this time due to capacity restrictions
+{: .prompt-info }
 
 <br>
 
@@ -969,10 +969,6 @@ The returned element after pop(): Urgent Task 1
 * 객체를 비교하기 위해서 사용(정렬 기준을 제시)
 * ```sort()``` 디폴트는 오름차순
 * `Comparable`또는 `Comparator`를 구현해서 사용자가 정한 기준을 토대로 양수, 0, 음수 중 하나가 반환 → 정렬 기준에 사용
-
-<br>
-
-> 현재 포스트에서 정렬 알고리즘에 대한 설명은 하지 않는다.
 
 <br>
 
@@ -1277,6 +1273,7 @@ IdComparator().reversed() : [Customer{id='Cindy', age=20}, Customer{id='Bob', ag
 <br>
 
 > 이전에도 언급했지만 `Comparable`도 구현하지않고 `Comparator`도 제공하지 않은 상태로 정렬을 시도하면 런타임 오류가 발생한다!
+{: .prompt-danger }
 
 <br>
 

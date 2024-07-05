@@ -27,7 +27,7 @@ mermaid: true
 
 ```AutoAppConfig```를 새로 생성하자.
 
-```AutoAppConfig``` 
+`AutoAppConfig`
 
 ```java
 @Configuration
@@ -48,7 +48,7 @@ public class AutoAppConfig {
 
 이제 기존의 각 클래스가 컴포넌트 스캔의 대상이 되도록 ```@Component```  애노테이션을 붙여주자.
 
-```MemoryMemberRepository```
+`MemoryMemberRepository`
 
 ```java
 @Component
@@ -59,7 +59,7 @@ public class MemoryMemberRepository implements MemberRepository{
 
 <br>
 
-```RateDiscountPolicy```
+`RateDiscountPolicy`
 
 ```java
 @Component
@@ -475,6 +475,7 @@ public class OrderServiceImpl implements OrderService {
 <br>
 
 > ```@Autowired```는 스프링 컨테이너가 관리하는 스프링 빈에서만 동작한다.
+{: .prompt-warning }
 
 <br>
 
@@ -496,7 +497,7 @@ public class OrderServiceImpl implements OrderService {
 
 코드로 한번 알아보자. ```AutowiredTest```를 생성해서 동작을 확인해보자.
 
-```autowired/AutowiredTest```
+`autowired/AutowiredTest`
 
 ```java
 public class AutowiredTest {
@@ -645,17 +646,17 @@ noBean3 = Optional.empty
 `@Qualifier` 는 **추가 구분자를 붙여주는 방법**이다. 주입시 **추가적인 방법을 제공**하는 것이지 빈 이름을 변경하는 것은 아니다.
 
 ```java
- @Component
- @Qualifier("fixDiscountPolicy")
- public class FixDiscountPolicy implements DiscountPolicy {}
+@Component
+@Qualifier("fixDiscountPolicy")
+public class FixDiscountPolicy implements DiscountPolicy {}
 ```
 
 <br>
 
 ```java
- @Component
- @Qualifier("mainDiscountPolicy")
- public class RateDiscountPolicy implements DiscountPolicy {}
+@Component
+@Qualifier("mainDiscountPolicy")
+public class RateDiscountPolicy implements DiscountPolicy {}
 ```
 
 * 빈 등록시 ```@Qualifier```를 붙여준다
@@ -665,11 +666,11 @@ noBean3 = Optional.empty
 생성자 자동 주입에 ```@Qualifier``` 사용 예시
 
 ```java
- @Autowired
- public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy
- discountPolicy) {
-     this.memberRepository = memberRepository;
-     this.discountPolicy = discountPolicy;
+@Autowired
+public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy
+discountPolicy) {
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
 }
 ```
 
@@ -678,10 +679,10 @@ noBean3 = Optional.empty
 수정자 자동 주입에 ```@Qualifier``` 사용 예시
 
 ```java
- @Autowired
- public DiscountPolicy setDiscountPolicy(@Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
-     this.discountPolicy = discountPolicy;
- }
+@Autowired
+public DiscountPolicy setDiscountPolicy(@Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    this.discountPolicy = discountPolicy;
+}
 ```
 
 * ```@Qualifier```로 주입할 때 ```@Qualifier("mainDiscountPolicy")``` 를 못 찾는 경우 → ```mainDiscountPolicy```라는 이름의 스프링 빈을 추가 찾는다
@@ -701,16 +702,16 @@ noBean3 = Optional.empty
 ```rateDiscountPolicy```가 우선권을 가지도록 하고 싶으면 다음과 같이 사용하면 된다.
 
 ```java
- @Component
- @Primary
- public class RateDiscountPolicy implements DiscountPolicy {}
+@Component
+@Primary
+public class RateDiscountPolicy implements DiscountPolicy {}
 ```
 
 <br>
 
 ```java
- @Component
- public class FixDiscountPolicy implements DiscountPolicy {}
+@Component
+public class FixDiscountPolicy implements DiscountPolicy {}
 ```
 
 * ```@Qualifier```의 단점은 해당 스프링 빈과 주입 받는 코드에 ```@Qualifier```를 붙여줘야한다는 점이다 → ```@Primary```를 사용하는 것이 더 단순하다
@@ -739,8 +740,6 @@ noBean3 = Optional.empty
 <br>
 
 코드로 살펴보자.
-
-```autowired/AllBeanTest```
 
 ```java
 public class AllBeanTest {

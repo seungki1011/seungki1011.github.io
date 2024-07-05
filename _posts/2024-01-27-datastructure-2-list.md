@@ -11,9 +11,9 @@ mermaid: true
 
 ---
 
-## 1) `ArrayList`
+## 1) ArrayList
 
-### 1.1 `ArrayList` 설명
+### 1.1 ArrayList 설명
 
 기존 배열의 단점은 크기를 정적으로 설정해야하고, 중간에 늘릴 수 없다는 점이었다.
 
@@ -54,7 +54,7 @@ mermaid: true
 
 ---
 
-### 1.2 `ArrayList` 구현
+### 1.2 ArrayList 구현
 
 `ArrayList`를 구현해보자.
 
@@ -189,7 +189,7 @@ public class MyArrayList<E> {
 
 ---
 
-### 1.3 `ArrayList`의 한계
+### 1.3 ArrayList의 한계
 
 `ArrayList`의 한계에 대해서 알아보자.
 
@@ -208,9 +208,9 @@ public class MyArrayList<E> {
 
 ---
 
-## 2) `LinkedList`
+## 2) LinkedList
 
-### 2.1 `LinkedList` 설명
+### 2.1 LinkedList 설명
 
 `LinkedList`에 대해서 알아보고, `ArrayList`와 어떤 차이를 가지는지 알아보자.
 
@@ -329,7 +329,7 @@ public class Node {
 
 ---
 
-### 2.2 `LinkedList` 구현
+### 2.2 LinkedList 구현
 
 `LinkedList`를 구현해보자.
 
@@ -480,7 +480,7 @@ public class MyLinkedList<E> {
 
 ---
 
-## 3) `ArrayList` vs `LinkedList`
+## 3) ArrayList vs LinkedList
 
 지금까지 `ArrayList`와 `LinkedList`에 대해서 알아보았다. 이제부터 서로 성능을 비교하고, 어떤 상황에 어떤 자료구조를 이용해야하는지 알아보자.
 
@@ -512,7 +512,7 @@ public class MyLinkedList<E> {
 
 ---
 
-## 4) `Collection` 프레임워크 소개
+## 4) Collection 프레임워크 소개
 
 > 기존 `Collection`에 관한 포스트 [보러가기](https://seungki1011.github.io/posts/java-24-collections/)
 
@@ -535,9 +535,9 @@ public class MyLinkedList<E> {
 
 ---
 
-## 5) `List` 인터페이스
+## 5) List 인터페이스
 
-### 5.1 `List` 설명
+### 5.1 List 설명
 
 컬렉션 프레임워크는 `List` 인터페이스를 제공한다.
 
@@ -553,7 +553,7 @@ public class MyLinkedList<E> {
 
 ### 5.2 추가적인 성능 비교
 
-#### 5.2.1 `MyArrayList` vs `ArrayList`
+#### 5.2.1 우리가 만든 ArrayList vs ArrayList
 
 우리가 직접 구현한 자료구조와 자바에서 제공하는 자료구조를 이용해서 서로 성능을 비교하면 어떤 것이 더 빠를까?
 
@@ -571,7 +571,7 @@ public class MyLinkedList<E> {
 
 ---
 
-#### 5.2.1 `ArrayList` vs `LinkedList`
+#### 5.2.1 ArrayList vs LinkedList
 
 이론적으로 봤을때 `LinkedList`의 데이터 중간 삽입이 더 빠르다고 생각할 수 있지만, 실제로 시간을 측정하면 `ArrayList`를 사용하는 것이 빠르다.
 
@@ -587,7 +587,7 @@ public class MyLinkedList<E> {
 
 ---
 
-### 5.3 `List` 인터페이스 사용해보기
+### 5.3 List 인터페이스 사용해보기
 
 `List` 인터페이스를 통해 `ArrayList`와 `LinkedList`를 사용해보자.
 

@@ -876,6 +876,7 @@ str = olleH
 >   * 보통 `StringBuffer` 보다 성능이 빠르다
 >   * 스레드 안전을 고려하지 않아도 되는 싱글 스레드 환경에서 많이 사용한다
 >   * 성능이 중요한 경우 `StringBuilder` 사용
+  {: .prompt-tip }
 
 <br>
 

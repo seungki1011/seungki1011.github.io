@@ -4,7 +4,7 @@ description: 스프링의 메세지와 국제화 기능에 대해서
 author: seungki1011
 date: 2024-03-28 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC]
+tags: [spring, springmvc]
 math: true
 mermaid: true
 ---
@@ -133,7 +133,7 @@ button.cancel=취소(message.properties)
 
 <br>
 
-```messages_en.properties```
+`messages_en.properties`
 
 ```properties
 hello=hello

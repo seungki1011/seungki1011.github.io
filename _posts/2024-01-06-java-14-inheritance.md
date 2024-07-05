@@ -33,7 +33,7 @@ mermaid: true
 
 ### 1.2 상속을 사용하지 않는 경우
 
-```ElectricCar```
+`ElectricCar`
 
 ```java
 public class ElectricCar {
@@ -50,7 +50,7 @@ public class ElectricCar {
 
 <br>
 
-```GasCar```
+`GasCar`
 
 ```java
 public class GasCar {
@@ -67,7 +67,7 @@ public class GasCar {
 
 <br>
 
-```ExtendsMain1```
+`ExtendsMain1`
 
 ```java
 public class ExtendMain1 {

@@ -268,7 +268,6 @@ HTTP 메세지의 구성 요소를 더 자세히 살펴보자.
 ```
 GET /search?q=hello&hl=ko HTTP/1.1
 Host: www.google.com
-
 ```
 
 <br>

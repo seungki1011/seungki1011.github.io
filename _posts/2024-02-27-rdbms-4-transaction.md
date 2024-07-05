@@ -4,7 +4,7 @@ description: 관계형 데이터베이스에서의 트랜잭션, ACID에 대하�
 author: seungki1011
 date: 2024-02-27 12:30:00 +0900
 categories: [DB, RDBMS]
-tags: [관계형 데이터베이스, DB]
+tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true
 ---
@@ -142,14 +142,16 @@ mysql> SELECT * FROM account;
 
 <br>
 
-여기서 알아야할 점은 ```TRANSACTION``` 시작 후 ```AUTOCOMMIT```은 비활성화 상태가 된다는 것이다. 이후에 ```COMMIT/ROLLBACK``` 시행 후 ```TRANSACTION```이 종료가 되면 다시 원래의 ```AUTOCOMMIT``` 상태가 된다. 
+여기서 알아야할 점은 ```TRANSACTION``` 시작 후 ```AUTOCOMMIT```은 비활성화 상태가 된다는 것이다. 이후에 ```COMMIT/ROLLBACK``` 시행 후 ```TRANSACTION```이 종료가 되면 다시 원래의 ```AUTOCOMMIT``` 상태가 된다.
 
-> 일반적으로 Transaction이 사용되는 패턴
->
-> 1. ```Transaction``` 시작
-> 2. 데이터 읽기, 쓰기 등의 SQL 쿼리를 포함한 로직을 수행
-> 3. 일련의 작업이 정상적으로 수행되면 ```Commit```
-> 4. 작업 중간에 문제가 발생하면 ```Rollback``` 
+<br>
+
+일반적으로 트랜잭션이 사용되는 패턴은 다음과 같다.
+
+1. ```Transaction``` 시작
+2. 데이터 읽기, 쓰기 등의 SQL 쿼리를 포함한 로직을 수행
+3. 일련의 작업이 정상적으로 수행되면 ```Commit```
+4. 작업 중간에 문제가 발생하면 ```Rollback``` 
 
 <br>
 
@@ -171,7 +173,7 @@ mysql> SELECT * FROM account;
 
 ![mysql](../post_images/2024-02-27-rdbms-4-transaction/atom.png)
 
-- Transaction은 기본적으로 모든 작업이 수행되거나 아무것도 수행되지 않는 All or Nothing을 따른다 (중간 상태라는 것이 존재하지 않는다)
+- 트랜잭션은 기본적으로 모든 작업이 수행되거나 아무것도 수행되지 않는 All or Nothing을 따른다 (중간 상태라는 것이 존재하지 않는다)
 - 예) 100개의 레코드를 업데이트하는 작업 중에 20개만 업데이트가 되고 실패하는 경우, 모든 변경사항을 ```Rollback```한다
 - 개발자는 언제 ```Commit```을 하고 ```Rollback```을 하지 판단해야 함
 
@@ -181,7 +183,7 @@ mysql> SELECT * FROM account;
 
 ### Consistency(정합성, 일관성)
 
-이번에 ```A```가 ```B```에게 추가로 100만원을 이체하는 상황이라고 가정하자. 이 경우에는 ```balance```가 0 미만이 될 수 없다는 제약이 있기 때문에 DB가 inconsistent 상태가 된다. 이런 경우 ```Rollback```을 수행해서 다시 consistent 상태로 되돌려야한다. 
+이번에 ```A```가 ```B```에게 추가로 100만원을 이체하는 상황이라고 가정하자. 이 경우에는 ```balance```가 0 미만이 될 수 없다는 제약이 있기 때문에 DB가 inconsistent 상태가 된다. 이런 경우 ```Rollback```을 수행해서 다시 정합(consistent) 상태로 되돌려야한다. 
 
 <br>
 
@@ -189,7 +191,7 @@ mysql> SELECT * FROM account;
 
 - 트랜잭션은 데이터베이스를 하나의 일과된 상태에서 다른 일관된 상태로 전환한다
 - 예) 저축 계좌에서 인출하고 다른 예금 계좌에 입금하는 계좌 이체에서 실패로 인해 DB에서 하나의 계좌에만 입금되어 데이터가 일치하지 않게 되면 안된다
-- 어플리케이션 관점에서 Transaction이 consistent하게 동작하는지 개발자가 확인 해야한다 
+- 어플리케이션 관점에서 트랜잭션이 consistent하게 동작하는지 개발자가 확인 해야한다 
 
 <br>
 
@@ -205,7 +207,7 @@ mysql> SELECT * FROM account;
 
  ![mysql](../post_images/2024-02-27-rdbms-4-transaction/isolation.png)
 
-* Isolation은 여러 Transaction들이 동시에 실행될 때도 혼자 실행되는 것 처럼 동작하게 만드는 것
+* Isolation은 여러 트랜잭션들이 동시에 실행될 때도 혼자 실행되는 것 처럼 동작하게 만드는 것
 * DBMS들은 여러가지 Isolation Level을 제공해준다
 * Isolation Level이 높으면 더 엄격하게 격리된다 ⇄ Isolation Level이 높으면 DB 성능이 떨어진다 
 * Concurrency control의 주된 목표는 Isolation

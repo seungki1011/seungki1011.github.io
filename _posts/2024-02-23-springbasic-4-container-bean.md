@@ -70,7 +70,7 @@ ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A
 * 스프링 컨테이너는 설정 정보를 참고해서 의존관계 주입(DI)
 * 여기서 코드로 스프링 빈을 등록할 때 생성자를 호출하면서 DI도 한꺼번에 처리된다
   * 위의 경우 이해를 돕기 위해 개념적으로 나누어서 설명하고 있다
-* 스프링 컨테이너에서 DI에 관한 내용은 [`@Autowired`]()에서 더 자세하게 다룸
+* 스프링 컨테이너에서 DI에 관한 내용은 [`@Autowired`](https://seungki1011.github.io/posts/springbasic-5-component-scan-autowired/#2-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EC%9E%90%EB%8F%99-%EC%A3%BC%EC%9E%85autowired)에서 더 자세하게 다룸
 
 <br>
 
@@ -88,7 +88,7 @@ ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A
 
 <br>
 
-```ApplicationContextInfoTest```
+`ApplicationContextInfoTest`
 
 ```java
 public class ApplicationContextInfoTest {
@@ -168,7 +168,7 @@ name = discountPolicy object = de.springbasic1.discount.RateDiscountPolicy@12d2c
 
 <br>
 
-```ApplicationContextBasicFindTest```
+`ApplicationContextBasicFindTest`
 
 ```java
 public class ApplicationContextBasicFindTest {
@@ -228,7 +228,7 @@ memberService.getClass() = class de.springbasic1.member.MemberServiceImpl
 
 <br>
 
-```ApplicationContextSameBeanFindTest```
+`ApplicationContextSameBeanFindTest`
 
 ```java
 public class ApplicationContextSameBeanFindTest {
@@ -281,21 +281,21 @@ org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying
 만약 특정 타입을 모두 조회하고 싶으면 다음 처럼 조회하면 된다.
 
 ```java
-    // 3. 특정 타입 모두 조회하기
-    @Test
-    @DisplayName("Find all Beans of specific type")
-    void findAllBeanByType() {
-        Map<String, MemberRepository> beansOfType =
-                ac.getBeansOfType(MemberRepository.class);
+// 3. 특정 타입 모두 조회하기
+@Test
+@DisplayName("Find all Beans of specific type")
+void findAllBeanByType() {
+    Map<String, MemberRepository> beansOfType =
+            ac.getBeansOfType(MemberRepository.class);
         
-        for (String key : beansOfType.keySet()) {
-            System.out.println("key = " + key + " value = " +
-                    beansOfType.get(key));
-        }
-
-        System.out.println("beansOfType = " + beansOfType);
-        assertThat(beansOfType.size()).isEqualTo(2); // 등록 된 빈 2개, 원래는 더 자세하게 검증함
+    for (String key : beansOfType.keySet()) {
+        System.out.println("key = " + key + " value = " +
+                beansOfType.get(key));
     }
+
+    System.out.println("beansOfType = " + beansOfType);
+    assertThat(beansOfType.size()).isEqualTo(2); // 등록 된 빈 2개, 원래는 더 자세하게 검증함
+}
 ```
 
 ```
@@ -370,6 +370,8 @@ beansOfType = {memberRepository1=de.springbasic1.member.MemoryMemberRepository@d
 >   * XML을 이용하는 레거시 프로젝트들이 아직 남아 있다
 >   * XML 사용시 컴파일 없이 XML 파일을 변경하는 것 만으로도 빈 설정 변경이 가능 
 > * 사용자가 정의한 형식을 사용하는것도 가능하다다
+{: .prompt-info }
+
 
 <br>
 
@@ -436,7 +438,7 @@ public class SingletonService {
 
 <br>
 
-```SingletonTest```
+`SingletonTest`
 
 ```java
 public class SingletonTest {
@@ -550,7 +552,7 @@ singletonService2 = de.springbasic1.singleton.SingletonService@6156496
 
 <br>
 
-```StatefulService```
+`StatefulService`
 
 ```java
 public class StatefulService {
@@ -569,7 +571,7 @@ public class StatefulService {
 
 <br>
 
-```StatefulServiceTest```
+`StatefulServiceTest`
 
 ```java
 class StatefulServiceTest {

@@ -4,7 +4,7 @@ description: 필터와 인터셉터 설명 및 사용 예시
 author: seungki1011
 date: 2024-04-07 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC]
+tags: [spring, springmvc]
 math: true
 mermaid: true
 ---
@@ -521,8 +521,9 @@ public class WebConfig implements WebMvcConfigurer {
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
+                         Object handler) throws Exception {
 
         String requestURI = request.getRequestURI();
 
@@ -549,21 +550,21 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 **로그인 인터셉터 추가**
 
 ```java
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        // 로그 인터셉터
-        registry.addInterceptor(new LogInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/*.ico", "/error");
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    // 로그 인터셉터
+    registry.addInterceptor(new LogInterceptor())
+            .order(1)
+            .addPathPatterns("/**")
+            .excludePathPatterns("/css/**", "/*.ico", "/error");
 				
-        // 로그인 체크 인터셉터
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .order(2)
-                .addPathPatterns("/**") // 적용할 패턴
-                .excludePathPatterns("/", "/members/add", "/login", "/logout",
-                        "/css/**", "/*.ico", "/error"); // 제외할 패턴
-    }
+    // 로그인 체크 인터셉터
+    registry.addInterceptor(new LoginCheckInterceptor())
+            .order(2)
+            .addPathPatterns("/**") // 적용할 패턴
+            .excludePathPatterns("/", "/members/add", "/login", "/logout",
+                    "/css/**", "/*.ico", "/error"); // 제외할 패턴
+}
 ```
 
 * `.addPathPatterns("/**")` : 모든 경로에 인터셉터를 적용한다

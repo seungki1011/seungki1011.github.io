@@ -983,6 +983,8 @@ public class NetworkClientException extends RuntimeException { // 언체크 예�
 
 * `NetWorkClientException`은 `RuntimeException` 상속
 
+<br>
+
 ```java
 public class ConnectException extends NetworkClientException {
     private final String address;
@@ -1065,6 +1067,8 @@ public class NetworkClient implements AutoCloseable {
 
 * 언체크 예외이므로 `throws`를 사용할 필요 없다
 
+<br>
+
 ```java
 public class NetworkService {
 
@@ -1086,6 +1090,8 @@ public class NetworkService {
 * `NetworkService`는  `ConnectException` , `SendException` 을 잡아도 해당 예외들을 해결할 수 없기 때문에 예외를 던진다
 * 언체크 예외이므로 `throws`를 사용할 필요 없다
 * 해결할 수 없는 예외들은 공통으로 처리할 수 있는 곳에서 처리한다
+
+<br>
 
 ```java
 public class Main {

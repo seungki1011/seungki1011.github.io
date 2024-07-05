@@ -4,7 +4,7 @@ description: 스프링 없이 순수 자바만으로 MVC 패턴 구현하기
 author: seungki1011
 date: 2024-03-14 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC]
+tags: [spring, springmvc]
 math: true
 mermaid: true
 ---
@@ -270,7 +270,7 @@ public class ModelView {
 
 <br>
 
-```ControllerV3```
+`ControllerV3`
 
 ```java
 public interface ControllerV3 {

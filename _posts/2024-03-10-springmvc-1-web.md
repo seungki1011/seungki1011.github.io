@@ -4,7 +4,7 @@ description: 웹 애플리케이션을 구성하는 몇 가지 주요 기술 정
 author: seungki1011
 date: 2024-03-10 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC, server]
+tags: [spring, springmvc, server]
 math: true
 mermaid: true
 ---

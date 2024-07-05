@@ -69,15 +69,12 @@ class Shape:
 
 <br>
 
-이전의 [Spring 소개](https://github.com/seungki1011/Data-Engineering/blob/main/spring/notes/(001)Spring%20Introduction.md)에서의 [회원 관리 기능 예제](https://github.com/seungki1011/Data-Engineering/blob/main/spring/notes/(001)Spring%20Introduction.md#4-%ED%9A%8C%EC%9B%90-%EA%B4%80%EB%A6%AC-%EA%B8%B0%EB%8A%A5-%EA%B0%9C%EB%B0%9C-i)에서 레포지토리의 인터페이스를 바탕으로 클래스를 구현해서 갈아 끼우듯이 사용한 것을 떠올려보자. 
-
 ```java
 public class MemberService {
     // private MemberRepository memberRepository = new MemoryMemberRepository(); // 기존 코드
     private MemberRepository memberRepository = new JDBCMemberRepository(); // 새로운 코드로 변경
-    /*
-     * ...
-     */
+    
+    //...
 }
 ```
 

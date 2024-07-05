@@ -242,6 +242,8 @@ set.contains(2) = true
 > 최악의 경우 값의 검색에 `O(n)`이 소요되는것이 아니냐는 의문을 가질수 있지만, 이것은 결국 해시 충돌이 일어났을때의 이야기이다. 만약 해시 충돌이 일어나지 않으면 대부분 `O(1)`의 성능을 제공한다.
 >
 > 뒤에서 더 자세히 다루겠지만, 해시 함수를 해시 충돌이 자주 일어나지 않도록 어느 정도 트레이드 오프를 고려해서 설계를 한다.
+{: .prompt-info }
+
 
 <br>
 
@@ -321,7 +323,7 @@ set.contains(2) = true
 
 `Member` 클래스는 `equals()`와 `hashCode()`를 오버라이딩하고 있다.
 
-```Member```
+`Member`
 
 ```java
 public class Member {
@@ -557,8 +559,6 @@ public class MyHashSet<E> {
    * 성능
      * 추사/삭제/검색은 평균적으로 `O(1)`의 시간복잡도를 가지나, 해시 충돌이 일어나는 최악의 경우에는 `O(n)`의 성능을 가진다
 
-<br>
-
 2. `LinkedHashSet`
    * 기존 `HashSet`에 `LinkedList`를 이용해서 요소들의 순서를 유지한다
      * `HashSet`에 연결 링크를 추가한 형태로 생각하면 편하다
@@ -568,8 +568,6 @@ public class MyHashSet<E> {
      * 데이터의 유일성과 함께 삽입 순서를 유지해야하는 경우
    * 성능
      * `HashSet()`과 비슷하다
-
-<br>
 
 3. `TreeSet`
    * 트리 구조에 대한 설명은 `Tree` 파트에서 설명할 예정

@@ -218,7 +218,7 @@ public interface MemberService {
 
 <br>
 
-```MemberServiceImpl```
+`MemberServiceImpl`
 
 ```java
 public class MemberServiceImpl implements MemberService{

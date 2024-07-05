@@ -196,13 +196,13 @@ public class NestedOuterMain {
 정리하자면 정적 중첩 클래스는 단지 서로 다른 클래스를 중첩해 둔 것일 뿐이다. 사실 다음과 같이 서로 다른 클래스 두 개를 따로 만든것과 비슷하다.
 
 ```java
- class NestedOuter {
-   //...
- }
+class NestedOuter {
+  //...
+}
 
- class Nested {
-   //...
- }
+class Nested {
+  //...
+}
 ```
 
 <br>

@@ -4,7 +4,7 @@ description: 데이터베이스, 테이블 생성, 제약 설정, 데이터 추�
 author: seungki1011
 date: 2024-03-07 12:30:00 +0900
 categories: [DB, SQL]
-tags: [SQL, MySQL, query]
+tags: [sql, mysql, query]
 math: true
 mermaid: true
 ---
@@ -211,6 +211,7 @@ CREATE TABLE TEST (
 <br>
 
 > 참고로 ```SHOW CREATE TABLE table_name;```을 통해서 ```table_name```이라는 테이블의 여러가지 정보를 확인할 수 있다.
+{: .prompt-tip }
 
 <br>
 
@@ -272,9 +273,11 @@ ON DELETE SET NULL; -- 참조값이 삭제되면 NULL로 변경
 
 <br>
 
-> * 프로덕션(Production)이나 다른 서비스 또는 파이프라인에서 사용중인 테이블의 스키마(Schema)를 변경하는 것이 어떤 영향을 미치는지 충분히 검토한 후에 진행되어야 함.
->
-> * 테이블 삭제는 ```DROP TABLE table_name;```
+참고로,
+
+* 프로덕션(Production)이나 다른 서비스 또는 파이프라인에서 사용중인 테이블의 스키마(Schema)를 변경하는 것이 어떤 영향을 미치는지 충분히 검토한 후에 진행되어야 함.
+
+* 테이블 삭제는 ```DROP TABLE table_name;```
 
 <br>
 
@@ -698,6 +701,7 @@ SELECT * FROM EMPLOYEE WHERE id = 1; -- 원래 attribute의 자리에 * 사용
 
 > * ```SELECT```로 조회할 때 조건을 포함해서 조회하는 경우, 이 조건들과 관련된 속성들에 인덱스(index)가 걸려있어야 한다. 그렇지 않은 경우 데이터가 많으면 많아질수록 조회 속도가 느려진다.
 > * ```WHERE```절 없이 ```SELECT```를 사용하게 되면 테이블에 있는 모든 튜플들을 반환한다. 
+{: .prompt-tip }
 
 <br>
 

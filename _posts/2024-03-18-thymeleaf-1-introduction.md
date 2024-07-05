@@ -3,7 +3,7 @@ title: (ThymeLeaf - 1) 타임리프 맛보기
 description: 타임리프를 상품 관리 기능을 만들면서 경험해보기
 author: seungki1011
 date: 2024-03-18 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [Backend, Thymeleaf]
 tags: [spring, springmvc, thymeleaf]
 math: true
 mermaid: true

@@ -27,7 +27,7 @@ DBCP(데이터베이스 커넥션 풀), 네트워크 소켓처럼 애플리케�
 
 코드로 한번 살펴보자.
 
-```NetworkClient```
+`NetworkClient`
 
 ```java
 public class NetworkClient {
@@ -60,7 +60,7 @@ public class NetworkClient {
 
 <br>
 
-```BeanLifeCycleTest```
+`BeanLifeCycleTest`
 
 ```java
 public class BeanLifeCycleTest {
@@ -135,7 +135,7 @@ call: null, message = 초기화 연결 메세지
 
 기존의 코드를 수정해보자.
 
-```NetworkClient```
+`NetworkClient`
 
 ```java
 // 기존 구현
@@ -156,7 +156,7 @@ public void close() { // 소멸(종료) 메서드
 
 <br>
 
-```BeanLifeCycleTest``` - ```LifeCycleConfig```
+`BeanLifeCycleTest` - `LifeCycleConfig`
 
 ```java
 @Configuration
@@ -202,7 +202,7 @@ close: http://123.456.789.1
 
 <br>
 
-```NetworkClient```
+`NetworkClient`
 
 ```java
 @PostConstruct
@@ -341,14 +341,14 @@ public void close() {
 <br>
 
 ```java
- @Autowired
- private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+@Autowired
+private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
- public int logic() {
-     PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
-     prototypeBean.addCount();
-     int count = prototypeBean.getCount();
-     return count;
+public int logic() {
+    PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+    prototypeBean.addCount();
+    int count = prototypeBean.getCount();
+    return count;
 }
 ```
 
@@ -415,7 +415,7 @@ Request 스코프를 사용하는 예시를 살펴보자.
 
 들어가기에 앞서 라이브러리를 추가하자(웹 환경 위에서 동작하기 위한 라이브러리).
 
-```build.gradle```
+`build.gradle`
 
 ```groovy
 implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -434,7 +434,7 @@ implementation 'org.springframework.boot:spring-boot-starter-web'
 
 <br>
 
-```MyLogger```
+`MyLogger`
 
 ```java
 @Component
@@ -471,7 +471,7 @@ public class MyLogger {
 
 <br>
 
-```LogDemoController```
+`LogDemoController`
 
 ```java
 @Controller
@@ -507,7 +507,7 @@ public class LogDemoController {
 
 <br>
 
-```web/LogDemoService```
+`web/LogDemoService`
 
 ```java
 @Service
@@ -536,7 +536,7 @@ public class LogDemoService {
 
 <br>
 
-```LogDemoController```
+`LogDemoController`
 
 ```java
 @Controller
@@ -566,7 +566,7 @@ public class LogDemoController {
 
 <br>
 
-```LogDemoService```
+`LogDemoService`
 
 ```java
 @Service

@@ -63,6 +63,7 @@ HTTP API를 설계 해보면서 HTTP 메서드에 대해 알아보자.
 > 리소스라고 사용은 했지만, 최근에는 Representation이라는 표현을 사용한다.
 >
 > REST API → Representational State Transfer API
+{: .prompt-info }
 
 <br>
 
@@ -298,7 +299,7 @@ HTTP 메서드의 속성에 대해서 알아보자.
 
 
 
-* 캐시에 대한 것은, [캐시에 대한 포스트]() 참고
+* 캐시에 대한 것은, [캐시에 대한 포스트](https://seungki1011.github.io/posts/http-7-cache/) 참고
 
 <br>
 
@@ -340,14 +341,10 @@ HTTP 메서드는 어떤식으로 활용되는지, 다음의 경우에 대해서
    * ```GET /static/star.jpg HTTP1.1```
    * 단순히 URI 경로만으로 조회가 가능하다
 
-<br>
-
 2. **동적 데이터 조회**
    * 검색, 게시판 목록에서 정렬 필터
    * ```GET /search?q=hello&hl=ko HTTP1.1```
    * 쿼리 파라미터 사용(쿼리를 통해 데이터를 전달)
-
-<br>
 
 3. **HTML Form을 통한 데이터 전송**
    * 회원 가입, 상품 주문, 데이터 변경
@@ -360,8 +357,6 @@ HTTP 메서드는 어떤식으로 활용되는지, 다음의 경우에 대해서
      * 파일 업로드와 같은 바이너리 데이터 전송시 사용한다
      * 다른 종류의 여러 파일과 폼의 내용을 함께 전송 가능하다
    * HTML Form 전송은 ```GET```, ```POST```만 지원한다
-
-<br>
 
 4. **HTTP API를 통한 데이터 전송**
    * 회원 가입, 상품 주문, 데이터 변경
@@ -386,7 +381,7 @@ HTTP 메서드는 어떤식으로 활용되는지, 다음의 경우에 대해서
 
 HTTP API 설계 예시를 통해 HTTP 메서드 활용을 알아보자.
 
-이전의 [HTTP API 설계 소개]()에서 사용한 예시를 그대로 사용해보자. 회원 관리 시스템의 API를 설계하는 것이다.
+이전의 [HTTP API 설계 소개](https://seungki1011.github.io/posts/http-3-HTTP-method/#http-api-%EC%84%A4%EA%B3%84-%EC%86%8C%EA%B0%9C)에서 사용한 예시를 그대로 사용해보자. 회원 관리 시스템의 API를 설계하는 것이다.
 
 * 회원 목록 조회 /members → ```GET```
 * 회원 조회 /members/{id} → ```GET```
@@ -470,7 +465,9 @@ HTTP API 설계 예시를 통해 HTTP 메서드 활용을 알아보자.
 
 <br>
 
-> 대부분의 경우에는 ```POST``` 기반을 사용한다.
+> 대부분의 경우는 ```POST```로 해결이 된다.
+{: .prompt-tip }
+
 
 <br>
 

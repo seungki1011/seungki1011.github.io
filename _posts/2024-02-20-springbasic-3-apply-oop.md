@@ -25,7 +25,7 @@ mermaid: true
 
 <br>
 
-```RateDiscountPolicy```
+`RateDiscountPolicy`
 
 ```java
 public class RateDiscountPolicy implements DiscountPolicy{
@@ -51,7 +51,7 @@ public class RateDiscountPolicy implements DiscountPolicy{
 
 <br>
 
-```RateDiscountPolicyTest```
+`RateDiscountPolicyTest`
 
 ```java
 class RateDiscountPolicyTest {
@@ -88,7 +88,7 @@ class RateDiscountPolicyTest {
 
 <br>
 
-```OrderServiceImpl```
+`OrderServiceImpl`
 
 ```java
 public class OrderServiceImpl implements OrderService{
@@ -124,7 +124,7 @@ public class OrderServiceImpl implements OrderService{
 
 <br>
 
-```OrderServiceImpl```
+`OrderServiceImpl`
 
 ```java
 public class OrderServiceImpl implements OrderService{
@@ -158,7 +158,7 @@ public class OrderServiceImpl implements OrderService{
 
 <br>
 
-```AppConfig```
+`AppConfig`
 
 ```java
 public class AppConfig {
@@ -193,7 +193,7 @@ public class AppConfig {
 
 <br>
 
-```MemberServiceImpl```
+`MemberServiceImpl`
 
 ```java
 public class MemberServiceImpl implements MemberService{
@@ -251,7 +251,7 @@ public class OrderServiceImpl implements OrderService{
 
 <br>
 
-```OrderServiceTest```
+`OrderServiceTest`
 
 ```java
 public class OrderServiceTest {
@@ -284,7 +284,7 @@ public class OrderServiceTest {
 
 <br>
 
-```AppConfig```
+`AppConfig`
 
  ```java
  public class AppConfig {
@@ -330,7 +330,7 @@ public class OrderServiceTest {
 
 <br>
 
-```AppConfig``` 를 수정하자.
+```AppConfig```를 수정하자.
 
 ```java
 public class AppConfig {
@@ -451,7 +451,7 @@ IoC(제어의 역전, Inversion of Control), DI(Dependecny Injection) 그리고 
 
 <br>
 
-```AppConfig```
+`AppConfig`
 
 ```java
 @Configuration 
@@ -488,7 +488,7 @@ public class AppConfig {
 
 <br>
 
-```MemberApp```
+`MemberApp`
 
 ```java
 public class MemberApp {
@@ -509,7 +509,7 @@ public class MemberApp {
 
 <br>
 
-```OrderApp```
+`OrderApp`
 
 ```java
 public class OrderApp {

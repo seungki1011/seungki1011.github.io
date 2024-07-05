@@ -4,7 +4,7 @@ description: 데이터베이스에서 동시성을 제어하는 방법
 author: seungki1011
 date: 2024-02-29 12:30:00 +0900
 categories: [DB, RDBMS]
-tags: [관계형 데이터베이스, DB]
+tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true
 ---
@@ -88,7 +88,7 @@ mermaid: true
 
 <br>
 
-일련의 연산을 수행하는 방법들은 위의 4가지 케이스 말고도 더 다양하게 존재할 수 있다. 이 연산들을 수행하는 순서를 ```Schedule```이라고 한다. 이 떄 각 ```Transaction```내의 연산들에 대한 순서는 바뀌지 않는다.
+일련의 연산을 수행하는 방법들은 위의 4가지 케이스 말고도 더 다양하게 존재할 수 있다. 이 연산들을 수행하는 순서를 ```Schedule```이라고 한다. 이 떄 각 트랜잭션내의 연산들에 대한 순서는 바뀌지 않는다.
 
 * 예) ```Transaction2```의 ```r2(B) w2(B) c2``` 라는 순서 자체는 변하지 않는다
 
@@ -100,8 +100,8 @@ mermaid: true
 
  ![mysql](../post_images/2024-02-29-rdbms-5-concurrency-control/schedule1.png)
 
-* ```Serial Schedule```: ```Transaction```들이 겹치지 않고 한 번에 하나씩 실행되는 ```Schedule``` 
-* ```Non-Serial Schedule```: ```Transaction```들이 동시에 겹쳐서 실행되는 ```Schedule```
+* ```Serial Schedule```: 트랜잭션들이 겹치지 않고 한 번에 하나씩 실행되는 ```Schedule``` 
+* ```Non-Serial Schedule```: 트랜잭션들이 동시에 겹쳐서 실행되는 ```Schedule```
 
 <br>
 
@@ -116,8 +116,8 @@ mermaid: true
  ![mysql](../post_images/2024-02-29-rdbms-5-concurrency-control/serial2.png)
 
 * ```Serial Schedule```는 이상한 데이터가 만들어질 가능성은 없다
-* ```Serial Schedule```의 경우 한번에 하나의 ```Transaction```만을 실행하기 때문에 성능이 좋지 않아서 현실적으로 사용할 수 없는 방식
-  * 동시성이 없기 때문에 여러 ```Transaction```을 처리할 수 없음
+* ```Serial Schedule```의 경우 한번에 하나의 트랜잭션만을 실행하기 때문에 성능이 좋지 않아서 현실적으로 사용할 수 없는 방식
+  * 동시성이 없기 때문에 여러 트랜잭션을 처리할 수 없음
 
 <br>
 
@@ -127,8 +127,8 @@ mermaid: true
 
  ![mysql](../post_images/2024-02-29-rdbms-5-concurrency-control/nonserial1.png)
 
-* ```Non Serial Schedule```의 경우 ```Transaction```들이 겹쳐서 실행되기 때문에 같은 시간 동안 더 많은 ```Transaction```의 처리가 가능하다
-* 우리가 앞에서 봤던 Schedule 4 처럼 ```Transaction```이 어떤 형태로 겹쳐져서 실행되나에 따라 이상한 결과(Lost Update)가 나올 수 있다.
+* ```Non Serial Schedule```의 경우 트랜잭션들이 겹쳐서 실행되기 때문에 같은 시간 동안 더 많은 트랜잭션의 처리가 가능하다
+* 우리가 앞에서 봤던 Schedule 4 처럼 트랜잭션이 어떤 형태로 겹쳐져서 실행되나에 따라 이상한 결과(Lost Update)가 나올 수 있다.
 
 <br>
 
@@ -136,7 +136,7 @@ mermaid: true
 
 ## 3. Conflict
 
-결론적으로, 우리는 동시에 많은 ```Transaction```들을 겹쳐서 (```Non Serial Schedule```) 실행할 수 있으면서 이상한 결과는 나오지 않도록 하고 싶다. 이를 달성하기 위해서, 우리는 ```Serial Schedule```과 동일한 ```Non Serial Schedule```을 이용하면 되는것이다.
+결론적으로, 우리는 동시에 많은 트랜잭션들을 겹쳐서 (```Non Serial Schedule```) 실행할 수 있으면서 이상한 결과는 나오지 않도록 하고 싶다. 이를 달성하기 위해서, 우리는 ```Serial Schedule```과 동일한 ```Non Serial Schedule```을 이용하면 되는것이다.
 
 여기서 ```Serial Schedule```과 동일한 ```Non Serial Schedule``` 이라는 모순적인 표현을 설명하기 위해서 "```Schedule```이 동일하다" 가 무엇을 의미하는지 ```Conflict```의 개념을 통해 설명할 것이다. 
 
@@ -144,9 +144,9 @@ mermaid: true
 
 두 개의 operation이 다음의 3 가지 조건을 만족하면 ```Conflict```라고 부른다.
 
-> 1. 서로 다른 ```Transaction``` 소속
-> 2. 같은 데이터(리소스)에 접근
-> 3. 최소 하나는 ```write``` operation
+1. 서로 다른 트랜잭션 소속
+2. 같은 데이터(리소스)에 접근
+3. 최소 하나는 ```write``` operation
 
 <br>
 
@@ -161,8 +161,10 @@ mermaid: true
 
 두 개의 ```Schedule```이 다음의 두 조건을 만족하면 서로 ```conflict equivalent```라고 한다.
 
-> 1. 두 ```Schedule```은 같은 ```Transaction```들을 가진다
-> 2. 어떠한 ```Conflict Operation```의 순서도 두 ```Schedule``` 모두 동일하다
+<br>
+
+1. 두 ```Schedule```은 같은 트랜잭션들을 가진다
+2. 어떠한 ```Conflict Operation```의 순서도 두 ```Schedule``` 모두 동일하다
 
 <br>
 
@@ -178,10 +180,10 @@ mermaid: true
 
 <br>
 
-> 정리하자면,
->
-> 1. A schedule which is conflict equivalent (view equivalent) with a serial schedule is conflict serializable (has conflict serializibility, or view serializable)
-> 2. Concurrency control makes any schedule serializable
+정리하자면,
+
+1. A schedule which is conflict equivalent (view equivalent) with a serial schedule is conflict serializable (has conflict serializibility, or view serializable)
+2. Concurrency control makes any schedule serializable
 
 <br>
 
@@ -197,7 +199,7 @@ mermaid: true
 
 <br>
 
-> 정답은 여러 ```Transaction```을 동시에 실행해도 ```schedule```이 ```conflict serializable```하도록 보장하는 프로토콜(Protocol)을 사용하는 것이다. 이런 프로토콜을 구현하기 위해 각 RDBMS는 Isolation Level, Locking, Concurrency control mechanisms, Conflict detection, etc.. 여러가지 전략들을 사용할 수 있다.
+정답은 여러 트랜잭션을 동시에 실행해도 ```schedule```이 ```conflict serializable```하도록 보장하는 프로토콜(Protocol)을 사용하는 것이다. 이런 프로토콜을 구현하기 위해 각 RDBMS는 Isolation Level, Locking, Concurrency control mechanisms, Conflict detection, etc.. 여러가지 전략들을 사용할 수 있다.
 
 <br>
 
@@ -219,7 +221,7 @@ Recoverability에 대해서 알아보자.
 
 <br>
 
-```Schedule```내에서 ```Commit```된 ```Transaction```이 ```Rollback```된 ```Transaction```이 ```write```했던 데이터를 읽었을 경우 이런 ```schedule```을 **Unrecoverable Schedule**이라고 부른다.
+```Schedule```내에서 ```Commit```된 트랜잭션이 ```Rollback```된 트랜잭션이 ```write```했던 데이터를 읽었을 경우 이런 ```schedule```을 **Unrecoverable Schedule**이라고 부른다.
 
 **Unrecoverable Schedule**의 경우, ```Rollback```을 해도 이전 상태로 회복이 불가능하기 때문에 이런 ```schedule```은 DBMS가 허용하면 안된다.
 
@@ -240,7 +242,7 @@ Recoverability에 대해서 알아보자.
 
 <br>
 
-여기서 **Recoverable Schedule**은 ```schedule``` 내에서 그 어떤 ```Transaction```도 자신이 읽은 데이터를 ```write```한 ```Transaction```이 먼저 ```Commit/Rollback``` 하기 전까지는 ```Commit```하지 않는 ```schedule```을 의미한다.
+여기서 **Recoverable Schedule**은 ```schedule``` 내에서 그 어떤 트랜잭션도 자신이 읽은 데이터를 ```write```한 트랜잭션이 먼저 ```Commit/Rollback``` 하기 전까지는 ```Commit```하지 않는 ```schedule```을 의미한다.
 
 이런 ```schedule```은 ```Rollback```을 할 때 이전 상태로 온전히 돌아갈 수 있기 때문에 DBMS는 **Recoverable Schedule**만 허용해야 한다.
 
@@ -250,9 +252,9 @@ Recoverability에 대해서 알아보자.
 
 ### 5.3 Cascadeless Schedule
 
-하나의 ```Transaction```이 ```Rollback```을 하면 의존성이 있는 다른 ```Transaction```도 ```Rollback```을 해야한다. 바로 이전의 상황을 이용하자면, ```T2```가 ```Rollback```하는 경우, ```T2```에 의존성이 있는 ```T1```도 ```Rollback``` 해야한다. 이 처럼 연쇄적으로 ```Rollback```이 일어나는 것을 **Cascading Rollback**이라고 한다. **Cascading Rollback**의 경우 많이 일어나면 이를 **처리하기 위한 비용이 많이 든다**.
+하나의 트랜잭션이 ```Rollback```을 하면 의존성이 있는 다른 트랜잭션도 ```Rollback```을 해야한다. 바로 이전의 상황을 이용하자면, ```T2```가 ```Rollback```하는 경우, ```T2```에 의존성이 있는 ```T1```도 ```Rollback``` 해야한다. 이 처럼 연쇄적으로 ```Rollback```이 일어나는 것을 **Cascading Rollback**이라고 한다. **Cascading Rollback**의 경우 많이 일어나면 이를 **처리하기 위한 비용이 많이 든다**.
 
-이런 **Cascading Rollback**의 문제를 해결하기 위해서 데이터를 ```write```한 ```Transaction```이 ```Commit/Rollback``` 한 뒤에는 데이터를 읽는 ```schedule```만을 허용하는 방법이 나온다.
+이런 **Cascading Rollback**의 문제를 해결하기 위해서 데이터를 ```write```한 트랜잭션이 ```Commit/Rollback``` 한 뒤에는 데이터를 읽는 ```schedule```만을 허용하는 방법이 나온다.
 
 <br>
 
@@ -262,7 +264,7 @@ Recoverability에 대해서 알아보자.
 
 <br>
 
-이 처럼 ```schedule``` 내에서 어떠한 ```Transaction```도 ```Commit``` 되지 않은 ```Transaction```들이 ```write```한 데이터는 읽지 않았을 경우, **Cascadless Schedule**이라고 한다. 
+이 처럼 ```schedule``` 내에서 어떠한 트랜잭션도 ```Commit``` 되지 않은 트랜잭션들이 ```write```한 데이터는 읽지 않았을 경우, **Cascadless Schedule**이라고 한다. 
 
 <br>
 
@@ -276,11 +278,11 @@ Recoverability에 대해서 알아보자.
 
 여기서 ```Transaction1```이 문제가 생겨 abort하게 된 경우이다. 이 경우 ```Transaction1```이 시작하기 이전으로 되돌리기 때문에 피자가격이 3만원으로 다시 변하면서, ```Transaction2```에 대한 결과가 완전히 사라지게 된다. 
 
-**Cascadeless Schedule**의 정의를 다시 살펴보자. **Cascadeless Schedule**는 스케쥴내에서 어떠한 트랜잭션도 커밋되지 않은 트랜잭션들이 ```write```한 데이터를 읽지 않은 스케쥴을 의미한다. 위의 예시는 읽기 작업이 없기 때문에 **Cascadeless Schedule**이라고 할 수 있다. 이런 **Cascadeless Schedule**의 문제를 해결하기 위해서는 추가적으로 ```Commit``` 되지 않은 ```Transaction```들이 ```write```한 데이터를 **쓰지도 읽지도 않아야 한다**. 이런 스케쥴을 **Strict Schedule**이라고 한다. 
+**Cascadeless Schedule**의 정의를 다시 살펴보자. **Cascadeless Schedule**는 스케쥴내에서 어떠한 트랜잭션도 커밋되지 않은 트랜잭션들이 ```write```한 데이터를 읽지 않은 스케쥴을 의미한다. 위의 예시는 읽기 작업이 없기 때문에 **Cascadeless Schedule**이라고 할 수 있다. 이런 **Cascadeless Schedule**의 문제를 해결하기 위해서는 추가적으로 ```Commit``` 되지 않은 트랜잭션들이 ```write```한 데이터를 **쓰지도 읽지도 않아야 한다**. 이런 스케쥴을 **Strict Schedule**이라고 한다. 
 
 다시 한번 **Strict Schedule**의 정의를 살펴보자. 
 
-**Strict Schedule**은 ```schedule``` 내에서 어떠한 ```Transaction```도 ```Commit``` 되지 않은 ```Transaction```들이 ```write```한 데이터는 읽지도 쓰지도(read or write) 않았을 경우의 ```schedule```을 의미한다. 
+**Strict Schedule**은 ```schedule``` 내에서 어떠한 트랜잭션도 ```Commit``` 되지 않은 트랜잭션들이 ```write```한 데이터는 읽지도 쓰지도(read or write) 않았을 경우의 ```schedule```을 의미한다. 
 
 <br>
 
@@ -292,7 +294,7 @@ Recoverability에 대해서 알아보자.
 
 지금까지 다룬 내용을 결론 내자면 다음과 같다.
 
-> Concurrency control provides Serializability and Recoverability.
+**Concurrency control provides Serializability and Recoverability.**
 
 ---
 

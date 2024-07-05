@@ -4,7 +4,7 @@ description: 데이터베이스에서 트랜잭션의 격리 수준과 이상 �
 author: seungki1011
 date: 2024-03-02 12:30:00 +0900
 categories: [DB, RDBMS]
-tags: [관계형 데이터베이스, DB]
+tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true
 ---
@@ -13,7 +13,7 @@ mermaid: true
 
 ## Dirty Read
 
-> 다른 트랜잭션에 의해 수정됐지만 아직 ```Commit```되지 않은 데이터를 읽는 것을 말한다. 변경 후 아직 ```Commit```되지 않은 값을 읽었는데 변경을 가한 ```Transaction```이 최종적으로 ```Rollback```된다면 그 값을 읽은 ```Transaction```은 Incosistent 상태에 놓이게 된다.
+> 다른 트랜잭션에 의해 수정됐지만 아직 ```Commit```되지 않은 데이터를 읽는 것을 말한다. 변경 후 아직 ```Commit```되지 않은 값을 읽었는데 변경을 가한 트랜잭션이 최종적으로 ```Rollback```된다면 그 값을 읽은 트랜잭션은 Incosistent 상태에 놓이게 된다.
 {: .prompt-tip }
 
 <br>
@@ -34,7 +34,7 @@ mermaid: true
 
 ## Non-repeatable Read
 
-> 한 ```Transaction``` 내에서 같은 쿼리를 두 번 수행했는데, 그 사이에 다른  ```Transaction```이 값을 수정 또는 삭제하는 바람에 두 쿼리 결과가 다르게 나타나는 현상을 말한다.
+> 한 트랜잭션 내에서 같은 쿼리를 두 번 수행했는데, 그 사이에 다른  트랜잭션이 값을 수정 또는 삭제하는 바람에 두 쿼리 결과가 다르게 나타나는 현상을 말한다.
 {: .prompt-tip }
 
 <br>
@@ -45,7 +45,7 @@ mermaid: true
 
  ![mysql](../post_images/2024-03-02-rdbms-6-isolation-level/nonrepeat1.png)
 
-Isolation은 여러 ```Transaction```들이 동시에 실행될 때도 혼자 실행되는 것 처럼 동작하게 만드는 것 이라고 이전에도 설명을 했다. 그러나 위의 상황을 살펴보면 두 번의 ```read```에 대해서 각각이 다른 결과를 가져왔다. 이러한 현상을 **Non-repeatable Read** (Fuzzy Read)라고 한다.
+Isolation은 여러 트랜잭션들이 동시에 실행될 때도 혼자 실행되는 것 처럼 동작하게 만드는 것 이라고 이전에도 설명을 했다. 그러나 위의 상황을 살펴보면 두 번의 ```read```에 대해서 각각이 다른 결과를 가져왔다. 이러한 현상을 **Non-repeatable Read** (Fuzzy Read)라고 한다.
 
 <br>
 
@@ -110,7 +110,7 @@ SQL 표준에서 정의한 3가지 이상 현상만으로 모든 이상현상을
 
 > Dirty Read와 비슷하다.
 >
-> 다른 트랜잭션에 의해 수정됐지만 아직 ```Commit```되지 않은 데이터에 쓰는 것을 말한다. 변경 후 아직 ```Commit```되지 않은 값에 쓰기작업을 했는데 변경을 가한 ```Transaction```이 최종적으로 ```Rollback```된다면 그 값에 쓰기 작업을 한 ```Transaction```은 Incosistent 상태에 놓이게 된다.
+> 다른 트랜잭션에 의해 수정됐지만 아직 ```Commit```되지 않은 데이터에 쓰는 것을 말한다. 변경 후 아직 ```Commit```되지 않은 값에 쓰기작업을 했는데 변경을 가한 트랜잭션이 최종적으로 ```Rollback```된다면 그 값에 쓰기 작업을 한 트랜잭션은 Incosistent 상태에 놓이게 된다.
 {: .prompt-tip }
 
 <br>
@@ -127,12 +127,12 @@ SQL 표준에서 정의한 3가지 이상 현상만으로 모든 이상현상을
 
 ## Lost Update
 
->  두 개 이상의 ```Transaction```에서 같은 데이터(리소스)를 동시에 ```Update``` 할 때 ```Update``` 결과가 일부 사라지는 현상.
+>  두 개 이상의 트랜잭션에서 같은 데이터(리소스)를 동시에 ```Update``` 할 때 ```Update``` 결과가 일부 사라지는 현상.
 {: .prompt-tip }
 
 <br>
 
-이전의 ```Transaction``` 케이스에서 사용한 예시를 가져왔다.
+이전의 트랜잭션 케이스에서 사용한 예시를 가져왔다.
 
 <br>
 
@@ -163,10 +163,10 @@ Snapshot Isolation의 대략적인 동작 과정은 다음 그림과 같다.
 
  ![mysql](../post_images/2024-03-02-rdbms-6-isolation-level/snapshotiso.png)
 
-* 각 ```Transaction```에 대한 Snapshot이 따로 존재한다
+* 각 트랜잭션에 대한 Snapshot이 따로 존재한다
 * ```Commit```이 되어야 Snapshot을 DB에 적용한다
 * 각 Snapshot의 version은 timestamp나 transaction identifier가 존재
-* Abort이 일어나면 해당 ```Transaction```에 대한 스냅샷을 폐기하면 됨 
+* Abort이 일어나면 해당 트랜잭션에 대한 스냅샷을 폐기하면 됨 
 
 <br>
 

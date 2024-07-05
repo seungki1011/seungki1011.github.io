@@ -4,7 +4,7 @@ description: 서브쿼리, 집계 함수, 조인, ORDER BY, GROUP BY, NULL과 �
 author: seungki1011
 date: 2024-03-09 12:30:00 +0900
 categories: [DB, SQL]
-tags: [SQL, MySQL, query]
+tags: [sql, mysql, query]
 math: true
 mermaid: true
 ---
@@ -308,9 +308,9 @@ WHERE e.id = w.empl_id AND w.proj_id != ALL ( -- w.proj.id 가 그 어떤과도 
 
 SQL에서 ```NULL```이 가지는 의미가 뭔지 일단 알아보자.
 
->1. Unknown (알려지지 않음)
->2. Unavailable or withheld (이용 불가)
->3. Not applicable (적용 불가)
+1. Unknown (알려지지 않음)
+2. Unavailable or withheld (이용 불가)
+3. Not applicable (적용 불가)
 
 <br>
 
@@ -335,7 +335,7 @@ SQL에서 ```NULL```과 비교연산을 하게 되면 결과는 ```UNKWOWN```이
 
 <br>
 
-> 결국 ```NULL```값의 처리를 위해서 ```IN``` 대신 ```EXISTS```를 사용, 테이블에서 ```NOT NULL``` 제약 걸기, ```IS NOT NULL```로 체크해서 ```NULL```이 포함되지 않도록 처리, 등 여러가지 방법으로 생각해보면서 쿼리를 작성하면 된다.
+결국 ```NULL```값의 처리를 위해서 ```IN``` 대신 ```EXISTS```를 사용, 테이블에서 ```NOT NULL``` 제약 걸기, ```IS NOT NULL```로 체크해서 ```NULL```이 포함되지 않도록 처리, 등 여러가지 방법으로 생각해보면서 쿼리를 작성하면 된다.
 
 <br>
 

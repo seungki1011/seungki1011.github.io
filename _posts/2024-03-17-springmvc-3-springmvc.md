@@ -4,7 +4,7 @@ description: Spring MVC의 구조, 동작 방식, 여러가지 기능 소개
 author: seungki1011
 date: 2024-03-17 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC]
+tags: [spring, springmvc]
 math: true
 mermaid: true
 ---
@@ -163,6 +163,7 @@ http://localhost:8080/springmvc/old-controller을 실행해보면 `OldController
 >
 > * `POST` 요청 : `@PostMapping`
 > * `GET` 요청 : `@GetMapping`
+{: .prompt-tip }
 
 <br>
 
@@ -387,114 +388,7 @@ public class SpringMemberControllerV2 {
 
 ## 2. Spring MVC - 기능 살펴보기
 
-로깅에 대해서 알아보고, Spring MVC의 기본적인 기능들을 살펴보자
-
-<br>
-
-### 2.1 Logging
-
-로깅에 대해서 알아보자.
-
-`System.out.ln()`으로 콘솔에 출력하는 것보자, 별도의 로깅 라이브러리를 사용해서 로그를 출력하는 것이 더 좋다.
-
-> 스프링 부트를 사용하면 로깅 라이브러리(`spring-boot-starter-logging`)가 함께 포함된다.
->
-> `spring-boot-starter-logging`는 기본적으로 다음 로길 라이브러리를 사용한다.
->
-> * [SLF4J](http://www.slf4j.org) : 다양한 로그 라이브러리들을 통합해서 인터페이스로 제공
-> * [Logback](http://logback.qos.ch) : SLF4J를 구현한 구현체로 생각하면 편하다
->   * 실무에서는 기본적으로 제공하는 Logback을 대부분 사용
-
-<br>
-
-`LogTestController`
-
-```java
-// @Slf4j
-@RestController // 문자를 반환은 문자 그대로 반환(뷰 이름으로 반환 x)
-public class LogTestController {
-    // @Slf4j 사용시 생략 가능
-    // LogTestController.class 대신에 getClass() 사용가능
-    private final Logger log = LoggerFactory.getLogger(LogTestController.class);
-
-    @GetMapping("/log-test")
-    public String logTest() {
-        String name = "Spring";
-
-        // 운영 서버에 무조건 남기 때문에 좋지 않다
-        System.out.println("name = "+name);
-
-        // 1. 로그 레벨 별로 정해서 출력할 수 있다
-        log.trace("trace log = {}", name); // {}는 name으로 치환됨
-        log.debug("debug log = {}", name);
-
-        log.info("info log = {}", name);
-        log.warn("warn log = {}", name);
-        log.error("error log = {}", name);
-
-        return "OK";
-    }
-}
-```
-
-```
-name = Spring
-2024-03-14T23:18:46.748+09:00  INFO 47413 --- [springmvc2] [nio-8080-exec-1] de.springmvc2.basic.LogTestController    : info log = Spring
-2024-03-14T23:18:46.749+09:00  WARN 47413 --- [springmvc2] [nio-8080-exec-1] de.springmvc2.basic.LogTestController    : warn log = Spring
-2024-03-14T23:18:46.749+09:00 ERROR 47413 --- [springmvc2] [nio-8080-exec-1] de.springmvc2.basic.LogTestController    : error log = Spring
-```
-
-* `@RestController`
-  * `@Controller` 는 반환 값이 `String` 이면 뷰 이름으로 인식된다. 그래서 뷰를 찾고 뷰가 랜더링 된다.
-  * `@RestController` 는 반환 값으로 뷰를 찾는 것이 아니라, HTTP 메시지 바디에 바로 입력한다.
-    * 실행 결과로 그냥 스트링을 받을 수 있다
-
-
-
-* 로그 포맷 : `time` `log_level` `process_id` `thread_name` `class_name` `log_message`
-
-
-
-* 콘솔에서 `trace`와 `debug` 로그를 확인할 수 없다 → 로그 레벨 설정을 변경하면 볼 수 있다
-  * LEVEL: `TRACE > DEBUG > INFO > WARN > ERROR`
-  * 개발 서버는 `debug` 출력
-  * 운영 서버는` info` 출력
-
-
-
-* `@Slf4j`(Lombok)를 사용하면 `private final Logger log = LoggerFactory.getLogger(LogTestController.class);`를 생략할 수 있다
-
-
-
-* `log.debug("data="+data)` 방식으로 사용하면 안된다
-  * 로그 출력 레벨을 info로 설정해도 해당 코드에 있는 "data="+data가 실제 실행이 되어 버린다. 결과적으로 문자 더하기 연산이 발생한다.
-
-<br>
-
-로그 레벨 설정은 `application.properties`에서 다음과 같이 설정 할 수 있다.
-
-```java
-// 전체 로그 레벨 설정(기본 info), (info, warn, error만 출력)
-logging.level.root=info
-  
-// de.springmvc2 패키지와 그 하위의 로그 레벨 설정
-logging.level.de.springmvc2=debug
-```
-
-<br>
-
-> 로그 사용의 장점
->
-> * 쓰레드 정보, 클래스 이름 같은 부가 정보를 함께 볼 수 있고, 출력 모양을 조정할 수 있다.
-> * 로그 레벨에 따라 개발 서버에서는 모든 로그를 출력하고, 운영서버에서는 출력하지 않는 등 로그를 상황에 맞게 조절할 수 있다.
-> * 시스템 아웃 콘솔에만 출력하는 것이 아니라, 파일이나 네트워크 등, 로그를 별도의 위치에 남길 수 있다. 특히 파일로 남길 때는 일별, 특정 용량에따라 로그를 분할하는 것도 가능하다.
-> * 성능도 일반 `System.out`보다 좋다. (내부 버퍼링, 멀티 쓰레드 등등) 그래서 실무에서는 꼭 로그를 사용해야 한다.
-
-<br>
-
----
-
-### 2.2 MappingController
+### 2.1 MappingController
 
 요청 매핑하는 여러 방법에 대해 알아보자.
 
@@ -633,7 +527,7 @@ public class MappingClassController {
 
 ---
 
-### 2.3 HTTP Header 조회
+### 2.2 HTTP Header 조회
 
 HTTP 헤더 정보를 조회하는 방법에 대해 알아보자.
 
@@ -691,7 +585,7 @@ public class RequestHeaderController {
 
 ---
 
-### 2.4 HTTP Request Parameter
+### 2.3 HTTP Request Parameter
 
 HTTP 요청 메세지를 통해서 클라이언트에서 서버로 데이터를 전달하는 방법에 대해 알아보자.
 
@@ -719,7 +613,7 @@ HTTP 요청 메세지를 통해서 클라이언트에서 서버로 데이터를 
 
 ---
 
-#### 2.4.1 @RequestParam
+#### 2.3.1 @RequestParam
 
 스프링이 제공하는 `@RequestParam`을 사용하면 요청 파라미터를 편리하게 사용할 수 있다.
 
@@ -807,7 +701,7 @@ public class RequestParamController {
 
 ---
 
-#### 2.4.2 @ModelAttribute
+#### 2.3.2 @ModelAttribute
 
 개발을 하게되면 다음과 같이 요청 파라미터를 받아서 필요한 객체를 만들고 그 객체에 값을 넣어주어야 한다.
 
@@ -877,7 +771,7 @@ public String modelAttributeV1(@ModelAttribute HelloData helloData) { // @ModelA
 
 ---
 
-### 2.5 HTTP Request Message
+### 2.4 HTTP Request Message
 
 HTTP 요청 메세지로 데이터를 전달하는 것을 알아보기 전에 이전에 알아본 내용을 되짚어보자.
 
@@ -893,7 +787,7 @@ HTTP 요청 메세지로 데이터를 전달하는 것을 알아보기 전에 �
 
 ---
 
-#### 2.5.1 Text 전달
+#### 2.4.1 Text 전달
 
 `RequestBodyStringController`
 
@@ -982,7 +876,7 @@ public class RequestBodyStringController {
 
 ---
 
-#### 2.5.2 JSON 전달
+#### 2.4.2 JSON 전달
 
 `RequestBodyJsonController`
 
@@ -1081,7 +975,7 @@ public class RequestBodyJsonController {
 
 ---
 
-### 2.6 HTTP Response
+### 2.5 HTTP Response
 
 스프링(서버)에서 응답 데이터를 만드는 방법을 다시 살펴보자.
 
@@ -1096,7 +990,7 @@ public class RequestBodyJsonController {
 
 ---
 
-#### 2.6.1 Static Resource 제공
+#### 2.5.1 Static Resource 제공
 
 스프링 부트는 클래스패스(class path)의 다음 디렉토리에 있는 정적 리소스를 제공한다.
 
@@ -1109,7 +1003,7 @@ public class RequestBodyJsonController {
 
 ---
 
-#### 2.6.2 View Template 사용
+#### 2.5.2 View Template 사용
 
 뷰 템플릿을 거쳐서 HTML이 생성되고, 뷰가 응답을 만들어서 전달한다. 일반적으로 HTML을 동적으로 생성하는 용도로 사용하지만, 다른 것들도 가능하다.뷰 템플릿이 만들 수 있는 것이라 면 뭐든지 가능하다.
 
@@ -1186,7 +1080,7 @@ public class ResponseViewController {
 
 ---
 
-#### 2.6.3 HTTP 메세지 사용(메세지 바디에 직접 입력)
+#### 2.5.3 HTTP 메세지 사용(메세지 바디에 직접 입력)
 
 HTTP API를 제공하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, HTTP 메시지 바디에 JSON 같은 형식으로 데이터를 실어 보낸다. 참고로 HTML이나 뷰 템플릿을 사용해도 HTTP 응답 메시지 바디에 HTML 데이터가 담겨서 전달된다. 
 
@@ -1277,7 +1171,7 @@ public HelloData responseBodyJsonV2() {
 
 ---
 
-### 2.7 HttpMessageConverter
+### 2.6 HttpMessageConverter
 
 뷰 템플릿으로 HTML을 생성해서 응답하는 것이 아니라, HTTP API처럼 JSON 데이터를 HTTP 메시지 바디에서 직접 읽거나 쓰는 경우 HTTP 메시지 컨버터를 사용하면 편리하다.
 
@@ -1362,7 +1256,7 @@ public HelloData responseBodyJsonV2() {
 
 ---
 
-### 2.8 RequestMappingHandlerAdapter
+### 2.7 RequestMappingHandlerAdapter
 
 요청 매핑 핸들러 어댑터(`RequestMappingHandlerAdapter`)의 동작 방식을 알아보자.
 

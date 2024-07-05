@@ -4,7 +4,7 @@ description: 스프링의 여러 타입 변환 방법에 대하여
 author: seungki1011
 date: 2024-04-11 12:30:00 +0900
 categories: [Backend, Spring MVC]
-tags: [spring, springMVC]
+tags: [spring, springmvc]
 math: true
 mermaid: true
 ---

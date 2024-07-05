@@ -4,7 +4,7 @@ description: 스토어드 프로시져, 스토어드 함수, 트리거에 대해
 author: seungki1011
 date: 2024-03-13 12:30:00 +0900
 categories: [DB, SQL]
-tags: [SQL, MySQL, query]
+tags: [sql, mysql, query]
 math: true
 mermaid: true
 ---
@@ -25,7 +25,7 @@ Stored Function에 대해 알아보자.
 
 그럼 이제 Stored Function을 사용해보자. 먼저 임직원의 ```id```를 열자리 정수로 랜덤하게 발급하고, 이때 ```id```의 첫자리는 1로 고정하는 함수를 만든다고 하자.
 
-* 예) ```1?????????```
+* 예) `1?????????`
 
 ```sql
 -- 1. Stored Function 작성
@@ -45,6 +45,8 @@ delimiter ;  -- delimiter를 다시 ;로
 INSERT INTO EMPLOYEE
 VALUES (id_generator(), 'MINJAE', '1996-11-15', 'M', 'PO', 100000000, 1005);
 ```
+
+<br>
 
 ```EMPLOYEE``` 테이블을 확인해보면 함수가 정상적으로 동작했다는 것을 확인할 수 있다.
 

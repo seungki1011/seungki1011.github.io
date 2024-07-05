@@ -11,9 +11,9 @@ mermaid: true
 
 ---
 
-## 1) `Map`
+## 1) Map
 
-### 1.1 `Map` 설명
+### 1.1 Map 설명
 
 `Map`은 `key-value` 쌍을 저장하는 자료구조이다. 자바에서는 `Map` 인터페이스를 통해 여러 구현 클래스를 제공한다.
 
@@ -37,7 +37,7 @@ mermaid: true
 
 ---
 
-### 1.2 `Map` 인터페이스
+### 1.2 Map 인터페이스
 
 `Map` 인터페이스는 `HashMap`, `LinkedHashMap`, `TreeMap`, `HashTable`을 제공한다. 참고로 `Map`은 컬렉션 프레임워크가 제공하지 않고, `Iterable` 인터페이스를 구현하지도 않는다. 이에 대한 내용은 나중에 다룰 예정이다.
 
@@ -68,15 +68,11 @@ mermaid: true
    * 성능
      * `HashSet`과 유사하게 중요 작업들은 평균적으로 `O(1)`의 시간복잡도를 가지고, 최악의 경우는 `O(n)`이지만 해시 충돌의 확률은 높지않다
 
-
-
 2. `LinkedHashMap`
    * `HashMap`과 유사하지만 `LinkedList`를 사용해서 삽입 순서 또는 최근 접근 순서에 따라 요소의 순서를 유지한다
      * 순서를 보장한다
    * 성능
      * `HashMap`과 유사하다
-
-
 
 3. `TreeMap`
    * `TreeSet`과 마찬가지로 Red-Black 트리를 기반으로 구현되어 있다
@@ -89,7 +85,7 @@ mermaid: true
 
 ---
 
-### 1.3 `HashMap` 원리
+### 1.3 HashMap 원리
 
 `HashMap`의 원리는 이전에 다룬 `HashSet`의 원리와 유사하다. 그림을 통해 알아보자.
 
@@ -107,7 +103,7 @@ mermaid: true
 
 ---
 
-## 2) `Map` 사용하기
+## 2) Map 사용하기
 
 `Map` 인터페이스를 통해 `HashMap`을 사용해보자.
 

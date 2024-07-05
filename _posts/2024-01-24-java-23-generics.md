@@ -43,7 +43,7 @@ public class IntegerBox {
 
 <br>
 
-```StringBox```
+`StringBox`
 
 ```java
 public class StringBox {
@@ -238,7 +238,7 @@ public class Pair<T1,T2> {
 
 <br>
 
-```PairTest```
+`PairTest`
 
 ```java
 public class PairTest {
@@ -311,11 +311,9 @@ list = [a, b, c]
 
 ```java
 public class ArrayList<T> extends AbstractList<T> {
-  private transient T[] elementData;
-  public boolean add(T o){ 
-    // ... 
-  };
-  // ...
+    private transient T[] elementData;
+    public boolean add(T o){};
+    // ...
 }
 ```
 
@@ -470,7 +468,7 @@ public class VehicleCenter<T> {
 
 <br>
 
-```NoConstraintTest```
+`NoConstraintTest`
 
 ```java
 public class NoConstraintTest {
@@ -851,10 +849,13 @@ resultBioUnit = BioUnit{name='질럿2', hp=150}
 
 와일드카드에 대해서 아주 간단히 설명하자면, 제네릭 타입을 조금 더 편리하게 사용할 수 있는 방법으로 볼 수 있다.
 
+<br>
+
 > 참고
 >
 > * 와일드카드는 제네릭 클래스나 제네릭 메서드를 선언하는 것이 아니라, 이미 만들어진 제네릭 타입을 활용할 때 사용하는 것이다.
 > * 프로그래밍에서의 와일드카드는 보통 다수를 상징하는 특수한 문자를 뜻한다. 예시 : `*`, `?`
+{: .prompt-tip }
 
 <br>
 
@@ -959,7 +960,7 @@ public class NoConstraint {
 
 ### 4.3 제네릭 메서드 vs 와일드 카드
 
-* 제네릭 메서드
+* **제네릭 메서드**
 
   * ```java
     static <T> void printGeneric1(GenericBox<T> box) {
@@ -973,7 +974,7 @@ public class NoConstraint {
 
 
 
-* 와일드 카드를 사용한 메서드
+* **와일드 카드를 사용한 메서드**
 
   * ```java
     static void printWildcard1(GenericBox<?> box) {

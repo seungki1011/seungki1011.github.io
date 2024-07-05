@@ -25,7 +25,7 @@ MySQL 컨테이너 이미지를 빌드하기 위한 Dockerfile을 작성해보�
 
 <br>
 
-```Dockerfile```
+`Dockerfile`
 
 ```dockerfile
 # 베이스 이미지 설정 - 특정 버전을 명시해서 베이스 이미지로 사용가능

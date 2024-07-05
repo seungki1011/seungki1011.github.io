@@ -4,7 +4,7 @@ description: 데이터베이스 튜닝이란? 정규화(Normalization), 반정�
 author: seungki1011
 date: 2024-02-25 12:30:00 +0900
 categories: [DB, RDBMS]
-tags: [관계형 데이터베이스, DB]
+tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true
 ---
@@ -69,6 +69,8 @@ mermaid: true
 <br>
 
 > 시간에 따라 발생하는 데이터 형식을 *이력*이라고 한다.
+{: .prompt-tip }
+
 
 <br>
 
@@ -124,12 +126,12 @@ mermaid: true
 
 <br>
 
->  데이터베이스 스키마(Schema)를 설계할 때 다음의 요소를 고려하는 것을 권장한다.
->
->  * 의미적으로 관련있는 속성끼리 테이블을 구성
->  * 중복 데이터를 최대한 허용하지 않도록 설계
->  * 조인(Join) 수행 시 가짜 데이터가 생기지 않도록 설계
->  * 되도록 ```null``` 값을 줄이는 방향으로 설계
+데이터베이스 스키마(Schema)를 설계할 때 다음의 요소를 고려하는 것을 권장한다.
+
+* 의미적으로 관련있는 속성끼리 테이블을 구성
+* 중복 데이터를 최대한 허용하지 않도록 설계
+* 조인(Join) 수행 시 가짜 데이터가 생기지 않도록 설계
+* 되도록 ```null``` 값을 줄이는 방향으로 설계
 
 <br>
 
@@ -145,7 +147,7 @@ mermaid: true
 
 <p align='center'>SQL 전문가 가이드</p>
 
-> 반정규화(Denormalization)만이 조회 성능을 향상시킨다고 생각하면 안된다. 정규화를 통해서도 조회 성능이 향상되는 경우도 많다는 것을 알자.
+반정규화(Denormalization)만이 조회 성능을 향상시킨다고 생각하면 안된다. 정규화를 통해서도 조회 성능이 향상되는 경우도 존재한다. 상황에 따라 어떻게 튜닝할지 판단하자.
 
 <br>
 
@@ -205,8 +207,6 @@ mermaid: true
    * **X → Y**가 유효할 때 **X**의 모든 proper subset이 **Y**를 결정할 수 없다면 **X → Y**는 **Full FD**
    * 예) ```{std_id, class_id}``` → ```{grade}```가 유효할 때 ```{std_id}```, ```{class_id}```, ```{}```는 ```{grade}```를 결정지을 수 없기 때문에 Full FD 성립
 
-   <br>
-
 2. 부분 함수적 종속(Partial FD)
 
    * 종속자가 기본키(PK)가 아닌 다른 속성에 종속되거나, PK가 다중 속성으로 구성되어 있는 경우 PK를 구성하는 속성 중 일부만 종속되는 경우
@@ -215,15 +215,11 @@ mermaid: true
      * 예) **X**: ```{std_id, std_name}```,  proper subset of **X** : ```{std_id}```, ```{std_name}```, ```{}```
      * 예) ```{std_id, std_name}``` → ```{birth_date}```가 유효할 때 ```{std_id}``` → ```{birth_date}```도 유효하기 때문에 Partial FD 성립
 
-   <br>
-
 3. 이행적 종속(Transitive FD)
 
    * **X**, **Y**, **Z** 3 개의 속성(Attribute) 집합 이 있을 때 **X → Y**, **Y → Z**라는 종속 관계가 유효하다면 **Transitive FD**
    * **X → Y** 이고 **Y → Z** 이면 **X → Z** 
    * **Y**와 **Z**는 어떠한 키(Key)의 부분 집합이면 안됨
-
-   <br>
 
 4. 자명한 함수적 종속(Trivial FD)
 
@@ -234,6 +230,8 @@ mermaid: true
 <br>
 
 > Full FD와 Partial FD를 쉽게 설명해보자면, *X*: ```{a, b, c}``` → *Y*: ```{d} ``` 가 유효할 때 *X*에서 어떤 속성을 제거해도 유효하다면 Partial FD, 어떤 속성을 하나라도 제거해서 FD가 유효하지 않다면 Full FD로 이해하면 편한다.  
+{: .prompt-tip }
+
 
 <br>
 
@@ -259,14 +257,16 @@ mermaid: true
 <br>
 
 > 정규화는 BCNF를 넘어서 4NF, 5NF, 6NF도 존재하지만 현재 포스트에서는 다루지 않는다. (4NF 정규화를 넘어가는 경우는 거의 없다고 봐도 된다)
+{: .prompt-warning }
+
 
 <br>
 
-> 들어가기에 앞서 앞에서 설명한 키의 개념을 복습해보자.
->
-> 1. Super Key : 튜플을 유일하게 식별할 수 있는 Key
-> 2. Key(Candidate Key) : Super Key 중에서 어느 한 속성이라도 제거하면 유일하게 튜플을 식별할 수 없는 Key
-> 3. Primary Key(PK) : 튜플을 유일하게 식별하기 위해 선택된 Key
+들어가기에 앞서 앞에서 설명한 키의 개념을 복습해보자.
+
+1. Super Key : 튜플을 유일하게 식별할 수 있는 Key
+2. Key(Candidate Key) : Super Key 중에서 어느 한 속성이라도 제거하면 유일하게 튜플을 식별할 수 없는 Key
+3. Primary Key(PK) : 튜플을 유일하게 식별하기 위해 선택된 Key
 
 <br>
 
@@ -306,6 +306,8 @@ mermaid: true
 
 정규화 과정에 들어가기 전에 테이블의 FD를 파악해보자.
 
+<br>
+
 ![database](../post_images/2024-02-25-rdbms-3-database-tuning/tablefd.png)
 
 <p align='center'>테이블의 Functional Depedency 파악</p>
@@ -324,6 +326,7 @@ mermaid: true
 #### 2.5.1 1NF
 
 > *제 1 정규화(1NF)*는 테이블의 속성이 atomic value(나눠질 수 없는 값)를 갖도록 테이블을 분해하는 것이다.
+{: .prompt-info }
 
 <br>
 
@@ -348,6 +351,9 @@ mermaid: true
 #### 2.5.2 2NF
 
 > *제 2 정규화(2NF)*는 모든 Non-prime Attribute들이 모든 키(Key)에 대해 완전 함수적 종속(Fully Functional Dependent) 되어야 한다.
+{: .prompt-info }
+
+<br>
 
 쉽게 말해서 **제1정규화(1NF)를 진행한 테이블에 대해 완전 함수 종속을 만족하도록 테이블을 분해하는 것이다.**
 
@@ -383,16 +389,21 @@ mermaid: true
 > *제 3 정규화(3NF)*는 모든 non-prime attribute가 어떤 키(Key)에도 이행적 종속(Transitive Dependent)하면 안된다.
 >
 > (non-prime attribute와 non-prime attribute 사이에는 어떠한 FD가 존재하면 안된다.)
+{: .prompt-info }
+
+<br>
 
 쉽게 말해서 **제2정규화(2NF)를 진행한 테이블에 대해 이행적 종속성(Transitive Dependency)을 없애도록 테이블을 분해하는 것이다.**
 
 들어가기에 앞서 이행적 종속성(Transitive Dependency)을 복습하고 가자.
 
-> *이행적 함수적 종속(Transitive FD)*
->
-> * X, Y, Z 3 개의 속성(Attribute) 집합 이 있을 때 X → Y, Y → Z라는 종속 관계가 유효하다면 *Transitive FD*
-> * X → Y 이고 Y → Z 이면 X → Z 
-> * Y와 Z는 어떠한 키(Key)의 부분 집합이면 안됨
+<br>
+
+*이행적 함수적 종속(Transitive FD)*
+
+* X, Y, Z 3 개의 속성(Attribute) 집합 이 있을 때 X → Y, Y → Z라는 종속 관계가 유효하다면 *Transitive FD*
+* X → Y 이고 Y → Z 이면 X → Z 
+* Y와 Z는 어떠한 키(Key)의 부분 집합이면 안됨
 
 <br>
 
@@ -423,6 +434,9 @@ mermaid: true
 #### 2.5.4 BCNF(Boyce-Codd Normal Form)
 
 > 모든 유효한 비자명한 함수적 종속성(Non-Trivial Functional Dependency)을 만족하는 X → Y 에서 X는 슈퍼키(Super Key)이어야 한다.
+{: .prompt-info }
+
+<br>
 
 쉽게 말하자면 BCNF는 제 3 정규화(3NF)를 만족하면서 모든 결정자(Determinent)가 후보키(Candidate Key) 집합에 속해야 한다. 
 
@@ -437,6 +451,7 @@ mermaid: true
 ### 3.1 반정규화의 정의
 
 > 기본적으로 반정규화(Denormalization)는 데이터를 중복하여 성능을 향상시키기 위한 기법이라고 정의할 수 있다. 좀 더 넓은 의미의 반정규화는 성능을 향상시키기 위해 정규화된 데이터 모델에서 중복, 통합, 분리 등을 수행하는 모든 과정을 의미한다.
+{: .prompt-info }
 
 <br>
 
@@ -460,7 +475,7 @@ mermaid: true
 
 <br>
 
-> 정규화(Normalization)와 반정규화(Denormalization)은 일종의 Trade-Off 관계에 있기 때문에, 상황에 맞게 정규화와 반정규화를 적용해서 데이터베이스를 설계해야한다. 
+정규화(Normalization)와 반정규화(Denormalization)은 일종의 Trade-Off 관계에 있기 때문에, 상황에 맞게 정규화와 반정규화를 적용해서 데이터베이스를 설계해야한다.
 
 ---
 
