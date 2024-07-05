@@ -68,7 +68,7 @@ mermaid: true
 
 <br>
 
-![viewlogic](img/viewlogic.png)_뷰/컨트롤러 흐름_
+![viewlogic](../post_images/2024-03-12-thymeleaf-1-introduction/viewlogic.png)_뷰/컨트롤러 흐름_
 
 <br>
 
@@ -362,7 +362,7 @@ class ItemRepositoryTest {
 
 <br>
 
-![itemhtml](img/item-html.png)_각 페이지의 모습_
+![viewlogic](../post_images/2024-03-12-thymeleaf-1-introduction/item-html.png)_각 페이지의 모습_
 
 <br>
 
@@ -1045,7 +1045,7 @@ public String addItem(Item item, RedirectAttributes redirectAttributes) {
 
 <br>
 
-![itemhtml](img/check.png)
+![viewlogic](../post_images/2024-03-12-thymeleaf-1-introduction/check.png)
 
 <br>
 
