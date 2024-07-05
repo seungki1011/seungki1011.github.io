@@ -673,10 +673,12 @@ Member loginMember,
 `application.properties`
 
 ```properties
-server.servlet.session.timeout=60 // 60초, 기본은 1800(30분)
+# 60초, 기본은 1800(30분)
+server.servlet.session.timeout=60
 
-// 특정 세션 단위로 시간 설정
-session.setMaxInactiveInterval(1800); //1800초
+# 특정 세션 단위로 시간 설정
+# 1800초
+session.setMaxInactiveInterval(1800);
 ```
 
 <br>
@@ -696,8 +698,7 @@ session.setMaxInactiveInterval(1800); //1800초
 > * ```properties
 >   server.servlet.session.tracking-modes=cookie
 >   ```
-    {: .prompt-warning }
-
+  {: .prompt-warning }
 
 <br>
 
