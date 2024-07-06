@@ -3,7 +3,7 @@ title: (Java - 10) 패키지(Package)
 description: 자바의 패키지에 대해서
 author: seungki1011
 date: 2024-01-04 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

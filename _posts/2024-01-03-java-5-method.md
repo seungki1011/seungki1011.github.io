@@ -3,7 +3,7 @@ title: (Java - 05) 메서드(Method)
 description: 자바에서의 메서드
 author: seungki1011
 date: 2024-01-03 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

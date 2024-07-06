@@ -515,7 +515,7 @@ class DriverManagerMemberRepositoryTest {
 
 ---
 
-## 3. JDBC 사용 - 2(`DBCP`)
+## 3. JDBC 사용 - 2(DBCP)
 
 ### 3.1 DBCP(커넥션 풀) 소개
 
@@ -561,7 +561,7 @@ class DriverManagerMemberRepositoryTest {
 
 ---
 
-### 3.2 데이터소스(`DataSource`)
+### 3.2 데이터소스(DataSource)
 
 커넥션 풀을 사용하는 방법에 대해서 알아보기 전에 `DataSource` 인터페이스에 대해서 알아보자.
 

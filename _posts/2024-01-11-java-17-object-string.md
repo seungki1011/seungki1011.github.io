@@ -3,7 +3,7 @@ title: (Java - 17) String, Object 클래스
 description: 자바의 String, Object 클래스의 메서드와 특징
 author: seungki1011
 date: 2024-01-11 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

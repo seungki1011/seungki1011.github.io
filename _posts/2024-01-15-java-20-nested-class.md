@@ -3,7 +3,7 @@ title: (Java - 20) 중첩 클래스(Nested Class)
 description: 자바의 중첩 클래스, 더 자세히는 정적 중첩, 내부, 지역 클래스에 대해서 
 author: seungki1011
 date: 2024-01-15 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

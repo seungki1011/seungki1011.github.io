@@ -3,7 +3,7 @@ title: (Java - 04) 형변환(Typecasting)
 description: 자바에서의 형변환
 author: seungki1011
 date: 2024-01-02 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

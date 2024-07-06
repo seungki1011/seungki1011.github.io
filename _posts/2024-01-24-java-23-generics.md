@@ -3,7 +3,7 @@ title: (Java - 23) 제네릭스(Generics)
 description: 자바의 제네릭스에 대해서
 author: seungki1011
 date: 2024-01-24 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

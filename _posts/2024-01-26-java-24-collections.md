@@ -3,7 +3,7 @@ title: (Java - 24) 컬렉션 프레임워크(Collection)
 description: 자바의 컬렉션 프레임워크에 대해서
 author: seungki1011
 date: 2024-01-26 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true

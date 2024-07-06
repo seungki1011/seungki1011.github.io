@@ -3,7 +3,7 @@ title: (Java - 07) 참조형(Reference Type)
 description: 자바의 참조형에 대해서
 author: seungki1011
 date: 2024-01-03 12:30:00 +0900
-categories: [Java]
+categories: [Programming Language, Java]
 tags: [java]
 math: true
 mermaid: true
