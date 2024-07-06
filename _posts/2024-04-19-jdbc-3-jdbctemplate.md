@@ -910,7 +910,7 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository{
 
 > 참고로 JdbcTemplate 지금까지 설명한 기능 외에도 `SimpleJdbcCall` 처럼 스토어드 프로시져를 호출할 수 있는 기능과 더불어서, 다양한 기능을 제공한다.
 >
-> 공식 매뉴얼 참고 : [https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc- JdbcTemplate](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc- JdbcTemplate)
+> 공식 매뉴얼 참고 : [https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-JdbcTemplate](https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-JdbcTemplate)
 {: .prompt-tip }
 
 ---
