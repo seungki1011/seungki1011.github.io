@@ -773,5 +773,5 @@ Product{id=16, name='coat1', updated_at=2024-04-20T14:50, description='This is a
 ## Reference
 
 1. [인프런 - 김영한 : 스프링 완전 정복](https://www.inflearn.com/roadmaps/373)
-2. [인프런 - 쉬운코드 데이터베이스](https://www.inflearn.com/course/백엔드-데이터베이스-개론/dashboard)
+2. [인프런 - 쉬운코드 데이터베이스](https://www.inflearn.com/course/%EB%B0%B1%EC%97%94%EB%93%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9C%EB%A1%A0)
 3. [패스트 캠퍼스 - 한번에 끝내는 데이터 엔지니어링](https://fastcampus.co.kr/data_online_engineering)
