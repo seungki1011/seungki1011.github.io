@@ -276,7 +276,7 @@ Host: www.google.com
   * ```start-line = request-line / status-line```
   * 요청 메세지의 경우 ```request-line```
   *  ```request-line = method 공백 request-target 공백 HTTP-version CRLF```
-  * HTTP 메서드(이후 포스트인 [HTTP Method]() 참고)
+  * HTTP 메서드(이후 포스트인 [HTTP Method](https://seungki1011.github.io/posts/http-3-HTTP-method/#get-post) 참고)
     * GET, POST, PUT, DELETE...
     * 서버가 수행해야 할 동작을 지정한다
       * GET : 리소스 조회
@@ -321,7 +321,7 @@ Content-Length: 3423
   * HTTP 헤더의 용도는 HTTP 전송에 필요한 모든 부가정보를 제공하기 위함
     * 예) 메세지 바디의 내용, 크기, 압축, 인증, 요청 클라이언트 정보, 캐시 관리 정보, 등...
   * 필요시 임의의 헤더 추가 가능
-  * 이후 [HTTP Header]() 포스트 참고
+  * 이후 [HTTP Header](https://seungki1011.github.io/posts/http-5-HTTP-header/) 포스트 참고
 
 <br>
 

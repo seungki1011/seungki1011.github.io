@@ -246,10 +246,10 @@ public class ConverterController {
     <li>${ipPort}: <span th:text="${ipPort}" ></span></li>
     <li>${{ipPort}}: <span th:text="${{ipPort}}" ></span></li>
 </ul>
-
 </body>
 </html>
 ```
+
 
 ```
 ${number}: 10000
@@ -258,7 +258,7 @@ ${ipPort}: hello.typeconverter.type.IpPort@59cb0946
 ${{ipPort}}: 127.0.0.1:8080
 ```
 
-* `${{}}` : 자동으로 `ConversionService`를 사용해서 변환된 결과를 출력해준다 (스프링과 통합된 기능을 사용하는 것임)
+* ```${{ipPort}}``` : 자동으로 `ConversionService`를 사용해서 변환된 결과를 출력해준다 (스프링과 통합된 기능을 사용하는 것임)
 
 <br>
 
