@@ -1016,6 +1016,7 @@ public String addItem(Item item, RedirectAttributes redirectAttributes) {
 >
 > * `RedirectAttributes`는 `itemId`를 인코딩해줘서 URL에 안전하게 사용할 수 있도록 해준다
 > * 제3자가 해당 변수를 통해 특정 보안 위협을 하는 것을 막아줄 수 있다
+> * 위의 케이스 처럼 `status`와 같은 정보를 같이 첨부해서 보낼수 있다
 {: .prompt-info }
 
 <br>
