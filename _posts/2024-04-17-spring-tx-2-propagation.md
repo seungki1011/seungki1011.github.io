@@ -39,7 +39,7 @@ void double_commit_rollback() {
 
 <br>
 
-<p align="center">   <img src="img/prop2.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-17-spring-tx-2-propagation/prop2.png)
 
 <p align="center">트랜잭션이 따로 사용되는 상황</p>
 
@@ -68,7 +68,7 @@ void double_commit_rollback() {
 
 <br>
 
-<p align="center">   <img src="img/prop3.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-17-spring-tx-2-propagation/prop3.png)
 
 * 내부 트랜잭션(nested transaction)은 외부 트랜잭션이 수행되고 있는 도중에 호출되기 때문에 마치 내부에 있는 것 처럼 보여서 내부 트랜잭션이라고 한다
 
@@ -78,7 +78,7 @@ void double_commit_rollback() {
 
 <br>
 
-<p align="center">   <img src="img/prop4.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-17-spring-tx-2-propagation/prop4.png)
 
 * 외부 트랜잭션과 내부 트랜잭션을 하나의 트랜잭션으로 묶는다
 * 이때 하나로 묶인 전체 트랜잭션을 물리 트랜잭션이라고 취급하고, 물리 트랜잭션을 이루는 외부/내부 트랜잭션을 논리 트랜잭션이라고 하자
@@ -106,7 +106,7 @@ void double_commit_rollback() {
 
 <br>
 
-<p align="center">   <img src="img/prop5.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-17-spring-tx-2-propagation/prop5.png)
 
 * 외부/내부 트랜잭션 모두 커밋 되면 물리 트랜잭션도 커밋
 * 내부 트랜잭션이 롤백되면 물리 트랜잭션도 롤백

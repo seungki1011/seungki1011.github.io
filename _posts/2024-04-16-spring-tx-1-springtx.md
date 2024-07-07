@@ -23,7 +23,7 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="img/dbtransaction.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/dbtransaction.png)
 
 * 커넥션 마다 세션이 만들어진다
 * 커넥션을 통해서 들어온 요청은 세션을 통해서 실행하게 한다
@@ -63,13 +63,13 @@ mermaid: true
 
 <br>
 
-<p align="center">   <img src="img/javatx.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/javatx.png)
 
 * 트랜잭션은 비지니스 로직이 있는 서비스 계층에서 시작해야한다. 비즈니스 로직(우리의 경우 이체 로직)이 잘못되는 경우, 해당 문제를 다시 롤백해야하기 때문이다.
 
 <br>
 
-<p align="center">   <img src="img/tran1.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/tran1.png)
 
 * 트랜잭션을 위해서는 커넥션이 필요하고 트랜잭션을 수행하는 동안 해당 커넥션을 유지해야 한다
   * 그러기 위해서는 트랜잭션이 시작하는 서비스 계층에서 커넥션의 연결/종료를 수행해야 한다
@@ -158,7 +158,7 @@ public class MemberServiceV2 {
 
 <br>
 
-<p align="center">   <img src="img/servicelayer.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/servicelayer.png)
 
 <p align='center'>서비스 계층</p>
 
@@ -199,7 +199,7 @@ public class MemberServiceV2 {
 
 <br>
 
-<p align="center">   <img src="img/txmanager.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/txmanager.png)
 
 
 
@@ -363,7 +363,7 @@ public class MemberService {
 
 <br>
 
-<p align="center">   <img src="img/transactional.png" alt="jdbc" style="width: 100%;"> </p>
+![jdbc](../post_images/2024-04-16-spring-tx-1-springtx/transactional.png)
 
 <p align='center'>Transaction AOP</p>
 
