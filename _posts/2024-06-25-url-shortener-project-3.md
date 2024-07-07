@@ -245,6 +245,8 @@ public class TestDuplicateShortcode {
 
 `UnexpectedRollbackException`이기 때문에 트랜잭션 전파와 관련된 문제로 보인다.
 
+<br>
+
 > ```java
 > public class UnexpectedRollbackException
 > extends TransactionException
@@ -255,6 +257,8 @@ public class TestDuplicateShortcode {
 > `rollback-only`로 표기된 트랜잭션을 커밋하려고 시도하는 경우 발생한다.
 >
 > 참고 : [https://docs.oracle.com/middleware/12212/odi/reference-java-api/oracle/odi/core/persistence/transaction/UnexpectedRollbackException.html](https://docs.oracle.com/middleware/12212/odi/reference-java-api/oracle/odi/core/persistence/transaction/UnexpectedRollbackException.html)
+{: .prompt-info }
+
 
 <br>
 

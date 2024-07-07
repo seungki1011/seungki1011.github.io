@@ -41,6 +41,8 @@ mermaid: true
     - 단축 URL에 대한 클릭수 확인
     - 지금까지 단축한 URL에 대한 히스토리
 
+<br>
+
 ---
 
 ## 기술 스택
@@ -136,6 +138,8 @@ clean {
 	delete file('src/main/generated')
 }
 ```
+
+<br>
 
 ---
 
