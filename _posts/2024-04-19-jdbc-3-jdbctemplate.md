@@ -1,5 +1,5 @@
 ---
-title: (JDBC - 4) JdbcTemplate 소개, 기본 사용법
+title: (JDBC - 3) JdbcTemplate 소개, 기본 사용법
 description: JdbcTemplate의 기본 사용법 알아보기
 author: seungki1011
 date: 2024-04-19 12:30:00 +0900

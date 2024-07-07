@@ -21,7 +21,7 @@ mermaid: true
 
 ### 1.1 프로젝트, DB 세팅
 
-```build.gradle```
+`build.gradle`
 
 ```groovy
 dependencies {
@@ -44,7 +44,7 @@ dependencies {
 
 MySQL 컨테이너를 띄워서 사용하자.
 
-```docker-compose.yaml```
+`docker-compose.yaml`
 
 ```yaml
 services:
@@ -115,11 +115,11 @@ jdbc.password=admin
 
 ---
 
-### 1.2 `dbutil` 구현
+### 1.2 데이터베이스 커넥션 유틸 구현
 
 다음의 두 유틸을 구현해보자.
 
-* `DriverManager`을 이용한 커넥션 생성을 위한 유틸 구현.
+* `DriverManager`을 이용한 커넥션 생성을 위한 유틸 구현
 * 연결 정보를 `database.properties`에서 얻도록 유틸 구현
 
 <br>
@@ -263,7 +263,7 @@ public class ResultSetUtil {
 
 ---
 
-### 1.3 커넥션 생성, `DatabaseMetaData` 확인 
+### 1.3 커넥션 생성, DatabaseMetaData 확인 
 
 `DatabaseMetaData` 객체는 사용하는 DB의 메타정보를 제공한다.
 
@@ -306,13 +306,13 @@ public class ResultSetUtil {
 
 ---
 
-### 1.4 `Statement` 사용
+### 1.4 Statement 사용
 
 이제 ``Statement``와 그 주요 메서드들을 사용해보자.
 
 <br>
 
-#### 1.4.1 `executeQuery()`
+#### 1.4.1 executeQuery()
 
 ```java
 @Slf4j
@@ -372,7 +372,7 @@ public class ExecuteQueryMain {
 
 ---
 
-#### 1.4.2 `executeUpdate()`
+#### 1.4.2 executeUpdate()
 
 ```java
 @Slf4j
@@ -445,7 +445,7 @@ public class ExecuteUpdateMain {
 
 ---
 
-#### 1.4.3 `executeBatch()`
+#### 1.4.3 executeBatch()
 
 `Statement`에 `executeBatch()`를 사용하는 코드를 살펴보자.
 
@@ -542,7 +542,7 @@ resultCount = 4
 
 ---
 
-### 1.5 `PreparedStatement` 사용
+### 1.5 PreparedStatement 사용
 
 `PreparedStatement`에 대해서 알아보자.
 
@@ -605,7 +605,7 @@ public class PreparedStatementMain {
 
 ---
 
-### 1.6 `CallableStatement` 사용
+### 1.6 CallableStatement 사용
 
 `CallableStatement`를 이용해서 `stored procedure`나 `function`을 다룰 수 있다.
 
@@ -615,9 +615,9 @@ public class PreparedStatementMain {
 
 ---
 
-## 2. `POJO` 클래스 사용
+## 2. POJO 클래스 사용
 
-### 2.1 `POJO`란
+### 2.1 POJO란
 
 `POJO`(Plain Old Java Object)는 특별한 제한 사항에 얽매이지 않는 일반적인 자바 객체를 의미한다. 부가 설명을 하자면 어떠한 프레임워크에도 종속적이지 않고 활용할 수 있는 순수한 자바 객체이다.
 
@@ -643,7 +643,7 @@ public class PreparedStatementMain {
 
 ---
 
-### 2.2 `POJO` 클래스에 매핑 후 사용
+### 2.2 POJO 클래스에 매핑 후 사용
 
 매번 코드로 쿼리의 결과의 몇 번째 값이 어떤 타입이 데이터인지 명시하는 것은 불편하다. 미리 `ResultSet`의 결과에 해당하는 것을 `POJO`로 만들면 코드를 더 간결하게 만들 수 있다.
 
