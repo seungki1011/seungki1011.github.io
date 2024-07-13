@@ -476,13 +476,13 @@ public void save(UrlMapping urlMapping) {
 
 다음 두 가지 방법을 생각했다. (클라이언트 사이드는 배제)
 
-먼저 정규 표현식으로 사용자가 입력한 URL을 특정 패턴에 속하도록 검증한다.
+먼저 정규 표현식으로 사용자가 입력한 URL을 특정 패턴(프로토콜 여부, ASCII 이외의 문자인지 여부)에 속하는지 검증한다.
 
 1. 검증에 통과하지 못하면 오류를 발생시키고, 알맞은 URL을 입력하라고 메세지를 보여준다
    * 패턴 검증
    * 검증 실패시 오류 발생
    * 해당 오류 메세지를 출력
-2. 검증에 통과하지 못하는 경우 앞에 프로토콜이 없으면 자동으로 `http://`를 붙여준다
+2. 프로토콜 검증에 통과하지 못하는 경우 자동으로 `http://`를 붙여준다
 
 <br>
 
@@ -626,5 +626,182 @@ public String shortenUrl(@ModelAttribute("urlShortenRequest") @Validated UrlShor
 
 ---
 
-## 개선점
+## 중간 점검
 
+추가해야할 부분과 개선점 등을 생각해보자.
+
+* 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링을 고려하자
+  * URL에 대한 다양한 API를 제공한다
+  * (옵션) 사용자가 입력한 URL이 정말 존재하는 URL인지 확인하는 로직 (UrlConnection 사용 고려)
+
+
+
+* 에러 페이지를 만들자
+  * `404`,`500`, `4xx` 등..
+  * 스프링 부트가 제공하는 에러 페이지 기능을 활용하면 된다
+
+* 중복 숏코드를 처리하는 로직을 반복문을 사용하도록 수정하자
+
+
+* `@ExceptionHandler`, `@ControllerAdvice`를 사용헤서 `GlobalExceptionHandler`를 만들어서 예외를 전역으로 처리하자 (서비스 계층에서 예외 처리하지 않도록 리팩토링)
+* 필요한 추가적인 예외 핸들링은 다음과 같다
+  * 숏코드를 통해 상세정보를 확인할때 해당 숏코드가 DB에 존재하지 않는 경우
+  * 단축URL을 통한 요청(`GET: /{shortcode}`)을 하는 경우 해당 숏코드가 DB에 존재하지 않는 경우
+  * 숏코드가 7자리가 아니거나 Base62가 아닌 경우
+
+
+
+
+* 매개 변수가 많으면 빌더 패턴을 사용하는 것을 고려하자
+* 로그를 AOP로 처리하는 방법을 찾아보자
+
+
+
+* 다음 프로젝트에서는 스프링 데이터 JPA 사용하자
+  * 레포지토리 계층의 구현이 더 간단해진다
+  * `Audit`과 더불어서 많은 편의 기능을 제공
+
+
+
+* 테스트 주도 개발(TDD)이나 테스트 프레임워크(Junit5, MockMvc)에 대한 공부가 필요하다
+
+<br>
+
+---
+
+## 개선 : 예외처리 분리
+
+`@ExceptionHandler`와 `@ControllerAdvice`를 사용해서 컨트롤러에서 예외를 처리하지 않고 `GlobalExceptionHandler`를 만들어서 전역으로 처리했다.
+
+다음의 3가지 상황에 대한 예외를 처리해서 오류 페이지를 보여주도록 구현했다.
+
+* `ShortcodeNotFoundException` : 단축 URL의 숏코드를 이용해서 상세 페이지를 접근할 때 해당 숏코드가 존재하지 않으면 발생
+* `UrlNotFoundException` : 단축 URL을 접근할 때, 해당 단축 URL의 숏코드가 존재하지 않으면 발생
+* `ShortcodeGenerationException` : 숏코드 중복시, 재생성 로직의 최대 재생성 횟수가 넘어가면 발생
+  * 중복 숏코드를 처리하는 로직에서 반복문을 사용하도록 수정했다
+
+<br>
+
+> 다음 포스트에서 API 컨트롤러를 구현할 때 다시 살펴보겠지만, 보통은 미리 선언해둔 에러 코드와 메세지를 이용해서 응답을 한다.
+>
+> 지금은 서버 사이드에서 렌더링한 뷰만 다루고 있기 때문에 미리 만들어둔 에러 페이지를 응답으로 줄 것이다. 
+{: .prompt-info }
+
+<br>
+
+서비스 계층에 대해 리팩토링을 진행했다.
+
+```java
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class UrlShortenService {
+
+    private final int MAX_RETRIES = 10;
+    private final UrlMappingRepository umr;
+    private final EntityManager em;
+    
+    @Transactional
+    public String shortenUrl(String originalUrl) {
+        String shortcode;
+
+        for (int i = 0; i < MAX_RETRIES; i++) {
+            try {
+                shortcode = generateShortcode(originalUrl);
+                if (i != 0) {
+                    shortcode = generateShortcodeWithSalt(originalUrl);
+                    log.info("[generateShortcodeWithSalt] shortcode = {}", shortcode);
+                }
+                UrlMapping urlMapping = new UrlMapping(shortcode, originalUrl, LocalDateTime.now());
+                umr.save(urlMapping);
+                em.flush();
+                return shortcode;
+            } catch (DataIntegrityViolationException | ConstraintViolationException e) {
+                log.warn("[Shortcode Collision] Retrying... attempt {}", i + 1);
+            }
+        }
+
+        throw new ShortcodeGenerationException(
+                "Unable to generate unique shortcode after " + MAX_RETRIES + " attempts");
+    }
+
+    @Transactional
+    public UrlMapping findOriginalUrl(String shortcode) {
+        return umr.findByShortCode(shortcode)
+                .map(urlMapping -> {
+                    urlMapping.incrementViewCount();
+                    return urlMapping;
+                })
+                .orElseThrow(() -> new UrlNotFoundException(shortcode));
+    }
+
+    @Transactional(readOnly = true)
+    public UrlMapping findMatchingUrl(String shortcode) {
+        return umr.findByShortCode(shortcode)
+                .orElseThrow(() -> new ShortcodeNotFoundException(shortcode));
+    }
+
+}
+```
+
+<br>
+
+`GlobalExceptionHandler`
+
+```java
+@Slf4j
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ShortcodeNotFoundException.class)
+    public String handleShortcodeNotFoundException(Model model) {
+        model.addAttribute("error", "404 Not Found");
+        return "error/404";
+    }
+
+    @ExceptionHandler(UrlNotFoundException.class)
+    public String handleUrlNotFoundException(UrlNotFoundException ex, Model model) {
+        model.addAttribute("error", "URL Not Found");
+        model.addAttribute("shortcode", ex.getShortcode());
+        return "error/UrlNotFound";
+    }
+
+    @ExceptionHandler(ShortcodeGenerationException.class)
+    public String handleShortcodeGenerationException(Model model) {
+        model.addAttribute("error", "Shortcode Recreation Failed");
+        return "error/500";
+    }
+
+}
+```
+
+* 존재하지 않는 숏코드로 디테일 페이지 접근 → `ShortcodeNotFoundException` → `404` 오류 페이지
+* 존재하지 않는 단축 URL 사용 → `UrlNotFoundException` → `UrlNotFound` 페이지
+* 중복된 숏코드 처리 중에 재생성 횟수가 최대 재생성 횟수를 넘어가면 → `ShortcodeGenerationException` → `500` 오류 페이지
+  * 중복 숏코드 처리의 경우 더 좋은 방법이 존재할 것 같지만 일단 지금은 내버려두기 했다
+
+<br>
+
+---
+
+## 개선 목록
+
+- [ ] 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링
+
+- [x] 에러 페이지를 만들기
+  
+- [x] 중복 숏코드를 처리하는 로직을 반복문을 사용하도록 수정
+
+
+- [x] `@ExceptionHandler`, `@ControllerAdvice`를 사용헤서 `GlobalExceptionHandler`를 만들어서 예외를 전역으로 처리
+
+  - [x] 숏코드를 통해 상세정보를 확인할때 해당 숏코드가 DB에 존재하지 않는 경우
+  - [x] 단축URL을 통한 요청(`GET: /{shortcode}`)을 하는 경우 해당 숏코드가 DB에 존재하지 않는 경우
+  - [x] 중복된 숏코드 처리 중에 재생성 횟수가 최대 재생성 횟수를 넘어가는 경우
+  - [ ] 숏코드가 7자리가 아니거나 Base62가 아닌 경우
+- [ ] 로그를 AOP로 처리
+- [ ] 빌더 패턴 사용
+
+<br>
+
+다음 포스트에서는 API 컨트롤러의 개발과 API 예외 처리했던 내용을 다룰 예정이다.

@@ -11,7 +11,7 @@ mermaid: true
 
 ---
 
-> 들어가기 전에 [타임리프(Thymeleaf)의 기본적인 기능들]()을 알아보고 가자.
+> 들어가기 전에 [타임리프(Thymeleaf)의 기본적인 기능들](https://seungki1011.github.io/posts/thymeleaf-1-introduction/)을 알아보고 가자.
 {: .prompt-warning }
 
 <br>
