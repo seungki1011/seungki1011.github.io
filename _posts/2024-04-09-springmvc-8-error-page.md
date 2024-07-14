@@ -249,7 +249,7 @@ API 예외 처리도 스프링 부트가 제공하는 `BasicErrorController`를 
 
 <br>
 
-스프링 MVC는 컨트롤러 밖으로 예외가 던져진 경우 예외를 해결하고, 동작을 새로 정의할 수 있는 방법을 제공한다. 컨트롤러 박으로 던져진 예외를 해결하고, 동작 방식을 변경하고 싶은 경우 `HandlerExceptionResolver`를 사용하면 된다.(`ExceptionResolver`라고 부른다)
+스프링 MVC는 컨트롤러 밖으로 예외가 던져진 경우 예외를 해결하고, 동작을 새로 정의할 수 있는 방법을 제공한다. 컨트롤러 밖으로 던져진 예외를 해결하고, 동작 방식을 변경하고 싶은 경우 `HandlerExceptionResolver`를 사용하면 된다.
 
 <br>
 
@@ -279,11 +279,11 @@ API 예외 처리도 스프링 부트가 제공하는 `BasicErrorController`를 
 
 1. `ExceptionHandlerExceptionResolver`
    * 제일 많이 사용
-   * `@ExceptionHandler` 통해서 사용
+   * `@ExceptionHandler`를 통해서 사용
 
 2. `ResponseStatusExceptionResolver`
    * 다음의 2가지 경우 처리
-     * `@ResponseStatus` 가 달려있는 예외
+     * `@ResponseStatus`가 달려있는 예외
      * `ResponseStatusException` 예외
 
 3. `DefaultHandlerExceptionResolver`
@@ -295,7 +295,61 @@ API 예외 처리도 스프링 부트가 제공하는 `BasicErrorController`를 
 
 ---
 
-#### 3.2.1 ExceptionHandlerExceptionResolver
+#### 3.2.1 @ResponseStatus
+
+`ResponseStatusExceptionResolver`는 예외에 따라 HTTP 상태 코드를 지정해준다.
+
+다음의 두 가지 경우를 처리한다.
+
+* `@ResponseStatus`가 달려있는 예외
+* `ResponseStatusException` 예외
+
+<br>
+
+먼저 `@ResponseStatus`가 달려있는 예외를 살펴보자.
+
+`BadRequestException`이라는 커스텀 예외를 만들었다고 가정해보자. 다음과 같이 `@ResponseStatus` 애노테이션을 추가하면 지정한 HTTP 상태 코드로 응답을 준다.
+
+<br>
+
+```java
+@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "잘못된 요청 오류") 
+public class BadRequestException extends RuntimeException {
+}
+```
+
+* 해당 예외가 컨트롤러 밖으로 던져지는 경우 `@ResponseStatus` 애노테이션을 확인해서 오류 코드를 `HttpStatus.BAD_REQUEST`로 변경하고, `reason`의 메세지까지 담는다
+* 참고로 `reason = "error.bad"`와 같은 형식으로 사용해서 메세지 소스(`messages.properties`)에 메세지를 설정해서 사용할 수 있다
+
+<br>
+
+`BasRequestException`을 발생시켜서 별도로 잡아서 처리하지 않으면 다음의 응답을 받을 수 있다.
+
+```json
+{
+    "status": 400,
+    "error": "Bad Request",
+    "exception": "hello.exception.exception.BadRequestException", 
+    "message": "잘못된 요청 오류",
+    "path": "/api/response-status-ex1"
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+---
+
+#### 3.2.2 @ExceptionHandler
 
 지금까지 소개한 `BasicErrorController`를 사용하거나 `HandlerExceptionResolver`를 직접 구현하는 방식으로 API 예외를 다루기는 쉽지않다.
 
@@ -318,7 +372,7 @@ API 예외 처리의 어려운 점.
 
 <br>
 
-`ExceptionHandlerExceptionResolver`의 사용법을 알아보자.
+`@ExceptionHandler`의 사용법을 알아보자.
 
 ```java
 @Data
@@ -342,8 +396,8 @@ public class ApiExceptionV2Controller {
      * 컨트롤러를 호출한 결과 IllegalArgumentException 예외가 컨트롤러 밖으로 던져진다
      * 예외가 발생했기 때문에 ExceptionResolver가 작동한다
      * 우선순위가 제일 높은 ExceptionHandlerExceptionResolver 실행
-     * ExceptionHandlerExceptionResolver는 해당 컨트롤러에 IllegalArgumentException을 처리할 수 있는 @ExceptionHandler가 있는 확인한다
-     * illegalExHandle() 실행
+     * ExceptionHandlerExceptionResolver는 해당 컨트롤러에 IllegalArgumentException을 처리할 수 있는 @ExceptionHandler가 있는지 확인한다
+     * illegalExHandler() 실행
      * @RestController이므로 illegalExHandle()에도 @ResponseBody가 적용된다
      * HttpConverter가 사용되고, 응답이 JSON으로 반환된다
      * @ResponseStatus를 HTTP 상태 코드 400 지정(400으로 응답)
@@ -420,11 +474,6 @@ public class ApiExceptionV2Controller {
 ### 3.3 @ControllerAdvice
 
 `@ExceptionHandler`를 사용해서 예외를 깔끔하게 처리할 수 있게 되었지만, 정상 코드와 예외 처리 코드가 하나의 컨트롤러에 섞여 있다. `@ControllerAdvice` 또는 `@RestControllerAdvice`를 사용하면 둘을 분리할 수 있다.
-
-<br>
-
-> `@ControllerAdvice`는 스프링 AOP에서 자세히 다룬다.
-{: .prompt-tip }
 
 <br>
 

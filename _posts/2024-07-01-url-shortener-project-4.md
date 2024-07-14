@@ -11,3 +11,9 @@ mermaid: true
 ---
 
 ## API 설계
+
+API를 위한 컨트롤러를 구현해보자.
+
+일단 API는 다음과 같이 설계했다.
+
+* `/api/v1/shorturl` : `GET` 

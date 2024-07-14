@@ -630,11 +630,11 @@ public String shortenUrl(@ModelAttribute("urlShortenRequest") @Validated UrlShor
 
 추가해야할 부분과 개선점 등을 생각해보자.
 
+* 굳이 `/shorten`을 경로로 매핑할 필요가 없을 것 같다. `/`을 사용하는 것을 고려하자
+
 * 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링을 고려하자
   * URL에 대한 다양한 API를 제공한다
   * (옵션) 사용자가 입력한 URL이 정말 존재하는 URL인지 확인하는 로직 (UrlConnection 사용 고려)
-
-
 
 * 에러 페이지를 만들자
   * `404`,`500`, `4xx` 등..
@@ -650,18 +650,12 @@ public String shortenUrl(@ModelAttribute("urlShortenRequest") @Validated UrlShor
   * 숏코드가 7자리가 아니거나 Base62가 아닌 경우
 
 
-
-
 * 매개 변수가 많으면 빌더 패턴을 사용하는 것을 고려하자
 * 로그를 AOP로 처리하는 방법을 찾아보자
-
-
 
 * 다음 프로젝트에서는 스프링 데이터 JPA 사용하자
   * 레포지토리 계층의 구현이 더 간단해진다
   * `Audit`과 더불어서 많은 편의 기능을 제공
-
-
 
 * 테스트 주도 개발(TDD)이나 테스트 프레임워크(Junit5, MockMvc)에 대한 공부가 필요하다
 
@@ -669,7 +663,7 @@ public String shortenUrl(@ModelAttribute("urlShortenRequest") @Validated UrlShor
 
 ---
 
-## 개선 : 예외처리 분리
+## 개선 : 예외를 전역으로 처리
 
 `@ExceptionHandler`와 `@ControllerAdvice`를 사용해서 컨트롤러에서 예외를 처리하지 않고 `GlobalExceptionHandler`를 만들어서 전역으로 처리했다.
 
@@ -792,16 +786,17 @@ public class GlobalExceptionHandler {
   
 - [x] 중복 숏코드를 처리하는 로직을 반복문을 사용하도록 수정
 
-
 - [x] `@ExceptionHandler`, `@ControllerAdvice`를 사용헤서 `GlobalExceptionHandler`를 만들어서 예외를 전역으로 처리
 
   - [x] 숏코드를 통해 상세정보를 확인할때 해당 숏코드가 DB에 존재하지 않는 경우
   - [x] 단축URL을 통한 요청(`GET: /{shortcode}`)을 하는 경우 해당 숏코드가 DB에 존재하지 않는 경우
   - [x] 중복된 숏코드 처리 중에 재생성 횟수가 최대 재생성 횟수를 넘어가는 경우
   - [ ] 숏코드가 7자리가 아니거나 Base62가 아닌 경우
+
 - [ ] 로그를 AOP로 처리
 - [ ] 빌더 패턴 사용
 
 <br>
 
-다음 포스트에서는 API 컨트롤러의 개발과 API 예외 처리했던 내용을 다룰 예정이다.
+다음 포스트에서는 API 컨트롤러의 개발과 API 예외 처리에 대한 내용을 다룰 예정이다.
+

@@ -1160,6 +1160,7 @@ public HelloData responseBodyJsonV2() {
 
 * `ResponseEntity` 는 HTTP 응답 코드를 설정할 수 있는데, `@ResponseBody` 를 사용하면 이런 것을 설정하기 까다롭다
 * `@ResponseStatus(HttpStatus.OK)` 애노테이션을 사용하면 응답 코드도 설정할 수 있다
+* 참고로 스프링은 성공적인 `GET` 요청에는 기본적으로 `HttpStatus.OK`을 반환한다
 * 프로그램 조건에 따라서 동적으로 변경하려면 `ResponseEntity` 를 사용하면 된다
 
 <br>
