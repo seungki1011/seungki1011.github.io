@@ -215,7 +215,7 @@ public class ApiExceptionHandler {
 
 ---
 
-## 개선점
+## 개선할 점
 
 - [ ] 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링
 - [ ] `ApiResponse`나 `ApiErrorResponse`에 빌더 사용
@@ -268,7 +268,7 @@ public class ApiExceptionHandler {
 
 <br>
 
-![스크린샷 2024-07-15 오후 12.53.07](../post_images/2024-07-01-url-shortener-project-4/api4.png)_단축 URL 상세 정보 실패_
+![스크린샷 2024-07-15 오후 12.53.07](../post_images/2024-07-01-url-shortener-project-4/api4.png)_단축 URL 상세 정보 조회 실패_
 
 <br>
 
