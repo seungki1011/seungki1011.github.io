@@ -1,5 +1,5 @@
 ---
-title: (Spring MVC - 8) 에러 페이지(Error), API 예외 처리
+title: (Spring MVC - 8) 에러 페이지, API 예외 처리
 description: 스프링 부트에서 제공하는 오류 페이지 기능, API 예외 처리 방법에 대하여
 author: seungki1011
 date: 2024-04-09 12:30:00 +0900
@@ -462,6 +462,7 @@ public class ApiExceptionV2Controller {
   * `@ExceptionHandler` 애노테이션을 선언하고, 해당 컨트롤러에서 처리하고 싶은 예외를 지정해주면 된다
   * 해당 컨트롤러에서 예외가 발생하면 이 메서드가 호출된다
   * 지정한 예외 그리고 그 예외의 자식 클래스를 모두 잡는다
+* 뒤에서 살펴보겠지만 보통 `@ControllerAdvice`를 이용한 `ExceptionHandler` 클래스를 따로 만들어서 해당 클래스의 메서드에 `@ExceptionHandler`를 붙여서 사용하는 경우가 많다
 
 
 
@@ -497,13 +498,12 @@ public class ExampleAdvice1 {}
 
 // Target all Controllers within specific packages
 // 특정 패키지 단위
-@ControllerAdvice("org.example.controllers")
+@ControllerAdvice("org.example.controller")
 public class ExampleAdvice2 {}
 
 // Target all Controllers assignable to specific classes
 // 특정 클래스 단위
-@ControllerAdvice(assignableTypes = {ControllerInterface.class,
-AbstractController.class})
+@ControllerAdvice(assignableTypes = {ControllerInterface.class, AbstractController.class})
 public class ExampleAdvice3 {}
 ```
 

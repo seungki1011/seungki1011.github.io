@@ -20,6 +20,10 @@ URL 단축이라는 것은 말 그대로 기존 URL을 단축해서 더 짧은 U
 
 <br>
 
+이 프로젝트의 깃헙 : [https://github.com/seungki1011/url-shortener](https://github.com/seungki1011/url-shortener)
+
+<br>
+
 ![bitly](../post_images/2024-06-19-url-shortener-project-1/bitly.png){: width="972" height="589" }
 _Bitly를 사용해서 URL 단축_
 
@@ -34,6 +38,8 @@ _Bitly를 사용해서 URL 단축_
 **짧아진 링크를 살펴보면 도메인인 `https://bit.ly/`뒤에 `3VzBS9q`라는 문자 조합이 붙어 있는 것을 확인할 수 있다. 이 문자 조합을 [슬러그(slug)](https://developer.mozilla.org/ko/docs/Glossary/Slug) 또는 숏코드(shortcode)라고 부른다. URL 단축의 핵심은 원본 URL을 유일한 숏코드로 매핑하는 로직을 구현하는 것이다.**
 
 Bitly는 회원 가입해서 사용하는 경우, URL 단축 기능 외에도 해당 링크를 몇 명이 눌렀는지에 대한 통계 데이터를 확인할 수 있는 기능도 제공한다. 일단은 회원 가입 기능을 배제하고, 비회원이 사용하는 경우 원본 URL의 중복을 허용하지 않는 방식의 서비스를 고려하자.
+
+<br>
 
 ---
 
@@ -82,6 +88,8 @@ URL 단축을 구현하는 여러가지 방법들을 살펴보기전에 다음�
 <br>
 
 물론 위에서 언급한 효과 외에도 해시 함수를 이용해서 얻을 수 있는 다양한 이점들이 존재한다.
+
+<br>
 
 ---
 
@@ -247,7 +255,7 @@ Base64 인코딩을 사용할 경우의 문제점이 여기서 나온다. 숏코
 > *  `+`를 `-`로 바꾸고, `/`를 `_`로 바꾸는 URL and Filename safe Base64 방식도 존재한다.
 > *  Base62로 인코딩하는 함수를 Bijective Function이라고 부르기도 한다
 >    * 더 정확히 말하자면, 인풋에 대해 고유한 아웃풋을 가질 수 있고, 그 역연산을 통해 인풋을 구하는 것이 가능한 인코딩을 Bijective Encoding이라고 한다. (Uniqueness, Reversibility)
-   {: .prompt-info }
+      {: .prompt-info }
 
 
 <br>
