@@ -38,9 +38,7 @@ JPA는 이런 카디널리티에 대한 4가지 애노테이션을 제공한다.
 
 <br>
 
-> `@ManyToMany`는 실무에서 쓰이지 않는다. 뒤에서 다루겠지만, `@ManyToOne`, `@OneToMany`로 풀어낸다. 
->
-> 가장 많이 사용하는 것은 `@ManyToOne`이다.
+> `@ManyToMany`는 실무에서 쓰이지 않는다. 뒤에서 다루겠지만, `@ManyToOne`, `@OneToMany`로 풀어낸다.
 {: .prompt-tip }
 
 
