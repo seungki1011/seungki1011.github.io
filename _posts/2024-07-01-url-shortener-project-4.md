@@ -238,15 +238,15 @@ public class ApiExceptionHandler {
 
 <br>
 
-![스크린샷 2024-07-15 오전 10.13.24](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오전 10.13.24.png)_URL 입력 폼_
+![스크린샷 2024-07-15 오전 10.13.24](../post_images/2024-07-01-url-shortener-project-4/view1.png)_URL 입력 폼_
 
 <br>
 
-![스크린샷 2024-07-15 오전 10.13.41](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오전 10.13.41.png)_단축 결과 상세 페이지_
+![스크린샷 2024-07-15 오전 10.13.41](../post_images/2024-07-01-url-shortener-project-4/view2.png)_단축 결과 상세 페이지_
 
 <br>
 
-![스크린샷 2024-07-15 오전 10.14.27](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오전 10.14.27.png)_URL 검증_
+![스크린샷 2024-07-15 오전 10.14.27](../post_images/2024-07-01-url-shortener-project-4/view3.png)_URL 검증_
 
 <br>
 
@@ -258,17 +258,17 @@ public class ApiExceptionHandler {
 
 <br>
 
-![스크린샷 2024-07-15 오후 12.51.50](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오후 12.51.50.png)_URL 단축 요청 성공_
+![스크린샷 2024-07-15 오후 12.51.50](../post_images/2024-07-01-url-shortener-project-4/api1.png)_URL 단축 요청 성공_
 
 <br>
 
-![스크린샷 2024-07-15 오후 12.50.46](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오후 12.50.46.png)_URL 단축 요청 실패_
+![스크린샷 2024-07-15 오후 12.50.46](../post_images/2024-07-01-url-shortener-project-4/api2.png)_URL 단축 요청 실패_
 
-<br>![스크린샷 2024-07-15 오후 12.52.47](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오후 12.52.47.png)_단축 URL 상세 정보 조회 성공_
+<br>![스크린샷 2024-07-15 오후 12.52.47](../post_images/2024-07-01-url-shortener-project-4/api3.png)_단축 URL 상세 정보 조회 성공_
 
 <br>
 
-![스크린샷 2024-07-15 오후 12.53.07](../post_images/2024-07-01-url-shortener-project-4/스크린샷 2024-07-15 오후 12.53.07.png)_단축 URL 상세 정보 실패_
+![스크린샷 2024-07-15 오후 12.53.07](../post_images/2024-07-01-url-shortener-project-4/api4.png)_단축 URL 상세 정보 실패_
 
 <br>
 
@@ -326,7 +326,7 @@ public class ApiExceptionHandler {
 
 ---
 
-이 프로젝트의 깃헙 : [https://github.com/seungki1011/url-shortener](https://github.com/seungki1011/url-shortener)
+프로젝트 깃헙 주소 : [https://github.com/seungki1011/url-shortener](https://github.com/seungki1011/url-shortener)
 
 
 
