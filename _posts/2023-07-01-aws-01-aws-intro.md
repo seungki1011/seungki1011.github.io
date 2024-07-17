@@ -413,9 +413,9 @@ IAM은 4가지 부분으로 이루어져있다.
 
 <br>
 
-<img src="../post_images/2023-07-01-aws-01-aws-intro/policy.png" alt="iam1" style="zoom: 100%;" class='center-image'/>
+<img src="../post_images/2023-07-01-aws-01-aws-intro/policy.png" alt="iam1" style="zoom: 100%;" class='center-image'/>_seungki1011_
 
-<p align='center'>출처 - https://k21academy.com/amazon-web-services/aws-identity-and-access-management-iam/</p>
+
 
 사용자에 대한 권한 검증은 대략적으로 다음 순서로 진행된다.
 
