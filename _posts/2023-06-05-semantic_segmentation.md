@@ -1,5 +1,5 @@
 ---
-title: 의미적 필셀 분할 정리(Semantic Segmentation Overview)
+title: 의미적 픽셀 분할 정리(Semantic Segmentation Overview)
 description: Semantic Segmentation에 대한 소개
 author: seungki1011
 date: 2023-06-05 12:30:00 +0900
