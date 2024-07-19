@@ -165,7 +165,7 @@ queue.poll() = 2
 
 <br>
 
-![ds](../post_images/2024-01-29-datastructure-5-stack-queue/deque1.png)
+![ds](../post_images/2024-01-29-datastructure-5-stack-queue/deque1.png)_Deque_
 
 * `offerFirst()` : 앞에 추가
 * `offerLast()` : 뒤에 추가

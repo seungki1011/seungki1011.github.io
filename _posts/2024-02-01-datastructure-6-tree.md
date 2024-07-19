@@ -21,7 +21,7 @@ mermaid: true
 
 <br>
 
-![ds](../post_images/2024-02-01-datastructure-6-tree/tree1.png)
+![ds](../post_images/2024-02-01-datastructure-6-tree/tree1.png)_Tree Data Structure_
 
 * 노드(node) : 데이터를 저장하는 기본 요소
 * 루트 노트(root node) : 트리의 가장 최상위 노드
@@ -118,9 +118,9 @@ class Node {
 
 <br>
 
-![ds](https://www.mathwarehouse.com/programming/images/binary-search-tree/binary-search-tree-sorted-array-animation.gif)
+![ds](https://www.mathwarehouse.com/programming/images/binary-search-tree/binary-search-tree-sorted-array-animation.gif)_https://www.mathwarehouse.com/programming/gifs/binary-search-tree.php_
 
-<p align='center'>https://www.mathwarehouse.com/programming/gifs/binary-search-tree.php</p>
+
 
 <br>
 
@@ -151,9 +151,7 @@ class Node {
 
 <br>
 
-![ds](https://www.mathwarehouse.com/programming/images/binary-search-tree/binary-search-tree-degenerating-demo-animation.gif)
-
-<p align='center'>https://www.mathwarehouse.com/programming/gifs/binary-search-tree.php</p>
+![ds](https://www.mathwarehouse.com/programming/images/binary-search-tree/binary-search-tree-degenerating-demo-animation.gif)_https://www.mathwarehouse.com/programming/gifs/binary-search-tree.php_
 
 <br>
 

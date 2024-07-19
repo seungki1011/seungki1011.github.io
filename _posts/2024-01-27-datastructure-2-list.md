@@ -486,9 +486,7 @@ public class MyLinkedList<E> {
 
 <br>
 
-![ds](../post_images/2024-01-27-datastructure-2-list/link6.png)
-
-<p align = 'center'>성능 비교</p>
+![ds](../post_images/2024-01-27-datastructure-2-list/link6.png)_성능 비교_
 
 * `ArrayList`(배열 리스트)
   * 인덱스를 통한 추가/삭제 위치 조회는 `O(1)`로 매우 빠르다
@@ -507,6 +505,8 @@ public class MyLinkedList<E> {
 <br>
 
 > 참고로 이중 연결 리스트는 `Node`에 `next` 말고도 `prev`를 사용해서 이전 노드의 참조도 가지고 있는 형태로 구현한다. 이를 통해 양방향 순회(traverse)가 가능하다.
+{: .prompt-info }
+
 
 <br>
 
@@ -515,6 +515,8 @@ public class MyLinkedList<E> {
 ## 4) Collection 프레임워크 소개
 
 > 기존 `Collection`에 관한 포스트 [보러가기](https://seungki1011.github.io/posts/java-24-collections/)
+{: .prompt-tip }
+
 
 <br>
 
@@ -525,11 +527,11 @@ public class MyLinkedList<E> {
 
 <br>
 
-![ds](../post_images/2024-01-27-datastructure-2-list/collection1.png)
+![ds](../post_images/2024-01-27-datastructure-2-list/collection1.png)_https://www.geeksforgeeks.org/how-to-learn-java-collections-a-complete-guide/_
 
-![ds](../post_images/2024-01-27-datastructure-2-list/collection2.png)
+![ds](../post_images/2024-01-27-datastructure-2-list/collection2.png)_https://www.geeksforgeeks.org/how-to-learn-java-collections-a-complete-guide/_
 
-<p align = 'center'>https://www.geeksforgeeks.org/how-to-learn-java-collections-a-complete-guide/</p>
+
 
 <br>
 
