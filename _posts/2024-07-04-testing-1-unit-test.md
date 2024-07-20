@@ -283,19 +283,43 @@ DAMP한 테스트 코드를 위해서 다음의 방법들을 사용한다.
 
 ---
 
-## 3. 테스트 프레임워크(Test Framework)
+## 3. 테스트를 도와주는 도구들
+
+테스트를 도와주는 프레임워크, 라이브러리, 툴들에 대하여 알아보자.
+
+* **Junit5**
+  * 단위 테스트를 위한 테스트 프레임워크
+  * `5`는 버전이다
+  * Kent Back이 만든 Xunit 시리즈 중에서 자바를 위한 테스트 프레임워크이다
+  * [https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations](https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations)
 
 
 
+* **AssertJ**
+  * 테스트 코드 작성을 위한 라이브러리
+  * 다양한 assertion API와 메서드 체이닝을 지원한다
+  * [https://assertj.github.io/doc/#assertj-guava-assertions-guide](https://assertj.github.io/doc/#assertj-guava-assertions-guide)
 
 
 
+* **Mockito**
+  * 자바에서 사용하는 Mock 프레임워크
+  * BDDMockito라는 Mockito를 wrapping한 프레임워크도 존재한다
+    * Mockito의 `when`, `thenReturn` 대신 `given`, `willReturn` 등을 사용한다
+    * 쉽게 말해서 BDD 스타일의 가독성을 지원하는 Mockito의 확장 프레임워크로 볼 수 있다
+  * [https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)
 
 
 
+* **JaCoCo**
+  * 자바를 위한 코드 커버리지 도구
+  * 커버리지에 대한 리포트를 생성할 수 있다
+  * 오픈소스이다
+  * [https://www.jacoco.org/jacoco/trunk/doc/index.html](https://www.jacoco.org/jacoco/trunk/doc/index.html)
 
+<br>
 
-
+이외에도 TestNG, Hamcrest, PowerMock, Cucumber 등 정말 많은 테스트를 위한 도구들이 존재한다.
 
 <br>
 
@@ -332,7 +356,12 @@ dependencies {
 
 <br>
 
-이제 쇼핑카트(`ShoppingCart`)라는 클래스를 만들어서 해당 쇼핑카트에 아이템(`Item`)을 추가/제거/총 가격 계산을 하는 기능을 추가한다고 해보자.
+> 들어가기에 앞서, 이 예시는 단위 테스트를 한번도 짜보지 않은 사람(~~필자 본인~~)이 여러가지 프랙티스를 참고하면서 작성했다는 것을 유의하자. (~~안티패턴 주의~~)
+{: .prompt-warning }
+
+<br>
+
+이제 쇼핑카트(`ShoppingCart`)라는 클래스를 만들어서 해당 쇼핑카트에 아이템(`Item`)을 `추가/제거/총 가격 계산`을 하는 기능들을 추가한다고 해보자.
 
 <br>
 
@@ -382,8 +411,9 @@ public class ShoppingCart {
 }
 ```
 
-* 쇼핑카트에 아이템을 추가/삭제하고, 단긴 모든 아이템의 총 가격을 계산하는 기능이 존재한다
+* 쇼핑카트에 아이템을 `추가/삭제/담긴 모든 아이템의 총 가격을 계산`하는 기능이 존재한다
 * `getItems()`로 쇼핑카트에 담긴 아이템들의 리스트를 반환 받을 수 있다
+* `Item`은 정적 중첩 클래스로 작성했다
 
 <br>
 
@@ -391,21 +421,167 @@ public class ShoppingCart {
 
 <br>
 
+```java
+class ShoppingCartTest {
 
+    private ShoppingCart shoppingCart;
 
+    @BeforeEach
+    public void setUp() {
+        shoppingCart = new ShoppingCart();
+    }
 
+    @Test
+    @DisplayName("아이템을 1개 추가하면 해당 아이템은 쇼핑카트에 담긴다")
+    public void 카트에_아이템_추가() {
+        // 준비
+        Item item = new Item("apple", 1000, 10);
+        List<Item> items = shoppingCart.getItems();
 
+        // 실행
+        shoppingCart.addItem(item);
+      
+        // 검증
+        assertThat(items).contains(item);
+    }
 
+    @Test
+    @DisplayName("이름으로 명시한 아이템을 없애면, 해당 아이템은 쇼핑카트에 존재하지 않는다")
+    public void 카트에서_아이템_제거() {
+        Item item1 = new Item("apple", 1000, 10);
+        Item item2 = new Item("banana", 2000, 20);
+        shoppingCart.addItem(item1);
+        shoppingCart.addItem(item2);
+        List<Item> items = shoppingCart.getItems();
+      
+        shoppingCart.removeItem("apple");
 
+        assertThat(items).doesNotContain(item1);
+        assertThat(items).contains(item2);
+    }
 
+    @Test
+    @DisplayName("쇼핑카트에 추가한 2개 아이템의 총 가격은 50000이 나와야한다")
+    public void 카트안_아이템_총가격_계산() {
+        Item item1 = new Item("apple", 1000, 10);
+        Item item2 = new Item("banana", 2000, 20);
+        shoppingCart.addItem(item1);
+        shoppingCart.addItem(item2);
 
+        int totalPrice = shoppingCart.calculateTotalPrice();
 
+        assertThat(totalPrice).isEqualTo(50000);
+    }
 
+}
+```
 
+<br>
 
+테스트 스위트를 실행 해보면 다음과 같이 전부 통과하는 모습을 볼 수 있다.
 
+<br>
 
+![test1](../post_images/2024-07-04-testing-1-unit-test/test1-1488373.png)_과연 괜찮은 테스트일까?_
 
+<br>
+
+그러나 현재 테스트 코드에는 잠재적인 문제가 있다.
+
+그것은 `ShoppingCart` 클래스의 내부 구현에 의존하고 있다는 것이다.
+
+<br>
+
+테스트 코드의 일부를 다시 살펴보자.
+
+```java
+@Test
+@DisplayName("아이템을 1개 추가하면 해당 아이템은 쇼핑카트에 담긴다")
+public void 카트에_아이템_추가() {
+    // 준비
+    Item item = new Item("apple", 1000, 10);
+    // List로 정하는 것은 ShoppingCart 클래스의 내부 구조에 의존하게 되는 것이다
+    List<Item> items = shoppingCart.getItems();
+
+    // 실행
+    shoppingCart.addItem(item);
+      
+    // 검증
+    assertThat(items).contains(item);
+}
+```
+
+<br>
+
+현재 테스트 코드에서는 `shoppingCart.getItems()`을 `List`로 타입을 정했기 때문에 만약 `ShoppingCart`의 내부 구조가 바뀌면 해당 테스트가 깨질 위험이 생긴다.
+
+예를 들어서 `ShoppingCart`를 다음과 같이 수정한다고 가정해보자.
+
+<br>
+
+```java
+@Getter
+public class ShoppingCart {
+  
+    private Set<Item> items;
+
+    public ShoppingCart() {
+        this.items = new HashSet<>();
+    }
+    
+    // 기존과 동일
+  
+}
+```
+
+* `List`가 아니라 `Set`을 사용하도록 코드를 변경했다
+
+<br>
+
+이제 테스트 코드를 다시 실행해보려고 하자. 그러면 테스트 실행은 커녕 컴파일 단계에서 부터 막힌다.
+
+<br>
+
+![test2](../post_images/2024-07-04-testing-1-unit-test/test2.png)_ShoppingCart의 내부 구현을 바꿨는데 테스트가 동작하지 않는다_
+
+<br>
+
+아마 이런 경우를 두고 리팩터링 내성이 없다고 말하는 것이 아닐까 생각한다.
+
+이를 해결하기 위해서는 `List` 타입을 명시하지 않으면 된다. 그러니깐 `ShoppingCart` 클래스의 내부 구현에 의존하지 않도록 한다. 해당 `shoppingCart.getItems()`이 `Set`이든, `List`이든, 뭐든에 상관없이 테스트가 깨지지 않고 동작해야 하는 것이다.
+
+<br>
+
+`수정한 코드`
+
+```java
+@Test
+@DisplayName("아이템을 1개 추가하면 해당 아이템은 쇼핑카트에 담긴다")
+public void 카트에_아이템_추가() {
+    // 준비
+    Item item = new Item("apple", 1000, 10);
+
+    // 실행
+    shoppingCart.addItem(item);
+
+    // 검증
+    assertThat(shoppingCart.getItems()).contains(item);
+}
+```
+
+<br>
+
+테스트 코드를 실행해보면 `.getItems()`이 `Set`으로 구현되어 있든, `List`로 구현되어 있든 정상적으로 동작하고 통과한다.
+
+<br>
+
+---
+
+## 후기
+
+지금까지 단위 테스트에 대해 간략히 다루었다. 지금까지 단위 테스트를 작성했을 때는 그냥 남들이 하는거 보고 **"대충 기능의 결과에 대한 검증만 하면 되겠지?"**라고 생각하고 안일하게 작성했다. 이번에 여러 자료를 찾아보면서 단위 테스트에 대해 고민해 볼수 있었다.
+
+다음 포스트는 TDD에 대한 내용을 다룰 생각이다.
 
 ---
 
