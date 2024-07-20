@@ -3,7 +3,7 @@ title: (HTTP - 2) HTTP 소개
 description: HTTP 소개, HTTP의 특성에 대해 알아보기 
 author: seungki1011
 date: 2024-02-14 12:30:00 +0900
-categories: [CS, HTTP]
+categories: [컴퓨터 공학(CS), HTTP]
 tags: [network, http]
 math: true
 mermaid: true

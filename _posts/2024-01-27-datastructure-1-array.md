@@ -3,7 +3,7 @@ title: (자료구조 - 1) 자료구조 소개, 배열
 description: 자료구조(Data Structure), Big-O 표기법, 배열(Array)에 대한 설명
 author: seungki1011
 date: 2024-01-27 12:30:00 +0900
-categories: [CS, 자료구조]
+categories: [컴퓨터 공학(CS), 자료구조]
 tags: [data structure]
 math: true
 mermaid: true
