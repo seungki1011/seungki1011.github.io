@@ -343,15 +343,11 @@ AWS 계정을 처음 생성할 때 루트 유저(root user)와 기본 리소스(
 
 <br>
 
-<img src="../post_images/2023-07-01-aws-01-aws-intro/awsuser1.png" alt="aws 유저" style="zoom:67%;" class='center-image'/>
-
-_IAM 유저 생성_
+<img src="../post_images/2023-07-01-aws-01-aws-intro/awsuser1.png" alt="aws 유저" style="zoom:67%;" class='center-image'/>_IAM 유저 생성_
 
 <br>
 
-<img src="../post_images/2023-07-01-aws-01-aws-intro/awsuser2.png" alt="aws 유저 2" style="zoom: 53%;" class='center-image'/>
-
-_IAM 유저에 정책 부여_
+<img src="../post_images/2023-07-01-aws-01-aws-intro/awsuser2.png" alt="aws 유저 2" style="zoom: 53%;" class='center-image'/>_IAM 유저에 정책 부여_
 
 * 정책(policy) 부여를 통해 필요한 권한을 줄 수 있다
 
@@ -374,9 +370,7 @@ IAM은 대표적으로 다음의 기능을 제공한다.
 
 <br>
 
-<img src="../post_images/2023-07-01-aws-01-aws-intro/iam2.png" alt="aws" style="zoom: 100%;" class='center-image'/>
-
-_https://jayendrapatil.com/aws-iam-overview/_
+<img src="../post_images/2023-07-01-aws-01-aws-intro/iam2.png" alt="aws" style="zoom: 100%;" class='center-image'/>_https://jayendrapatil.com/aws-iam-overview/_
 
 IAM은 4가지 부분으로 이루어져있다.
 
@@ -414,9 +408,7 @@ IAM은 4가지 부분으로 이루어져있다.
 
 <br>
 
-<img src="../post_images/2023-07-01-aws-01-aws-intro/policy.png" alt="iam1" style="zoom: 100%;" class='center-image'/>_seungki1011_
-
-
+<img src="../post_images/2023-07-01-aws-01-aws-intro/policy.png" alt="iam1" style="zoom: 100%;" class='center-image'/>_출처 : seungki1011_
 
 사용자에 대한 권한 검증은 대략적으로 다음 순서로 진행된다.
 
