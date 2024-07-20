@@ -311,6 +311,13 @@ public class EqualsTest {
 }
 ```
 
+```
+s1과 s2는 동등한가? : true
+s1과 s2는 동일한가? : false
+s3와 s4는 동등한가? : true
+s3과 s4는 동일한가? : true
+```
+
 * 리터럴로 `String` 객체 생성시 `string pool`에 넣는다
   * 만약 `"Hello World!"`라는 리터럴로 생성했다고 가정하면 `string pool`에 같은 문자열이 있는 확인하고, 만약 존재하면 해당 `String` 객체를 사용한다
   * 쉽게 말해서 리터럴로 `String` 객체 생성시 값이 같으면 같은 객체 주소를 참조한다
@@ -457,6 +464,13 @@ public class EqualsTest {
         
     }
 }
+```
+
+```
+s1과 s2는 동등한가? : true
+s1과 s2는 동일한가? : false
+s3와 s4는 동등한가? : true
+s3과 s4는 동일한가? : true
 ```
 
 * 리터럴로 `String` 객체 생성시 `string pool`에 넣는다
@@ -876,7 +890,7 @@ str = olleH
 >   * 보통 `StringBuffer` 보다 성능이 빠르다
 >   * 스레드 안전을 고려하지 않아도 되는 싱글 스레드 환경에서 많이 사용한다
 >   * 성능이 중요한 경우 `StringBuilder` 사용
-  {: .prompt-tip }
+    {: .prompt-tip }
 
 <br>
 
