@@ -468,7 +468,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    @DisplayName("쇼핑카트에 추가한 2개 아이템의 총 가격은 50000이 나와야한다")
+    @DisplayName("쇼핑카트에 추가한 다수의 아이템에 대해 올바른 총가격이 반환되어야 한다")
     public void 카트안_아이템_총가격_계산() {
         Item item1 = new Item("apple", 1000, 10);
         Item item2 = new Item("banana", 2000, 20);
@@ -489,7 +489,7 @@ class ShoppingCartTest {
 
 <br>
 
-![test1](../post_images/2024-07-04-testing-1-unit-test/test1-1488373.png)_과연 괜찮은 테스트일까?_
+![test1](../post_images/2024-07-04-testing-1-unit-test/unittestresult.png)_과연 괜찮은 테스트일까?_
 
 <br>
 
