@@ -4,7 +4,7 @@ description: TDD(Test Driven Development), BDD 등에 대한 소개
 author: seungki1011
 date: 2024-07-07 10:30:00 +0900
 categories: [4. 소프트웨어 엔지니어링(SWE), Test]
-tags: [test, tdd, bdd, aaa, gwt]
+tags: [test, tdd, bdd, gwt, agile, extreme]
 math: true
 mermaid: true
 ---
@@ -237,7 +237,7 @@ public int calculateTotalPrice() {
 
 **BLUE**에서는 테스트의 통과 상태를 유지하면서 실제 코드의 구현이나 설계를 개선한다.
 
-현재 예시에서는 기존 구현을 스트림을 이용해서 총가격을 계산할 수 있도록 구현을 변경해보겠다.
+기존 구현을 스트림을 이용해서 총 가격을 계산할 수 있도록 구현을 변경해보겠다.
 
 <br>
 
