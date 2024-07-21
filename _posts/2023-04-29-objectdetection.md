@@ -3,7 +3,7 @@ title: 객체 탐지 정리(Object Detection Overview)
 description: Object Detection에 대한 소개
 author: seungki1011
 date: 2023-04-29 12:30:00 +0900
-categories: [10. 인공지능(AI), Object Detection]
+categories: [인공지능(AI), Object Detection]
 tags: [ai, cv, object detection]
 math: true
 mermaid: true
