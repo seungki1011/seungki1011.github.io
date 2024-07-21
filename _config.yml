@@ -19,7 +19,8 @@ title: Seungki # the main title
 tagline: 데이터 엔지니어링, 백엔드 공부.  # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  데이터 엔지니어링, 백엔드 개발을 주로 다루는 개발 블로그. Spring Boot, 스프링 부트, JPA, Hibernate, MongoDB, 몽고DB, JDBC, Java, 자바, Url shortener, 단축 URL, HTTP, 자료구조, 알고리즘, 데이터베이스, API. 
+  데이터 엔지니어링, 백엔드 개발을 주로 다루는 개발 블로그. 
+  스프링 부트(Spring Boot), JPA, Hibernate, MongoDB, JDBC, Java, 단축 URL(Url shortener), HTTP, RDBMS, 데이터베이스, 하둡(Hadoop), 스파크(Spark), Python, API. 
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
