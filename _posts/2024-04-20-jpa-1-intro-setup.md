@@ -3,7 +3,7 @@ title: (JPA - 01) JPA 소개, 환경 준비, 동작 확인
 description: JPA를 사용하는 이유 소개, JPA 맛보기
 author: seungki1011
 date: 2024-04-20 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

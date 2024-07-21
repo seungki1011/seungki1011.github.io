@@ -3,7 +3,7 @@ title: (SQL - 4) Stored Procedure, Function and Trigger
 description: 스토어드 프로시져, 스토어드 함수, 트리거에 대해서
 author: seungki1011
 date: 2024-03-13 12:30:00 +0900
-categories: [DB, SQL]
+categories: [3. 데이터베이스(DB), SQL]
 tags: [sql, mysql, query]
 math: true
 mermaid: true

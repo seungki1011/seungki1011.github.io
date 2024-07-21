@@ -3,7 +3,7 @@ title: (AWS - 1) 클라우드, AWS 소개
 description: 클라우드란? AWS 인프라 소개
 author: seungki1011
 date: 2023-07-01 12:30:00 +0900
-categories: [클라우드(Cloud), AWS]
+categories: [7. 클라우드(Cloud), AWS]
 tags: [cloud, aws, ec2]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (MongoDB - 4) 몽고DB의 인덱스
 description: 몽고DB에서의 인덱스에 대하여, 사용한 쿼리의 소요 시간 알기
 author: seungki1011
 date: 2024-05-09 12:30:00 +0900
-categories: [DB, MongoDB]
+categories: [3. 데이터베이스(DB), MongoDB]
 tags: [nosql, mongodb]
 math: true
 mermaid: true

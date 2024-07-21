@@ -3,7 +3,7 @@ title: (RDBMS - 1) 데이터베이스 소개
 description: 데이터베이스란? 데이터베이스의 종류, 데이터 모델링에 대해서 
 author: seungki1011
 date: 2024-02-21 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

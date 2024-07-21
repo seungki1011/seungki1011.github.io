@@ -3,7 +3,7 @@ title: (Java - 16) 불변(Immutable)
 description: Side-Effect와 불변의 중요성에 대해
 author: seungki1011
 date: 2024-01-10 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

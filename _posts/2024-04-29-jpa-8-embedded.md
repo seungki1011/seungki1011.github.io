@@ -3,7 +3,7 @@ title: (JPA - 08) 임베디드 타입(Embedded Type)
 description: 값 타입, 임베디드 타입에 대하여
 author: seungki1011
 date: 2024-04-29 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

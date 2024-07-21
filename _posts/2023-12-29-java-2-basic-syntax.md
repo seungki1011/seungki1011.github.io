@@ -3,7 +3,7 @@ title: (Java - 02) 자바 기본 문법
 description: 자바에서의 변수, 연산자, 조건문, 반복문, 관례
 author: seungki1011
 date: 2023-12-29 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

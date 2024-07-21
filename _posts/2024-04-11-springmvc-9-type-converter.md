@@ -3,7 +3,7 @@ title: (Spring MVC - 9) 스프링 타입 컨버터
 description: 스프링의 여러 타입 변환 방법에 대하여
 author: seungki1011
 date: 2024-04-11 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc]
 math: true
 mermaid: true

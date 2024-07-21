@@ -3,7 +3,7 @@ title: (Java - 09) 생성자(Constructor)
 description: 자바의 생성자에 대해서
 author: seungki1011
 date: 2024-01-04 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

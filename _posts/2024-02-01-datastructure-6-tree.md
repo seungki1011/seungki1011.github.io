@@ -3,7 +3,7 @@ title: (자료구조 - 6) 트리(Tree)
 description: 트리 자료구조 소개, 이진 탐색 트리 설명
 author: seungki1011
 date: 2024-02-01 12:30:00 +0900
-categories: [컴퓨터 공학(CS), 자료구조]
+categories: [1. 컴퓨터 공학(CS), 자료구조]
 tags: [data structure]
 math: true
 mermaid: true

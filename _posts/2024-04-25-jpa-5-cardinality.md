@@ -3,7 +3,7 @@ title: (JPA - 05) 연관관계 카디널리티(Cardinality)
 description: 연관관계 매핑의 다양한 종류에 대해
 author: seungki1011
 date: 2024-04-25 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

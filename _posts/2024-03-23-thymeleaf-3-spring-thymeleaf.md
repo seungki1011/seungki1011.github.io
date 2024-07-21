@@ -3,7 +3,7 @@ title: (ThymeLeaf - 3) 타임리프와 스프링 통합의 기능
 description: 스프링과 통합된 타임리프의 스프링과 관련된 편의기능
 author: seungki1011
 date: 2024-03-23 12:30:00 +0900
-categories: [Backend, Thymeleaf]
+categories: [6. 백엔드(Backend), Thymeleaf]
 tags: [spring, thymeleaf]
 math: true
 mermaid: true

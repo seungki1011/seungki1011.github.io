@@ -3,7 +3,7 @@ title: (JPA - 06) 상속 관계 매핑(Inheritance Relationship Mapping)
 description: 상속 관계 매핑의 다양한 전략, @MappedSuperclass에 대하여
 author: seungki1011
 date: 2024-04-26 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

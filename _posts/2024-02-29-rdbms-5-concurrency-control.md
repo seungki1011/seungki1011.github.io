@@ -3,7 +3,7 @@ title: (RDBMS - 5) 동시성 제어(Concurrency Control)
 description: 데이터베이스에서 동시성을 제어하는 방법
 author: seungki1011
 date: 2024-02-29 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

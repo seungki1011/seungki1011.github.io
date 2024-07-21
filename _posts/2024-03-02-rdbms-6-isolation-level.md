@@ -3,7 +3,7 @@ title: (RDBMS - 6) 트랜잭션 격리 수준(Isolation Level)
 description: 데이터베이스에서 트랜잭션의 격리 수준과 이상 현상에 대해서
 author: seungki1011
 date: 2024-03-02 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

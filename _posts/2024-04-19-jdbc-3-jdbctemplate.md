@@ -3,7 +3,7 @@ title: (JDBC - 3) JdbcTemplate 소개, 기본 사용법
 description: JdbcTemplate의 기본 사용법 알아보기
 author: seungki1011
 date: 2024-04-19 12:30:00 +0900
-categories: [Backend, JDBC]
+categories: [6. 백엔드(Backend), JDBC]
 tags: [spring, jdbc, dao]
 math: true
 mermaid: true

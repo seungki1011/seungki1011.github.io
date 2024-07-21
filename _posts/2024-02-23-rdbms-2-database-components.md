@@ -3,7 +3,7 @@ title: (RDBMS - 2) 관계형 데이터베이스를 이루는 개념
 description: 관계형 데이터베이스에서 엔티티, 속성, 관계, 식별자, 테이블, 키의 개념에 대해서
 author: seungki1011
 date: 2024-02-23 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

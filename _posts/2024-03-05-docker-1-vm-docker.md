@@ -3,7 +3,7 @@ title: (Docker - 1) VM과 도커의 등장
 description: 가상화 기술, 도커 소개, 도커 동작 방식
 author: seungki1011
 date: 2024-03-05 12:30:00 +0900
-categories: [컨테이너(Container), Docker]
+categories: [8. 컨테이너(Container), Docker]
 tags: [docker]
 math: true
 mermaid: true

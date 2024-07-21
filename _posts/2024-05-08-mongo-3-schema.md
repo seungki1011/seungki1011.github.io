@@ -3,7 +3,7 @@ title: (MongoDB - 3) 몽고DB 스키마 설계
 description: 몽고DB의 스키마를 설계와 검증에 대하여
 author: seungki1011
 date: 2024-05-08 12:30:00 +0900
-categories: [DB, MongoDB]
+categories: [3. 데이터베이스(DB), MongoDB]
 tags: [nosql, mongodb]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (Java - 22) Date & Time
 description: 자바에서의 날짜와 시간에 대해서
 author: seungki1011
 date: 2024-01-21 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

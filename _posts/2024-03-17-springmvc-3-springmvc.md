@@ -3,7 +3,7 @@ title: (Spring MVC - 3) Spring MVC의 구조와 기능 소개
 description: Spring MVC의 구조, 동작 방식, 여러가지 기능 소개
 author: seungki1011
 date: 2024-03-17 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc]
 math: true
 mermaid: true

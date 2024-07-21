@@ -3,7 +3,7 @@ title: (Java - 15) 다형성(Polymorphism)
 description: 자바의 오버라이딩(overriding), 추상 메서드(abstract), 인터페이스(interface)
 author: seungki1011
 date: 2024-01-08 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [javam polymorphism]
 math: true
 mermaid: true

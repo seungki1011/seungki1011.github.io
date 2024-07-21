@@ -3,7 +3,7 @@ title: (ThymeLeaf - 2) 타임리프의 기본 기능들 살펴보기
 description: 타임리프가 제공하는 여러가지 기능들을 살펴보기
 author: seungki1011
 date: 2024-03-20 12:30:00 +0900
-categories: [Backend, Thymeleaf]
+categories: [6. 백엔드(Backend), Thymeleaf]
 tags: [spring, springmvc, thymeleaf]
 math: true
 mermaid: true

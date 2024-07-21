@@ -3,7 +3,7 @@ title: (JPA - 07) 즉시 로딩(Eager), 지연 로딩(Lazy), 영속성 전이(Ca
 description: 로딩의 종류, 영속성 전이, 고아 객체에 대하여
 author: seungki1011
 date: 2024-04-28 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

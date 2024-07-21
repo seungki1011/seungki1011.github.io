@@ -3,7 +3,7 @@ title: (Spring MVC - 1) 웹 애플리케이션
 description: 웹 애플리케이션을 구성하는 몇 가지 주요 기술 정리
 author: seungki1011
 date: 2024-03-10 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc, server]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (JPA - 02) 영속성 컨텍스트(Persistence Context)
 description: JPA 내부 동작 원리인 영속성 컨텍스트, 1차 캐시, 변경 감지, 플러시에 대해서 
 author: seungki1011
 date: 2024-04-21 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

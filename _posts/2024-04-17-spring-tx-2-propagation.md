@@ -3,7 +3,7 @@ title: (Spring Tx - 2) 스프링 트랜잭션 전파 설명
 description: 스프링 트랜잭션 전파의 기본 내용
 author: seungki1011
 date: 2024-04-17 12:30:00 +0900
-categories: [Backend, Spring Transaction]
+categories: [6. 백엔드(Backend), Spring Transaction]
 tags: [spring, jdbc, transaction, propagation]
 math: true
 mermaid: true

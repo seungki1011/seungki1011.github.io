@@ -3,7 +3,7 @@ title: (Java - 08) 객체지향 프로그래밍(OOP)
 description: 자바에서의 객체지향 프로그래밍
 author: seungki1011
 date: 2024-01-03 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

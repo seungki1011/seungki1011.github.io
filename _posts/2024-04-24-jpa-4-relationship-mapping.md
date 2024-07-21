@@ -3,7 +3,7 @@ title: (JPA - 04) 연관관계 매핑(Relationship Mapping)
 description: 기존 테이블간의 관계와 객체간의 관계에 대한 패러다임 불일치를 해결하기 위해서 연관관계 매핑이 필요하다
 author: seungki1011
 date: 2024-04-24 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

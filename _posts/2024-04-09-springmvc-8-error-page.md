@@ -3,7 +3,7 @@ title: (Spring MVC - 8) 에러 페이지, API 예외 처리
 description: 스프링 부트에서 제공하는 오류 페이지 기능, API 예외 처리 방법에 대하여
 author: seungki1011
 date: 2024-04-09 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc, error]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (SQL - 3) SQL 기본 문법 Ⅱ
 description: 서브쿼리, 집계 함수, 조인, ORDER BY, GROUP BY, NULL과 비교 연산
 author: seungki1011
 date: 2024-03-09 12:30:00 +0900
-categories: [DB, SQL]
+categories: [3. 데이터베이스(DB), SQL]
 tags: [sql, mysql, query]
 math: true
 mermaid: true

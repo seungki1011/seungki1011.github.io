@@ -3,7 +3,7 @@ title: (RDBMS - 3) 데이터베이스 튜닝
 description: 데이터베이스 튜닝이란? 정규화(Normalization), 반정규화(Denormalization) 알아보기
 author: seungki1011
 date: 2024-02-25 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

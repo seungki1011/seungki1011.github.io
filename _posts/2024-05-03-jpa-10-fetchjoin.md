@@ -3,7 +3,7 @@ title: (JPA - 10) JPQL 사용법 2, JOIN FETCH
 description: 경로 표현식, 페치 조인, N+1 문제, @NamedQuery, 벌크 연산에 대하여
 author: seungki1011
 date: 2024-05-03 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

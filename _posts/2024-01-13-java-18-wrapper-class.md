@@ -3,7 +3,7 @@ title: (Java - 18) 래퍼(Wrapper) 클래스
 description: 자바에서 사용하는 래퍼 클래스에 대해서
 author: seungki1011
 date: 2024-01-13 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

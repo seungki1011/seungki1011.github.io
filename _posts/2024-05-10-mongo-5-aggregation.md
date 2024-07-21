@@ -3,7 +3,7 @@ title: (MongoDB - 5) 몽고DB의 집계 연산(Aggregation Pipeline)
 description: 몽고DB의 집계 연산에 대하여
 author: seungki1011
 date: 2024-05-10 12:30:00 +0900
-categories: [DB, MongoDB]
+categories: [3. 데이터베이스(DB), MongoDB]
 tags: [nosql, mongodb]
 math: true
 mermaid: true

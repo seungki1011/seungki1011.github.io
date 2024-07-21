@@ -3,7 +3,7 @@ title: (SQL - 2) SQL 기본 문법 Ⅰ
 description: 데이터베이스, 테이블 생성, 제약 설정, 데이터 추가/수정/삭제/조회
 author: seungki1011
 date: 2024-03-07 12:30:00 +0900
-categories: [DB, SQL]
+categories: [3. 데이터베이스(DB), SQL]
 tags: [sql, mysql, query]
 math: true
 mermaid: true

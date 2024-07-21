@@ -3,7 +3,7 @@ title: (Spring MVC - 7) 필터와 인터셉터(Filter, Interceptor)
 description: 필터와 인터셉터 설명 및 사용 예시
 author: seungki1011
 date: 2024-04-07 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc]
 math: true
 mermaid: true

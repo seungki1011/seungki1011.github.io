@@ -3,7 +3,7 @@ title: (JDBC - 1) JDBC 소개, 기본 사용법
 description: 스프링에서 JDBC 사용하기, DBCP에 대하여
 author: seungki1011
 date: 2024-04-12 12:30:00 +0900
-categories: [Backend, JDBC]
+categories: [6. 백엔드(Backend), JDBC]
 tags: [spring, jdbc, dao, dbcp]
 math: true
 mermaid: true

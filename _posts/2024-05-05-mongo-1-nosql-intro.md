@@ -3,7 +3,7 @@ title: (MongoDB - 1) NoSQL, MongoDB 소개
 description: NoSQL의 등장 배경과 MongoDB 소개, 실습 환경 준비
 author: seungki1011
 date: 2024-05-05 12:30:00 +0900
-categories: [DB, MongoDB]
+categories: [3. 데이터베이스(DB), MongoDB]
 tags: [nosql, mongodb]
 math: true
 mermaid: true

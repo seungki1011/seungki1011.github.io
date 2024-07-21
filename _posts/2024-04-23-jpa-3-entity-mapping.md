@@ -3,7 +3,7 @@ title: (JPA - 03) 엔티티 매핑(Entity Mapping)
 description: 엔티티를 매핑하는 방법에 대하여
 author: seungki1011
 date: 2024-04-23 12:30:00 +0900
-categories: [Backend, JPA(Hibernate)]
+categories: [6. 백엔드(Backend), JPA(Hibernate)]
 tags: [spring, jpa, hibernate]
 math: true
 mermaid: true

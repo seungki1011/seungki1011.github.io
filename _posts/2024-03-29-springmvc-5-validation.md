@@ -3,7 +3,7 @@ title: (Spring MVC - 5) 검증(Validation)
 description: 스프링 MVC의 여러가지 검증 방법에 대하여
 author: seungki1011
 date: 2024-03-29 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc]
 math: true
 mermaid: true

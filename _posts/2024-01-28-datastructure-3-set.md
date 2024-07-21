@@ -3,7 +3,7 @@ title: (자료구조 - 3) 세트(Set)
 description: 세트 자료구조 소개 및 간단 구현, 해시 알고리즘 소개
 author: seungki1011
 date: 2024-01-28 12:30:00 +0900
-categories: [컴퓨터 공학(CS), 자료구조]
+categories: [1. 컴퓨터 공학(CS), 자료구조]
 tags: [data structure]
 math: true
 mermaid: true

@@ -3,7 +3,7 @@ title: (Spring Tx - 1) 스프링이 제공하는 트랜잭션 관련 기능들
 description: 자바만으로 트랜잭션 구현의 문제점, 스프링을 적용해서 해결, 스프링 트랜잭션에 대하여
 author: seungki1011
 date: 2024-04-16 12:30:00 +0900
-categories: [Backend, Spring Transaction]
+categories: [6. 백엔드(Backend), Spring Transaction]
 tags: [spring, jdbc, transaction]
 math: true
 mermaid: true

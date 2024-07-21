@@ -3,7 +3,7 @@ title: (RDBMS - 4) 트랜잭션
 description: 관계형 데이터베이스에서의 트랜잭션, ACID에 대하여
 author: seungki1011
 date: 2024-02-27 12:30:00 +0900
-categories: [DB, RDBMS]
+categories: [3. 데이터베이스(DB), RDBMS]
 tags: [관계형 데이터베이스, db]
 math: true
 mermaid: true

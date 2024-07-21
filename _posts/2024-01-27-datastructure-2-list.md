@@ -3,7 +3,7 @@ title: (자료구조 - 2) 리스트(List)
 description: 리스트(ArrayList, LinkedList) 설명 및 구현, 성능 비교, 자바 컬렉션 프레임워크 소개
 author: seungki1011
 date: 2024-01-27 12:30:00 +0900
-categories: [컴퓨터 공학(CS), 자료구조]
+categories: [1. 컴퓨터 공학(CS), 자료구조]
 tags: [data structure]
 math: true
 mermaid: true

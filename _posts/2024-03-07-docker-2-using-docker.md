@@ -3,7 +3,7 @@ title: (Docker - 2) 기초적인 도커 사용법
 description: 도커의 기본 사용법에 대해서
 author: seungki1011
 date: 2024-03-07 12:30:00 +0900
-categories: [컨테이너(Container), Docker]
+categories: [8. 컨테이너(Container), Docker]
 tags: [docker]
 math: true
 mermaid: true

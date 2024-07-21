@@ -3,7 +3,7 @@ title: (Spring 원리 - 6) 빈 생명주기 콜백, 빈 유효 범위(Bean Lifec
 description: 빈의 생명주기 콜백과 유효 범위에 대해서
 author: seungki1011
 date: 2024-03-06 12:30:00 +0900
-categories: [Backend, Spring]
+categories: [6. 백엔드(Backend), Spring]
 tags: [spring]
 math: true
 mermaid: true

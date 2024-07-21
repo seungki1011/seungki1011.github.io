@@ -3,7 +3,7 @@ title: (Spring MVC - 6) 쿠키와 세션(Cookie, Session)
 description: 로그인 기능 구현을 통한 쿠키와 세션 설명
 author: seungki1011
 date: 2024-04-05 12:30:00 +0900
-categories: [Backend, Spring MVC]
+categories: [6. 백엔드(Backend), Spring MVC]
 tags: [spring, springmvc]
 math: true
 mermaid: true

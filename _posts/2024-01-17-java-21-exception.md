@@ -3,7 +3,7 @@ title: (Java - 21) 예외(Exception)
 description: 자바의 예외와 예외 핸들링에 대해서
 author: seungki1011
 date: 2024-01-17 12:30:00 +0900
-categories: [Programming Language, Java]
+categories: [2. 프로그래밍 언어(Programming Language), Java]
 tags: [java]
 math: true
 mermaid: true

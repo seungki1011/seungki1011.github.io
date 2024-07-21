@@ -3,7 +3,7 @@ title: (JDBC - 4) 스프링에서의 데이터베이스 테스트
 description: JDBC, JdbcTemplate, JPA 등의 데이터 접근 기술을 사용할 때 데이터베이스와 관련된 테스트에 대하여
 author: seungki1011
 date: 2024-04-21 12:30:00 +0900
-categories: [Backend, JDBC]
+categories: [6. 백엔드(Backend), JDBC]
 tags: [spring, jdbc, test]
 math: true
 mermaid: true
