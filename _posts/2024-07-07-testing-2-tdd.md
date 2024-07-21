@@ -31,7 +31,7 @@ mermaid: true
 >
 > * Kent Back이 제안한 소프트웨어 개발 방법론
 >* 12개 정도의 구체적인 실천 방법(practice)을 정의하고 있다
-> * 소프트웨어의 품질을 올리고, 지속적으로 변하는 고객 요구 사항에 대응하기 위해서 짧은 주기로 프로토타입을 완성하는 애자일(Agile) 방법론 중 하나이다.
+> * 소프트웨어의 품질을 올리고, 지속적으로 변하는 고객 요구 사항에 대응하기 위해서 짧은 주기로 프로토타입을 완성하는 에자일(Agile) 방법론 중 하나이다.
 {: .prompt-info }
 
 <br>
@@ -50,6 +50,7 @@ TDD는 보통 다음의 3 단계를 하나의 사이클로 운영한다.
 * **GREEN**
   * 테스트를 통과하도록 위해 실제(프로덕션) 코드를 작성한다
   * 이때 작성하는 코드는 테스트를 통과할 정도로만 최소한의 코드를 작성하도록 한다
+  * 최대한 빠르게 작성하려고 노력한다
 * **BLUE**
   * 코드를 리팩토링한다
   * 설계나 구현을 개선한다
@@ -113,21 +114,155 @@ public class Item {
 
 <br>
 
-이제 `ShoppingCart`에 담긴 아이템의 **총 가격을 계산하는 기능**을 TDD로 구현한다고 해보자.
+---
 
+### RED
 
+> **RED**
+>
+> * 제일 먼저 실패하는 테스트 코드를 작성한다
+> * 이때 테스트 코드는 컴파일 조차 안돼도 괜찮다
+{: .prompt-danger }
 
 <br>
 
+이제 `ShoppingCart`에 담긴 아이템의 **총 가격을 계산하는 기능**을 TDD로 구현한다고 해보자.
 
+먼저 **RED**에서는 실패하는 테스트 코드를 작성한다.
 
+<br>
 
+```java
+class TddShoppingCartTest {
 
+    private TddShoppingCart shoppingCart;
 
+    @BeforeEach
+    public void setUp() {
+        shoppingCart = new TddShoppingCart();
+    }
 
+    @Test
+    @DisplayName("쇼핑카트에 추가한 다수의 아이템에 대해 올바른 총가격이 반환되어야 한다")
+    public void 장바구니에_담긴_아이템의_총가격_계산() {
 
+        Item item1 = new Item("apple", 1000, 10);
+        Item item2 = new Item("banana", 2000, 20);
+        shoppingCart.addItem(item1);
+        shoppingCart.addItem(item2);
 
+        int totalPrice = shoppingCart.calculateTotalPrice();
 
+        assertThat(totalPrice).isEqualTo(50000);
+
+    }
+
+}
+```
+
+* 컴파일이 실패해도 괜찮지만, 지금은 최소한의 컴파일을 만족시키기 위해 `calculateTotalPrice()`를 만들어 놓겠다
+
+<br>
+
+```java
+public int calculateTotalPrice() {
+    return 0;
+}
+```
+
+* `0`을 반환하기 때문에 테스트는 당연히 실패한다
+
+<br>
+
+![tddred](../post_images/2024-07-07-testing-2-tdd/tddred.png)_TDD RED_
+
+<br>
+
+---
+
+### GREEN
+
+> **GREEN**
+>
+> * 테스트를 통과하도록 위해 실제(프로덕션) 코드를 작성한다
+> * 이때 작성하는 코드는 테스트를 통과할 정도로만 최소한의 코드를 작성하도록 한다
+> * 최대한 빠르게 작성하려고 노력한다
+{: .prompt-tip }
+
+<br>
+
+**GREEN**에서는 최대한 빠르게 테스트를 통과하기 위한 실제 코드를 작성한다. 이때 코드를 어떻게든 작성해도 상관 없다. 통과하기만 하면된다.
+
+<br>
+
+```java
+public int calculateTotalPrice() {
+    int totalPrice = 0;
+    for (Item item : items) {
+        totalPrice += item.getPrice()*item.getQuantity();
+    }
+    return totalPrice;
+}
+```
+
+<br>
+
+테스트를 수행하면 통과하는 것을 확인할 수 있다.
+
+<br>
+
+![tddgreen](../post_images/2024-07-07-testing-2-tdd/tddgreen.png)_TDD GREEN_
+
+<br>
+
+---
+
+### BLUE
+
+> **BLUE**
+>
+> * 코드를 리팩토링한다
+> * 설계나 구현을 개선한다
+> * 이때 테스트의 통과 상태는 유지되어야 한다
+{: .prompt-info }
+
+<br>
+
+**BLUE**에서는 테스트의 통과 상태를 유지하면서 실제 코드의 구현이나 설계를 개선한다.
+
+현재 예시에서는 기존 구현을 스트림을 이용해서 총가격을 계산할 수 있도록 구현을 변경해보겠다.
+
+<br>
+
+```java
+public int calculateTotalPrice() {
+    return items.stream()
+            .mapToInt(item -> item.getPrice() * item.getQuantity())
+            .sum();
+}
+```
+
+<br>
+
+테스트를 다시 돌려도 통과 상태를 유지하는 것을 확인할 수 있다.
+
+<br>
+
+![tddblue](../post_images/2024-07-07-testing-2-tdd/tddblue.png)_TDD BLUE : 테스트는 통과 상태를 유지한다_
+
+<br>
+
+**BLUE**의 과정은 더 나은 구현을 위해서 반복하는 과정을 거쳐도 된다. 중요한 것은 테스트를 통과 상태로 유지해야 한다는 것이다.
+
+물론 여기서 테스트가 정확하게 짜여져서 기능을 제대로 검증한다는 보장이 되어 있어야 한다.
+
+정리하자면 이런 **RED-GREEN-BLUE** 사이클을 돌면서 개발을 진행하는 것이 TDD의 핵심이다.
+
+<br>
+
+---
+
+## 3. TDD의 효과
 
 
 
