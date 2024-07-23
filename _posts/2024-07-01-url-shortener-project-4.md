@@ -210,6 +210,7 @@ public class ApiExceptionHandler {
 ```
 
 * `@RestControllerAdvice`에 `@RestController`가 붙은 컨트롤러만 적용되도록 옵션을 설정했다.
+* 검증에 대한 처리는 아마 `BindException`으로 처리할 수 있을 것이다
 
 <br>
 
@@ -218,7 +219,8 @@ public class ApiExceptionHandler {
 ## 개선할 점
 
 - [ ] 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링
-- [ ] `ApiResponse`나 `ApiErrorResponse`에 빌더 사용
+- [ ] 코드 리팩토링
+- [ ] 에러 핸들링을 더 깔끔하게 처리할 방법이 있을 것이다
 - [ ] 로깅을 AOP로 적용
 - [ ] API 개선
   - [ ] URL을 리스트로 여러 개 받아서 단축 URL로 변환 할 수 있도록 구현
@@ -316,13 +318,6 @@ public class ApiExceptionHandler {
   * AWS
 
 <br>
-
-### 다음 프로젝트
-
-다음 프로젝트는 다음의 2 선택지 중에 하나를 해볼 생각이다.
-
-* 로그인 기능을 가진 게시판
-* 이전에 생성형 AI를 이용한 이미지 생성 프로젝트를 스프링 부트, 하이버네이트로 마이그레이션
 
 ---
 
