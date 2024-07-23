@@ -1,10 +1,10 @@
 ---
 title: 단위 테스트(Unit Test) 소개
-description: 단위 테스트, 베스트 프랙티스, 프레임워크 소개, 단위 테스트 예시
+description: 단위 테스트, 베스트 프랙티스, 프레임워크 소개, 단위 테스트 예시, 통합 테스트에 대하여
 author: seungki1011
 date: 2024-07-04 10:30:00 +0900
 categories: [4. 소프트웨어 엔지니어링(SWE), Test]
-tags: [test, junit, assertj, unit-test, tdd, bdd, first, dry, damp]
+tags: [test, junit, assertj, unit-test, tdd, bdd, first, dry, damp, integration]
 math: true
 mermaid: true
 ---

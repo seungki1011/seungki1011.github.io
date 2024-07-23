@@ -335,6 +335,14 @@ BDD는 기본적으로 개발직군과 비개발직군 간의 협업을 중요�
 
 <br>
 
+---
+
+## 다음 포스트
+
+다음 포스트는 Mock, Test Double, 통합 테스트(Integration Test)등을 다룰 예정이다.
+
+<br>
+
 ## Reference
 
 1. [https://tech.kakaopay.com/post/implementing-tdd-in-practical-applications/](https://tech.kakaopay.com/post/implementing-tdd-in-practical-applications/)
