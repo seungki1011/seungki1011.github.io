@@ -3,7 +3,7 @@ title: (Spring Data JPA - 1) Spring Data JPA 소개, 레포지토리 인터페�
 description: Spring Data JPA의 레포지토리 인터페이스 기능 사용해보기
 author: seungki1011
 date: 2024-05-13 12:30:00 +0900
-categories: [3. 데이터베이스(DB), Spring Data JPA]
+categories: [6. 백엔드(Backend), Spring Data JPA]
 tags: [spring data jpa, jpa, spring]
 math: true
 mermaid: true
