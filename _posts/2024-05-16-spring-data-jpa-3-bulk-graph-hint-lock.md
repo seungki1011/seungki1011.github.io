@@ -1,12 +1,14 @@
 ---
-title: (Spring Data JPA - 3) 벌크 수정, @EntityGraph, JPA Hint, Lock
-description: 스프링 데이터 JPA의 벌크 수정 쿼리(bulk update), @EntityGraph로 N+1문제 해결, JPA Hint, Lock 기능
+title: (Spring Data JPA - 3) 벌크 수정, @EntityGraph, JPA Hints, Lock
+description: 스프링 데이터 JPA의 벌크 수정 쿼리(bulk update), @EntityGraph로 N+1문제 해결, JPA Hints, Lock 기능
 author: seungki1011
 date: 2024-05-16 12:30:00 +0900
 categories: [6. 백엔드(Backend), Spring Data JPA]
 tags: [spring data jpa, jpa, spring, n+1, hint]
 math: true
 mermaid: true
+---
+
 ---
 
 ## 1. 벌크 수정(Bulk Update)
@@ -131,19 +133,162 @@ List<Member> findMemberEntityGraph();
 
 ---
 
+## 3. JPA Hints
+
+**JPA 힌트(JPA Hints)는 JPA 쿼리의 성능을 최적화하거나 특정 동작을 제어하기 위해 JPA 구현체에게 전달하는 추가적인 지시사항**이다. 이러한 힌트는 쿼리 실행 시 JPA 구현체에게 특정 설정이나 최적화 방법을 적용하도록 지시할 수 있다. 대표적으로 Hibernate와 같은 구현체에서 이를 통해 다양한 최적화와 동작 제어를 수행할 수 있다.
+
+JPA 힌트를 사용하는 주요 이유는 다음과 같다.
+
+* **성능 최적화**: 캐시 사용, 쿼리 계획 고정, 쿼리 실행 중 특정 전략 사용, 등을 통해 쿼리 성능을 최적화할 수 있다
+* **쿼리 동작 제어**: 특정 동작을 제어하여 쿼리 실행 시 필요한 추가 설정을 할 수 있다
+
+<br>
+
+사용 방법을 알아보자.
+
+`@Query` 애노테이션과 함께 힌트를 사용할 수 있다. 힌트를 설정하려면 `@QueryHint` 애노테이션을 사용한다.
+
+```java
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    @Query("SELECT m FROM Member m WHERE m.age > :age")
+    @QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "true"))
+    List<Member> findByAgeGreaterThanWithHints(@Param("age") int age);
+}
+```
+
+* `org.hibernate.cacheable`
+  * **캐시 사용 설정**: 캐시를 활성화하여 쿼리 결과를 캐시에 저장하고 재사용할 수 있다
+* `org.hibernate.readOnly`
+  * **읽기 전용 설정**: 쿼리를 읽기 전용으로 설정하여 엔티티를 읽기 전용 모드로 로드한다
+  * 데이터를 변경하는 쿼리는 전부 실행되지 않는다
+
+<br>
+
+이외에도 다양한 힌트들이 존재한다.
+
+<br>
+
+> **추가로**
+>
+> * 쿼리 힌트 공식 문서 [참고](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-hints)
+> * 엔티티 매니저를 통해 힌트를 설정하는 것도 가능하다. [참고](https://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#jpql-query-hints)
+{: .prompt-tip }
 
 
+<br>
+
+> **JPA 힌트 vs SQL 힌트**
+>
+> * **적용 수준**
+>   * **JPA 힌트**: JPA 쿼리나 `EntityManager`를 통해 적용되며, JPA 구현체(Hibernate)에게 특정 설정을 전달한다.
+>   * **SQL 힌트**: SQL문 내에 포함되며, 데이터베이스 엔진(MySQL, Oracle, PostgreSQL 등)에게 직접적으로 영향을 준다.
+> * **목적**
+>   * **JPA 힌트**: JPA 구현체의 동작을 제어하고 최적화한다.
+>     * 예시) 엔티티 캐싱, 쿼리 타임아웃, 읽기 전용 모드 설정.
+>   * **SQL 힌트**: 데이터베이스 엔진의 쿼리 최적화 전략을 제어한다.
+>     * 예시) 인덱스 사용, 조인 방법, 파티셔닝 전략 등.
+> * **사용 방법**
+>   * **JPA 힌트**: `@QueryHint` 애노테이션이나 `EntityManager`의 `setHint` 메서드를 사용하여 설정한다.
+>   * **SQL 힌트**: SQL 문 내에 직접 삽입된다. 예를 들어, `/*+ INDEX(table_name index_name) */`.
+    {: .prompt-info }
 
 
+<br>
+
+---
+
+## 4. JPA Lock(동시성 제어)
+
+**JPA Lock은 데이터베이스의 동시성 문제를 해결하기 위해 사용되는 기능**이다. 이는 여러 트랜잭션이 동시에 동일한 데이터를 수정할 때 발생할 수 있는 문제를 방지하는 데 도움을 준다. JPA는 두 가지 주요 유형의 잠금을 지원한다.
+
+* 낙관적 락(Optimistic Lock)
+* 비관적 락(Pessimistic Lock)
+
+<br>
+
+---
+
+### 낙관적 락(Optimistic Lock)
+
+**낙관적 락은 데이터 충돌이 발생할 가능성이 낮다고 가정하고 트랜잭션을 진행한다. 데이터 충돌이 발생할 경우, 트랜잭션이 실패하고 다시 시도하도록 설계**되어 있다.
+
+사용 방법은 다음과 같다.
+
+먼저 낙관적 락은 엔티티에 `@Version` 애노테이션을 사용하여 구현한다. 이 애노테이션은 엔티티의 버전 필드를 지정하며, DB에서 **엔티티가 수정될 때마다 버전 번호가 증가**한다. 트랜잭션이 데이터를 업데이트할 때, 현재 버전과 DB에 저장된 버전이 일치하지 않으면 예외가 발생한다.
+
+```java
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member {
+
+    @Id @GeneratedValue
+    @Column(name = "member_id")
+    private Long id;
+    private String name;
+    
+    @Version
+    private Long version;  // 버전 필드
+
+    // 나머지 구현
+}
+```
+
+<br>
+
+`@Version`을 이용한 낙관적 락의 동작 과정은 다음과 같다.
+
+1. **트랜잭션 시작**: 데이터를 읽고, 엔티티의 버전 필드 값을 기록
+2. **데이터 수정**: 트랜잭션 내에서 데이터를 수정
+3. **트랜잭션 커밋**: 데이터베이스에 업데이트를 시도하면서 버전 필드 값을 체크
+4. **버전 충돌 감지**: 데이터베이스에 저장된 버전과 엔티티의 버전이 일치하지 않으면 `OptimisticLockException` 예외 발생
+
+<br>
+
+다음 처럼에 메서드 레벨에서 낙관적 락을 적용하는 것도 가능하다.
+
+```java
+// 이 메소드는 낙관적 락을 사용하여 실행된다
+@Lock(LockModeType.OPTIMISTIC)
+List<Member> findByName(String name);
+```
+
+<br>
+
+---
+
+### 비관적 락(Pessimistic Lock)
+
+**비관적 락은 데이터 충돌이 발생할 가능성이 높다고 가정하고, 트랜잭션이 데이터를 수정할 때 다른 트랜잭션이 접근하지 못하도록 락을 설정**한다. 이는 데이터베이스의 잠금을 직접적으로 제어하여 동시성 문제를 방지한다.
+
+비관적 락은 쿼리 메서드에 `@Lock`를 추가해서 사용한다.
+
+```java
+// 이 메서드는 비관적 락을 사용해서 실행된다
+@Lock(LockModeType.PESSIMISTIC_WRITE)
+List<Member> findByName(String name);
+```
+
+<br>
+
+> 실시간 트래픽이 많은 경우 비관적 락은 성능 이슈 때문에 사용을 권장하지 않는다.
+>
+> 실시간 트래픽보다 동시성 이슈가 더 중요한 경우에 도입을 생각해보자.
+{: .prompt-danger }
+
+<br>
+
+> 추가 내용
+>
+> * JPA에서 낙관적 락은 애플리케이션 레벨에서 동작하며, 직접 DB에 락을 걸어서 사용하는 방식은 아니다.
+> * 비관적락은 RDBMS의 배타적 락(exclusive)과 공유 락(shared lock)을 사용해서 구현할 수 있다. [참고](https://seungki1011.github.io/posts/rdbms-7-lock/#%EB%9D%BDlock-%EC%86%8C%EA%B0%9C)
+
+<br>
 
 
+---
 
+## Reference
 
-
-
-
-
-
-
-
-
+1. [김영한 : 실전 스프링 데이터 JPA!](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EC%8B%A4%EC%A0%84/dashboard)
+1. 

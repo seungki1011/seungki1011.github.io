@@ -10,6 +10,8 @@ math: true
 mermaid: true
 ---
 
+---
+
 ## API 설계
 
 API는 다음과 같이 설계했다.
