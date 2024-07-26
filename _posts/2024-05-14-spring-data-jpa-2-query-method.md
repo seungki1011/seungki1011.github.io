@@ -221,7 +221,7 @@ List<MemberDto> findMemberDto();
 
 
 
-* **DTO : 사용자 정의 객체를 반환하는 것도 가능하다. 위의 [DTO 조회]() 참고.**
+* **DTO : 사용자 정의 객체를 반환하는 것도 가능하다. 위의 [DTO 조회](https://seungki1011.github.io/posts/spring-data-jpa-2-query-method/#dto%EB%A1%9C-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0) 참고.**
 
   * ```java
     @Query("SELECT new com.example.UserDTO(u.id, u.username) FROM User u WHERE u.status = :status")
