@@ -4,7 +4,7 @@ description: 스프링 데이터 JPA의 벌크 수정 쿼리(bulk update), @Enti
 author: seungki1011
 date: 2024-05-16 12:30:00 +0900
 categories: [6. 백엔드(Backend), Spring Data JPA]
-tags: [spring data jpa, jpa, spring, n+1, hint]
+tags: [spring data jpa, jpa, spring, n+1, hint, lock]
 math: true
 mermaid: true
 ---
@@ -189,9 +189,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 >     * 예시) 인덱스 사용, 조인 방법, 파티셔닝 전략 등.
 > * **사용 방법**
 >   * **JPA 힌트**: `@QueryHint` 애노테이션이나 `EntityManager`의 `setHint` 메서드를 사용하여 설정한다.
->   * **SQL 힌트**: SQL 문 내에 직접 삽입된다. 예를 들어, `/*+ INDEX(table_name index_name) */`.
-    {: .prompt-info }
-
+>   * **SQL 힌트**: SQL 문 내에 직접 삽입된다. 예를 들어, `/*+ INDEX(table_name index_name) */`
+{: .prompt-info }
 
 <br>
 
@@ -282,6 +281,7 @@ List<Member> findByName(String name);
 >
 > * JPA에서 낙관적 락은 애플리케이션 레벨에서 동작하며, 직접 DB에 락을 걸어서 사용하는 방식은 아니다.
 > * 비관적락은 RDBMS의 배타적 락(exclusive)과 공유 락(shared lock)을 사용해서 구현할 수 있다. [참고](https://seungki1011.github.io/posts/rdbms-7-lock/#%EB%9D%BDlock-%EC%86%8C%EA%B0%9C)
+{: .prompt-info }
 
 <br>
 
@@ -291,4 +291,4 @@ List<Member> findByName(String name);
 ## Reference
 
 1. [김영한 : 실전 스프링 데이터 JPA!](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EC%8B%A4%EC%A0%84/dashboard)
-1. 
+1. [https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html#page-title](https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html#page-title)
