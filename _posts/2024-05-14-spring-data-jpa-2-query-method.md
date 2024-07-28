@@ -247,7 +247,7 @@ List<MemberDto> findMemberDto();
 
 ---
 
-## 4. 정렬, 페이지네이션 기능 (Sort, Pagination) 
+## 4. 페이지네이션, 정렬 기능 (Pagination, Sort) 
 
 스프링 데이터 JPA는 대량의 데이터셋을 효율적으로 조회하고 관리하기 위해 페이지네이션(pagination)과 정렬(sorting) 기능을 제공한다. 이 기능들은 `Pageable`과 `Sort` 인터페이스를 통해 쉽게 구현할 수 있다. 
 
@@ -502,7 +502,6 @@ public class MemberRepositorySliceTest {
 > [페이징과 정렬 공식 문서 참고](https://docs.spring.io/spring-data/jpa/reference/repositories/core-extensions.html#core.web.basic.paging-and-sorting)
 {: .prompt-tip }
 
-
 <br>
 
 ---
@@ -544,6 +543,213 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 {: .prompt-info }
 
 <br>
+
+---
+
+## 5. 웹 확장: 페이지네이션, 정렬
+
+### 기본 사용법
+
+스프링 데이터 JPA에서 페이지네이션과 정렬을 웹에서 편리하게 사용할 수 있는 기능을 지원한다.
+
+사용법을 알아보자.
+
+<br>
+
+먼저 다음과 같이 `TeamDTO`와 `MemberDTO`를 만들자.
+
+`TeamDTO`
+
+```java
+@ToString
+@Getter
+public class TeamDTO {
+    private long id;
+    private String name;
+
+    public TeamDTO(Team team) {
+        this.id = team.getId();
+        this.name = team.getName();
+    }
+}
+```
+
+<br>
+
+`MemberDTO`
+
+```java
+@ToString
+@Getter
+public class MemberDTO {
+    private Long id;
+    private String username;
+    private int age;
+    private TeamDTO team;
+
+    public MemberDTO(Member member) {
+        this.id = member.getId();
+        this.username = member.getUsername();
+        this.age = member.getAge();
+        this.team = new TeamDTO(member.getTeam());
+    }
+}
+```
+
+* 엔티티를 필드로 사용하면 안된다
+* 직접 입력으로 받아서 사용하는 것은 가능
+
+<br>
+
+> **엔티티를 API로 직접 노출하는 경우의 문제**(DTO로 변환해서 사용하는 이유)
+>
+> * **보안 문제**
+>   * 과도한 정보 노출 : 필요하지 않은 내부 구현 세부 사항이나 데이터베이스 필드가 외부에 노출될 수 있다
+>   * 민감한 정보 노출 : 엔티티가 민감한 정보를 포함하고 있을 경우 절대 엔티티를 외부로 노출하면 안된다
+>   * 클라이언트가 의도하지 않은 필드에 손대는 것을 막아야한다
+> * **성능 문제**
+>   * 과도한 데이터 전송: 엔티티가 많은 필드를 가지고 있거나 관계가 복잡할 경우, 불필요하게 많은 데이터가 전송되어 성능 저하를 초래할 수 있다
+> * **순환 참조 문제**
+>   * 엔티티 간의 양방향 관계로 인해 순환 참조가 발생하면 직렬화 시 무한 루프에 빠져 성능 문제가 발생할 수 있다
+> * **유지 보수 문제**
+>   * 엔티티 변경의 영향: 엔티티 구조가 변경될 때마다 API의 스펙도 변경되기 때문에 관련 코드를 지속적으로 변경해야 한다
+>     {: .prompt-danger }
+
+<br>
+
+다음과 같은 컨트롤러를 만들자.
+
+```java
+@RequiredArgsConstructor
+@RestController
+public class PageableController {
+
+    private final MemberRepository memberRepository;
+    private final TeamRepository teamRepository;
+
+    @GetMapping("/members")
+    public Page<MemberDTO> list(Pageable pageable) { // Pageable을 파라미터로 받음
+        Page<Member> page = memberRepository.findAll(pageable);
+        Page<MemberDTO> dtoPage = page.map(MemberDTO::new);
+        return dtoPage;
+    }
+    
+    // 데이터 생성
+    @PostConstruct
+    @Transactional
+    public void setupData() {
+        // 팀 생성
+        for (int i = 0; i < 10; i++) {
+            Team team = new Team("팀" + i);
+            teamRepository.save(team);
+        }
+        // 멤버 생성
+        for (int i = 0; i < 100; i++) {
+            int teamIndex = i / 10;
+            Team team = teamRepository
+                    .findById((long) teamIndex + 1)
+                    .orElseThrow(() -> new RuntimeException("팀을 찾을 수 없습니다."));
+
+            Member member = Member.builder()
+                    .username("멤버" + i)
+                    .age(100 - i)
+                    .team(team)
+                    .build();
+
+            memberRepository.save(member);
+        }
+    }
+}
+```
+
+* `setupData()` : `@PostConstruct`를 사용해서 애플리케이션이 시작할 때 데이터를 만들어놓는다
+* **컨트롤러에서 `Pageable`을 파라미터로 받아 페이징 기능을 구현할 수 있다**
+* `dtoPage`를 inline-variable로 리팩토링 가능
+
+<br>
+
+포스트맨(Postman)으로 요청을 보내보자.
+
+`GET` : [http://localbhost:8080/members](http://localbhost:8080/members)
+
+![pageable2](../post_images/2024-05-14-spring-data-jpa-2-query-method/pageable2.png)_Pageable 사용, page = 0_
+
+* 한 페이지는 기본적으로 데이터를 20개까지 확인할 수 있다
+* 기본적으로 `page=0`부터 시작한다
+
+<br>
+
+이번에는 요청 파라미터를 추가해서 요청을 보내보자.
+
+`GET` : [http://localhost:8080/members?page=5&size=3&sort=age,asc](http://localhost:8080/members?page=5&size=3&sort=age,asc)
+
+![pageable3](../post_images/2024-05-14-spring-data-jpa-2-query-method/pageable3.png)_/members?page=5&size=3&sort=age,asc_
+
+* `page` : 시작 페이지(현재 페이지)
+* `size` : 한 페이지에 노출할 데이터 건수
+* `sort` : 정렬 조건을 정의한다
+  * 위의 경우 `sort=age,asc` : `age`를 기준으로 오름차순(`asc`) 정렬
+  * `sort=age,asc&sort=team,desc`와 같이 정렬 조건을 더 추가할 수 있다
+
+<br>
+
+> **글로벌 : 기본 페이지, 최대 페이지 사이즈 설정하기**
+>
+> `기본 페이지 사이즈`는 디폴트가 `20`이다. `최대 페이지 사이즈`는 디폴트가 `2000`이다.
+>
+> `application.yml`이나 `application.properties`에서 기본값 설정을 변경할 수 있다.(이 경우 글로벌하게 적용된다)
+>
+> `application.yml`
+>
+> ```yaml
+> spring:
+>   data:
+>     web:
+>       pageable:
+>         default-page-size: 20
+>         max-page-size: 2000
+> ```
+{: .prompt-info }
+
+<br>
+
+---
+
+### @PageableDefault 사용(+@SortDefault)
+
+`@PageableDefault` 애노테이션을 사용해서 기본 페이지 사이즈, 최대 페이지 사이즈, 정렬 등과 같은 기본 설정을 각 API마다 개별적으로 적용할 수 있다.
+
+사용법을 알아보자.
+
+```java
+@GetMapping("/v2/members")
+public Page<MemberDTO> listV2(@PageableDefault(size = 5) @SortDefault.SortDefaults({
+        @SortDefault(sort = "age", direction = Sort.Direction.DESC),
+        @SortDefault(sort = "team", direction = Sort.Direction.ASC)
+}) Pageable pageable) {
+    Page<Member> page = memberRepository.findAll(pageable);
+    Page<MemberDTO> dtoPage = page.map(MemberDTO::new);
+    return dtoPage;
+}
+```
+
+* `Pageable` 이전에 `@PageableDefault`를 추가해서 페이지네이션과 관련된 옵션을 설정할 수 있다
+  * 예시에서는 `size=5`를 통해 한 페이지당 `5`건의 데이터를 보여주도록 설정했다
+  * 이제 따로 파라미터를 추가해서 요청하지 않아도 기본적으로 `20`건이 아닌 `5`건을 노출한다
+* `@SortDefault.SortDefaults({정렬 조건})`을 사용해서 정렬 조건을 설정할 수 있다
+  * 이 경우에도 파라미터로 정렬 조건을 넘기지 않아도 기본적으로 설정한 정렬 조건을 이용해서 데이터를 보여준다
+  * 예시에서는 `age`를 내림차순 정렬, `team`을 오름차순 정렬으로 정렬하고 있다
+
+<br>
+
+포스트맨으로 해당 API로 요청을 넣어서 결과를 살펴보자.
+
+`GET` : [http://localbhost:8080/v2/members](http://localbhost:8080/v2/members)
+
+![pageable4](../post_images/2024-05-14-spring-data-jpa-2-query-method/pageable4.png)_@PageableDefault, @SortDefault 사용_
+
+<br>
+
 
 ---
 
