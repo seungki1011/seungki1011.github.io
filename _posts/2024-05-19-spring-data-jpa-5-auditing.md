@@ -1,5 +1,5 @@
 ---
-title: (Spring Data JPA - 5) Auditing
+title: (Spring Data JPA - 6) Auditing
 description: Audit 기능을 사용해서 엔티티의 생성/변경 추적
 author: seungki1011
 date: 2024-05-19 12:30:00 +0900

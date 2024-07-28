@@ -1,5 +1,5 @@
 ---
-title: (Spring Data JPA - 4) 사용자 정의 레포지토리(Custom Repository)
+title: (Spring Data JPA - 5) 사용자 정의 레포지토리(Custom Repository)
 description: 스프링 데이터 JPA의 사용자 정의 레포지토리 기능
 author: seungki1011
 date: 2024-05-18 12:30:00 +0900

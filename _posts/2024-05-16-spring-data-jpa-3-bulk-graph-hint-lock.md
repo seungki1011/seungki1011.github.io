@@ -1,5 +1,5 @@
 ---
-title: (Spring Data JPA - 3) 벌크 수정, @EntityGraph, JPA Hints, Lock
+title: (Spring Data JPA - 4) 벌크 수정, @EntityGraph, JPA Hints, Lock
 description: 스프링 데이터 JPA의 벌크 수정 쿼리(bulk update), @EntityGraph로 N+1문제 해결, JPA Hints, Lock 기능
 author: seungki1011
 date: 2024-05-16 12:30:00 +0900
@@ -190,7 +190,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 > * **사용 방법**
 >   * **JPA 힌트**: `@QueryHint` 애노테이션이나 `EntityManager`의 `setHint` 메서드를 사용하여 설정한다.
 >   * **SQL 힌트**: SQL 문 내에 직접 삽입된다. 예를 들어, `/*+ INDEX(table_name index_name) */`
-{: .prompt-info }
+  {: .prompt-info }
 
 <br>
 
