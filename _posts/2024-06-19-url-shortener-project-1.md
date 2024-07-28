@@ -255,11 +255,10 @@ Base64 인코딩을 사용할 경우의 문제점이 여기서 나온다. 숏코
 
 > 참고로
 >
-> *  `+`를 `-`로 바꾸고, `/`를 `_`로 바꾸는 URL and Filename safe Base64 방식도 존재한다.
-> *  Base62로 인코딩하는 함수를 Bijective Function이라고 부르기도 한다
->    * 더 정확히 말하자면, 인풋에 대해 고유한 아웃풋을 가질 수 있고, 그 역연산을 통해 인풋을 구하는 것이 가능한 인코딩을 Bijective Encoding이라고 한다. (Uniqueness, Reversibility)
-      {: .prompt-info }
-
+> * `+`를 `-`로 바꾸고, `/`를 `_`로 바꾸는 URL and Filename safe Base64 방식도 존재한다.
+> * Base62로 인코딩하는 함수를 Bijective Function이라고 부르기도 한다
+>   * 더 정확히 말하자면, 인풋에 대해 고유한 아웃풋을 가질 수 있고, 그 역연산을 통해 인풋을 구하는 것이 가능한 인코딩을 Bijective Encoding이라고 한다. (Uniqueness, Reversibility)
+  {: .prompt-info }
 
 <br>
 
@@ -310,6 +309,7 @@ URL 단축 실행 로직의 흐름을 다음 2 가지 경우에 대해 살펴보
 <br>
 
 > 숏코드는 왜 7자리를 사용하지?
+{: .prompt-warning }
 
 <br>
 
