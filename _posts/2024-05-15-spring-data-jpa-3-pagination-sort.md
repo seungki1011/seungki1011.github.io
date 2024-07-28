@@ -116,7 +116,7 @@ mermaid: true
 <br>
 
 > 임포트할 때 `org.springframework.data.domain.`의 클래스를 임포트 받아야한다.
-> {: .prompt-warning }
+{: .prompt-warning }
 
 <br>
 
@@ -242,7 +242,7 @@ public class MemberRepositorySortTest {
 > Page<MemberDto> dtoPage = page.map(m -> new MemberDto());
 > ```
 >
-> {: .prompt-tip }
+{: .prompt-tip }
 
 <br>
 
@@ -338,12 +338,12 @@ public class MemberRepositorySliceTest {
 <br>
 
 > `Page`나 `Slice` 타입으로 받지 않고 그냥 `List`와 같은 컬렉션 타입으로 받는 것이 가능하다. 물론 `Page`, `Slice`의 기능은 사용하지 못하지만, 단순히 쿼리에 `limit`를 걸어서 가져오고 싶은 경우 사용할 수 있다.
-> {: .prompt-tip }
+{: .prompt-tip }
 
 <br>
 
 > [페이징과 정렬 공식 문서 참고](https://docs.spring.io/spring-data/jpa/reference/repositories/core-extensions.html#core.web.basic.paging-and-sorting)
-> {: .prompt-tip }
+{: .prompt-tip }
 
 <br>
 
@@ -383,7 +383,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 > * Hibernate 6부터 도입된 주요 최적화 중 하나는 쓸모없는 `LEFT JOIN`을 제거하는 것이다
 > * 기존의 Hibernate에서는 일부 경우에 불필요한 `LEFT JOIN`을 생성하는 경우가 있었다. 이러한 경우 불필요한 `LEFT JOIN`은 성능에 부정적인 영향을 미칠 수 있다. 예를 들어, 실제로 필요하지 않은 테이블을 조인하여 데이터를 가져오므로 쿼리 실행 시간이 길어지고, 데이터베이스의 부하가 증가할 수 있다.
 > * Hibernate 6에서는 이러한 불필요한 조인을 자동으로 최적화하여 제거함으로써 쿼리의 성능을 개선한다.
->   {: .prompt-info }
+{: .prompt-info }
 
 <br>
 
@@ -456,7 +456,7 @@ public class MemberDTO {
 >   * 엔티티 간의 양방향 관계로 인해 순환 참조가 발생하면 직렬화 시 무한 루프에 빠져 성능 문제가 발생할 수 있다
 > * **유지 보수 문제**
 >   * 엔티티 변경의 영향: 엔티티 구조가 변경될 때마다 API의 스펙도 변경되기 때문에 관련 코드를 지속적으로 변경해야 한다
->     {: .prompt-danger }
+  {: .prompt-danger }
 
 <br>
 
@@ -553,7 +553,7 @@ public class PageableController {
 >      max-page-size: 2000
 > ```
 >
-> {: .prompt-info }
+{: .prompt-info }
 
 <br>
 
