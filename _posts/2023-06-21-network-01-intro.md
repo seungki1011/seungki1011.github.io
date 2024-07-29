@@ -1,10 +1,10 @@
 ---
 title: (Network - 1) 네트워크 전체 구조 및 기본 개념
-description: 네트워크 Overview
+description: 네트워크의 기본 구조, 패킷 교환 방식, 네트워크 계층 모델, 캡슐화/역캡슐화
 author: seungki1011
 date: 2023-06-21 12:30:00 +0900
 categories: [1. 컴퓨터 공학(CS), 네트워크]
-tags: [network, packet, packet-switch]
+tags: [network, packet, packet-switch, encapsulation, osi, tcp/ip]
 math: true
 mermaid: true
 ---
@@ -71,7 +71,7 @@ mermaid: true
 
 <br>
 
-![lanwan](../post_images/2023-06-21-network-01-intro/lanwan.webp)_https://www.cloudflare.com/ko-kr/learning/network-layer/what-is-a-wan/_
+![thisiswan](../post_images/2023-06-21-network-01-intro/thisiswan.png)_https://www.cloudflare.com/ko-kr/learning/network-layer/what-is-a-wan/_
 
 * **LAN (Local Area Network)**
   - **범위:** 제한된 지역, 일반적으로 단일 건물이나 캠퍼스 내
@@ -149,17 +149,23 @@ mermaid: true
 
 <br>
 
+> **패킷(Packet)은 다음으로 구성되어 있다.**
+>
+> * 페이로드(Payload) : 패킷을 통해 전송하고자하는 데이터(원본 데이터가 분할된 형태로 들어간다)
+> * 헤더(Header) : 각 네트워크 계층에서 필요한 정보를 담고 있다
+>   * 예) 출발지/목적지 주소, 오류 검출 정보, 패킷 순서 정보
+> * 트레일러(Trailer) : 일부 프로토콜에서 패킷의 끝에 위치해서 에러 체크 정보를 포함하는 경우가 있다
+{: .prompt-info }
+
+
+<br>
+
 > 패킷 교환은 이후 포스트에서 네트워크의 요소들을 한번씩 살펴보고나서 다시 자세히 설명할 예정이다.
 >
 > 모르는 용어들은 **"대충 이런게 있구나~"**라고 생각하고 넘어가자. 이후 포스트에서 자세히 다룰 예정이다.
 >
 > 지금은 대략적인 패킷 교환의 동작을 살펴본 것으로 만족하자.
 {: .prompt-warning }
-
-<br>
-
-> 패킷을 통해 전송하고자하는 데이터는 페이로드(Payload)라고 부른다. HTTP의 경우 본문(Body)라고 부르기도 한다.
-{: .prompt-info }
 
 <br>
 
@@ -309,9 +315,74 @@ TCP/IP는 4계층으로 이루어졌고, 각 계층을 최하위 부터 최상�
 
 ---
 
+## 6. 캡슐화/역캡슐화 (Encapsulation/Decapsulation)
+
+네트워크에서 캡슐화(Encapsulation)와 역캡슐화(Decapsulation)는 데이터가 네트워크를 통해 송신/수신될 때 발생하는 과정으로, 데이터를 여러 계층의 프로토콜로 포장하고 다시 푸는 작업을 의미한다.
+
+많은 경우 택배의 배송 과정으로 비유해서 표현한다. 예시로 우리는 택배를 보낼때 물건을 택배 박스에 포장해서 보내고, 받는 사람은 택배 박스(포장)을 제거하고 물건을 꺼내서 받는다. 패킷도 마찬가지로 네트워크의 여러 계층을 거치면서 캡슐화와 역캡슐화가 일어나는 것이다.
+
+<br>
+
+> * 송신자(보내는 호스트) 입장에서는 패킷은 가장 높은 계층(애플리케이션 계층)에서 가장 낮은 계층(물리, 데이터 링크 계층)으로 이동해서 보내진다
+> * 수신자(받는 호스트) 입장에서는 패킷은 가장 낮은 계층에서 가장 높은 계층으로 이동해서 데이터를 받는다
+{: .prompt-info }
+
+<br>
+
+![encap](../post_images/2023-06-21-network-01-intro/encap.png)_https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html_
+
+* **캡슐화(Encapsulation)** : 데이터가 송신 측에서 전송될 때, 각 계층의 프로토콜에 따라 포장하는 과정
+  * **응용 계층(Application Layer)**
+    * 응용 프로그램에서 데이터를 생성한다. 예시) 웹 브라우저가 HTTP 요청 생성
+    * 데이터의 형식을 변환, 압축, 암호화한다
+    * 세션을 설정, 관리, 종료한다
+  * **전송 계층(Transport Layer)**
+    * **데이터를 세그먼트로(segment) 캡슐화**한다
+    * TCP 또는 UDP 프로토콜이 사용된다
+    * TCP를 사용한다면 TCP 세그먼트 헤더를 추가한다고 보면 된다
+  * **인터넷 계층(Internet; Network Layer)**
+    * IP 프로토콜을 사용한다
+    * **세그먼트를 패킷으로으로 캡슐화**한다. (IP 패킷을 생성한다)
+    * **이 패킷을 IP 패킷이라고 부른다** (TCP/IP 패킷이라는 표현을 사용하기도 한다)
+    * IP와 관련된 정보가 들어가는 IP 헤더가 추가된다. (IP 헤더가 패킷 헤더이다)
+  * **네트워크 인터페이스 계층(Network Interface : Data Link + Physical Layer)**
+    * **패킷을 프레임(Frame)으로 캡슐화**한다
+    * 이더넷, Wifi, 등 다양한 물리적 네트워크 장치와 프로토콜을 사용한다
+    * 프레임 헤더가 추가되는데, 프레임 헤더에는 다음과 같은 정보가 들어가있다
+      * 이더넷(Ethernet) 프레임 헤더라고 가정하자
+      * 목적지/출발지 MAC 주소
+      * 이더타입(EtherType) : 상위 계층 프로토콜 식별
+
+<br>
+
+**역캡슐화(Decapsulation)는 위의 캡슐화의 역과정을 진행하면서 헤더를 하나씩 제거하고, 정보를 확인**한다. 데이터를 복원하는 과정으로 보면된다.
+
+<br>
+
+![framepacket](../post_images/2023-06-21-network-01-intro/framepacket.png)_https://seungki1011.github.io/posts/http-1-internet-communication/_
+
+<br>
+
+> **PDU(Protocol Data Unit)**
+>
+> 각 계층에서 송수신되는 정보의 단위를 PDU라고 부른다. 상위 계층에서 전달 받은 데이터에 현재 계층의 프로토콜 헤더를 추가하면 현재 계층의 PDU가 된다.
+>
+> ![pdu](../post_images/2023-06-21-network-01-intro/pdu.png)_https://techwavehub.net/protocol-data-unit-pdu/_
+>
+> * 패킷은 네트워크에서 쪼개져서 전송되는 데이터 단위를 통칭하기 위한 용어로 사용되기도 하지만, 네트워크 계층의 송수신 단위를 지칭하기도 한다. 많은 자료들은 **혼동을 방지하기 위해서 네트워크 계층에서 사용하는 패킷을 IP 패킷으로 지칭**하기도 한다.
+{: .prompt-info }
+
+<br>
+
+
+---
+
 ## Reference
 
 1. [강민철: 혼자 공부하는 네트워크](https://product.kyobobook.co.kr/detail/S000212911507)
 1. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://product.kyobobook.co.kr/detail/S000061694627)
 1. [널널한 개발자 : 네트워크 기초 이론](https://www.youtube.com/watch?v=Bz-K-DPfioE&list=PLXvgR_grOs1BFH-TuqFsfHqbh-gpMbFoy&index=14)
 1. [https://www.geeksforgeeks.org/tcp-ip-model/](https://www.geeksforgeeks.org/tcp-ip-model/)
+1. [https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html](https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html)
+1. [https://seungki1011.github.io/posts/http-1-internet-communication/](https://seungki1011.github.io/posts/http-1-internet-communication/)
+1. [https://techwavehub.net/protocol-data-unit-pdu/](https://techwavehub.net/protocol-data-unit-pdu/)
