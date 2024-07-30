@@ -282,6 +282,35 @@ NIC의 주요 구성 요소를 살펴보자.
 
 #### CSMA/CD
 
+**CSMA/CD(Carrier Sense Multiple Access with Collision Detection)는 이더넷 네트워크에서 데이터 충돌을 방지하고 처리하기 위해 사용되는 프로토콜**이다. 이 프로토콜은 네트워크 장치가 데이터를 전송할 때 발생할 수 있는 충돌을 탐지하고 해결하는 방법을 정의한다.
+
+* **CS(Carrier Sense)**
+  * 데이터를 보내기 전에 현재 네트워크상에서 전송 중인 것이 있는지 확인을 먼저 한다. 쉽게 말해서 **현재 통신 매체의 사용 가능 여부를 확인**한다.
+  * 한국어로 캐리어 감지를 뜻한다
+* **MA(Multiple Access)**
+  * 캐리어 감지를 해도 2개 이상의 호스트가 동시에 네트워크를 사용하려고 시도할 수 있다. **여러대의 호스트가 동시에 네트워크에 접근하는 상황을 다중 접근(Multiple Access)**이라고 한다.
+  * 이렇게 **동시에 접근하는 경우 충돌(Collision)이 발생**한다
+* **CD(Collision Detection)**
+  * **충돌이 발생하면 검출한다**
+  * 충돌을 감지하는 경우 **전송이 중단**된다
+  * **충돌을 감지한 호스트는 다른 호스트들에게 충돌이 발생했음을 알리는 잼 신호(Jam Signal)을 보낸다**
+* **백오프 알고리즘(Backoff Algorithm)**
+  * **충돌 감지 이후 호스트는 임의의 시간을 대기하고 재전송을 시도**하는데, 이 **임의의 대기시간을 결정하는 것이 백오프 알고리즘**이다
+
+<br>
+
+![csmacd](../post_images/2023-06-25-network-02-physical-layer-data-link/csmacd.png)_https://www.researchgate.net/figure/Flow-diagram-for-the-CSMA-CD_fig3_323511648_
+
+<br>
+
+---
+
+## 3. 데이터 링크 계층(Data Link Layer)
+
+### 스위치(Switch)
+
+
+
 
 
 
