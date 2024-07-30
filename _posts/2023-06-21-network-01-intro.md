@@ -386,3 +386,11 @@ TCP/IP는 4계층으로 이루어졌고, 각 계층을 최하위 부터 최상�
 1. [https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html](https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html)
 1. [https://seungki1011.github.io/posts/http-1-internet-communication/](https://seungki1011.github.io/posts/http-1-internet-communication/)
 1. [https://techwavehub.net/protocol-data-unit-pdu/](https://techwavehub.net/protocol-data-unit-pdu/)
+
+---
+
+## Icon Attribution
+
+1. <a href="https://www.flaticon.com/kr/free-icons/" title="컴퓨터 아이콘">Computer icons created by Freepik - Flaticon</a>
+2. <a href="https://www.flaticon.com/free-icons/data-center" title="data center icons">Data center icons created by monkik - Flaticon</a>
+3. [it-symbols-collection](https://iconduck.com/sets/it-symbols-collection)
