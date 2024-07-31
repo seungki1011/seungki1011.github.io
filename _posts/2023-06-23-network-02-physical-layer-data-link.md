@@ -1,10 +1,10 @@
 ---
 title: (Network - 2) 물리 계층, 데이터 링크 계층
-description: 이더넷, 허브, 스위치, NIC
+description: 이더넷, NIC, 허브, 스위치에 대해
 author: seungki1011
-date: 2023-06-25 12:30:00 +0900
+date: 2023-06-23 12:30:00 +0900
 categories: [1. 컴퓨터 공학(CS), 네트워크]
-tags: [network]
+tags: [network, ethernet, frame, hub, switch, csma/cd, vlam, mac-address]
 math: true
 mermaid: true
 ---
@@ -249,7 +249,7 @@ NIC의 주요 구성 요소를 살펴보자.
 > * **액티브 허브**
 >   * **리피터(repeater)**라는 장치가 내장되어 수신한 신호를 증폭하거나 재생하여 더 먼 거리로 데이터를 전송할 수 있다
 >   * **허브는 대부분 리피터가 내장된 액티브 허브**이다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
