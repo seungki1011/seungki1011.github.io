@@ -4,7 +4,7 @@ description: 데이터 링크 계층의 한계, IP(인터넷 프로토콜) 소�
 author: seungki1011
 date: 2023-06-25 12:30:00 +0900
 categories: [1. 컴퓨터 공학(CS), 네트워크]
-tags: [network, network-layer]
+tags: [network, network-layer, ip, ip-header, ip-packet, arp]
 math: true
 mermaid: true
 ---
