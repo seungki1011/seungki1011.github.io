@@ -249,7 +249,7 @@ NIC의 주요 구성 요소를 살펴보자.
 > * **액티브 허브**
 >   * **리피터(repeater)**라는 장치가 내장되어 수신한 신호를 증폭하거나 재생하여 더 먼 거리로 데이터를 전송할 수 있다
 >   * **허브는 대부분 리피터가 내장된 액티브 허브**이다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -423,7 +423,6 @@ VLAN을 구성할 수 있는 몇 가지 방법을 알아보자.
 
 1. <a href="https://www.flaticon.com/kr/free-icons/-" title="네트워크 스위치 아이콘">Network Switch icon created by Yasashii std - Flaticon</a>
 2. <a href="https://www.flaticon.com/free-icons/hub" title="hub icons">Hub icons created by Freepik - Flaticon</a>
-3. <a href="https://www.flaticon.com/kr/free-icons/ui" title="ui 아이콘">Ui icon created by juicy_fish - Flaticon</a>
 4. <a href="https://www.flaticon.com/kr/free-icons/" title="게이트웨이 아이콘">Gateway icon created by Freepik - Flaticon</a>
 5. <a href="https://www.flaticon.com/kr/free-icons/" title="스위치 아이콘">Switch icon created by phatplus - Flaticon</a>
 6. <a href="https://www.freepik.com/icon/network-switch_9694716">Icon by Yasashii std</a>
