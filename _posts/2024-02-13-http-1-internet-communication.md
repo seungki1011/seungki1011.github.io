@@ -138,7 +138,7 @@ TCP(Transmission Control Protocol, 전송 제어 프로토콜)의 특징은 다�
 
 * 데이터 전달 보증
 * 순서 보장
-* TCP 연결은 단일 송신자와 단일 수진사 사이의 점대점(point-to-point) 연결
+* TCP 연결은 단일 송신자와 단일 수신자 사이의 점대점(point-to-point) 연결
 
 <br>
 
