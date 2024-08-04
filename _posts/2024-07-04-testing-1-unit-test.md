@@ -282,7 +282,7 @@ DAMP한 테스트 코드를 위해서 다음의 방법들을 사용한다.
 
 > 다시 한번 말하지만 여기서 다루고 있는 베스트 프랙티스들이 무조건 정답이 아니다.
 >
-> 상황을 봐가면서 유연하게 적용할 수 있는 개발자가 되도록 노력해야겠다.
+> 상황을 봐가면서 유연하게 적용할 수 있는 개발자가 되도록 노력하자.
 {: .prompt-danger }
 
 
@@ -549,7 +549,7 @@ public class ShoppingCart {
 
 <br>
 
-![test2](../post_images/2024-07-04-testing-1-unit-test/test2.png)_ShoppingCart의 내부 구현을 바꿨는데 테스트가 동작하지 않는다_
+![test2](../post_images/2024-07-04-testing-1-unit-test/test2.png)_ShoppingCart의 내부 구현을 바꿨더니 테스트가 동작하지 않는다_
 
 <br>
 
