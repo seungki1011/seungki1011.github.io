@@ -394,7 +394,7 @@ SRTF의 특징은 다음과 같다.
 > * **단점**
 >   * 설계와 조정이 상대적으로 복잡하다
 >   * 잘못 설계된 경우 성능 저하가 발생할 수 있다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -402,6 +402,6 @@ SRTF의 특징은 다음과 같다.
 
 ## Reference
 
-1. [강민청: 혼자 공부하는 컴퓨터 구조 + 운영체제](https://product.kyobobook.co.kr/detail/S000061584886)
-2. [Abraham Silberschatz: Operating System Concepts(공룡책)](https://product.kyobobook.co.kr/detail/S000003114660)
+1. [강민철: 혼자 공부하는 컴퓨터 구조 + 운영체제](https://www.google.co.kr/books/edition/%ED%98%BC%EC%9E%90_%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94_%EC%BB%B4%ED%93%A8%ED%84%B0_%EA%B5%AC%EC%A1%B0+%EC%9A%B4/OXmAEAAAQBAJ?hl=ko&gbpv=0)
+2. [Abraham Silberschatz: Operating System Concepts(공룡책)](https://www.google.co.kr/books/edition/Operating_System_Concepts_10e_Abridged_P/VFV1DwAAQBAJ?hl=ko&gbpv=0)
 3. [쉬운코드: 운영체제](https://www.youtube.com/watch?v=QmtYKZC0lMU&list=PLcXyemr8ZeoQOtSUjwaer0VMJSMfa-9G-)

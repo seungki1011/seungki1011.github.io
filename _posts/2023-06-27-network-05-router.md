@@ -34,7 +34,7 @@ mermaid: true
 >   * 가정이나 소규모 사무실에서 여러 장치가 인터넷에 동시에 연결될 수 있도록 도와주는 장치이다
 >   * 보통 Wi-Fi 기능을 포함한다
 >   * 공유기는 기본적인 라우팅 기능 외에도 Wi-Fi 기능, NAT, DHCP 및 방화벽 기능 등을 제공하기도 한다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -208,7 +208,7 @@ IGP에는 어떤 프로토콜들이 있는지 살펴보자. 그전에 **거리 �
 > * **단점**
 >   * 복잡한 설정
 >   * 높은 리소스 사용
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -390,7 +390,7 @@ BGP는 **AS 간의 통신에 사용되는 유일한 표준 라우팅 프로토�
 >    * 각 라우터는 수신한 경로 정보를 비교하여 최적의 경로를 선택한다
 >    * 일반적으로 AS 목록이 가장 짧은 경로가 선호된다
 >    * **BGP의 경우, 추가적인 경로 속성(예: Local Preference, MED 등)을 사용하여 더 세밀한 경로 선택이 이루어진다**
-   {: .prompt-info }
+      {: .prompt-info }
 
 <br>
 
@@ -454,8 +454,8 @@ AS 간 정보를 주고 받기 위해서는 AS 내에서 BGP 라우터(eBGP를 �
 
 1. [https://www.youtube.com/watch?v=DWZE-qZHXUk](https://www.youtube.com/watch?v=DWZE-qZHXUk)
 2. [https://www.youtube.com/watch?v=0h7hKi_j1GE](https://www.youtube.com/watch?v=0h7hKi_j1GE)
-3. [강민철: 혼자 공부하는 네트워크](https://product.kyobobook.co.kr/detail/S000212911507)
-4. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://product.kyobobook.co.kr/detail/S000061694627)
+3. [강민철: 혼자 공부하는 네트워크](https://www.google.co.kr/books/edition/%ED%98%BC%EC%9E%90_%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/XWABEQAAQBAJ?hl=ko&gbpv=0)
+4. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://www.google.co.kr/books/edition/%EC%BB%B4%ED%93%A8%ED%84%B0_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_%ED%95%98%ED%96%A5%EC%8B%9D_%EC%A0%91%EA%B7%BC/CItKswEACAAJ?hl=ko)
 5. [널널한 개발자 : 네트워크 기초 이론](https://www.youtube.com/watch?v=Bz-K-DPfioE&list=PLXvgR_grOs1BFH-TuqFsfHqbh-gpMbFoy&index=14)
 6. [https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html?m=0](https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html?m=0)
 

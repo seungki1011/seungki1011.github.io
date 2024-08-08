@@ -379,8 +379,8 @@ TCP/IP는 4계층으로 이루어졌고, 각 계층을 최하위 부터 최상�
 
 ## Reference
 
-1. [강민철: 혼자 공부하는 네트워크](https://product.kyobobook.co.kr/detail/S000212911507)
-1. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://product.kyobobook.co.kr/detail/S000061694627)
+1. [강민철: 혼자 공부하는 네트워크](https://www.google.co.kr/books/edition/%ED%98%BC%EC%9E%90_%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/XWABEQAAQBAJ?hl=ko&gbpv=0)
+1. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://www.google.co.kr/books/edition/%EC%BB%B4%ED%93%A8%ED%84%B0_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_%ED%95%98%ED%96%A5%EC%8B%9D_%EC%A0%91%EA%B7%BC/CItKswEACAAJ?hl=ko)
 1. [널널한 개발자 : 네트워크 기초 이론](https://www.youtube.com/watch?v=Bz-K-DPfioE&list=PLXvgR_grOs1BFH-TuqFsfHqbh-gpMbFoy&index=14)
 1. [https://www.geeksforgeeks.org/tcp-ip-model/](https://www.geeksforgeeks.org/tcp-ip-model/)
 1. [https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html](https://www.computernetworkingnotes.com/ccna-study-guide/data-encapsulation-and-de-encapsulation-explained.html)

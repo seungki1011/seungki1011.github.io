@@ -249,7 +249,7 @@ NIC의 주요 구성 요소를 살펴보자.
 > * **액티브 허브**
 >   * **리피터(repeater)**라는 장치가 내장되어 수신한 신호를 증폭하거나 재생하여 더 먼 거리로 데이터를 전송할 수 있다
 >   * **허브는 대부분 리피터가 내장된 액티브 허브**이다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -415,8 +415,8 @@ VLAN을 구성할 수 있는 몇 가지 방법을 알아보자.
 
 ## Reference
 
-1. [강민철: 혼자 공부하는 네트워크](https://product.kyobobook.co.kr/detail/S000212911507)
-2. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://product.kyobobook.co.kr/detail/S000061694627)
+1. [강민철: 혼자 공부하는 네트워크](https://www.google.co.kr/books/edition/%ED%98%BC%EC%9E%90_%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/XWABEQAAQBAJ?hl=ko&gbpv=0)
+2. [James F. Kurose : 컴퓨터 네트워킹 하향식 접근](https://www.google.co.kr/books/edition/%EC%BB%B4%ED%93%A8%ED%84%B0_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_%ED%95%98%ED%96%A5%EC%8B%9D_%EC%A0%91%EA%B7%BC/CItKswEACAAJ?hl=ko)
 3. [널널한 개발자 : 네트워크 기초 이론](https://www.youtube.com/watch?v=Bz-K-DPfioE&list=PLXvgR_grOs1BFH-TuqFsfHqbh-gpMbFoy&index=14)
 
 ## Icon Attribution
