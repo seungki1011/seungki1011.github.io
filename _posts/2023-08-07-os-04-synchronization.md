@@ -4,7 +4,7 @@ description: 동기화 소개, 동기화와 관련된 문제들, 여러 동기�
 author: seungki1011
 date: 2023-08-05 12:30:00 +0900
 categories: [1. 컴퓨터 공학(CS), 컴퓨터 구조/운영체제(OS)]
-tags: [os, synchronization, mutex, semaphore, moniter]
+tags: [os, synchronization, mutex, semaphore, moniter, race condition]
 math: true
 mermaid: true
 ---
@@ -579,29 +579,9 @@ Busy-Waiting(Spin-Lock)은 많은 상황에서 Sleep-and-Wakeup 보다 비효율
 
 ---
 
+## 다음 포스트
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+다음 포스트에서는 **철학자들의 식사 문제 (Dining Philosophers Problem)**와 함께 **데드락(Dead-Lock)**에 대해서 알아볼 예정이다.
 
 ---
 
