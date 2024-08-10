@@ -11,9 +11,9 @@ mermaid: true
 
 ---
 
-## 1) 중첩 클래스(Nested Class)
+## 1. 중첩 클래스(Nested Class)
 
-### 1.1 중첩 클래스 소개
+### 중첩 클래스 소개
 
 중첩 클래스(Nested Class)란 클래스 안에 클래스를 중첩해서 정의한 클래스를 말한다.
 
@@ -34,9 +34,7 @@ class Outer {
 
 <br>
 
-![nested](../post_images/2024-01-15-java-20-nested-class/nested1.png)
-
-<p align="center">중첩 클래스의 분류</p>
+![nested](../post_images/2024-01-15-java-20-nested-class/nested1.png)_중첩 클래스의 분류_
 
 <br>
 
@@ -98,6 +96,8 @@ class Outer {
 <br>
 
 > 보통 내부 클래스, 중첩 클래스를 엄밀하게 구분하지는 않는다. 상황과 문맥을 보면서 어떤 것을 사용하는 것인지 파악하자!
+{: .prompt-tip }
+
 
 <br>
 
@@ -111,9 +111,9 @@ class Outer {
 
 ---
 
-## 2) 정적 중첩 클래스(Static Nested Class)
+## 2. 정적 중첩 클래스(Static Nested Class)
 
-### 2.1 정적 중첩 클래스 소개
+### 정적 중첩 클래스 소개
 
 정적 중첩 클래스에 대해서 알아보자.
 
@@ -209,7 +209,7 @@ class Nested {
 
 ---
 
-### 2.2 정적 중첩 클래스를 사용하는 경우
+### 정적 중첩 클래스를 사용하는 경우
 
 그럼면 정적 중첩 클래스를 활용하는 경우에 대해서 알아보자.
 
@@ -229,9 +229,9 @@ class Nested {
 
 ---
 
-## 3) 내부 클래스(Inner Class)
+## 3. 내부 클래스(Inner Class)
 
-### 3.1 내부 클래스 소개
+### 내부 클래스 소개
 
 내부 클래스에 대해서 알아보자. 
 
@@ -309,7 +309,7 @@ public class InnerOuterMain {
 
 ---
 
-### 3.2 내부 클래스를 사용하는 경우
+### 내부 클래스를 사용하는 경우
 
 내부 클래스를 어떻게 활용하는지 알아보자.
 
@@ -349,9 +349,9 @@ public class CarMain {
 
 <br>
 
-## 4) 지역 클래스(Local Class)
+## 4. 지역 클래스(Local Class)
 
-### 4.1 지역 클래스 소개
+### 지역 클래스 소개
 
 지역 클래스(Local Class)는 내부 클래스의 종류 중 하나이다. 따라서 내부 클래스의 특징을 그대로 가지고 있다.
 
@@ -391,7 +391,7 @@ class Outer {
 
 ---
 
-### 4.2 지역 클래스 예시
+### 지역 클래스 예시
 
 예시를 통해 더 자세히 알아보자.
 
@@ -443,9 +443,9 @@ public class LocalOuterV2 {
 
 ---
 
-### 4.3 지역 변수 캡쳐(Variable Capture)
+### 지역 변수 캡쳐(Variable Capture)
 
-#### 4.3.1 지역 변수 캡쳐 동작 과정
+#### 지역 변수 캡쳐 동작 과정
 
 지역 변수 캡쳐에 대해서 알아보자.
 
@@ -585,13 +585,14 @@ public class LocalOuter {
 
 ---
 
-#### 4.3.2 effectively-final
+#### effectively-final
 
 지역 클래스가 접근하는 지역 변수는 절대로 중간에 값이 변하면 안된다. 따라서 `final`로 선언하거나, 사실상(effectively) `final`이어야 함.
 
 > 사실상 `final`이라는 것은 지역 변수에 `final` 키워드를 사용하지 않았지만, 값을 변경하지 않은 지역 변수를 뜻한다.
 >
 > 어차피 지역 클래스가 접근하는 지역 변수에 자바 컴파일러는 `final`을 강제한다. 지역 변수의 값을 변경하려고 시도하면 컴파일 오류가 뜸.
+{: .prompt-info }
 
 <br>
 
@@ -616,9 +617,9 @@ public class LocalOuter {
 
 ---
 
-## 5) 익명클래스(Anonymous Class)
+## 5. 익명클래스(Anonymous Class)
 
-### 5.1 익명 클래스 소개
+### 익명 클래스 소개
 
 * 지역 클래스의 특별한 종류 중 하나
 * 이름이 없는 일회용 클래스
@@ -639,8 +640,8 @@ public class AnonymousOuter {
 
         int localVar = 1;
       
-				// 익명 클래스 정의와 생성 (Printer 인터페이스를 구현)
-      	// 클래스의 인스턴스를 참조할 수 있는 참조 변수를 사용
+        // 익명 클래스 정의와 생성 (Printer 인터페이스를 구현)
+        // 클래스의 인스턴스를 참조할 수 있는 참조 변수를 사용
         Printer printer = new Printer() { // 익명이라는 말 그대로 이름이 없음
             int value = 0;
 
@@ -675,7 +676,7 @@ public class AnonymousOuter {
 
 ---
 
-### 5.2 익명 클래스를 사용하는 경우
+### 익명 클래스를 사용하는 경우
 
 익명 클래스를 활용해보자.
 
@@ -796,7 +797,7 @@ public interface Process {
 
 <br>
 
-> 만약 위의 예시를 람다(Lambda)를 사용하도록 리팩토링 한다면?
+> **만약 위의 예시를 람다(Lambda)를 사용하도록 리팩토링 한다면?**
 >
 > ```java
 > hello(() -> {
@@ -812,6 +813,7 @@ public interface Process {
 > ```
 >
 > * 클래스나 인스턴스를 정의하지 않고, 메서드(함수)의 코드 블럭을 직접 전달해서 사용
+{: .prompt-info }
 
 <br>
 
@@ -826,3 +828,12 @@ public interface Process {
 
 * 익명 클래스는 단 한 번만 인스턴스 생성이 가능하다
   * 만약 여러번 생성이 필요하다면 익명 클래스 사용 불가
+
+<br>
+
+---
+
+## Reference
+
+1. [김영한: 실전 자바 로드맵](https://www.inflearn.com/roadmaps/744)
+2. [이것이 자바다!](https://www.google.co.kr/books/edition/%EC%9D%B4%EA%B2%83%EC%9D%B4_%EC%9E%90%EB%B0%94%EB%8B%A4_%EA%B0%9C%EC%A0%95%ED%8C%90/SLWGEAAAQBAJ?hl=ko&gbpv=0)

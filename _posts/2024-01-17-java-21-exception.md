@@ -11,7 +11,7 @@ mermaid: true
 
 ---
 
-## 1) 예외, 에러(Exception, Error)
+## 1. 예외, 에러(Exception, Error)
 
 ### 1.1 예외 소개
 
@@ -99,7 +99,7 @@ mermaid: true
 
 ---
 
-## 2) 예외 발생시키기(throw)
+## 2. 예외 발생시키기(throw)
 
 * 예외 발생시키기
 * 예외를 생성 후 ```throw``` 키워드를 이용해서 예외를 발생 시킬 수 있다
@@ -130,7 +130,7 @@ e.getMessage : Exception was made(This is the message)
 
 ---
 
-## 3) 예외 잡기(try-catch)
+## 3. 예외 잡기(try-catch)
 
 ### 3.1 try-catch 소개
 
@@ -342,8 +342,6 @@ Exception 발생!
 
 * 이런 예외의 우선 순위를 잘 생각해서 ```catch``` 블럭을 배치하자
 
-
-
 <br>
 
 ---
@@ -392,7 +390,7 @@ try{
 
 ---
 
-## 4) 예외 객체 참조 변수(Exception Variable)
+## 4. 예외 객체 참조 변수(Exception Variable)
 
 * 통상적으로 ```e```, `ex`를 많이 사용
 * 예외 객체의 참조 변수
@@ -461,7 +459,7 @@ java.lang.ArithmeticException: / by zero
 
 ---
 
-## 5) 예외 던지기(throws)
+## 5. 예외 던지기(throws)
 
 ### 5.1 throws 소개
 
@@ -546,7 +544,7 @@ Handled Exception in main
 
 ---
 
-## 6) Checked, Unchecked 예외
+## 6. Checked, Unchecked 예외
 
 ### 6.1 체크, 언체크 예외 소개
 
@@ -626,7 +624,7 @@ Handled Exception in main
 
 ---
 
-## 7) try-catch-finally
+## 7. try-catch-finally
 
 `finally`에 대해서 알아보자.
 
@@ -707,11 +705,11 @@ Writing data to data.txt!
 
 ---
 
-## 8) try-with-resource
+## 8. try-with-resource
 
 ### 8.1 try-with-resource 소개
 
-애플리케이션에서 외부 자원을 사용하는 경우 반드시 외부 자원을 해제해야 한다(리소스 누수, 등의 문제 방지). 이를 해결하기 위해서 `finally` 구문으로 자원 할당을 해제하는 방식으로 코드를 구현했다. `try`에서 외부 자원을 이용하고, `finally`로 외부 자원을 반납하는 패턴이 자주 사용되면서, 자바7 부터 `try-with-resources`라는 편의 기능이 도입되었다.
+**애플리케이션에서 외부 자원을 사용하는 경우 반드시 외부 자원을 해제해야 한다(리소스 누수, 등의 문제 방지)**. 이를 해결하기 위해서 `finally` 구문으로 자원 할당을 해제하는 방식으로 코드를 구현했다. `try`에서 외부 자원을 이용하고, `finally`로 외부 자원을 반납하는 패턴이 자주 사용되면서, 자바7 부터 `try-with-resources`라는 편의 기능이 도입되었다.
 
 <br>
 
@@ -872,7 +870,7 @@ Writing data to Data2.txt!
 
 ---
 
-## 9) 체크 예외를 잘 사용하지 않는 이유
+## 9. 체크 예외를 잘 사용하지 않는 이유
 
 ### 9.1 체크 예외(Checked Exception)의 단점
 
@@ -1144,6 +1142,8 @@ public class Main {
 ## Reference
 
 1. [생활코딩 - 자바 예외](https://www.youtube.com/watch?v=2CgnJZ5oWYs&list=PLuHgQVnccGMCrFJLxpjhE0N5tvOVxJuVB&index=2)
+1. [김영한: 실전 자바 로드맵](https://www.inflearn.com/roadmaps/744)
+1. [이것이 자바다!](https://www.google.co.kr/books/edition/%EC%9D%B4%EA%B2%83%EC%9D%B4_%EC%9E%90%EB%B0%94%EB%8B%A4_%EA%B0%9C%EC%A0%95%ED%8C%90/SLWGEAAAQBAJ?hl=ko&gbpv=0)
 1. [점프 투 자바 - 예외 처리](https://wikidocs.net/229)
 1. [https://www.javacodemonk.com/java-exception-class-hierarchy-92e8224e](https://www.javacodemonk.com/java-exception-class-hierarchy-92e8224e)
 1. [https://medium.com/javarevisited/checked-and-unchecked-exceptions-in-java-19166e68b66f](https://medium.com/javarevisited/checked-and-unchecked-exceptions-in-java-19166e68b66f)
