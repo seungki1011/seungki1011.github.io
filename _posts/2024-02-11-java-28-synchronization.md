@@ -17,6 +17,15 @@ mermaid: true
 
 ---
 
+> **해당 포스트는 Lombok과 `@Slf4j`(Logback)를 사용한다**
+>
+> 로그는 `logstash-logback-encoder`를 통해 JSON 형태로 파싱하고 있다. 편의상 `version`, `level`, `levelValue` 필드를 제외하고 사용했다.
+>
+> 만약 로깅에 익숙하지 않다면 로깅 대신 `System.out`을 사용하면 된다.
+{: .prompt-warning }
+
+---
+
 ## 1. 메모리 가시성(Memory Visibility)
 
 ### 메모리 가시성 소개
@@ -624,7 +633,7 @@ public class LockSupportMain {
 >   * 인터럽트가 걸려도 대기 상태를 빠져나오지 못한다
 > * 반면에 **WAITING** , **TIMED_WAITING** 상태는 범용적으로 활용할 수 있는 대기 상태라고 이해하면 편하다
 >   * 인터럽트가 걸리면 대기 상태를 빠져나온다(**RUNNABLE** 상태로 변한다)
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -1175,6 +1184,13 @@ public class ThreadLocalServiceTest {
 > 만약 스레드별로 독립된 값을 유지해야 하는 경우라면 `ThreadLocal`을 사용해야 하고, 여러 스레드가 공유 자원에 안전하게 접근할 수 있도록 해야 하는 경우라면 `synchronized`를 사용해야 한다.
 {: .prompt-info }
 
+<br>
+
+---
+
+## 다음 포스트
+
+다음 포스트에서는 동기화와 관련된 생산자-소비자 문제(Producer-Consumer Problem)를 소개하고, 그 해결 방법에 대해서 알아볼 예정이다.
 
 <br>
 
