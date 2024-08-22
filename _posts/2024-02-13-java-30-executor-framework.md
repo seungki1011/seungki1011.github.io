@@ -762,24 +762,24 @@ public class FutureEx3Main {
 
 ```json
 {
-      "message" : "---Callable task1 시작, 수행 3초---",
-      "thread_name" : "pool-1-thread-1"
+    "message" : "---Callable task1 시작, 수행 3초---",
+    "thread_name" : "pool-1-thread-1"
 }
 {
-      "message" : "---Callable task2 시작, 수행 3초---",
-      "thread_name" : "pool-1-thread-2"
+    "message" : "---Callable task2 시작, 수행 3초---",
+    "thread_name" : "pool-1-thread-2"
 }
 {
-      "message" : "future1.get() 호출 - Main: WAITING, 작업 기다림",
-      "thread_name" : "main"
+    "message" : "future1.get() 호출 - Main: WAITING, 작업 기다림",
+    "thread_name" : "main"
 }
 {
-      "message" : "---Callable task2 종료, result = 20---",
-      "thread_name" : "pool-1-thread-2"
+    "message" : "---Callable task2 종료, result = 20---",
+    "thread_name" : "pool-1-thread-2"
 }
 {
-      "message" : "---Callable task1 종료, result = 10---",
-      "thread_name" : "pool-1-thread-1"
+    "message" : "---Callable task1 종료, result = 10---",
+    "thread_name" : "pool-1-thread-1"
 }
 {
     "message" : "future2.get() 호출 - Main: RUNNABLE, 즉시 반환 받는 것 가능",
@@ -862,12 +862,870 @@ Integer sum2 = es.submit(task2).get(); // get()에서 블로킹
 
 ---
 
+## 4. ExecutorService 종료
+
+`ExecutorService`의 **"우아한 종료(graceful shutdown)"**는 **스레드 풀을 사용한 작업이 모두 완료될 수 있도록 안전하게 종료하는 방법을 의미**한다. 우아한 종료는 **스레드 풀에 이미 제출된 작업들이 완료될 때까지 기다리며, 새로운 작업이 제출되지 않도록 하는 방식**으로 이루어진다.
+
+<br>
+
+`ExecutorService`의 우아한 종료를 위해 제공되는 두 가지 주요 메서드는 다음과 같다.
+
+* **`void shutdown()`**
+  * **논 블로킹 메서드**: 이 메서드를 호출한 스레드는 대기하지 않고 즉시 다음 코드를 호출한다
+  * 새로운 작업의 제출을 중지하지만, 이미 제출된 작업은 계속 실행된다
+  * 이 메서드가 호출된 후에는 더 이상 작업을 제출할 수 없으며, 모든 작업이 완료될 때까지 스레드 풀은 실행을 계속한다
+  * 모든 작업이 완료되면 스레드 풀은 종료된다
+* **`List<Runnable> shutdownNow()`**
+  * **논 블로킹 메서드**
+  * 모든 실행 중인 작업을 중단하려 시도하고, 대기 중인 작업 목록을 반환한다
+  *  `shutdown()`보다 더 강력한 종료 방법이며, 스레드 풀을 즉시 종료하려는 경우에 사용된다
+  * 실행 중인 스레드에 `interrupt()` 호출을 통해 인터럽트를 발생시켜 작업을 중단할 수 있다
+
+<br>
+
+작업 완료 대기를 위한 메서드는 다음과 같다.
+
+* **`boolean awaitTermination(timeout, unit)`**
+  * `shutdown()`이 호출된 후, 모든 작업이 완료될 때까지 대기한다
+  * 이 메서드는 지정된 시간(`timeout`) 내에 스레드 풀이 종료될 때까지 현재 스레드를 차단(block)한다
+  * `timeout` 기간 동안 작업이 완료되지 않으면 `false`를 반환하며, `true`를 반환한 경우는 모든 작업이 정상적으로 완료된 경우이다
+  * `shutdownNow()`를 호출하여 강제 종료를 시도할 수 있다
+
+<br>
+
+`ExecutorService`의 상태 확인을 위한 메서드는 다음과 같다.
+
+* **`boolean isShutdown()`**
+  * `shutdown()` 또는 `shutdownNow()` 메서드가 호출된 후 `ExecutorService`가 새로운 작업을 더 이상 받지 않는 상태인지 여부를 확인한다
+  * 스레드 풀에 종료 명령이 내려졌는지 확인하는 데 사용된다
+    * `true`: 종료 상태에 진입
+    * `false`: 아직 종료되지 않았음
+* **`boolean isTerminated()`**
+  * `ExecutorService` 내의 모든 작업이 완료되고, 스레드 풀이 완전히 종료되었는지 확인한다
+    * `true`: 모든 작업이 완료되어 `ExecutorService`가 완전히 종료되었음을 의미
+    * `false`: 아직 작업이 완료되지 않았거나 스레드 풀이 종료되지 않았음을 의미
+
+<br>
+
+> **`close()`**
+>
+> ```java
+>  /**
+>      * Initiates an orderly shutdown in which previously submitted tasks are
+>      * executed, but no new tasks will be accepted. This method waits until all
+>      * tasks have completed execution and the executor has terminated.
+>      *
+>      * If interrupted while waiting, this method stops all executing tasks as
+>      * if by invoking shutdownNow(). It then continues to wait until all
+>      * actively executing tasks have completed. Tasks that were awaiting
+>      * execution are not executed. The interrupt status will be re-asserted
+>      * before this method returns.
+>      *
+>      * If already terminated, invoking this method has no effect.
+>      *
+>      * @implSpec
+>      * The default implementation invokes shutdown() and waits for tasks
+>      * to complete execution with awaitTermination().
+>      *
+>      * @throws SecurityException if a security manager exists and
+>      *         shutting down this ExecutorService may manipulate
+>      *         threads that the caller is not permitted to modify
+>      *         because it does not hold 
+>      *         java.lang.RuntimePermission ("modifyThread"),
+>      *         or the security manager's checkAccess() method
+>      *         denies access.
+>      * @since 19
+>      */
+>     @Override
+>     default void close() {
+>         boolean terminated = isTerminated();
+>         if (!terminated) {
+>             shutdown();
+>             boolean interrupted = false;
+>             while (!terminated) {
+>                 try {
+>                     terminated = awaitTermination(1L, TimeUnit.DAYS);
+>                 } catch (InterruptedException e) {
+>                     if (!interrupted) {
+>                         shutdownNow();
+>                         interrupted = true;
+>                     }
+>                 }
+>             }
+>             if (interrupted) {
+>                 Thread.currentThread().interrupt();
+>             }
+>         }
+>     }
+> ```
+>
+> * 자바19부터 도입: [https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html#close()](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html#close())
+> * `shutdown()`을 호출하고, 하루를 기다려도 작업이 완료되지 않으면 `shutdownNow()`를 호출한다
+> * 호출한 스레드에 인터럽트가 발생해도 `shutdownNow()`가 호출된다
+> * 자바 19 부터 `autocloseable` 인터페이스를 구현하는 것 같다. 아마 `try-with-resources` 방식으로 자원 관리가 가능할 것으로 보인다.
+{: .prompt-info }
+
+<br>
+
+다음은 자바 공식 문서에서 보여주는 예시이다.
+
+> The following method shuts down an `ExecutorService` in two phases, first by calling `shutdown` to reject incoming tasks, and then calling `shutdownNow`, if necessary, to cancel any lingering tasks:
+>
+> [https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html)
+
+```java
+void shutdownAndAwaitTermination(ExecutorService pool) {
+    pool.shutdown(); // Disable new tasks from being submitted
+    try {
+        // Wait a while for existing tasks to terminate
+        if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
+            pool.shutdownNow(); // Cancel currently executing tasks
+            // Wait a while for tasks to respond to being cancelled
+            if (!pool.awaitTermination(60, TimeUnit.SECONDS))
+                System.err.println("Pool did not terminate");
+        }
+    } catch (InterruptedException ex) {
+        // (Re-)Cancel if current thread also interrupted
+        pool.shutdownNow();
+        // Preserve interrupt status
+        Thread.currentThread().interrupt();
+    }
+}
+```
+
+<br>
+
+서비스 종료시 **기본적으로 우아한 종료를 선택하고, 종료되지 않으면 강제 종료를 하는 방식으로 접근**하는 것을 권장한다.
+
+<br>
+
+---
+
+## 5. 스레드 풀 관리
+
+### 스레드 풀 속성 알아보기
+
+`ExecutorService`는 다양한 구현체들을 제공한다. 몇 가지 구현체들을 살펴보자.
+
+<br>
+
+1. **`ThreadPoolExecutor`**
+   * **`corePoolSize`**
+     * **기본적으로 유지되는 스레드의 수**
+     * 초기에는 이 수만큼의 스레드가 생성되며, 작업이 있을 때만 활성화된다
+   * **`maximumPoolSize`**
+     * **스레드 풀에서 허용하는 최대 스레드 수**
+     * 작업 큐가 꽉 차면, 이 수만큼의 스레드가 생성되어 작업을 처리한다
+   * **`keepAliveTime`**
+     * `corePoolSize` 이상의 **여분의 스레드가 일정 시간 동안 작업이 없을 경우 종료되는 시간**
+   * **`workQueue`**
+     * 작업이 대기하는 큐 
+     * `BlockingQueue` 인터페이스를 구현한다.
+   * **`rejectedExecutionHandler`**
+     * 작업이 스레드 풀에서 처리될 수 없을 때 실행되는 핸들러
+     * 기본적으로 `AbortPolicy`, `CallerRunsPolicy`, `DiscardPolicy`, `DiscardOldestPolicy`를 제공한다
+     * 이 속성은 **뒤에서 자세히 알아볼 예정**이다
+2. **`ScheduledThreadPoolExecutor`**
+   * 주기적이거나 지연된 작업을 처리하기 위한 스레드 풀이다
+   * `ScheduledExecutorService` 인터페이스를 구현한다
+   * **스케줄링 기능**
+     * `schedule()`, `scheduleAtFixedRate()`, `scheduleWithFixedDelay()` 메서드를 통해 작업을 일정 시간 후에 실행하거나 주기적으로 실행할 수 있다
+   * **사용 상황**
+     * 타이머, 주기적인 작업 실행 등이 필요한 상황에서 사용할 수 있다
+3. **`ForkJoinPool`**
+   * `Fork/Join` 프레임워크를 기반으로 하는 구현체로, 작업을 작은 단위로 나누어 병렬로 처리한다
+   * **`parallelism`**
+     * 동시에 실행될 수 있는 최대 작업 수
+     * 기본적으로 `Runtime.getRuntime().availableProcessors()`를 사용하여 시스템의 코어 수를 기반으로 설정된다
+   * **작업 분할**: `RecursiveTask`와 `RecursiveAction`을 사용하여 작업을 작은 단위로 나누고 병렬로 처리할 수 있다
+   * **워크 스틸링**: 작업이 완료되지 않은 스레드가 다른 스레드의 작업 큐에서 남은 작업을 가져와 처리하는 방식으로, 작업의 균등한 분배를 보장한다
+   * **사용 상황**
+     * 대규모 데이터 처리, 병렬 알고리즘 실행, 등에 있어서 **하나의 작업이 다른 작업과 작업 속도가 차이가 난다면 효과적**일 수 있다
+
+<br>
+
+이 포스트에서는 `ThreadPoolExecutor`를 위주로 살펴볼 것이다. 다음의 스레드 풀을 사용한다고 하자.
+
+* **`BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2)`**
+  * 작업 큐는 `ArrayBlockingQueue`로 구현
+  * 크기는 `2`, 최대 2개의 작업까지 보관할 수 있다
+* **`new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue)`**
+  * `corePoolSize=2`
+  * `maximumPoolSize=4`
+  * `keepAliveTime=3000`
+    * 단위는 `TimeUnit.MILLISECONDS`
+  * 사용할 `BlockingQueue`는 위에서 생성한 `taskQueue`
+
+<br>
+
+이제 작업을 실행해보면서 스레드 풀에서 스레드의 생성 추이를 살펴보자.
+
+<br>
+
+---
+
+### 초기 상태 ~ corePoolSize
+
+우리가 이전에 만든 [`ExecutorUtils`](https://seungki1011.github.io/posts/java-30-executor-framework/#executorservice-%EC%98%88%EC%8B%9C)의 `printState`를 오버로딩하는 메서드를 만들자. `taskName`이 표시되도록 만들자. 다음 코드에서 사용하는 `RunnableTask`는 작업을 1초 동안 수행하는 작업이라고 하자.
+
+스레드를 아무것도 생성하지 않은 초기 상태에서 `corePoolSize`의 수 만큼 작업을 실행해보자.
+
+<br>
+
+```java
+@Slf4j
+public class ThreadPoolEx1Main {
+    public static void main(String[] args) {
+        BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2);
+        ExecutorService executor = new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue);
+
+        printState(executor);
+
+        executor.execute(new RunnableTask("task1"));
+        printState(executor, "task1");
+
+        executor.execute(new RunnableTask("task2"));
+        printState(executor, "task2");
+
+        executor.close();
+        log.info("--shutdown--");
+    }
+}
+```
+
+```json
+{
+  "message" : "[pool = 0, active = 0, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 -> [pool = 1, active = 1, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 시작",
+  "thread_name" : "pool-1-thread-1"
+}
+{
+  "message" : "task2 -> [pool = 2, active = 2, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task2 시작",
+  "thread_name" : "pool-1-thread-2"
+}
+{
+  "message" : "task1 완료",
+  "thread_name" : "pool-1-thread-1"
+}
+{
+  "message" : "task2 완료",
+  "thread_name" : "pool-1-thread-2"
+}
+{
+  "message" : "--shutdown--",
+  "thread_name" : "main"
+}
+```
+
+<br>
+
+초기 상태의 스레드 풀에서는 스레드가 생성되지 않았다. 작업이 추가될 때마다 스레드 풀의 스레드 개수와 `active` 스레드 개수가 증가하는 것을 확인할 수 있다.
+
+<br>
+
+---
+
+### corePoolSize ~ maximumPoolSize
+
+`corePoolSize=2`에서 `maximumPoolSize=4`의 수 만큼 작업을 실행해보자.
+
+<br>
+
+```java
+@Slf4j
+public class ThreadPoolEx1Main {
+    public static void main(String[] args) {
+        BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2);
+        ExecutorService executor = new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue);
+
+        printState(executor);
+
+        executor.execute(new RunnableTask("task1"));
+        printState(executor, "task1");
+
+        executor.execute(new RunnableTask("task2"));
+        printState(executor, "task2");
+
+        executor.execute(new RunnableTask("task3"));
+        printState(executor, "task3");
+
+        executor.execute(new RunnableTask("task4"));
+        printState(executor, "task4");
+
+        executor.close();
+        log.info("--shutdown--");
+    }
+}
+```
+
+```json
+{
+  "message" : "[pool = 0, active = 0, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 -> [pool = 1, active = 1, queuedTasks = 0, completedTasks = 0]",
+    "thread_name" : "main"
+  }
+{
+    "message" : "task1 시작",
+  "thread_name" : "pool-1-thread-1"
+}
+{
+  "message" : "task2 -> [pool = 2, active = 2, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task3 -> [pool = 2, active = 2, queuedTasks = 1, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task2 시작",
+  "thread_name" : "pool-1-thread-2"
+  }
+{
+  "message" : "task4 -> [pool = 2, active = 2, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+
+// 작업 시작~완료 관련 로그...
+
+{
+  "message" : "--shutdown--",
+  "thread_name" : "main"
+}
+```
+
+<br>
+
+보면 `task3`와 `task4`는 작업 큐에 보관된다. 스레드의 개수는 아직 `2`개로, 새롭게 생성되지 않은 것을 확인할 수 있다.
+
+<br>
+
+---
+
+### maximumPoolSize ~ 
+
+이번에는 `maxiumPoolSize=4` 보다 많은 작업을 추가해보자.
+
+<br>
+
+먼저 작업의 개수를 6개 까지 늘려보자. 
+
+```java
+@Slf4j
+public class ThreadPoolEx1Main {
+    public static void main(String[] args) {
+        BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2);
+        ExecutorService executor = new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue);
+
+        printState(executor);
+
+        // 기존 task1~4
+        
+        // task5,6 추가
+        executor.execute(new RunnableTask("task5"));
+        printState(executor, "task5");
+
+        executor.execute(new RunnableTask("task6"));
+        printState(executor, "task6");
+
+        executor.close();
+        log.info("--shutdown--");
+    }
+}
+```
+
+```json
+{
+  "message" : "[pool = 0, active = 0, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 -> [pool = 1, active = 1, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 시작",
+  "thread_name" : "pool-1-thread-1"
+}
+{
+  "message" : "task2 -> [pool = 2, active = 2, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task3 -> [pool = 2, active = 2, queuedTasks = 1, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task2 시작",
+  "thread_name" : "pool-1-thread-2"
+}
+{
+  "message" : "task4 -> [pool = 2, active = 2, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task5 -> [pool = 3, active = 3, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task5 시작",
+  "thread_name" : "pool-1-thread-3"
+}
+{
+  "message" : "task6 -> [pool = 4, active = 4, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+
+// 작업 시작~완료 관련 로그...
+
+{
+  "message" : "--shutdown--",
+  "thread_name" : "main"
+}
+```
+
+<br>
+
+현재 **작업 큐(`ArrayBlockingQueue<>(2)`)에는 최대 2개의 작업을 보관**할 수 있다. **작업 큐의 용량을 넘어선 작업을 요청하니, 이제서야 스레드 풀의 스레드 개수가 증가**하는 것을 확인할 수 있다. 이제 현재 스레드 풀의 스레드 갯수는 `maxiumPoolSize=4`에 도달했다. 쉽게 말해서서, 작업 큐에도 보관하지 못하는 상황이 와야 스레드의 개수가 늘어나기 시작한다.
+
+만약 **작업을 하나 더 추가해서 총 7개의 작업을 실행하면** 어떻게 될까? 코드로 한번 확인해보자.
+
+```java
+@Slf4j
+public class ThreadPoolEx1Main {
+    public static void main(String[] args) {
+        BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2);
+        ExecutorService executor = new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue);
+
+        printState(executor);
+
+        // 기존 task1~6
+        
+        // task 하나 더 추가
+        executor.execute(new RunnableTask("task7"));
+        printState(executor, "task7");
+
+        executor.close();
+        log.info("--shutdown--");
+    }
+}
+```
+
+```json
+{
+  "message" : "[pool = 0, active = 0, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task1 -> [pool = 1, active = 1, queuedTasks = 0, completedTasks = 0]",
+    "thread_name" : "main"
+  }
+{
+  "message" : "task1 시작",
+  "thread_name" : "pool-1-thread-1"
+}
+{
+  "message" : "task2 -> [pool = 2, active = 2, queuedTasks = 0, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+    "message" : "task2 시작",
+    "thread_name" : "pool-1-thread-2"
+}
+{
+    "message" : "task3 -> [pool = 2, active = 2, queuedTasks = 1, completedTasks = 0]",
+    "thread_name" : "main"
+  }
+{
+  "message" : "task4 -> [pool = 2, active = 2, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task5 -> [pool = 3, active = 3, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+{
+  "message" : "task6 -> [pool = 4, active = 4, queuedTasks = 2, completedTasks = 0]",
+  "thread_name" : "main"
+}
+Exception in thread "main" java.util.concurrent.RejectedExecutionException: Task de.executor_ex.RunnableTask@52815fa3 rejected from java.util.concurrent.ThreadPoolExecutor@74f6c5d8[Running, pool size = 4, active threads = 4, queued tasks = 2, completed tasks = 0]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1376)
+	at de.executor_ex.ThreadPoolEx1Main.main(ThreadPoolEx1Main.java:38)
+```
+
+<br>
+
+스레드의 개수가 `maxiumPoolSize=4` 만큼 생성되고, 작업 큐도 가득 차 있는 상태에서 작업을 추가하면 결국에 `RejectedExecutionException`이 발생한다.
+
+<br>
+
+---
+
+### keepAliveTime 초과하는 경우
+
+이번에는 작업이 모두 완료된 직후의 상태, **`keepAliveTime=3000`을 초과하는 경우의 상태**, 그리고 **종료를 한 바로 이후의 상태**를 살펴보자. `task7`은 `try-catch`로 처리하자.
+
+<br>
+
+```java
+@Slf4j
+public class ThreadPoolEx1Main {
+    public static void main(String[] args) {
+        BlockingQueue<Runnable> taskQueue = new ArrayBlockingQueue<>(2);
+        ExecutorService executor = new ThreadPoolExecutor(2, 4, 3000, TimeUnit.MILLISECONDS, taskQueue);
+
+        printState(executor);
+
+        // 기존 task1~6
+
+        try {
+            executor.execute(new RunnableTask("task7"));
+            printState(executor, "task7");
+        } catch (RejectedExecutionException e) {
+            log.error("maximumPoolSize 한계, workQueue 가득 참, task7 거절", e);
+        }
+        
+        // 작업 수행 완료
+        log.info("---작업 수행 완료---");
+        ThreadUtils.sleep(3000);
+        printState(executor);
+
+        // keepAliveTime 3초 초과 상태
+        log.info("---keepAliveTime 초과---");
+        ThreadUtils.sleep(3000);
+        printState(executor);
+        
+        // 종료 바로 이후 상태
+        executor.close();
+        log.info("---shutdown---");
+        printState(executor);
+    }
+}
+```
+
+```json
+{
+  "message" : "---작업 수행 완료---",
+  "thread_name" : "main"
+}
+{
+  "message" : "[pool = 4, active = 0, queuedTasks = 0, completedTasks = 6]",
+  "thread_name" : "main"
+}
+{
+  "message" : "---keepAliveTime 초과---",
+  "thread_name" : "main"
+}
+{
+  "message" : "[pool = 2, active = 0, queuedTasks = 0, completedTasks = 6]",
+  "thread_name" : "main"
+}
+{
+  "message" : "---shutdown---",
+  "thread_name" : "main"
+}
+{
+  "message" : "[pool = 0, active = 0, queuedTasks = 0, completedTasks = 6]",
+  "thread_name" : "main"
+}
+```
+
+* **작업 완료 직후**: 아직 `keepAliveTime`을 초과하지 않았기 때문에 스레드 4개가 모두 살아있다
+* **`keepAliveTime` 초과**: `keepAliveTime`을 초과했기 때문에, `corePoolSize`를 초과한 초과 스레드는 모두 스레드 풀에서 제거된다
+* **종료 이후**: 종료 이후에는 스레드 풀이 종료되고 스레드도 모두 제거된다
+
+<br>
+
+---
+
+## 6. 스레드 풀 관리 전략
+
+자바에서 스레드 풀을 생성하기 위해 제공하는 대표적인 세 가지 전략은 `newFixedThreadPool`, `newCachedThreadPool`, 그리고 `newSingleThreadExecutor`이다. 각 전략은 서로 다른 요구 사항에 맞게 설계되었으며, 다양한 시나리오에서 활용될 수 있다.
+
+<br>
+
+### 고정 풀 전략: newFixedThreadPool()
+
+```java
+public static ExecutorService newFixedThreadPool(int nThreads) {
+    return new ThreadPoolExecutor(nThreads, nThreads,
+                                  0L, TimeUnit.MILLISECONDS,
+                                  new LinkedBlockingQueue<Runnable>());
+}
+```
+
+* **`newFixedThreadPool(int nThreads)`**
+  * 고정된 수의 스레드를 유지하는 스레드 풀을 생성한다
+  * 스레드 풀은 항상 `nThreads` 개의 스레드를 유지하며, 작업이 제출될 때마다 이러한 스레드 중 하나가 사용된다
+  * 작업 큐 사이즈에는 제한이 없다(`LinkedBlockingQueue`)
+  * 스레드 풀이 가득 차 있는 상태에서 추가 작업이 제출되면, 작업은 작업 큐에 쌓이고, 이전 작업이 완료되면 대기 중인 작업이 실행된다
+
+<br>
+
+고정 풀 전략의 특징은 다음과 같다.
+
+* **고정된 스레드 수**: 설정된 스레드 수가 항상 유지됩니다. 이 수는 `nThreads`로 지정
+* **성능 예측 가능성**: 스레드 수가 고정되어 있기 때문에 CPU 및 메모리 사용량이 예측 가능하고, 리소스 관리가 용이하다
+* 큐 사이즈에 제한이 없어서 작업을 많이 담아둘 수 있다
+
+<br>
+
+고정 풀 전략의 사용에서 주의할 점은 다음과 같다.
+
+* **갑작스런 요청 증가**: 사용자 수가 예측이 되는 경우 안정적으로 서비스 운영이 가능하지만, 갑작스러운 사용자 또는 요청 폭증에 대응하기 힘들다.
+* **응답이 느린 상태지만 서버의 CPU, 메모리 사용량이 늘어나지 않은 경우**: 보통 고정 풀 전략이 원인이다. 사용자는 증가하는데 스레드의 수는 고정되어 있어서 작업 큐에 쌓여있을 확률이 높다.
+
+<br>
+
+**고정 풀 전략**은 사용자나 요청의 수가 예측이 가능하면 문제가 되지 않지만, **사용자가 늘어나는 상황에서는 유연하게 대응하기 힘들 수 있다**.
+
+<br>
+
+---
+
+### 캐시 풀 전략: newCachedThreadPool()
+
+```java
+public static ExecutorService newCachedThreadPool() {
+    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                  60L, TimeUnit.SECONDS,
+                                  new SynchronousQueue<Runnable>());
+}
+```
+
+* **`newCachedThreadPool()`**
+  * 필요에 따라 스레드를 동적으로 생성하고, 사용되지 않는 스레드를 재사용하는 스레드 풀을 생성한다
+  * 처음에는 스레드 풀이 비어 있다가 작업이 제출되면 새로운 스레드를 생성하여 작업을 처리한다
+  * 이전에 생성된 스레드는 일정 시간(기본 60초) 동안 재사용될 수 있으며, 이후에도 사용되지 않으면 제거된다
+  * 큐에 작업을 저장하지 않는다(`SynchronousQueue`)
+    * 생산자의 요청을 스레드 풀의 소비자 스레드가 직접 받아서 처리한다
+  * 모든 요청이 대기하지 않고 스레드가 바로바로 처리한다(빠른 처리)
+
+<br>
+
+> **`SynchronousQueue`**
+>
+> `BlockingQueue`의 구현체 중 하나이다.
+>
+> * **저장 공간이 없다**
+>   * 내부에 데이터를 저장하지 않는다
+>   * 생산자에 의해 데이터가 큐에 삽입되면, 반드시 그 데이터가 소비자에 의해 즉시 처리되어야 한다. 만약 소비자가 준비되어 있지 않다면, 생산자는 대기 상태에 놓인다.
+> * **핸드오프 (Hand-off) 메커니즘**
+>   * 생산자(즉, 데이터를 큐에 삽입하려는 스레드)가 데이터를 삽입할 때까지 대기하며, 소비자(즉, 데이터를 큐에서 가져오려는 스레드)가 준비될 때까지 기다린다
+>     * 쉽게 말해서, 생산자에 의해 데이터가 큐에 삽입되면, 반드시 그 데이터가 소비자에 의해 즉시 처리되어야 한다. 만약 소비자가 준비되어 있지 않다면, 생산자는 대기 상태에 놓인다.
+>   * 생산자와 소비자가 동시에 만나 데이터를 전달하는 방식으로 동작한다
+>   * 이 메커니즘 덕분에 `SynchronousQueue`는 매우 빠르게 데이터 전송을 할 수 있으며, 특히 생산자와 소비자 간의 작업을 밀접하게 동기화할 필요가 있을 때 유용하다
+    {: .prompt-info }
+
+<br>
+
+캐시 풀 전략의 특징은 다음과 같다.
+
+* **동적 스레드 생성**: 작업이 많을 때는 스레드가 계속 추가되며, 작업이 줄어들면 스레드 수가 자동으로 감소한다
+* **높은 유연성**: 작업의 양이 급격히 늘어나거나 줄어드는 상황에서 유용하다
+* **빠른 처리**: 기본 스레드가 없는 대신, 작업 요청이 오면 초과 스레드로 작업을 바로 처리하기 때문에 빠른 처리가 가능하다
+* **서버 자원 최대로 사용**: 초과 스레드 수에 제한이 없기 때문에 CPU, 메모리만 허용한다면 시스템의 자원을 최대로 사용할 수 있다
+
+<br>
+
+캐시 풀 전략 사용 시 주의점은 다음과 같다.
+
+* **시스템 자원 전부 사용**: 작업 수에 맞춰서 스레드 수가 변하기 때문에, 한꺼번에 요청이 폭증하면 서버의 자원을 모두 소모하고 서버가 다운될 수 있다
+  * 이런 유연성은 장점이 될 수 있지만, 동시에 단점도 될 수 있다
+* 서버가 감당할 수 있는 임계점을 넘지 않도록 잘 대응해야 한다
+
+<br>
+
+---
+
+### 사용자 정의 풀 전략
+
+**고정 풀 전략**과 **캐시 풀 전략**의 한계를 다시 살펴보자.
+
+* **고정 풀 전략의 한계**
+  * **스레드 수 고정**: 작업량이 급증하거나 감소할 때, 고정된 수의 스레드는 비효율적일 수 있다. 작업량이 많을 때는 스레드가 부족해 대기 시간이 길어지고, 작업량이 적을 때는 스레드가 불필요하게 많은 자원을 소비할 수 있다.
+* **캐시 풀 전략의 한계**
+  * **스레드 과도 생성**: 작업량이 급증할 때, 캐시 풀은 무제한으로 스레드를 생성할 수 있으므로 시스템 자원을 초과해 사용할 위험이 있다. 이로 인해 OOM(Out of Memory)와 같은 문제가 발생할 수 있다.
+
+<br>
+
+이런 문제를 해결하기 위해서 **사용자 정의 풀 전략**을 통해서 **상황을 세분화 해서 대응**할 수 있다.
+
+코드를 통해서 알아보자. 다음 코드는 요청의 수를 다음과 같이 **세분화 해서 각 요청 수 별로 결과를 살펴 볼 것**이다.
+
+* **일반**: `TASK_SIZE=600`
+  * 작업 큐에는 `500`, 기본 스레드 수는 `100`이기 때문에 감당 가능하다
+* **긴급**: `EMERGENT_TASK_SIZE=700`
+  * 작업 큐 `500`, 기본 스레드 수 `100`, 최대 스레드 수 `200`이기 때문에 초과 스레드 `100`개를 만들어서 대응할 수 있다
+* **요청 거절**: `REJECT_TASK_SIZE=701`
+  * 초과 스레드 `100`가 넘어사면 최대 스레드 수를 넘어간다. 요청을 거절한다.
+
+<br>
+
+코드를 한번 실행해보자.
+
+```java
+@Slf4j
+public class ThreadPoolStrategyMain {
+
+    // 요청 수
+    static final int TASK_SIZE = 600; // 1. 요청 증가 없는 평소의 상태
+    static final int EMERGENT_TASK_SIZE = 700; // 2. 요청 폭증 상태
+    static final int REJECT_TASK_SIZE = 701; // 3. 요청 폭증이 너무 많아서, 일정 수준 부터는 요청 거절
+
+    public static void main(String[] args) {
+
+        // 코어 스레드 수: 100, 최대 스레드 수: 200, keepAliveTime: 60초
+        int corePoolSize = 100;
+        int maximumPoolSize = 200;
+        long keepAliveTime = 60;
+
+        // 작업 큐: 최대 500개의 작업을 수용할 수 있는 큐
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(500);
+
+        // 스레드 풀 생성
+        ThreadPoolExecutor customThreadPool = new ThreadPoolExecutor(
+                corePoolSize,
+                maximumPoolSize,
+                keepAliveTime, TimeUnit.SECONDS,
+                workQueue);
+
+        log.info("==사용자 정의 스레드 풀 생성==");
+        printState(customThreadPool);
+
+        // 시작 시간
+        long startMs = System.currentTimeMillis();
+
+        for (int i = 1; i <= TASK_SIZE; i++) {
+            String taskName = "task" + i;
+            try {
+                customThreadPool.execute(new RunnableTask(taskName));
+                printState(customThreadPool, taskName);
+            } catch (RejectedExecutionException e) {
+                log.error("{}: ",taskName, e);
+            }
+        }
+
+        // 종료
+        customThreadPool.close();
+
+        // 끝나는 시간
+        long endMs = System.currentTimeMillis();
+        log.info("time: " + (endMs - startMs));
+    }
+}
+```
+
+* **`TASK_SIZE`로 실행**
+  * 시간 `6047ms`이 소요
+* **`EMERGENT_TASK_SIZE`로 실행**
+  * 시간 `3997ms` 소요
+  * 작업의 수는 늘었는데 소요 시간이 줄어든 이유는 **초과 스레드까지 합세해서 요청을 처리하기 때문**이다
+
+<br>
+
+정리하자면, 상황에 맞춰어서 **기본 스레드 수**와 **최대 스레드 수**를 정하고, **서버가 감당할 수 없는 만큼 요청이 몰리면 특정 임계점 부터는 요청을 거절하고 사용자에게 메세지를 보내는 방식으로 대응**할 수 있다.
+
+<br>
+
+> **`LinkedBlockingQueue` 사용시 주의점**
+>
+> 기본 생성자로 만든 `LinkedBlockingQueue`는 무한대의 사이즈를 가지기 때문에 작업 큐가 가득차지 않는다. 작업 큐가 가득 차지 않는 다는 뜻은 `maximumPoolSize`를 활용할 수 없다는 뜻이고, `maximumPoolSize`를 활용할 수 없다는 뜻은 세분화 해서 대응할 수 없다는 뜻이다.
+{: .prompt-info }
+
+<br>
+
+---
+
+## 7. 스레드 풀 예외 처리 정책: RejectedExecutionHandler
+
+### 예외 처리 정책 소개
+
+스레드 풀에서 예외가 발생했을 때 이를 어떻게 처리할지 정의하는 것이 매우 중요하다. 자바의 `ThreadPoolExecutor` 클래스는 **작업이 큐에 제출될 때, 큐가 가득 차거나 스레드 풀의 최대 용량에 도달했을 때 발생할 수 있는 예외 상황을 처리**하기 위한 다양한 **예외 처리 정책(RejectedExecutionHandler)**을 제공한다.
+
+제공하는 정책은 다음과 같다.
+
+* **AbortPolicy(기본 정책)**
+  * **동작**: 작업이 거부되면 `RejectedExecutionException` 예외를 던진다
+    * 예외를 잡아서 작업을 포기하거나, 다시 시도하거나, 사용자에게 알리거나, 등 필요한 로직을 구현하면 된다
+  * **사용 사례**: 예외 상황에서 즉시 작업을 중단하고 오류를 알리려는 경우에 적합하다. 이는 개발자가 오류를 감지하고 적절한 조치를 취할 수 있도록 한다.
+  * 기본 정책이기 때문에, 정책을 생략하는 경우 `AbortPolicy`로 동작한다
+* **DiscardPolicy**
+  * **동작**: 작업이 거부될 경우, 아무런 예외도 발생시키지 않고 작업을 버린다.
+  * **사용 사례**: 시스템이 과부하 상태에 있을 때, 덜 중요한 작업을 포기하고 시스템의 안정성을 유지하려는 경우에 적합하다. 그러나 작업이 손실될 수 있으므로 신중히 사용해야 한다.
+* **DiscardOldestPolicy**
+  * **동작**: 큐에서 가장 오래된 작업을 제거하고, 새 작업을 큐에 삽입한다
+  * **사용 사례**: 최신 작업이 더 중요하다고 판단되며, 오래된 작업을 희생해서라도 새로운 작업을 처리해야 하는 상황에서 유용하다
+  * **DiscardPolicy**와 마찬가지로 작업 손실의 위험이 있다
+* **CallerRunsPolicy**
+  * **동작**: 작업이 거부될 경우, 해당 작업을 호출한 스레드에서 직접 실행한다. 즉, 새로운 스레드를 생성하거나 기존 스레드를 재사용하지 않고, 호출자 스레드가 작업을 처리하게 하는 것이다.
+  * **사용 사례**: 큐가 가득 차더라도 작업이 포기되지 않고 반드시 처리되어야 하는 상황에서 사용될 수 있다. 다만, 호출자 스레드가 추가적인 작업을 처리하게 되어 전체 시스템 성능에 영향을 줄 수 있다. 쉽게 말해서, 작업을 요청하는 스레드가 느려질 수 있다.
+* **RejectedExecutionHandler(사용자 정의 정책)**
+  *  `RejectedExecutionHandler` 인터페이스를 구현 하여 자신만의 거절 처리 전략을 정의할 수 있다
+
+<br>
+
+다음 예시를 통해 사용법을 알아보자.
+
+```java
+ExecutorService executor = new ThreadPoolExecutor(1, 1, 
+                                                  0, TimeUnit.SECONDS, 
+                                                  new SynchronousQueue<>(), 
+                                                  new ThreadPoolExecutor.CallerRunsPolicy());
+```
+
+* 가장 뒤에 `new ThreadPoolExecutor.CallerRunsPolicy()` 속성을 추가해서 사용한다
+* 아무 속성도 지정하지 않으면 기본 정책인 `AbortPolicy()`로 동작한다
+
+<br>
+
+---
+
+### 사용자 정의 정책: RejectedExecutionHandler
+
+사용자 정의 정책을 구현하는 방법은 다음과 같다.
+
+```java
+public class CustomRejectedExecutionHandler implements RejectedExecutionHandler {
+    @Override
+    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+        System.out.println("Task " + r.toString() + " rejected. Retrying...");
+        try {
+            // 일정 시간 대기 후 재시도
+            Thread.sleep(1000);
+            executor.execute(r);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+```
+
+* **`RejectedExecutionHandler`**는 스레드 풀이 작업을 거부할 때 그 상황을 처리하기 위한 정책을 정의하는 인터페이스이다
+  * 이 인터페이스는 `void rejectedExecution(Runnable r, ThreadPoolExecutor executor)`이라는 하나의 메서드를 가지고 있다
+* 사용자 정의 정책을 통해서 시스템의 요구 사항에 맞는 거절 정책을 구현할 수 있다
+
+<br>
+
+---
+
 ## Reference
 
 1. [이것이 자바다!](https://www.google.co.kr/books/edition/%EC%9D%B4%EA%B2%83%EC%9D%B4_%EC%9E%90%EB%B0%94%EB%8B%A4_%EA%B0%9C%EC%A0%95%ED%8C%90/SLWGEAAAQBAJ?hl=ko&gbpv=0)
 1. [김영한: 실전 자바 로드맵](https://www.inflearn.com/roadmaps/744)
-
-
-
-
 
