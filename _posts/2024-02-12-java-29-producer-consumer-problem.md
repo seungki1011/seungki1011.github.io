@@ -289,7 +289,7 @@ public class ProduceConsumeMain {
 
 생산자 우선 실행하는 경우의 결과.
 
-```
+```json
 {"@timestamp":"2024-07-16T16:16:24.435197+09:00","message":"-- [생산자 우선 실행] 시작: BoundedQueueV1 --","thread_name":"main"}
 
 {"@timestamp":"2024-07-16T16:16:24.438964+09:00","message":"-- 생산자 시작 --","thread_name":"main"}
@@ -348,7 +348,7 @@ public class ProduceConsumeMain {
 
 ![p1](../post_images/2024-02-12-java-29-producer-consumer-problem/p1.png)_생산자 스레드는 버퍼에 데이터를 저장한다_
 
-```
+```json
 {"@timestamp":"2024-07-16T16:16:24.435197+09:00","message":"-- [생산자 우선 실행] 시작: BoundedQueueV1 --","thread_name":"main"}
 
 {"@timestamp":"2024-07-16T16:16:24.438964+09:00","message":"-- 생산자 시작 --","thread_name":"main"}
@@ -367,7 +367,7 @@ public class ProduceConsumeMain {
 
 ![p3](../post_images/2024-02-12-java-29-producer-consumer-problem/p3.png)_버퍼가 가득 찬 상태: 데이터 저장을 시도하면 해당 데이터는 버린다_
 
-```
+```json
 {"@timestamp":"2024-07-16T16:16:24.647557+09:00","message":"[생산 시도] data3 -> [data1, data2]","thread_name":"producer3"}
 {"@timestamp":"2024-07-16T16:16:24.648038+09:00","message":"[put()] 큐가 가득 참. 해당 데이터 버림: data3","thread_name":"producer3"}
 {"@timestamp":"2024-07-16T16:16:24.648304+09:00","message":"[생산 완료] data3 -> [data1, data2]","thread_name":"producer3"}
@@ -387,7 +387,7 @@ public class ProduceConsumeMain {
 
 ![c1](../post_images/2024-02-12-java-29-producer-consumer-problem/c1.png)_소비자 스레드 시작_
 
-```
+```json
 {"@timestamp":"2024-07-16T16:16:24.75336+09:00","message":"-- 소비자 시작 --","thread_name":"main"}
 {"@timestamp":"2024-07-16T16:16:24.754042+09:00","message":"[소비 시도]    ? <- [data1, data2]","thread_name":"consumer1"}
 {"@timestamp":"2024-07-16T16:16:24.754312+09:00","message":"[소비 완료] data1 <- [data2]","thread_name":"consumer1"}
@@ -588,7 +588,7 @@ public synchronized String take() {
 
 생산자 우선으로 실행한 결과.
 
-```
+```json
 {"@timestamp":"2024-07-16T01:06:45.145241+09:00","message":"-- [생산자 우선 실행] 시작: BoundedQueueV3 --","thread_name":"main"}
 
 {"@timestamp":"2024-07-16T01:06:45.148979+09:00","message":"-- 생산자 시작 --","thread_name":"main"}
@@ -638,7 +638,7 @@ public synchronized String take() {
 
 ![wait_notify](../post_images/2024-02-12-java-29-producer-consumer-problem/wait_notify.png)_p3: wait()를 통해서 락 반납, 대기 큐에서 기다리기_
 
-```
+```json
 {"@timestamp":"2024-07-16T01:06:45.359701+09:00","message":"[생산 시도] data3 -> [data1, data2]","thread_name":"producer3"}
 {"@timestamp":"2024-07-16T01:06:45.359993+09:00","message":"[put()] 큐가 가득 참, 생산자 대기...","thread_name":"producer3"}
 
@@ -654,9 +654,9 @@ public synchronized String take() {
 
 <br>
 
-![c1_notify_p3_blocked](../post_images/2024-02-12-java-29-producer-consumer-problem/c1_notify_p3_blocked.png)_c1: 데이터를 획득하고 notify() 호출_
+![c1_notify_p3_blocked](../post_images/2024-02-12-java-29-producer-consumer-problem/c1_notify_p3_blocked.png)_데이터를 획득하고 notify() 호출_
 
-```
+```json
 {"@timestamp":"2024-07-16T01:06:45.466557+09:00","message":"-- 소비자 시작 --","thread_name":"main"}
 {"@timestamp":"2024-07-16T01:06:45.468132+09:00","message":"[소비 시도]   ? <- [data1, data2]","thread_name":"consumer1"}
 {"@timestamp":"2024-07-16T01:06:45.468664+09:00","message":"[take()] 소비자 데이터 획득, notify() 호출","thread_name":"consumer1"}
