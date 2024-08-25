@@ -72,14 +72,14 @@ layout: page
   </div>
   <!-- .card -->
   
+  <script>
+    function cardClick(event, url) {
+      // 클릭한 요소가 a 태그라면(예: GitHub 링크), 포스트 이동을 막음
+      if (event.target.tagName.toLowerCase() !== 'a') {
+        window.location.href = url;
+      }
+    }
+  </script>
+
   {% assign group_index = group_index | plus: 1 %}
 {% endfor %}
-
-<script>
-  function cardClick(event, url) {
-    // 클릭한 요소가 a 태그라면(예: GitHub 링크), 포스트 이동을 막음
-    if (event.target.tagName.toLowerCase() !== 'a') {
-      window.location.href = url;
-    }
-  }
-</script>
