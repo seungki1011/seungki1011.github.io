@@ -16,15 +16,6 @@ layout: compress
 <html lang="{{ page.lang | default: site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
   
-  <script>
-    function cardClick(event, url) {
-      // 클릭한 요소가 a 태그거나, 카드 내에서 이미 a 태그 내부에 있는 경우 포스트 이동을 막음
-      if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
-        window.location.href = url;
-      }
-    }
-  </script>
-
   <body>
     {% include sidebar.html lang=lang %}
 
@@ -87,5 +78,13 @@ layout: compress
     {% include js-selector.html lang=lang %}
 
     {% include_cached search-loader.html lang=lang %}
+    <script>
+      function cardClick(event, url) {
+        // Prevent navigation if an <a> tag or a descendant is clicked
+        if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
+          window.location.href = url;
+        }
+      }
+    </script>
   </body>
 </html>
