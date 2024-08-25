@@ -108,6 +108,11 @@
   .categories.card,
   .list-group-item {
     background-color: var(--card-bg);
+    color: var(--text-color);
+    // 아래 주석을 풀면, 다크 모드에서 프로젝트 카드의 볼드체는 흰색
+    // strong {
+    //   color: var(--text-color); 
+    // }
   }
 
   .categories {
@@ -126,6 +131,29 @@
       }
     }
   }
+
+  /* projects */
+  // .projects.card,
+  // .list-group-item {
+  //   background-color: var(--card-bg);
+  // }
+
+  // .projects {
+  //   .card-header {
+  //     background-color: var(--card-header-bg);
+  //   }
+
+  //   .list-group-item {
+  //     border-left: none;
+  //     border-right: none;
+  //     padding-left: 2rem;
+  //     border-color: var(--categories-border);
+
+  //     &:last-child {
+  //       border-bottom-color: var(--card-bg);
+  //     }
+  //   }
+  // }
 
   #archives li:nth-child(odd) {
     background-image: linear-gradient(

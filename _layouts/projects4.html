@@ -1,0 +1,85 @@
+---
+layout: page
+# All the Projects under the "Project" category
+---
+
+{% assign project_category = 'Project' %}
+
+{% assign sub_categories = '' | split: '' %}
+{% assign sort_sub_categories = site.categories[project_category] | sort %}
+
+{% for post in sort_sub_categories %}
+  {% assign second_category = post.categories[1] %}
+  {% if second_category %}
+    {% unless sub_categories contains second_category %}
+      {% assign sub_categories = sub_categories | push: second_category %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% assign sub_categories = sub_categories | sort %}
+{% assign sub_categories_size = sub_categories | size %}
+
+{% for sub_category in sub_categories %}
+  {% assign posts_of_sub_category = site.categories[sub_category] %}
+  {% assign first_post = posts_of_sub_category | first %}
+  
+  {% assign first_post = site.categories[sub_category] | first %}
+  {% assign first_post_url = first_post.url %}
+  
+  {% capture _sub_category_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
+  <div class="card categories mb-4" onclick="cardClick(event, '{{ _sub_category_url | relative_url }}')">
+    <div class="project-preview">
+    <!-- Sub-category as project card header -->
+    <div class="card-header d-flex justify-content-between">
+      <span class="ms-2">
+        <i class="far fa-folder fa-fw"></i>
+
+        <!-- {% capture _sub_category_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %} -->
+        <a href="{{ _sub_category_url | relative_url }}" class="h5">{{ sub_category }}</a>
+      </span>
+    </div>
+  
+
+    <!-- Project information -->
+    
+    <div class="card-body">
+      <p class="project-intro"><strong></strong> {{ first_post.project_overview }}</p>
+
+      <!-- Flexbox container for duration and team size -->
+      <div class="d-flex project-details">
+          <p class="mb-0">
+          <i class="far fa-calendar fa-fw me-1"></i>
+          {{ first_post.project_start_date }} ~ {{ first_post.project_end_date }}
+          </p>
+          <p class="mb-0" style="margin-left: 2rem;">
+          <strong>참여 인원:&nbsp;</strong> {{ first_post.project_team_size }}명
+          </p>
+          <!-- Project organization (conditionally displayed) -->
+          {% if first_post.project_organization %}
+            <p class="mb-0" style="margin-left: 2rem;"><strong>단체:&nbsp;</strong> {{ first_post.project_organization }}</p>
+          {% endif %}
+      </div>
+      <p class="project-details"><strong>주제:&nbsp;</strong> {{ first_post.project_topic }}</p>
+      <p class="project-details"><strong>기술 스택:&nbsp;</strong> {{ first_post.project_tech_stack }}</p>
+      <p class="project-details"><strong>깃헙:&nbsp;</strong><a href="{{ first_post.project_github }}" target="_blank">
+        {{ first_post.project_github }}</a></p>
+
+    </div>
+    </div>
+    <!-- .card-body -->
+
+  </div>
+  <!-- .card -->
+  
+  {% assign group_index = group_index | plus: 1 %}
+{% endfor %}
+
+<script>
+  function cardClick(event, url) {
+    // 클릭한 요소가 a 태그라면(예: GitHub 링크), 포스트 이동을 막음
+    if (event.target.tagName.toLowerCase() !== 'a') {
+      window.location.href = url;
+    }
+  }
+</script>
