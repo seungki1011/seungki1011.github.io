@@ -41,7 +41,8 @@ layout: page
   {% assign first_post_url = first_post.url %}
   
   {% capture _sub_category_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
-  <div class="card categories mb-4" onclick="cardClick(event, '{{ _sub_category_url | relative_url }}')">
+  <!-- <div class="card categories mb-4" onclick="cardClick(event, '{{ _sub_category_url | relative_url }}')"> -->
+  <div class="card categories mb-4" onclick="location.href='{{ _sub_category_url | relative_url }}'">
     <div class="project-preview">
     <!-- Sub-category as project card header -->
     <div class="card-header d-flex justify-content-between">
