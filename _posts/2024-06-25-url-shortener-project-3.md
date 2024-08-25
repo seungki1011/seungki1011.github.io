@@ -8,11 +8,18 @@ tags: [project, backend, transaction, trouble-shooting, spring]
 pin: true
 math: true
 mermaid: true
+project_overview: "스프링 부트 연습을 위해 Bitly와 같은 URL 단축기를 만들어보는 토이 프로젝트입니다."
+project_start_date: "2023/06/23"
+project_end_date: "2023/07/13"
+project_topic: "백엔드"
+project_tech_stack: "Java17, Lombok, H2 2.2.224, SpringBoot 3.3.1, JPA(Hibernate), JUnit5, Thymeleaf"
+project_team_size: 1
+project_github: "https://github.com/seungki1011/url-shortener"
 ---
 
 ---
 
-## 엔티티 클래스 작성
+## 1. 엔티티 클래스 작성
 
 원본 URL과 숏코드를 저장할 엔티티 클래스.
 
@@ -51,20 +58,15 @@ public class UrlMapping {
         this.shortcode = shortcode;
     }
 
-    /*
-      추후 회원 가입 기능을 추가할 때 사용
-     */
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "member_id")
-    // private Member member;
-
 }
 ```
 
 * `incrementViewCount()` : 단축 URL을 통해 원본 URL을 조회할 때, 해당 단축 URL의 `viewCount`를 `1` 증가시키고, 조회 시간(`viewedAt`)을 업데이트 한다
 * 숏코드를 생성하기 위한 로직도 전부 엔티티 클래스에 작성할지 고민 했으나, 일단은 서비스 계층에서 구현하기로 했다
-* 숏코드 생성 알고리즘 자체는 유틸 클래스로 빼서 작성(Base62 인코더, 해시 함수)
-* 빌더 클래스는 사용하지는 않기로 함
+* 숏코드 생성 알고리즘 자체는 유틸 클래스로 분리한다
+  * 예: Base62 인코더, 해시 함수
+
+* 빌더 클래스는 사용하지는 않기로 했다
 
 <br>
 
@@ -74,7 +76,7 @@ public class UrlMapping {
 
 ---
 
-## 이슈 1 : UnexpectedRollbackException
+## 2. 이슈 1 : UnexpectedRollbackException
 
 ### 이슈 발생 배경
 
@@ -288,7 +290,7 @@ public class TestDuplicateShortcode {
 
 자세히 들어가기 전에 먼저 트랜잭션의 전파에 대해 복습해보자.
 
-트랜잭션이 이미 진행중인 상황에서 추가로 트랜잭션을 수행하게 되는 경우 어떻게 동작할까? 트랜잭션 중에 새로운 트랜잭션이 수행되는 경우 어떻게 동작할지 결정하는 것을 트랜잭션 전파(Transaction Propogation)라고 한다.
+트랜잭션이 이미 진행중인 상황에서 추가로 트랜잭션을 수행하게 되는 경우 어떻게 동작할까? **트랜잭션 중에 새로운 트랜잭션이 수행되는 경우 어떻게 동작할지 결정하는 것을 트랜잭션 전파(Transaction Propogation)**라고 한다.
 
 스프링에서 이런 트랜잭션 전파의 속성을 설정할 수 있으며, 기본 옵션은 `REQUIRED`이다. `REQUIRED`의 경우 트랜잭션 전파는 다음과 같이 동작한다.
 
@@ -301,7 +303,7 @@ public class TestDuplicateShortcode {
 
 <br>
 
-* 디폴트 옵션인 `REQUIRED`는 다음의 기본 원칙을 가진다
+* **디폴트 옵션인 `REQUIRED`는 다음의 기본 원칙**을 가진다
   * 모든 논리 트랜잭션이 커밋되어야 물리 트랜잭션이 커밋된다
   * 하나의 논리 트랜잭션이라도 롤백되면, 전체 트랜잭션도 롤백된다
 
@@ -317,7 +319,7 @@ public class TestDuplicateShortcode {
 
 <br>
 
-여기서 알 수 있는 것은, 만약 나의 서비스 계층과 레포지토리 계층에 전부 `@Transactional`을 설정해서 사용하더라도, 전파 옵션이 `REQUIRED`로 설정되어 있는 한, 하나의 트랜잭셔이라도 `rollback-only`로 표시되어 있으면 전체 트랜잭션도 롤백된다. 
+여기서 알 수 있는 것은, 만약 나의 서비스 계층과 레포지토리 계층에 전부 `@Transactional`을 설정해서 사용하더라도, **전파 옵션이 `REQUIRED`로 설정되어 있는 한, 하나의 트랜잭셔이라도 `rollback-only`로 표시되어 있으면 전체 트랜잭션도 롤백**된다. 
 
 아래 그림은 레포지토리 계층의 `save()`에 `@Transactional`을 적용하는 경우이다.
 
@@ -325,7 +327,7 @@ public class TestDuplicateShortcode {
 
 ![clickreq](../post_images/2024-06-25-url-shortener-project-3/required.png){: width="972" height="589" }_현재 프로젝트의 레포지토리 계층에 @Transactional을 적용하는 경우_
 
-* 이전에 레포지토리 계층의 `save()`에 `@Transactional`을 적용하지 않았던 케이스와 다른 점은
+* 이전에 레포지토리 계층의 `save()`에 `@Transactional`을 적용하지 않았던 케이스와 다른 점은 다음과 같다.
   * 전체 트랜잭션이 `rollback-only`로 표시되는 것이 아니라, 내부 트랜잭션인 `트랜잭션2`가 `rollback-only`로 표시된다.
   * 외부 트랜잭션의 커밋 시점에서 `rollback-only`를 확인해서 `UnexpectedRollbackException`가 발생한다.
 
@@ -341,7 +343,7 @@ public class TestDuplicateShortcode {
 
 전파 옵션인 `Propagation.REQUIRES_NEW`를 사용하게 되면, 항상 새로운 트랜잭션을 만들게 된다. 
 
-쉽게 말해서 외부 트랜잭션과 내부 트랜잭션을 완전히 분리해서 사용할 수 있게 된다. 완전히 분리해서 별도의 물리 트랜잭션으로 사용하기 때문에, 당연히 커밋과 롤백도 각각 별도로 이루어지게 된다. 이렇게 되면 트랜잭션이 `rollback-only`로 표시되어 롤백되어도 다른 트랜잭션에 영향을 주지 않는다.
+쉽게 말해서 **외부 트랜잭션과 내부 트랜잭션을 완전히 분리해서 사용할 수 있게** 된다. 완전히 분리해서 별도의 물리 트랜잭션으로 사용하기 때문에, 당연히 **커밋과 롤백도 각각 별도로 이루어지게 된다**. 이렇게 되면 트랜잭션이 `rollback-only`로 표시되어 롤백되어도 다른 트랜잭션에 영향을 주지 않는다.
 
 <br>
 
@@ -349,7 +351,7 @@ public class TestDuplicateShortcode {
 
 <br>
 
-결론적으로 `UnexpectedRollbackException`를 해결하기 위해서는 레포지토리 계층 `save()`의 트랜잭션의 전파 속성을 `REQUIRES_NEW`로 사용하면 해결할 수 있을거로 예상이 된다.
+결론적으로 **`UnexpectedRollbackException`를 해결하기 위해서는 레포지토리 계층 `save()`의 트랜잭션의 전파 속성을 `REQUIRES_NEW`로 사용하면 해결할 수 있을거로 예상**이 된다.
 
 <br>
 
@@ -401,7 +403,7 @@ public String handleShortcodeDuplication(String originalUrl) {
 
 <br>
 
-`UrlMappingRepository`
+`UrlMappingRepository`: 레포지토리의 `save()`에 `Propagation.REQUIRES_NEW` 적용
 
 ```java
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -412,19 +414,17 @@ public void save(UrlMapping urlMapping) {
 
 <br>
 
-테스트 코드를 실행해보면 이전과 다르게 전부 통과하는 것을 확인할 수 있다.
+테스트 코드를 실행해보면 전부 통과하는 것을 확인할 수 있다.
 
 <br>
 
 ![clickreq](../post_images/2024-06-25-url-shortener-project-3/test.png){: width="640" height="150" }_테스트 코드 실행_
 
-
-
 <br>
 
 ---
 
-## 이슈 2 : 리다이렉트 실패
+## 3. 이슈 2 : 리다이렉트 실패
 
 ### 이슈 발생 배경
 
@@ -476,21 +476,21 @@ public void save(UrlMapping urlMapping) {
 
 다음 두 가지 방법을 생각했다. (클라이언트 사이드는 배제)
 
-먼저 정규 표현식으로 사용자가 입력한 URL을 특정 패턴(프로토콜 여부, ASCII 이외의 문자인지 여부)에 속하는지 검증한다.
+먼저 정규 표현식으로 **사용자가 입력한 URL을 특정 패턴(프로토콜 여부, ASCII 이외의 문자인지 여부)에 속하는지 검증**한다.
 
-1. 검증에 통과하지 못하면 오류를 발생시키고, 알맞은 URL을 입력하라고 메세지를 보여준다
+1. **검증에 통과하지 못하면 오류를 발생시키고, 알맞은 URL을 입력하라고 메세지를 보여준다**
    * 패턴 검증
    * 검증 실패시 오류 발생
    * 해당 오류 메세지를 출력
-2. 프로토콜 검증에 통과하지 못하는 경우 자동으로 `http://`를 붙여준다
+2. 앞에 프로토콜을 붙이지 않는 경우 자동으로 `http://`를 붙여준다
 
 <br>
 
-이 중에서 1번 방법을 사용했다. 이유는 다음과 같다.
+이 중에서 **1번 방법을 사용**했다. 이유는 다음과 같다.
 
 * 상대적으로 구현하기 쉽다
 * 프로토콜이 붙었는지 검증하는 것도 포함해서, URL로 사용하는 것이 어려운 문자(한글, ASCII에 포함되지 않는 문자, 몇몇 특수 문자)가 들어가는 경우까지 한번에 검증할 수 있다
-* 2번의 경우 클라이언트 사이드에서 해당 로직을 구현하는 것이 효율적일거라고 생각했다
+* 2번은 클라이언트 사이드에서 해당 로직을 구현하는 것이 효율적일거라고 생각했다
 
 <br>
 
@@ -626,44 +626,43 @@ public String shortenUrl(@ModelAttribute("urlShortenRequest") @Validated UrlShor
 
 ---
 
-## 중간 점검
+## 4. 중간 점검
 
-추가해야할 부분과 개선점 등을 생각해보자.
+추가해야할 부분과 개선점 등을 생각해봤다.
 
 * 굳이 `/shorten`을 경로로 매핑할 필요가 없을 것 같다. `/`을 사용하는 것을 고려하자
 
 * 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링을 고려하자
   * URL에 대한 다양한 API를 제공한다
-  * (옵션) 사용자가 입력한 URL이 정말 존재하는 URL인지 확인하는 로직 (UrlConnection 사용 고려)
+  * `UrlConnection` 사용 고려: 사용자가 입력한 URL이 정말 존재하는 URL인지 확인하는 로직을 추가할 수 있다
 
 * 에러 페이지를 만들자
-  * `404`,`500`, `4xx` 등..
+  * `404`, `500`, `4xx` 등..
   * 스프링 부트가 제공하는 에러 페이지 기능을 활용하면 된다
 
 * 중복 숏코드를 처리하는 로직을 반복문을 사용하도록 수정하자
+  * 중복되지 않을 때 까지 계속 검사
+
 
 
 * `@ExceptionHandler`, `@ControllerAdvice`를 사용헤서 `GlobalExceptionHandler`를 만들어서 예외를 전역으로 처리하자 (서비스 계층에서 예외 처리하지 않도록 리팩토링)
 * 필요한 추가적인 예외 핸들링은 다음과 같다
   * 숏코드를 통해 상세정보를 확인할때 해당 숏코드가 DB에 존재하지 않는 경우
-  * 단축URL을 통한 요청(`GET: /{shortcode}`)을 하는 경우 해당 숏코드가 DB에 존재하지 않는 경우
+  * 단축URL을 통한 요청(`GET: /{shortcode}`)을 할 때 해당 숏코드가 DB에 존재하지 않는 경우
   * 숏코드가 7자리가 아니거나 Base62가 아닌 경우
 
 
 * 매개 변수가 많으면 빌더 패턴을 사용하는 것을 고려하자
-* 로그를 AOP로 처리하는 방법을 찾아보자
-
-* 다음 프로젝트에서는 스프링 데이터 JPA 사용하자
+* 다음 프로젝트에서는 스프링 데이터 JPA를 사용하자
   * 레포지토리 계층의 구현이 더 간단해진다
-  * `Audit`과 더불어서 많은 편의 기능을 제공
-
-* 테스트 주도 개발(TDD)이나 테스트 프레임워크(Junit5, MockMvc)에 대한 공부가 필요하다
+  * `Audit`과 더불어서 많은 편의 기능을 제공한다
+* 테스트 주도 개발(TDD)이나 테스트 프레임워크(Junit5, MockMvc)에 대한 공부가 필요하다(~~지금은 그냥 감으로 테스트 코드 작성 중~~...)
 
 <br>
 
 ---
 
-## 개선 : 예외를 전역으로 처리
+## 5. 개선 : 예외를 전역으로 처리
 
 `@ExceptionHandler`와 `@ControllerAdvice`를 사용해서 컨트롤러에서 예외를 처리하지 않고 `GlobalExceptionHandler`를 만들어서 전역으로 처리했다.
 
@@ -776,23 +775,10 @@ public class GlobalExceptionHandler {
 
 <br>
 
----
-
-## 개선 목록
-
-- [ ] 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링
-- [x] 에러 페이지를 만들기
-- [x] 중복 숏코드를 처리하는 로직을 반복문을 사용하도록 수정
-- [ ] 로그를 AOP로 처리
-- [ ] 빌더 패턴 사용
-- [x] `@ExceptionHandler`, `@ControllerAdvice`를 사용헤서 `GlobalExceptionHandler`를 만들어서 예외를 전역으로 처리
-  - [x] 숏코드를 통해 상세정보를 확인할때 해당 숏코드가 DB에 존재하지 않는 경우
-  - [x] 단축URL을 통한 요청(`GET: /{shortcode}`)을 하는 경우 해당 숏코드가 DB에 존재하지 않는 경우
-  - [x] 중복된 숏코드 처리 중에 재생성 횟수가 최대 재생성 횟수를 넘어가는 경우
-  - [ ] 숏코드가 7자리가 아니거나 Base62가 아닌 경우
-
+> 이렇게 하는게 맞는건지 모르겠다. 대부분 자료도 서버 사이트 렌더링이 아닌 REST API를 기준으로 작성되어 있다.
+{: .prompt-warning }
 
 <br>
 
-다음 포스트에서는 API 컨트롤러의 개발과 API 예외 처리에 대한 내용을 다룰 예정이다.
+다음 포스트에서는 API 설계에 대한 내용을 다룰 예정이다.
 

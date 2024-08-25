@@ -8,164 +8,58 @@ tags: [project, backend]
 pin: true
 math: true
 mermaid: true
+project_overview: "스프링 부트 연습을 위해 Bitly와 같은 URL 단축기를 만들어보는 토이 프로젝트입니다."
+project_start_date: "2023/06/23"
+project_end_date: "2023/07/13"
+project_topic: "백엔드"
+project_tech_stack: "Java17, Lombok, H2 2.2.224, SpringBoot 3.3.1, JPA(Hibernate), JUnit5, Thymeleaf"
+project_team_size: 1
+project_github: "https://github.com/seungki1011/url-shortener"
 ---
 
 ---
 
-## 요구 사항
+## 1. 요구 사항
 
 요구 사항을 정해보자.
 
-필수적인 요구사항과 옵션인 요구사항을 구분해서 정리해보자.
-
-* 필수
+* SSR(타임 리프로 구현)
   * 메인 페이지에서 바로 URL을 입력할 수 있는 폼
-  * 입력한 URL에 대한 단축 URL을 제공
-  * HTTP API로도 제공
-  * 동일한 URL에 대해서도 다른 숏코드가 존재할 수 있다
-  * 클릭수 추적
-
-
-
-* 옵션
-  * 단축 URL에 비밀번호를 설정하는 기능
-  * 단축 URL에 유효기간(expiration date) 설정
-
-<br>
-
-이제 도입할지 말지 고민 중인 회원가입과 관련된 요구 사항을 정리해보자.
-
-- 회원 가입
-  - OAuth를 통한 로그인
-  - 회원(멤버) 전용 페이지
-    - 단축 URL에 대한 클릭수 확인
-    - 지금까지 단축한 URL에 대한 히스토리
+  * 단축 URL에 대한 상세 정보를 볼 수 있는 페이지
+    * 예: 생성된 날짜, 단축 URL 사용 횟수, 원본 URL 
+* HTTP API도 제공한다
+* 원본 URL에 대한 단축 URL을 제공한다
+* 단축 URL에 대한 상세 정보를 제공한다
+* 동일한 URL에 대해서도 다른 숏코드가 존재할 수 있다
+* 단축 URL 사용 횟수 기록
 
 <br>
 
 ---
 
-## 기술 스택
+## 2. 기술 스택
 
 다음의 기술 스택을 사용할 예정이다.
 
-<br>
-
-**Language**
-
 * Java `17`
 
-<br>
-
-**Framework & Library**
-
 * Spring Boot `3.3.1`
-* Hibernate
-* QueryDSL
-
+* JPA(Hibernate)
 * Junit5
-
 * Thymeleaf
-
 * Lombok
-
-<br>
-
-**Database**
-
-* MySQL `8.0` (프로덕션)
-* H2 `2.2.224` (테스트)
-
-<br>
-
-`build.gradle`
-
-```java
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.5'
-}
-
-group = 'com.seungki'
-version = '0.0.1-SNAPSHOT'
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	implementation 'org.springframework.boot:spring-boot-devtools'
-
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-	annotationProcessor "com.querydsl:querydsl-apt:" +
-			"${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-clean {
-	delete file('src/main/generated')
-}
-```
+* H2 `2.2.224`
 
 <br>
 
 ---
 
-## 설계
+## 3. 서비스 제공의 흐름
 
-### 도메인 분석, 설계 
+사용하기로 구현 방법을 다시 살펴보자.
 
-엔티티를 설계해보자.
-
-먼저 원본 URL과 숏코드를 매핑하는 엔티티가 필요하다.
-
-<br>
-
-![entity](../post_images/2024-06-23-url-shortener-project-2/entity.png)
-
-_추후에 Member를 추가하는 것을 고려하자_
-
-* `Member`를 추가하는 것은 일단 나중에 생각하자
-
-<br>
-
----
-
-### 서비스 제공의 흐름
-
-일단 이전에 우리가 사용하기로 정한 구현 방법을 다시 살펴보자.
+* 프로젝트에서는 해시값을 Base62 인코딩해서 앞 7자를 잘라서 사용하는 방식으로 구현할 것이다.
+* 중복 숏코드를 처리하는 로직은 해시 충돌 때문에 중복이 되든, 같은 원본 URL이 이미 존재해서 중복이 되든 그냥 숏코드를 다시 생성하는 방식으로 처리할 것이다.
 
 <br>
 
@@ -173,17 +67,13 @@ _추후에 Member를 추가하는 것을 고려하자_
 
 <br>
 
-로직의 흐름을 컨트롤러, 서비스, 레포지토리 계층을 표현한 그림으로 살펴보자.
-
-<br>
-
-![clickreq](../post_images/2024-06-23-url-shortener-project-2/design1.png){: width="972" height="589" }_로직의 흐름_
+![clickreq](../post_images/2024-06-23-url-shortener-project-2/design1.png){: width="972" height="589" }_로직의 흐름에 대해 컨트롤러, 서비스, 레포지토리 계층을 표현한 그림_
 
 <br>
 
 ---
 
-### 고민
+## 4. 고민
 
 경험이 없으니 이것이 제대로 된 설계인지 아직 감이 안잡힌다.
 

@@ -1,13 +1,20 @@
 ---
 title: (Url Shortener - 4) URL 단축 서비스 API 개발
-description: REST API를 개발하면서 생긴 문제, 고민거리, 개선점
+description: API를 개발하면서 생긴 문제, 고민거리, 개선점
 author: seungki1011
-date: 2024-07-01 10:30:00 +0900
+date: 2024-07-05 10:30:00 +0900
 categories: [Project, Url-Shortener]
 tags: [project, backend, trouble-shooting, spring, rest-api]
 pin: true
 math: true
 mermaid: true
+project_overview: "스프링 부트 연습을 위해 Bitly와 같은 URL 단축기를 만들어보는 토이 프로젝트입니다."
+project_start_date: "2023/06/23"
+project_end_date: "2023/07/13"
+project_topic: "백엔드"
+project_tech_stack: "Java17, Lombok, H2 2.2.224, SpringBoot 3.3.1, JPA(Hibernate), JUnit5, Thymeleaf"
+project_team_size: 1
+project_github: "https://github.com/seungki1011/url-shortener"
 ---
 
 ---
@@ -98,7 +105,7 @@ public class UrlShortenApiController {
 
 웹 브라우저로 화면을 제공하는 경우에 에러가 발생하면 단순히 `4xx`, `5xx`와 관련된 오류 화면을 보여주거나, 정 필요하면 특정 에러 페이지를 만들어서 보여주면 된다. 반면에 API는 상황과 예외에 따라서 응답으로 출력하는 데이터가 달라질 수 있다. 쉽게 말해서 세밀한 제어가 필요하다.
 
-이전 포스트에서 HTML 화면을 제공할 때 `@ControllerAdvice`와 `@ExceptionHandler`를 사용해서 특정 예외 별로 오류 페이지가 나가도록 설정을 했다. 그러나 보통의 경우 `@RestControllerAdvice`와 `@ExceptionHandler`를 이용한 전역 `ApiExceptionHandler`를 만들어서 API에 대한 예외 처리를 한다.
+이전 포스트에서 HTML 화면을 제공할 때 `@ControllerAdvice`와 `@ExceptionHandler`를 사용해서 특정 예외 별로 오류 페이지가 나가도록 설정을 했다. 그러나 **보통의 경우 `@RestControllerAdvice`와 `@ExceptionHandler`를 이용한 전역 `ApiExceptionHandler`를 만들어서 API에 대한 예외 처리**를 한다.
 
 많은 경우 API 예외를 처리하기 위해서 다음의 클래스를 구성한다. 
 
@@ -223,7 +230,6 @@ public class ApiExceptionHandler {
 - [ ] 자바의 `UrlConnection` 클래스를 사용하도록 리팩토링
 - [ ] 코드 리팩토링
 - [ ] 에러 핸들링을 더 깔끔하게 처리할 방법이 있을 것이다
-- [ ] 로깅을 AOP로 적용
 - [ ] API 개선
   - [ ] URL을 리스트로 여러 개 받아서 단축 URL로 변환 할 수 있도록 구현
   - [ ] URL을 단축하는 API의 결과를 상세 정보로 받는 것이 아닌 원본 URL과 단축 URL만 받을 수 있도록 구현
@@ -306,11 +312,11 @@ public class ApiExceptionHandler {
   * 로깅 등의 부가적인 관심사를 분리해서 모듈화하기
 * 조금 더 복잡한 도메인을 사용하는 프로젝트 진행하기
   * 이번 프로젝트는 너무 단순해서 데이터 모델링을 제대로 해볼 기회가 없었다
-* API 보안 적용 학습 
+* API 보안 적용
   * OAuth2
   * JWT
   * 스프링 시큐리티
-* 모니터링 적용 학습
+* 모니터링 적용
   * 스프링 부트 액츄에이터 사용 vs 사용하지 않고 적용
   * Prometheus
   * Grafana
@@ -321,11 +327,5 @@ public class ApiExceptionHandler {
 
 <br>
 
----
-
 프로젝트 깃헙 주소 : [https://github.com/seungki1011/url-shortener](https://github.com/seungki1011/url-shortener)
-
-
-
-
 
