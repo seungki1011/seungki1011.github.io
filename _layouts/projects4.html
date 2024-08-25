@@ -28,14 +28,7 @@ layout: page
   {% assign first_post_url = first_post.url %}
   
   {% capture _sub_category_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
-  <script>
-    function cardClick(event, url) {
-      // 클릭한 요소가 a 태그거나, 카드 내에서 이미 a 태그 내부에 있는 경우 포스트 이동을 막음
-      if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
-        window.location.href = url;
-      }
-    }
-  </script>
+
   <div class="card categories mb-4" onclick="cardClick(event, '{{ _sub_category_url | relative_url }}')">
   <!-- <div class="card categories mb-4" onclick="location.href='{{ _sub_category_url | relative_url }}'"> -->
     <div class="project-preview">

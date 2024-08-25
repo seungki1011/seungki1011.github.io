@@ -15,6 +15,15 @@ layout: compress
 <!-- `site.alt_lang` can specify a language different from the UI -->
 <html lang="{{ page.lang | default: site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
+  
+  <script>
+    function cardClick(event, url) {
+      // 클릭한 요소가 a 태그거나, 카드 내에서 이미 a 태그 내부에 있는 경우 포스트 이동을 막음
+      if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
+        window.location.href = url;
+      }
+    }
+  </script>
 
   <body>
     {% include sidebar.html lang=lang %}
