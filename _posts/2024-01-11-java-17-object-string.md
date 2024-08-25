@@ -11,9 +11,9 @@ mermaid: true
 
 ---
 
-## 1) Object 클래스
+## 1. Object 클래스
 
-### 1.1 java.lang 패키지
+### java.lang 패키지
 
 Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지이다.
 
@@ -33,15 +33,13 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 ---
 
-### 1.2 Object 클래스 소개
+### Object 클래스 소개
 
  `Object` 클래스에 대해서 알아보자.
 
 <br>
 
-![object](../post_images/2024-01-11-java-17-object-string/object.gif)
-
-<p align='center'>https://www.cs.auckland.ac.nz/references/java/java1.5/tutorial/java/IandI/subclasses.html</p>
+![object](../post_images/2024-01-11-java-17-object-string/object.gif)_https://www.cs.auckland.ac.nz/references/java/java1.5/tutorial/java/IandI/subclasses.html_
 
 * 자바에서 모든 클래스의 최상위 부모 클래스는 항상 `Object` 클래스 
 * 아무 클래스도 상속 받지 않으면 묵시적으로 `Object` 클래스를 상속 받는다
@@ -51,9 +49,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 부모 클래스(`ParentClass`)와 부모 클래스를 상속 받는 자식 클래스(`ChildClass`)가 있다고 하자. `ParentClass`는 `Object` 클래스를 묵시적으로 상속 받았기 때문에 메모리에도 함께 생성된다.
 
-![object](../post_images/2024-01-11-java-17-object-string/object2.png)
-
-<p align='center'>Object 상속</p>
+![object](../post_images/2024-01-11-java-17-object-string/object2.png)_Object 상속_
 
 * `child.toString()` 호출
 * 자기 자신의 타입인 `ChildClass`에 `toString()` 메서드를 찾는다. 없을 경우 상위 클래스로 올라가서 찾는다
@@ -82,7 +78,7 @@ Java를 이루는 가장 기본이 되는 클래스들을 보관하는 패키지
 
 ---
 
-### 1.3 Object 배열
+### Object 배열
 
  `Object`는 모든 타입의 객체를 담을 수 있다. 따라서 `Object[]`를 만들면 모든 타입의 객체를 담을 수 있는 배열을 만들 수 있다.
 
@@ -150,7 +146,7 @@ The number of objects : 3
 
 ---
 
-### 1.4 toString()
+### toString()
 
 * `Object.toString()` 메서드는 객체의 정보를 문자열 형태로 제공한다
 * 디버깅과 로깅에 활용할 수 있다
@@ -243,7 +239,7 @@ String refValue = Integer.toHexString(System.identityHashCode(item));
 
 ---
 
-### 1.5 equals()
+### equals()
 
 `Object`는 동등성 비교를 위한 `equals()` 메서드를 제공한다.
 
@@ -372,9 +368,9 @@ public class UserV2 {
 
 ---
 
-## 2) String 클래스
+## 2. String 클래스
 
-### 2.1 String 클래스 소개
+### String 클래스 소개
 
 자바에서 문자를 다루는 대표적인 2 가지 타입.
 
@@ -425,7 +421,7 @@ public final class String {
 
 ---
 
-### 2.2 String 객체 비교
+### String 객체 비교
 
 `String` 객체 끼리 비교할 때는 `==`가 아닌 `equals()`로 비교를 해야한다.
 
@@ -494,7 +490,7 @@ s3과 s4는 동일한가? : true
 
 ---
 
-### 2.3 String은 불변 객체
+### String은 불변 객체
 
 `String`은 [불변 객체(immutable object)](https://seungki1011.github.io/posts/java-16-immutable/#2-%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4immutable-object)이다. 생성 이후에 절대로 내부의 값을 변경할 수 없다.
 
@@ -534,7 +530,7 @@ str3 = Hello world!
 
 ---
 
-### 2.4 String 메서드
+### String 메서드
 
 `String` 클래스는 문자열을 편리하게 다루기 위한 다양한 메서드를 제공한다.
 
@@ -546,7 +542,7 @@ str3 = Hello world!
 
 <br>
 
-#### 2.4.1 문자열 정보 조회
+#### 문자열 정보 조회
 
 ```java
 public class StringTest2 {
@@ -581,7 +577,7 @@ public class StringTest2 {
 
 ---
 
-#### 2.4.2 문자열 비교
+#### 문자열 비교
 
 ```java
 public class StringTest3 {
@@ -624,7 +620,7 @@ str1 ends with 'polperro.' = false
 
 ---
 
-#### 2.4.3 문자열 검색
+#### 문자열 검색
 
 ```java
 public class StringTest4 {
@@ -659,7 +655,7 @@ public class StringTest4 {
 
 ---
 
-#### 2.4.4 문자열 조작 및 변환
+#### 문자열 조작 및 변환
 
 ```java
 public class StringTest5 {
@@ -730,7 +726,7 @@ public class StringTest6 {
 
 ---
 
-#### 2.4.5 문자열 분할 및 조합
+#### 문자열 분할 및 조합
 
 ```java
 public class StringTest7 {
@@ -771,7 +767,7 @@ result = Apple-Banana-Orange
 
 ---
 
-#### 2.4.6 기타
+#### 기타
 
 * `valueOf(Object obj)` : 다양한 타입을 문자열로 변환한다
 * `toCharArray():` 문자열을 문자 배열로 변환한다
@@ -782,7 +778,7 @@ result = Apple-Banana-Orange
 
 ---
 
-### 2.5 StringBuilder
+### StringBuilder
 
 불변인 `String`의 단점은 기존 불변의 단점과 유사하다. `String` 문자열을 더하거나 변경을 할 때 마다 계속 새로운 객체를 생성해야한다. 많은 변경이 필요한 경우에는 많은 `String` 객체를 생성하고 GC 해야한다. 결과적으로 서버의 CPU, 메모리 자원을 더 소모하게 된다.
 
@@ -890,7 +886,7 @@ str = olleH
 >   * 보통 `StringBuffer` 보다 성능이 빠르다
 >   * 스레드 안전을 고려하지 않아도 되는 싱글 스레드 환경에서 많이 사용한다
 >   * 성능이 중요한 경우 `StringBuilder` 사용
-    {: .prompt-tip }
+  {: .prompt-tip }
 
 <br>
 

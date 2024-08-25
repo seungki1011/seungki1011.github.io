@@ -10,7 +10,7 @@ mermaid: true
 ---
 
 
-## 1) 기본형(Primitive Type)의 한계
+## 1. 기본형(Primitive Type)의 한계
 
 `int`, `double`, `float`와 같은 기본향(Primitive Type)는 객체가 아니다. 이런 기본형들은 다음과 같은 한계를 지닌다.
 
@@ -115,9 +115,9 @@ public class PrimitiveLimitNull {
 
 ---
 
-## 2) 자바 래퍼 클래스(Wrapper Class)
+## 2. 자바 래퍼 클래스(Wrapper Class)
 
-### 2.1 래퍼 클래스 소개
+### 래퍼 클래스 소개
 
 자바는 기본형을 객체로 사용할 수 있도록 해당 기본형에 대응하는 래퍼 클래스를 제공해준다.
 
@@ -208,7 +208,7 @@ newInteger.equals(integerObj) = true
 
 ---
 
-### 2.2 오토박싱(Autoboxing)
+### 오토박싱(Autoboxing)
 
 이전의 기본형을 래퍼 클래스로 변환하거나, 래퍼 클래스를 기본형으로 변환하는 코드를 살펴보자.
 
@@ -266,7 +266,7 @@ unboxedValue = 10
 
 ---
 
-### 2.3 래퍼 클래스의 메서드
+### 래퍼 클래스의 메서드
 
 래퍼 클래스가 제공하는 주요 메서드들을 살펴보자.
 
@@ -319,7 +319,7 @@ Integer.min(10,20) = 10
 
 ---
 
-### 2.4 래퍼 클래스의 성능
+### 래퍼 클래스의 성능
 
 래퍼 클래스와 기본형의 성능에 대해서 알아보자.
 
@@ -345,9 +345,9 @@ Integer.min(10,20) = 10
 
 ---
 
-## 3) System, Math, Random 클래스
+## 3. System, Math, Random 클래스
 
-### 3.1 System 클래스
+### System 클래스
 
 `System` 클래스는 시스템과 관련된 기본 기능들을 제공한다.
 
@@ -421,7 +421,7 @@ Arrays.toString(copiedArray) = [J, A, V, A, !]
 
 ---
 
-### 3.2 Math 클래스
+### Math 클래스
 
 `Math` 클래스는 여러가지 수학적 연산을 해결할 수 있도록 메서드를 지원한다.
 
@@ -452,7 +452,7 @@ Arrays.toString(copiedArray) = [J, A, V, A, !]
 
 ---
 
-### 3.3 Random 클래스
+### Random 클래스
 
 `Random` 클래스를 통해 다양한 랜덤값을 얻을 수 있다. `Math.random()`도 내부적으로 `Random` 클래스를 이용한다
 
