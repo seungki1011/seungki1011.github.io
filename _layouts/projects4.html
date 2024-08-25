@@ -3,13 +3,18 @@ layout: page
 # All the Projects under the "Project" category
 ---
 <script>
-  function cardClick(event, url) {
-    // 클릭한 요소가 a 태그라면(예: GitHub 링크), 포스트 이동을 막음
-    if (event.target.tagName.toLowerCase() !== 'a') {
-      window.location.href = url;
+  document.addEventListener('DOMContentLoaded', function() {
+    function cardClick(event, url) {
+      // 클릭한 요소가 a 태그라면(예: GitHub 링크), 포스트 이동을 막음
+      if (event.target.tagName.toLowerCase() !== 'a') {
+        window.location.href = url;
+      }
     }
-  }
+
+    window.cardClick = cardClick;
+  });
 </script>
+
 
 {% assign project_category = 'Project' %}
 
