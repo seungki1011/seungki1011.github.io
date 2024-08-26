@@ -78,13 +78,6 @@ layout: compress
     {% include js-selector.html lang=lang %}
 
     {% include_cached search-loader.html lang=lang %}
-    <script>
-      function cardClick(event, url) {
-        // Prevent navigation if an <a> tag or a descendant is clicked
-        if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
-          window.location.href = url;
-        }
-      }
-    </script>
+
   </body>
 </html>
