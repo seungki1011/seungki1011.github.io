@@ -3,12 +3,12 @@ title: SDXL과 DreamBooth를 사용한 앨범 표지 생성 프로젝트
 description: 생성형 AI를 활용한 앨범 표지 제작 서비스, 재학습 파이프라인을 구성한 프로젝트의 진행과 후기
 author: seungki1011
 date: 2023-08-10 10:30:00 +0900
-categories: [Project, 생성형 AI를 활용한 앨범 표지 맞춤 생성]
+categories: [Project, Gen AI를 활용한 앨범 표지 생성 및 재학습 파이프라인 구성]
 tags: [project, backend, ai, generative ai, sdxl, open ai api]
 pin: false
 math: true
 mermaid: true
-project_overview: "생성형 AI를 활용한 앨범 표지 제작, 해당 AI 모델에 대한 재학습 파이프라인을 구현한 프로젝트입니다."
+project_overview: "SDXL, 드림부스를 활용한 앨범 표지 제작, 해당 AI 모델에 대한 재학습 파이프라인을 구현한 프로젝트입니다."
 project_start_date: "2023/07/05"
 project_end_date: "2023/08/09"
 project_topic: "생성형 AI, 재학습 파이프라인"
