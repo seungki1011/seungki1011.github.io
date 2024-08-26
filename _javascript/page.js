@@ -7,3 +7,11 @@ initSidebar();
 initTopbar();
 initClipboard();
 basic();
+cardClick();
+
+function cardClick(event, url) {
+    // Prevent navigation if an <a> tag or a descendant is clicked
+        if (event.target.tagName.toLowerCase() !== 'a' && !event.target.closest('a')) {
+            window.location.href = url;
+        }
+    }
