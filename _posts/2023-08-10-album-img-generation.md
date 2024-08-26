@@ -5,7 +5,7 @@ author: seungki1011
 date: 2023-08-10 10:30:00 +0900
 categories: [Project, 생성형 AI를 활용한 앨범 표지 맞춤 생성]
 tags: [project, backend, ai, generative ai, sdxl, open ai api]
-pin: true
+pin: false
 math: true
 mermaid: true
 project_overview: "생성형 AI를 활용한 앨범 표지 제작, 해당 AI 모델에 대한 재학습 파이프라인을 구현한 프로젝트입니다."

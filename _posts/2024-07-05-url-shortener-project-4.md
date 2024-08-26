@@ -5,7 +5,7 @@ author: seungki1011
 date: 2024-07-05 10:30:00 +0900
 categories: [Project, Url-Shortener]
 tags: [project, backend, trouble-shooting, spring, rest-api]
-pin: true
+pin: false
 math: true
 mermaid: true
 project_overview: "스프링 부트 연습을 위해 Bitly와 같은 URL 단축기를 만들어보는 토이 프로젝트입니다."
