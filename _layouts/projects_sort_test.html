@@ -1,0 +1,13 @@
+---
+layout: page
+---
+
+{% assign project_category = 'Project' %}
+{% assign all_posts = site.categories[project_category] %}
+{% assign sorted_posts = all_posts | sort: 'date' | reverse %}
+
+<ul>
+{% for post in sorted_posts %}
+  <li>{{ post.date }} - {{ post.title }}</li>
+{% endfor %}
+</ul>
