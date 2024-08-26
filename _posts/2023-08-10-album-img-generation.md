@@ -14,7 +14,7 @@ project_end_date: "2023/08/09"
 project_topic: "생성형 AI, 재학습 파이프라인"
 project_tech_stack: "Python, PyTorch, FastAPI, Redis, Celery, BigQuery, Airflow, GCP, SDXL, DreamBooth"
 project_team_size: 5
-project_github: "https://github.com/boostcampaitech5/level3_cv_finalproject-cv-03"
+project_github: "https://github.com/seungki1011/Album-Art-Generation-Service"
 project_organization: "Naver Boostcamp AITech 5기"
 ---
 
