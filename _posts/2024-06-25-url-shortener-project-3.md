@@ -9,8 +9,8 @@ pin: true
 math: true
 mermaid: true
 project_overview: "스프링 부트 연습을 위해 Bitly와 같은 URL 단축기를 만들어보는 토이 프로젝트입니다."
-project_start_date: "2023/06/23"
-project_end_date: "2023/07/13"
+project_start_date: "2024/06/23"
+project_end_date: "2024/07/13"
 project_topic: "백엔드"
 project_tech_stack: "Java17, Lombok, H2 2.2.224, SpringBoot 3.3.1, JPA(Hibernate), JUnit5, Thymeleaf"
 project_team_size: 1
