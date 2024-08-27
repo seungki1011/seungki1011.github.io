@@ -8,7 +8,7 @@ tags: [project, cv, ai, data-centric, labeling]
 pin: false
 math: true
 mermaid: true
-project_overview: "모델을 고정한 상태로 데이터만을 활용하여 OCR model의 성능을 최대한 끌어 올리는 프로젝트입니다.(Naver Boostcamp AITech 5기에서 주관한 경진대회입니다.)"
+project_overview: "모델을 고정한 상태로 데이터만을 활용하여 OCR model의 성능을 최대한 끌어 올리는 프로젝트입니다.\r\n Naver Boostcamp AITech 5기 내에서 진행된 AI 모델 경진대회입니다."
 project_start_date: "2023/05/22"
 project_end_date: "2023/06/01"
 project_topic: "컴퓨터 비전, AI, Data-Centric, 데이터 전처리, 라벨링"
