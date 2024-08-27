@@ -3,7 +3,7 @@ title: (Url Shortener - 1) URL 단축의 원리 파악하기
 description: Bitly와 같은 URL 단축 서비스의 원리 파악.
 author: seungki1011
 date: 2024-06-21 10:30:00 +0900
-categories: [Project, Url-Shortener]
+categories: [Project, Url 단축 API와 서버사이드 페이지]
 tags: [project, backend, base64]
 pin: false
 math: true
