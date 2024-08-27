@@ -25,9 +25,9 @@ project_organization: "Naver Boostcamp AITech 5기"
 
 ---
 
-## 1. 개요
+## 📋 프로젝트 개요
 
-> **참고**
+> **프로젝트 링크**
 >
 > * **프로젝트 깃헙(레포지토리의 내용은 동일합니다)**
 >   * [개인 레포지토리](https://github.com/seungki1011/Album-Art-Generation-Service)
@@ -37,24 +37,30 @@ project_organization: "Naver Boostcamp AITech 5기"
 
 <br>
 
-팀 프로젝트에서 맡은 역할은 다음과 같습니다.
-
-* FastAPI, Redis, Celery, BigQuery, GCS를 이용한 백엔드 구축
-* 서비스 아키텍쳐 설계, 배포
-* 모델 실험
+![aibum](../post_images/2023-08-10-album-img-generation/aibum.png)_album cover generator_
 
 <br>
 
-다음의 두 가지 기능을 구현한 프로젝트입니다.
+다음의 기능을 구현한 프로젝트입니다.
 
-* Text-to-Image 생성 모델을 사용해서 노래의 제목, 가수 이름, 장르, 가사 등의 정보를 넣으면 해당 정보를 활용해 곡의 분위기와 어울리는 앨범 이미지를 생성
-* 사용자의 사진을 입력 받고 해당 이미지를 식별할 수 있도록 Text-to-Image 모델을 Fine-Tuning 하여, 위와 같이 앨범 정보를 활용해 사용자의 얼굴 이미지가 들어간 앨범 이미지를 생성
+* **Text-to-Image 생성 모델을 사용**해서 노래의 제목, 가수 이름, 장르, 가사 등의 정보를 넣으면 **해당 정보를 활용해 곡의 분위기와 어울리는 앨범 이미지를 생성**
+* **사용자의 사진을 입력** 받고 해당 이미지를 식별할 수 있도록 **Text-to-Image 모델을 Fine-Tuning** 하여, 위와 같이 앨범 정보를 활용해 **사용자의 얼굴 이미지가 들어간 앨범 이미지를 생성**
+* 일정 주기 또는 기준으로 사용한 모델을 재학습할 수 있는 파이프라인 구성
 
 <br>
 
 ---
 
-## 2. 프로젝트 진행
+## 🚀 프로젝트 진행
+
+> **팀 프로젝트에서 맡은 역할**
+>
+> * FastAPI, Redis, Celery, BigQuery, GCS를 이용한 백엔드 구축
+> * 서비스 아키텍쳐 설계, 배포
+> * 모델 실험
+{: .prompt-info }
+
+<br>
 
 팀 프로젝트가 진행된 대략적인 수행 순서와 방법입니다.
 
@@ -87,6 +93,20 @@ project_organization: "Naver Boostcamp AITech 5기"
 <br>
 
 ![album-image-arch](../post_images/2023-08-10-album-img-generation/album-image-arch.png)_Service Architecture_
+
+<br>
+
+---
+
+## 📊 프로젝트 결과
+
+![res1](../post_images/2023-08-10-album-img-generation/res1.gif)_SDXL_
+
+
+
+![res2](../post_images/2023-08-10-album-img-generation/res2.gif)_Dream Booth_
+
+
 
 <br>
 

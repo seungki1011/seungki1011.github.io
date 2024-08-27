@@ -31,7 +31,7 @@ project_organization: "Naver Boostcamp AITech 5기"
 
 ## 📋 프로젝트 개요
 
-> **참고**
+> **프로젝트 링크**
 >
 > * **프로젝트 깃헙(레포지토리 내용은 동일합니다)**
 >   * [개인 레포지토리](https://github.com/seungki1011/AI-Tech5-Data-Centric-Competetion)
