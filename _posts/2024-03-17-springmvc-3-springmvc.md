@@ -13,7 +13,7 @@ mermaid: true
 
 ## 1. Spring MVC
 
-### 1.1 Spring MVC 구조
+### Spring MVC 구조
 
 우리가 이전까지 구성했던 프레임워크와 스프링 MVC를 비교해보면 구성요소가 같다는 것을 확인할 수 있다. 
 
@@ -92,7 +92,7 @@ protected void render(ModelAndView mv, HttpServletRequest request, HttpServletRe
 
 ---
 
-#### 1.1.1 HandlerMapping, HandlerAdapter
+#### HandlerMapping, HandlerAdapter
 
 `HandlerMapping`, `HandlerAdapter`를 더 자세히 살펴보자.
 
@@ -169,7 +169,7 @@ http://localhost:8080/springmvc/old-controller을 실행해보면 `OldController
 
 ---
 
-#### 1.1.2 ViewResolver
+#### ViewResolver
 
 뷰 리졸버에 대해서 자세히 알아보자.
 
@@ -224,7 +224,7 @@ spring.mvc.view.suffix=.jsp
 
 ---
 
-### 1.2 Spring MVC 사용해보기
+### Spring MVC 사용해보기
 
 이전의 회원 등록 애플리케이션을 스프링 MVC를 이용해서 구현해보자.
 
@@ -304,17 +304,18 @@ public class SpringMemberControllerV2 {
 
 <br>
 
+> **파라미터 이름 인식 문제**
+>
 > * 기존에는 스프링 빈 중에 클래스 레벨에 `@RequestMapping`이 붙어 있었으면 `RequestMappiongHandlerMapping`이 매핑 정보로 인식 했지만, **스프링 3.0 부터 클래스 레벨에 `@RequestMapping`이 붙어 있는 스프링 빈이어도 스프링 컨트롤러로 인식하지 않는다. 무조건 `@Controller`가 붙어 있어야 스프링 컨트롤러로 인식한다.**
 >
 > * 만약 빌드 옵션을 `IntelliJ IDEA`으로 선택했고, 스프링 부트 3.2 이상이면 `Java compiler` 필드에 `-parameters` 옵션(`IllegalArgumentException` 방지)
 {: .prompt-danger }
 
-
 <br>
 
 ---
 
-### 1.3 사용성 개선
+### 사용성 개선
 
 지금까지 만들었던 스프링 MVC 컨트롤러의 사용성을 개선해보자.
 
@@ -328,8 +329,6 @@ public class SpringMemberControllerV2 {
 <br>
 
 개선한 코드를 살펴보자.
-
-`SpringMemberControllerV3`
 
 ```java
  /**
@@ -386,101 +385,184 @@ public class SpringMemberControllerV2 {
 
 <br>
 
-## 2. Spring MVC - 기능 살펴보기
+---
 
-### 2.1 MappingController
+## 2. ⭐MappingController
 
 요청 매핑하는 여러 방법에 대해 알아보자.
 
-`MappingController`
+### @RequestMapping
 
 ```java
-@Slf4j
-@RestController
-public class MappingController {
-
-    /**
-     * 1.
-     * Spring Boot 3.0 부터는 /hello-basic 과 /hello-basic/은 다르게 취급 ("/"유지)
-     * {"/hello-basic", "/hello-basic2"} 으로 다중 URL 설정 가능
-     * GET 메서드 허용
-     */
-    @RequestMapping(value = {"/hello-basic", "/hello-basic2"}, method = RequestMethod.GET)
-    public String helloBasic() {
-        log.info("hello basic");
-        return "OK";
-    }
-
-    /**
-     * 2.
-     * 축약 애노테이션 사용
-     * GET 메서드 허용
-     */
-    @GetMapping("/mapping-get-v2")
-    public String mappingGetV2() {
-        log.info("mapping-get-v2");
-        return "OK";
-    }
-
-    /**
-     * 3. PathVariable(경로 변수) 사용
-     * 변수명이 같으면 생략 가능
-     * @PathVariable("userId") String userId -> @PathVariable String userId
-     */
-    @GetMapping("/mapping/{userId}")
-    public String mappingPath(@PathVariable("userId") String data) {
-        log.info("mappingPath userId = {} ", data);
-        return "OK";
-    }
-
-    /**
-     * 4. PathVariable 다중 사용
-     */
-    @GetMapping("/mapping/users/{userId}/orders/{orderId}")
-    public String mappingPath(@PathVariable String userId, @PathVariable Long orderId) {
-        log.info("mappingPath userId = {}, orderId = {}", userId, orderId);
-        return "OK";
-    }
-
-    /**
-     * 5. Content-Type 헤더 기반 추가 매핑(consumes)
-     * consumes : 컨틀로러가 받아들이는 미디어 타입
-     * consumes = "application/json"
-     * consumes = "!application/json"
-     * consumes = "application/*"
-     * consumes = "*\/*"
-     * application/json 대신 MediaType.APPLICATION_JSON_VALUE 사용 권장
-     */
-    // content-type이 application/json인 경우에만 호출
-    @PostMapping(value = "/mapping-consume", consumes = "application/json")
-    public String mappingConsumes() {
-        log.info("mappingConsumes");
-        return "OK";
-    }
-
-    /**
-     * 6. Accept 헤더 기반 추가 매핑(produces)
-     * produces : 컨트롤러가 만들어내는 미디어 타입
-     * produces = "application/json"
-     * produces = "!application/json"
-     * produces = "application/*"
-     * produces = "*\/*"
-     */
-    @PostMapping(value = "/mapping-produce", consumes = "application/json")
-    public String mappingProduces() {
-        log.info("mappingProduces");
-        return "OK";
-    }
+/**
+ * 1.
+ * Spring Boot 3.0 부터는 /hello-basic 과 /hello-basic/은 다르게 취급 ("/"유지)
+ * {"/hello-basic", "/hello-basic2"} 으로 다중 URL 설정 가능
+ * method = RequestMethod.GET: GET 메서드 사용
+ */
+@RequestMapping(value = {"/hello-basic", "/hello-basic2"}, method = RequestMethod.GET)
+public String helloBasic() {
+    log.info("hello basic");
+    return "OK";
 }
 ```
 
-* `@RequestMapping` 은 URL 경로를 템플릿화 할 수 있는데, `@PathVariable` 을 사용하면 매칭되는 부분을 편리하게 조회할 수 있다
+* `method` 속성을 지정하지 않으면 모든 메서드가 허용된다
 
 <br>
 
-이전에도 사용한 회원 관리 애플리케이션의 HTTP API를 만든다고 가정하고, 매핑을 어떻게 하는지 알아보자. (데이터 넘어가는 부분은 제외)
+---
 
-* 회원 관리 API
+### 축약 애노테이션
+
+```java
+/**
+ * 2.
+ * 축약 애노테이션 사용
+ * @GetMapping, @PostMapping, @PutMapping, @DeleteMapping, @PatchMapping
+ */
+@GetMapping("/mapping-get-v2")
+public String mappingGetV2() {
+    log.info("mapping-get-v2");
+    return "OK";
+}
+```
+
+* 특정 HTTP 메서드 요청만 허용한다
+* `@GetMapping`에 `POST` 요청을 하면 **405(Method Not Allowed)** 반환
+
+<br>
+
+---
+
+### @PathVariable(경로 변수)
+
+`@PathVariable`은 **URL 경로에 포함된 변수 값을 추출하여, 컨트롤러 메서드의 인수로 전달**한다. 예를 들어, `/users/{id}`와 같은 URL 경로에서 `{id}` 부분이 동적인 값이 될 때, 해당 값을 메서드로 전달받아 처리할 수 있다.
+
+```java
+/**
+ * 3. PathVariable(경로 변수) 사용
+ * 변수명이 같으면 생략 가능
+ * @PathVariable("userId") String userId -> @PathVariable String userId
+ */
+@GetMapping("/mapping/{userId}")
+public String mappingPath(@PathVariable("userId") String data) {
+    log.info("mappingPath userId = {} ", data);
+    return "OK";
+}
+
+/**
+ * 4. PathVariable 다중 사용
+ * 여러 개의 PathVariable 사용 가능
+ */
+@GetMapping("/mapping/users/{userId}/orders/{orderId}")
+public String mappingPath(@PathVariable String userId, @PathVariable Long orderId) {
+    log.info("mappingPath userId = {}, orderId = {}", userId, orderId);
+    return "OK";
+}
+```
+
+<br>
+
+---
+
+### 특정 헤더 기반 조건 매핑
+
+특정 헤더 기반 추가 매핑은 **HTTP 요청의 특정 헤더 값에 따라 컨트롤러의 메서드를 매핑하는 기능**이다. 이는 요청이 들어올 때 특정 헤더가 포함되어 있거나, 특정 값이 설정된 경우에만 해당 메서드가 실행되도록 하는 데 사용된다.
+
+```java
+/**
+ * 5. 특정 헤더 기반 추가 매핑
+ * headers = "X-Example-Header=ExampleValue"
+ * headers = {"X-Example-Header=ExampleValue", "X-Another-Header=AnotherValue"}
+ * headers = "X-Example-Header"
+ */
+@GetMapping(value = "/example", headers = "X-Example-Header=ExampleValue")
+public String mappingHeader() {
+    log.info("mappingHeader");
+    return "ok";
+}
+```
+
+* `headers = "X-Example-Header=ExampleValue"`: `GET /example` 요청에 `X-Example-Header` 헤더가 `ExampleValue` 값을 가질 때만 호출
+* `headers = {"X-Example-Header=ExampleValue", "X-Another-Header=AnotherValue"}`: 복수의 헤더 조건을 지정할 수 있다
+* `headers = "X-Example-Header"`: 헤더의 값과 상관없이 특정 헤더의 존재 여부만으로도 매핑할 수 있다
+
+<br>
+
+다음과 같은 시나리오에서 활용할 수 있다.
+
+* **API 버전 관리:** `X-API-Version` 같은 헤더를 사용하여 특정 버전에만 맞는 컨트롤러 메서드를 매핑할 수 있다
+* **클라이언트 구분:** 특정 클라이언트(예: 모바일 앱과 웹 클라이언트)를 구분하여 다르게 처리할 때 사용할 수 있다
+* **기능 플래그:** 헤더를 통해 특정 기능을 켜고 끄는 용도로 사용될 수 있다
+
+<br>
+
+---
+
+### Content-Type 헤더 기반 조건 매핑
+
+HTTP 요청은 다양한 데이터 형식으로 이루어질 수 있다. 예를 들어, JSON, XML, HTML 폼 데이터 등이 있다. 각각의 **데이터 형식은 `Content-Type` 헤더로 지정되며, 서버는 이 헤더를 기반으로 요청 본문을 적절하게 처리**해야 한다.
+
+예를 들어, **JSON 데이터가 포함된 요청은 `Content-Type: application/json` 헤더를 포함하고 있으며, 서버는 이 데이터를 JSON으로 파싱하여 처리**해야 한다. 이때, 스프링 MVC의 컨트롤러 메서드는 이러한 `Content-Type`에 따라 적절한 메서드로 요청을 라우팅할 수 있다.
+
+```java
+/**
+ * 6. Content-Type 헤더 기반 추가 매핑(consumes)
+ * consumes : 컨틀로러가 받아들이는 미디어 타입
+ * consumes = "application/json"
+ * consumes = "!application/json"
+ * consumes = "application/*"
+ * consumes = "*\/*"
+ * application/json 대신 MediaType.APPLICATION_JSON_VALUE 사용 권장
+ */
+@PostMapping(value = "/mapping-consume", consumes = "application/json")
+public String mappingConsumes() {
+    log.info("mappingConsumes");
+    return "OK";
+}
+```
+
+* 위 예시의 경우 미디어 타입(`content-type`)이 `application/json`인 경우에만 호출한다
+* 복수의 미디어 타입을 처리하도록 설정하는 것도 가능하다
+* 주로 본문 데이터를 처리할 필요 있는 `POST` 요청에 많이 사용된다
+* 미디어 타입이 맞지 않으면 **415(Unsupported Media Type)** 반환
+
+<br>
+
+---
+
+### Accept 헤더 기반 조건 매핑
+
+`Accept` 헤더 기반 조건 매핑은 **클라이언트가 서버로부터 어떤 형태의 응답을 원하는지를 지정하는 `Accept` 헤더를 기반으로, 스프링 MVC에서 요청을 특정 컨트롤러 메서드로 매핑하는 방법**이다. 이는 서버가 **클라이언트의 요구에 따라 적절한 콘텐츠 타입으로 응답을 반환할 수 있도록 도와준다**.
+
+```java
+/**
+ * 7. Accept 헤더 기반 추가 매핑(produces)
+ * produces : 컨트롤러가 만들어내는 미디어 타입
+ * produces = "application/json"
+ * produces = "!application/json"
+ * produces = "application/*"
+ * produces = "*\/*"
+ */
+@PostMapping(value = "/mapping-produce", consumes = "application/json")
+public String mappingProduces() {
+    log.info("mappingProduces");
+    return "OK";
+}
+```
+
+* 미디어 타입이 맞지 않으면 **406(Not Acceptable)**을 반환한다
+
+<br>
+
+---
+
+### API 예시
+
+이전에도 사용한 회원 관리 애플리케이션의 HTTP API를 만든다고 가정하고, 매핑을 어떻게 하는지 알아보자.
+
+* **회원 관리 API**
   * 회원 목록 조회: `GET` `/users`
   * 회원 등록:        `POST` `/users`
   * 회원 조회:        `GET` `/users/{userId}`
@@ -489,14 +571,13 @@ public class MappingController {
 
 <br>
 
-`MappingClassController`
-
 ```java
 @RestController
 @RequestMapping("/mapping/users")
 public class MappingClassController {
-
-    @GetMapping // URL을 클래스 레벨의 @RequestMapping("/mapping/users") 이용 (메서드 레벨의 정보와 조합해서 사용)
+    // URL을 클래스 레벨의 @RequestMapping("/mapping/users") 이용
+    // (메서드 레벨의 경로 정보와 조합해서 사용)
+    @GetMapping
     public String user() {
         return "get users";
     }
@@ -527,13 +608,11 @@ public class MappingClassController {
 
 ---
 
-### 2.2 HTTP Header 조회
+## 3. HTTP Header 조회
 
-HTTP 헤더 정보를 조회하는 방법에 대해 알아보자.
+**HTTP 헤더 정보를 조회하는 방법**에 대해 알아보자.
 
 <br>
-
-`RequestHeaderController`
 
 ```java
 @Slf4j
@@ -562,50 +641,42 @@ public class RequestHeaderController {
 }
 ```
 
-* `@RequestHeader MultiValueMap<String, String> headerMap` 
+* **`@RequestHeader MultiValueMap<String, String> headerMap`** 
   * 모든 HTTP 헤더를 `MultiValueMap` 형식으로 조회한다
-  * `MultiValueMap` : `Map`과 유사하지만, 하나의 키에 여러 값을 받을 수 있다
+  * `MultiValueMap`: `Map`과 유사하지만, 하나의 키에 여러 값을 받을 수 있다
     * `value`들은 배열 형태로 저장된다
 
-
-
-* `@RequestHeader("host") String host`
+* **`@RequestHeader("host") String host`**
   * 특정 HTTP 헤더를 조회한다
-  * `required` : 필수 값 여부
-  * `defaultValue` : 기본 값
+  * `required`: 필수 값 여부
+  * `defaultValue`: 기본 값
 
-
-
-* `@CookieValue(value = "myCookie", required = false) String cookie`
+* **`@CookieValue(value = "myCookie", required = false) String cookie`**
   * 특정 쿠키 조회
-  * `required` : 필수 값 여부
-  * `defaultValue` : 기본 값
+  * `required`: 필수 값 여부
+  * `defaultValue`: 기본 값
 
 <br>
 
 ---
 
-### 2.3 HTTP Request Parameter
+## 4. ⭐클라이언트에서 서버로 데이터 전달: 요청 파라미터에 담아서
 
-HTTP 요청 메세지를 통해서 클라이언트에서 서버로 데이터를 전달하는 방법에 대해 알아보자.
+### 클라이언트에서 서버로 데이터 전달
 
-들어가기에 앞서, 클라이언트에서 서버로 요청 데이터를 전달할 때 주로 사용하는 3가지 방법을 되짚어보자.
+**클라이언트에서 서버로 요청 데이터를 전달할 때 주로 사용하는 3가지 방법**을 되짚어보자.
 
-* `GET` - 쿼리 파라미터
+* **`GET` - 쿼리 파라미터**
   * `/url?username=hello&age=99`
   * 메세지 본문 없이, URL의 쿼리 스트링에 데이터를 포함해서 전달하는 방식
   * 검색, 필터, 정렬, 페이징 등에 많이 사용한다
 
-
-
-* `POST` - HTML Form
+* **`POST` - HTML Form**
   * `content-type: application/x-www-form-urlencoded` 
   * 메세지 본문에 쿼리 스트링 형태로 전달을 한다
   * 회원 가입, 상품 주문, HTML 폼 등에 사용
 
-
-
-* `POST`, `PUT`, `PATCH` - HTTP 메세지 본문에 데이터를 직접 담아서 요청
+* **`POST`, `PUT`, `PATCH` - HTTP 메세지 본문에 데이터를 직접 담아서 요청**
   * HTTP API에 주로 사용
   * 데이터 형식은 주로 JSON을 사용
 
@@ -613,20 +684,22 @@ HTTP 요청 메세지를 통해서 클라이언트에서 서버로 데이터를 
 
 ---
 
-#### 2.3.1 @RequestParam
+### @RequestParam
 
-스프링이 제공하는 `@RequestParam`을 사용하면 요청 파라미터를 편리하게 사용할 수 있다.
+`@RequestParam`은 스프링 MVC에서 **HTTP 요청의 쿼리 파라미터, 폼 데이터 등에 포함된 값을 메서드의 파라미터로 바인딩할 때 사용하는 어노테이션**이다. 이를 통해 클라이언트가 요청 시 전달한 데이터를 쉽게 접근하고 사용할 수 있다.
+
+`@RequestParam` 어노테이션을 사용하면, **클라이언트가 요청 URL에 포함한 특정 파라미터를 메서드 파라미터**로 받을 수 있다. 예를 들어, `GET /search?query=Spring`이라는 요청이 들어오면, `query`라는 파라미터를 메서드에서 직접 접근할 수 있다.
 
 <br>
-
-`RequestParamController`
 
 ```java
 @Slf4j
 @Controller
 public class RequestParamController {
 
-    // 1. request.getParameter()
+    /** 1. request.getParameter()
+     * HttpServletRequest가 제공하는 방식으로 요청 파라미터를 조회
+     */
     @RequestMapping("/request-param-v1")
     public void requestParamV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
@@ -636,11 +709,14 @@ public class RequestParamController {
         response.getWriter().write("ok");
     }
 
-    // 2. @RequestParam()
+    /** 2. @RequestParam
+     * 파라미터 이름으로 바인딩한다
+     * 파라미터명과 변수명을 같게 하면 @RequestParam("파라미터명")에서 ("파라미터명") 생략가능
+     */
     @ResponseBody // 반환 스트링을 그대로 응답 메세지에 넣고 반환, @RestController 대신에 사용 가능
     @RequestMapping("/request-param-v2")
     public String requestParamV2(
-            // @RequestParam String username : 파라미터명과 변수명을 같게 하면 생략 가능
+            // @RequestParam String username // 파라미터명과 변수명을 같게 하면 ("파라미터명") 생략 가능
             @RequestParam("username") String memberName,
             @RequestParam("age") int memberAge
     ) {
@@ -648,27 +724,28 @@ public class RequestParamController {
         return "ok";
     }
 
-    // 3. @RequestParam() 개선
-    // Strint, int, Integer 같은 단순 타입이면 @RequestParam도 생략 가능
+    /** 3. @RequestParam - 생략
+     * Strint, int, Integer 같은 단순 타입이면 @RequestParam 생략 가능
+     */
     @ResponseBody
     @RequestMapping("/request-param-v3")
     public String requestParamV3(String username, int age) {
-        log.info("username = {}, age = {} ", username, age);
+        log.info("username = {}, age = {} ", username, age); //
         return "ok";
     }
 
-    // 4. @RequestParam - required
-    // 파라미터 필수 여부
-    // "/request-param-required?username= " -> 빈문자로 통과한다!
+    /** 4. @RequestParam - required
+     * 파라미터 필수 여부를 설정할 수 있다
+     * "/request-param-required?username= " -> 빈문자로 통과한다!
+     */
     @ResponseBody
     @RequestMapping("/request-param-required")
     public String requestParamRequired(
-            // required = true가 디폴트
-            // required = true : 파라미터가 무조건 있어야 함
+            // required = true : 파라미터가 무조건 있어야 함(디폴트)
             @RequestParam(required = true) String username,
             // required = false : 파라미터가 없어도 가능
             // int를 사용하고 파라미터 값이 없으면 int에 null이 입력되기 때문에 예외 발생 -> Integer를 사용해야 한다
-            @RequestParam(required = false) int age) { // 500 예외 발생
+            @RequestParam(required = false) int age) { // null 입력시 500 예외 발생
         log.info("username = {}, age = {} ", username, age);
         return "ok";
     }
@@ -699,9 +776,29 @@ public class RequestParamController {
 
 <br>
 
+> **`@PathVariable` vs `@RequestParam`**
+>
+> * **경로변수(`@PathVariable`)**: 리소스를 식별하기 위해 사용되며, URL 경로의 중요한 일부로 리소스의 계층적 구조를 표현한다
+>   * URL 예시: `/users/123`
+> * **쿼리 파라미터(`@RequestParam`)**: 리소스에 대한 추가적인 정보를 전달하거나, 필터링, 정렬 등의 조건을 제공하는 데 사용된다
+>   * URL 예시: `/users?id=123`
+  {: .prompt-info }
+
+<br>
+
+> **`@RestController`**
+>
+> `@Controller`랑 `@ResponseBody` 합쳐 놓은게 `@RestController`
+{: .prompt-info }
+
+
+
+
+<br>
+
 ---
 
-#### 2.3.2 @ModelAttribute
+### @ModelAttribute
 
 개발을 하게되면 다음과 같이 요청 파라미터를 받아서 필요한 객체를 만들고 그 객체에 값을 넣어주어야 한다.
 
@@ -716,13 +813,11 @@ data.setAge(age);
 
 <br>
 
-스프링은 위의 과정을 `@ModelAttribute`라는 기능을 통해 자동화 시킬 수 있다.
+스프링은 위의 과정을 `@ModelAttribute`라는 기능을 통해 자동화 시킬 수 있다. Spring MVC에서 **클라이언트가 전송한 데이터를 서버 측에서 자바 객체로 변환하는 데 사용**된다. **클라이언트가 보낸 폼 데이터나 쿼리 파라미터를 객체에 자동으로 매핑하고, 이 매핑된 객체를 컨트롤러 메서드에서 사용**할 수 있게 해준다.
 
 <br>
 
 요청 파라미터를 바인딩 받을 객체 `HelloData`가 있다고 해보자.
-
-`HelloData`
 
 ```java
 @Data
@@ -732,13 +827,13 @@ public class HelloData {
 }
 ```
 
-* `@Data`(Lombok) : `@Getter`, `@Setter` , `@ToString` , `@EqualsAndHashCode` , `@RequiredArgsConstructor` 자동 적용
+* `@Data`: 롬복의 애노테이션으로 `@Getter`, `@Setter` , `@ToString` , `@EqualsAndHashCode` , `@RequiredArgsConstructor` 자동 적용
 
 <br>
 
 ```java
 // 1. @ModelAttribute 사용
-// model.addAttribute(helloData) 도 함께 자동 적용
+// model.addAttribute(helloData)도 함께 자동 적용
 @ResponseBody
 @RequestMapping("/model-attribute-v1")
 public String modelAttributeV1(@ModelAttribute HelloData helloData) { // @ModelAttribute를 생략 가능
@@ -749,7 +844,7 @@ public String modelAttributeV1(@ModelAttribute HelloData helloData) { // @ModelA
 
 * `HelloData` 객체가 생성되고, 요청 파라미터의 값도 모두 들어가 있다
 
-* `@ModelAttribute` 동작
+* `@ModelAttribute`의 동작 과정
 
   * `@ModelAttribute`가 있으면 `HelloData` 객체 생성
   * 요청 파라미터의 이름으로 `HelloData` 객체의 프로퍼티를 찾는다
@@ -758,10 +853,10 @@ public String modelAttributeV1(@ModelAttribute HelloData helloData) { // @ModelA
 
   
 
-* `@ModelAttribute`가 하는 일 정리
+* `@ModelAttribute`가 하는 일을 정리하자면 다음과 같다
 
-  * 요청 파라미터 처리 : `HelloData` 객체 생성 → 요청 파라미터의 값을 프로퍼티 접근법(setXxx)으로 입력해준다
-  * `Model`추가 : 모델에 `@ModelAttribute`로 지정한 객체를 자동으로 넣어준다 → `model.addAttribute` 생략 가능
+  * 요청 파라미터 처리: `HelloData` 객체 생성 → 요청 파라미터의 값을 프로퍼티 접근법(setXxx)으로 입력해준다
+  * `Model`추가: 모델에 `@ModelAttribute`로 지정한 객체를 자동으로 넣어준다 → `model.addAttribute` 생략 가능
 
 
 
@@ -771,226 +866,285 @@ public String modelAttributeV1(@ModelAttribute HelloData helloData) { // @ModelA
 
 ---
 
-### 2.4 HTTP Request Message
+## 5. 클라이언트에서 서버로 데이터 전달: HTTP 메세지 바디에 담아서
 
 HTTP 요청 메세지로 데이터를 전달하는 것을 알아보기 전에 이전에 알아본 내용을 되짚어보자.
 
-* `POST`, `PUT`, `PATCH` - HTTP 메세지 본문에 데이터를 직접 담아서 요청
+* `POST`, `PUT`, `PATCH` - HTTP 메세지 본문에 데이터를 직접 담아서 요청한다
   * HTTP API에 주로 사용
   * 데이터 형식은 주로 JSON을 사용
 
 <br>
 
-요청 파라미터와 다르게, HTTP 메시지 바디를 통해 데이터가 직접 넘어오는 경우는 `@RequestParam` , `@ModelAttribute` 를 사용할 수 없다.
+요청 파라미터와 다르게, **HTTP 메시지 바디를 통해 데이터가 직접 넘어오는 경우는 `@RequestParam` , `@ModelAttribute` 를 사용할 수 없다**.
 
 <br>
 
 ---
 
-#### 2.4.1 Text 전달
+### Text 전달
 
-`RequestBodyStringController`
+#### InputStream
+
+* 컨트롤러 메서드의 파라미터로 `InputStream` 또는 `Reader`를 받아와서 데이터를 수동으로 읽는 방법
+* `HttpServletRequest` 또는 `ServletRequest` 객체를 사용하여 요청 본문을 수동으로 읽는 방법
 
 ```java
-@Slf4j
-@Controller
-public class RequestBodyStringController {
-    /**
-     * 1.
-     * Stream은 바이트코드이기 때문에, 문자로 받을 때는 인코딩 방법을 설정해야 한다
-     */
-    @PostMapping("/request-body-string-v1")
-    public void requestBodyStringV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletInputStream inputStream = request.getInputStream();
-        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+/**
+ * 1. InputStream
+ * Stream은 바이트코드이기 때문에, 문자로 받을 때는 인코딩 방법을 설정해야 한다
+ */
+@PostMapping("/request-body-string-v1")
+public void requestBodyStringV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ServletInputStream inputStream = request.getInputStream();
+    String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+    log.info("messageBody = {}", messageBody);
+    response.getWriter().write("ok");
+}
 
-        log.info("messageBody = {}", messageBody);
-        response.getWriter().write("ok");
-    }
-
-    /**
-     * 2. 코드 더 단순화
-     * InputStream(Reader), OutputStream(Writer) 등을 지원
-     */
-    @PostMapping("/request-body-string-v2")
-    public void requestBodyStringV2(InputStream inputStream, Writer responseWriter) throws IOException {
-        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
-        log.info("messageBody = {}", messageBody);
-        responseWriter.write("ok");
-    }
-
-    /**
-     * 3. HttpEntity 사용
-     * HttpEntity: HTTP header, body 정보를 편리하게 조회
-     * - 메시지 바디 정보를 직접 조회(@RequestParam X, @ModelAttribute X)
-     * - 요청 파라미터를 조회하는 기능과 관계 없음
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     *
-     * 응답에서도 HttpEntity 사용 가능
-     * - 메시지 바디 정보 직접 반환
-     * - view 조회 X
-     * - 헤더 정보 포함 가능
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     */
-    @PostMapping("request-body-string-v3")
-    public HttpEntity<String> requestBodyStringV3(HttpEntity<String> httpEntity) {
-        String messageBody = httpEntity.getBody();
-        log.info("messageBody = {}", messageBody);
-        return new HttpEntity<>("ok");
-    }
-
-    /**
-     * 4. @RequestBody 사용
-     *
-     * @RequestBody
-     * - 메시지 바디 정보를 직접 조회(@RequestParam X, @ModelAttribute X)
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     *
-     * @ResponseBody
-     * - 메시지 바디 정보 직접 반환
-     * - view 조회 X
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     */
-    @ResponseBody
-    @PostMapping("/request-body-string-v4")
-    public String requestBodyStringV4(@RequestBody String messageBody) {
-        log.info("messageBody={}", messageBody);
-        return "ok";
-    }
+/**
+ * 2. 코드 더 단순화
+ * InputStream(Reader), OutputStream(Writer) 등을 지원
+ */
+@PostMapping("/request-body-string-v2")
+public void requestBodyStringV2(InputStream inputStream, Writer responseWriter) throws IOException {
+    String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+    log.info("messageBody = {}", messageBody);
+    responseWriter.write("ok");
 }
 ```
 
-* `@RequestBody`
-  * `@RequestBody` 를 사용하면 HTTP 메시지 바디 정보를 편리하게 조회할 수 있다
-  * 헤더 정보가 필요하다면 `HttpEntity` 를 사용하거나 `@RequestHeader` 를 사용하면 된다
-  * 이렇게 메시지 바디를 직접 조회하는 기능은 요청 파라미터를 조회하는 `@RequestParam` , `@ModelAttribute` 와 전혀 관계가 없다
-    * `HttpMessageConverter`가 동작함
+<br>
 
-
-
-* `@ResponseBody` 
-  * `@ResponseBody` 를 사용하면 응답 결과를 HTTP 메시지 바디에 직접 담아서 전달할 수 있다
-  * view 조회 x
+이 방법은 상대적으로 저수준에서 요청을 처리할 때 사용한다. 자주 사용되지 않는다.
 
 <br>
 
 ---
 
-#### 2.4.2 JSON 전달
+#### HttpEntity
 
-`RequestBodyJsonController`
+* 클라이언트가 서버로 데이터를 전송할 때, **본문과 헤더를 함께 `HttpEntity` 객체로 캡슐화하여 보낼** 수 있다.
+* Spring MVC의 컨트롤러에서 **`HttpEntity`를 파라미터로 받아 요청 데이터를 처리**할 수 있다
 
 ```java
-@Slf4j
-@Controller
-public class RequestBodyJsonController {
-    /**
-     * {"username":"hello", "age":20}
-     * content-type: application/json
-     */
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    /**
-     * 1.
-     */
-    @PostMapping("/request-body-json-v1")
-    public void requestBodyJsonV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ServletInputStream inputStream = request.getInputStream();
-        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
-        log.info("messageBody={}", messageBody);
-
-        HelloData data = objectMapper.readValue(messageBody, HelloData.class);
-        log.info("username={}, age={}", data.getUsername(), data.getAge());
-        response.getWriter().write("ok");
-    }
-
-    /**
-     * 2.
-     * @RequestBody
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     * @ResponseBody
-     * - 모든 메서드에 @ResponseBody 적용
-     * - 메시지 바디 정보 직접 반환(view 조회X)
-     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
-     */
-    @ResponseBody
-    @PostMapping("/request-body-json-v2")
-    public String requestBodyJsonV2(@RequestBody String messageBody) throws
-            IOException {
-        HelloData data = objectMapper.readValue(messageBody, HelloData.class);
-        log.info("username={}, age={}", data.getUsername(), data.getAge());
-        return "ok";
-    }
-
-    /**
-     * 3.
-     * @RequestBody 생략 불가능(@ModelAttribute가 적용되어 버림)
-     * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type: application/json)
-     * - @RequestBody에 직접 만든 객체를 지정할 수 있다
-     * - HttpEntity, @RequestBody를 사용하면 HTTP 메시지 컨버터가 HTTP 메시지 바디의 내용을 우리가 원하는 문자나 객체로 변환해준다
-     * - HTTP 메시지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해준다
-     */
-    @ResponseBody
-    @PostMapping("/request-body-json-v3")
-    public String requestBodyJsonV3(@RequestBody HelloData data) {
-        log.info("username={}, age={}", data.getUsername(), data.getAge());
-        return "ok";
-    }
-
-    /**
-     * 4.
-     * HttpEntity 사용 가능
-     */
-    @ResponseBody
-    @PostMapping("/request-body-json-v4")
-    public String requestBodyJsonV4(HttpEntity<HelloData> httpEntity) {
-        HelloData data = httpEntity.getBody();
-        log.info("username={}, age={}", data.getUsername(), data.getAge());
-        return "ok";
-    }
-
-    /**
-     * 5.
-     * @RequestBody 생략 불가능(@ModelAttribute가 적용되어 버림)
-     * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type:application/json)
-     * - JSON 요청 -> HTTP 메세지 컨버터 -> 객체
-     *
-     * @ResponseBody 적용
-     * - 메시지 바디 정보 직접 반환(view 조회X)
-     * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter 적용(Accept:application/json)
-     * - 응답의 경우에도 @ResponseBody를 사용하면 해당 객체를 HTTP 메시지 바디에 직접 넣어줄 수 있다
-     * - 이 경우에도 HttpEntity를 사용해도 된다
-     * - 객체 -> HTTP 메세지 컨버터 -> JSON 응답
-     */
-    @ResponseBody
-    @PostMapping("/request-body-json-v5")
-    public HelloData requestBodyJsonV5(@RequestBody HelloData data) {
-        log.info("username={}, age={}", data.getUsername(), data.getAge());
-        return data;
-    }
+/**
+ * 3. HttpEntity 사용
+ * HttpEntity: HTTP header, body 정보를 편리하게 조회
+ * - 메시지 바디 정보를 직접 조회한다(@RequestParam X, @ModelAttribute X)
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ *
+ * 응답에서도 HttpEntity 사용 가능
+ * - 메시지 바디 정보 직접 반환
+ * - view 조회 X
+ * - 헤더 정보 포함 가능
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ */
+@PostMapping("/request-body-http-entity")
+public HttpEntity<String> requestBodyStringV3(HttpEntity<String> httpEntity) {
+    String messageBody = httpEntity.getBody();
+    log.info("messageBody = {}", messageBody);
+    return new HttpEntity<>("ok");
 }
+```
+
+* `POST /request-body-http-entity`에 요청을 보내면, 요청과 본문 헤더가 `HttpEntity<String>`으로 캡슐화되어 컨트롤러 메서드에 전달된다
+  * `HttpMessageConverter` 사용
+* 응답으로도 사용할 수 있다: `return new HttpEntity<>(body, headers);`
+  * 본문 데이터와 함께 커스텀 헤더를 추가할 수 있다
+  * 이 경우는 뒤에서 다시 살펴볼 예정
+
+<br>
+
+---
+
+#### @RequestBody
+
+`@RequestBody`는 Spring MVC에서 **HTTP 요청의 본문(Body)을 컨트롤러 메서드의 파라미터로 직접 매핑하는 데 사용**되는 어노테이션이다. 이를 통해 **클라이언트가 보낸 데이터(예: JSON, XML, 폼 데이터 등)를 Java 객체로 변환하여 컨트롤러 메서드에서 사용**할 수 있다.
+
+```java
+/**
+ * 4. @RequestBody 사용
+ *
+ * @RequestBody
+ * - 메시지 바디 정보를 직접 조회(@RequestParam X, @ModelAttribute X)
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ *
+ * @ResponseBody
+ * - 메시지 바디 정보 직접 반환
+ * - view 조회 X
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ */
+@ResponseBody
+@PostMapping("/request-body-string-v4")
+public String requestBodyStringV4(@RequestBody String messageBody) {
+    log.info("messageBody={}", messageBody);
+    return "ok";
+}
+```
+
+* **HTTP 요청 본문 읽기**: `@RequestBody`를 사용하면 **HTTP 요청의 본문에 포함된 데이터를 읽어**와서 메서드의 파라미터로 전달할 수 있다. 본문 데이터는 일반적으로 JSON, XML, 또는 텍스트 형태이다.
+* **자동 변환**: Spring MVC는 HttpMessageConverter를 사용하여 요청 본문을 자동으로 Java 객체로 변환한다. 
+  * 예시: JSON 형식의 데이터를 Java 객체로 변환
+* **데이터 바인딩**: 요청 본문에서 읽어온 데이터는 메서드의 파라미터로 전달되며, 이를 통해 컨트롤러에서 쉽게 데이터에 접근하고 처리할 수 있다
+
+<br>
+
+---
+
+### ⭐JSON 전달
+
+서버로 다음의 데이터가 전달된다고 해보자.
+
+```java
+/**
+ * {"username":"hello", "age":20}
+ * content-type: application/json
+ */
+private ObjectMapper objectMapper = new ObjectMapper();
 ```
 
 <br>
 
 ---
 
-### 2.5 HTTP Response
+#### InputStream
+
+```java
+/**
+ * 1. InputStream
+ */
+@PostMapping("/request-body-json-v1")
+public void requestBodyJsonV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ServletInputStream inputStream = request.getInputStream();
+    String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+    log.info("messageBody={}", messageBody);
+
+    HelloData data = objectMapper.readValue(messageBody, HelloData.class);
+    log.info("username={}, age={}", data.getUsername(), data.getAge());
+    response.getWriter().write("ok");
+}
+```
+
+* `HttpServletRequest`를 사용해서 직접 HTTP 메시지 바디에서 데이터를 읽어와서, 문자로 변환한다
+* 문자로 된 JSON 데이터를 Jackson 라이브러리인 `objectMapper`를 사용해서 자바 객체로 변환한다
+
+<br>
+
+---
+
+#### @RequestBody
+
+```java
+/**
+ * 2. @RequestBody
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ * 
+ * @ResponseBody
+ * - 모든 메서드에 @ResponseBody 적용
+ * - 메시지 바디 정보 직접 반환(view 조회X)
+ * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+ */
+@ResponseBody
+@PostMapping("/request-body-json-v2")
+public String requestBodyJsonV2(@RequestBody String messageBody) throws
+        IOException {
+    HelloData data = objectMapper.readValue(messageBody, HelloData.class);
+    log.info("username={}, age={}", data.getUsername(), data.getAge());
+    return "ok";
+}
+```
+
+* `@RequestBody`를 사용해서 HTTP 메시지에서 데이터를 꺼내고 `messageBody`에 저장한다
+* 문자로 된 JSON 데이터인 `messageBody`를 `objectMapper`를 통해서 자바 객체로 변환한다
+
+<br>
+
+```java
+/**
+ * 3. @RequestBody - String "ok"반환
+ * - @RequestBody 생략 불가능(@ModelAttribute가 적용되어 버린다)
+ * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type: application/json)
+ * - @RequestBody에 직접 만든 객체를 지정할 수 있다
+ * - HttpEntity, @RequestBody를 사용하면 HTTP 메시지 컨버터가 HTTP 메시지 바디의 내용을 우리가 원하는 문자나 객체로 변환해준다
+ * - HTTP 메시지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해준다
+ */
+@ResponseBody
+@PostMapping("/request-body-json-v3")
+public String requestBodyJsonV3(@RequestBody HelloData data) {
+    log.info("username={}, age={}", data.getUsername(), data.getAge());
+    return "ok";
+}
+```
+
+<br>
+
+```java
+/**
+ * 4. @RequestBody - 받은 데이터를 HelloData 객체로 반환
+ * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter (content-type:application/json)
+ * - JSON 요청 -> HTTP 메세지 컨버터 -> 객체
+ *
+ * @ResponseBody 적용
+ * - 메시지 바디 정보 직접 반환(view 조회X)
+ * - HttpMessageConverter 사용 -> MappingJackson2HttpMessageConverter 적용(Accept:application/json)
+ * - 응답의 경우에도 @ResponseBody를 사용하면 해당 객체를 HTTP 메시지 바디에 직접 넣어줄 수 있다
+ * - 이 경우에도 HttpEntity를 사용해도 된다
+ * - 객체 -> HTTP 메세지 컨버터 -> JSON 응답
+ */
+@ResponseBody
+@PostMapping("/request-body-json-v4")
+public HelloData requestBodyJsonV4(@RequestBody HelloData data) {
+    log.info("username={}, age={}", data.getUsername(), data.getAge());
+    return data;
+}
+```
+
+<br>
+
+---
+
+#### HttpEntity
+
+```java
+/**
+ * 5. HttpEntity
+ */
+@ResponseBody
+@PostMapping("/request-body-json-v5")
+public String requestBodyJsonV5(HttpEntity<HelloData> httpEntity) {
+    HelloData data = httpEntity.getBody();
+    log.info("username={}, age={}", data.getUsername(), data.getAge());
+    return "ok";
+}
+```
+
+* `HttpEntity<HelloData>`: 요청 본문을 `HelloData` 타입으로 읽어오는 역할을 한다
+  * `HttpEntity`는 요청의 본문과 헤더를 모두 접근할 수 있는 객체
+* `HelloData data = httpEntity.getBody();`: `HttpEntity` 객체에서 요청 본문을 가져와 `HelloData` 객체로 변환한다
+
+<br>
+
+<br>
+
+---
+
+## 6. 서버에서 클라이언트로 응답: HTTP Response
 
 스프링(서버)에서 응답 데이터를 만드는 방법을 다시 살펴보자.
 
-* 정적 리소스(static resource)
+* **정적 리소스(static resource)**
   * 예) 웹 브라우저에 정적인 HTML, CSS, JS를 제공할 때 정적 리소스 사용
-* 뷰 템플릿(View Template) 사용
+* **뷰 템플릿(View Template) 사용**
   * 예) 웹 브라우저에 동적인 HTML을 제공할 때는 뷰 템플릿을 사용
-* HTTP 메시지 사용
+* **HTTP 메시지 사용**
   * HTTP API를 제공하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, HTTP 메시지 바디에 JSON 같은 형식으로 데이터를 실어 보낸다
 
 <br>
 
 ---
 
-#### 2.5.1 Static Resource 제공
+### Static Resource 제공
 
 스프링 부트는 클래스패스(class path)의 다음 디렉토리에 있는 정적 리소스를 제공한다.
 
@@ -1003,9 +1157,9 @@ public class RequestBodyJsonController {
 
 ---
 
-#### 2.5.2 View Template 사용
+### View Template 사용
 
-뷰 템플릿을 거쳐서 HTML이 생성되고, 뷰가 응답을 만들어서 전달한다. 일반적으로 HTML을 동적으로 생성하는 용도로 사용하지만, 다른 것들도 가능하다.뷰 템플릿이 만들 수 있는 것이라 면 뭐든지 가능하다.
+뷰 템플릿을 거쳐서 HTML이 생성되고, 뷰가 응답을 만들어서 전달한다. 일반적으로 HTML을 동적으로 생성하는 용도로 사용하지만, 다른 것들도 가능하다. 뷰 템플릿이 만들 수 있는 것이라면 뭐든지 가능하다.
 
 * 스프링 부트 기본 뷰 템플릿 경로 : `src/main/resources/templates`
 
@@ -1014,8 +1168,6 @@ public class RequestBodyJsonController {
 뷰 템플릿을 사용하는 간단한 예시를 한번 살펴보자.
 
 <br>
-
-`ResponseViewController` : 뷰 템플릿을 호출하는 컨트롤러
 
 ```java 
 @Controller
@@ -1072,7 +1224,7 @@ public class ResponseViewController {
 ```
 
 * `Void`를 반환하는 경우
-  * `@Controller` 를 사용하고, `HttpServletResponse` , `OutputStream(Writer)` 같은 HTTP 메시지 바디를 처리하는 파라미터가 없으면 요청 URL을 참고해서 논리 뷰 이름으로 사용
+  * `@Controller`를 사용하고, `HttpServletResponse` , `OutputStream(Writer)`같은 HTTP 메시지 바디를 처리하는 파라미터가 없으면 요청 URL을 참고해서 논리 뷰 이름으로 사용
     * 요청 URL: `/response/hello`
     * 실행: `templates/response/hello.html`
 
@@ -1080,13 +1232,13 @@ public class ResponseViewController {
 
 ---
 
-#### 2.5.3 HTTP 메세지 사용(메세지 바디에 직접 입력)
+### ⭐메세지 바디에 직접 입력: HTTP 메세지 사용
 
-HTTP API를 제공하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, HTTP 메시지 바디에 JSON 같은 형식으로 데이터를 실어 보낸다. 참고로 HTML이나 뷰 템플릿을 사용해도 HTTP 응답 메시지 바디에 HTML 데이터가 담겨서 전달된다. 
-
-정적 리소스나 뷰 템플릿을 거치지 않고, 직접 HTTP 응답 메시지를 전달하는 경우를 살펴보자.
+**HTTP API를 제공**하는 경우에는 HTML이 아니라 데이터를 전달해야 하므로, **HTTP 메시지 바디에 JSON 같은 형식으로 데이터를 실어 보낸다**. 참고로 HTML이나 뷰 템플릿을 사용해도 HTTP 응답 메시지 바디에 HTML 데이터가 담겨서 전달된다. 
 
 <br>
+
+#### 메세지 바디에 직접 String 담기
 
 ```java
 @GetMapping("/response-body-string-v1")
@@ -1099,6 +1251,12 @@ public void responseBodyV1(HttpServletResponse response) throws IOException {
 
 <br>
 
+---
+
+#### ⭐ResponseEntity
+
+`ResponseEntity`를 사용하면 응답의 상태 코드, 헤더, 본문을 세밀하게 제어할 수 있다.
+
 ```java
 /**
  * HttpEntity, ResponseEntity(Http Status 추가)
@@ -1109,23 +1267,36 @@ public ResponseEntity<String> responseBodyV2() {
 }
 ```
 
-* `ResponseEntity` 엔티티는 `HttpEntity` 를 상속 받았음
+* `ResponseEntity` 엔티티는 `HttpEntity`를 상속 받았음
   * `HttpEntity`는 HTTP 메시지의 헤더, 바디 정보를 가지고 있다
-* `ResponseEntity` 는 여기에 더해서 HTTP 응답 코드를 설정할 수 있다
-* `HttpStatus.CREATED` 로 변경하면 201 응답이 나가는 것을 확인할 수 있다
+* `ResponseEntity`는 여기에 더해서 HTTP 응답 코드를 설정할 수 있다
+* `HttpStatus.CREATED`로 변경하면 201 응답이 나가는 것을 확인할 수 있다
 
 <br>
 
+`return` 시 생성자 보다 빌더를 사용하는 것을 권장한다.
+
 ```java
-@ResponseBody
-@GetMapping("/response-body-string-v3")
-public String responseBodyV3() {
-    return "ok";
+@GetMapping("/response-entity-example")
+public ResponseEntity<String> example() {
+    String body = "Hello, World!";
+        
+    // ResponseEntity를 사용하여 상태 코드, 헤더, 본문 설정
+    return ResponseEntity
+            .status(HttpStatus.OK) // 상태 코드 설정
+            .header("Custom-Header", "Value") // 헤더 추가
+            .body(body); // 본문 설정
 }
 ```
 
-* `@ResponseBody` 를 사용하면 view를 사용하지 않고, HTTP 메시지 컨버터를 통해서 HTTP 메시지를 직접 입력할 수 있다
-* `ResponseEntity` 도 동일한 방식으로 동작한다
+* **status(HttpStatus status)**
+  * 응답의 상태 코드를 설정한다
+* **header(String name, String value)**
+  * 응답에 HTTP 헤더를 추가한다
+  * 여러 개의 헤더를 추가할 수 있으며, header 메소드를 체이닝하여 여러 헤더를 설정할 수도 있다
+* **body(T body)**
+  * 응답의 본문을 설정한다
+  * 본문은 문자열, 객체, 리스트 등 다양한 형태일 수 있다
 
 <br>
 
@@ -1135,15 +1306,21 @@ public ResponseEntity<HelloData> responseBodyJsonV1() {
     HelloData helloData = new HelloData();
     helloData.setUsername("userA");
     helloData.setAge(20);
-      
-    return new ResponseEntity<>(helloData, HttpStatus.OK);
+  
+    return new ResponseEntity
+      .status(HttpStatus.OK)
+      .body(helloData);
 }
 ```
 
-* `ResponseEntity` 를 반환한다
+* `ResponseEntity`를 반환한다
 * HTTP 메시지 컨버터를 통해서 JSON 형식으로 변환되어서 반환된다
 
 <br>
+
+---
+
+#### @ResponseStatus(HttpStatus.OK)
 
 ```java
 @ResponseStatus(HttpStatus.OK)
@@ -1158,21 +1335,16 @@ public HelloData responseBodyJsonV2() {
 }
 ```
 
-* `ResponseEntity` 는 HTTP 응답 코드를 설정할 수 있는데, `@ResponseBody` 를 사용하면 이런 것을 설정하기 까다롭다
+* `ResponseEntity`는 HTTP 응답 코드를 설정할 수 있는데, `@ResponseBody`를 사용하는 경우 이런 것을 설정하기 까다롭다
 * `@ResponseStatus(HttpStatus.OK)` 애노테이션을 사용하면 응답 코드도 설정할 수 있다
 * 참고로 스프링은 성공적인 `GET` 요청에는 기본적으로 `HttpStatus.OK`을 반환한다
-* 프로그램 조건에 따라서 동적으로 변경하려면 `ResponseEntity` 를 사용하면 된다
-
-<br>
-
-> `@Controller`랑 `@ResponseBody` 합쳐 놓은게 `@RestController`
-{: .prompt-tip }
+* 프로그램 조건에 따라서 동적으로 변경하려면 `ResponseEntity`를 사용해야 한다
 
 <br>
 
 ---
 
-### 2.6 HttpMessageConverter
+## 7. HttpMessageConverter
 
 뷰 템플릿으로 HTML을 생성해서 응답하는 것이 아니라, HTTP API처럼 JSON 데이터를 HTTP 메시지 바디에서 직접 읽거나 쓰는 경우 HTTP 메시지 컨버터를 사용하면 편리하다.
 
@@ -1257,7 +1429,7 @@ public HelloData responseBodyJsonV2() {
 
 ---
 
-### 2.7 RequestMappingHandlerAdapter
+### RequestMappingHandlerAdapter
 
 요청 매핑 핸들러 어댑터(`RequestMappingHandlerAdapter`)의 동작 방식을 알아보자.
 
