@@ -709,7 +709,7 @@ public class AppConfig {
 >   * 예를 들어, 애플리케이션에서 여러 개의 데이터 소스를 관리하는 경우
 > * **자동 구성되지 않는 사용자 정의 설정**
 >   * 예를 들어, 특정 API의 인증 정보, 서비스 엔드포인트, 애플리케이션의 커스텀 로직에 필요한 설정 등을 객체로 관리할 수 있다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -942,6 +942,38 @@ public class DataSourceConfig {
 ```
 
 * 다음 처럼 **여러개의 프로파일에서 사용**하도록 적용할 수 있다: `@Profile({"dev", "test"})`
+
+<br>
+
+---
+
+## 5. 특정 프로파일 적용: @ActiveProfiles
+
+`@ActiveProfiles` 애노테이션은 **테스트 시 사용할 활성화된 프로파일을 지정하는 데 사용**된다. 스프링 애플리케이션은 프로파일(Profile)을 통해 서로 다른 환경(예: 개발, 테스트, 운영)에 따라 설정값을 다르게 적용할 수 있다. `@ActiveProfiles`는 이러한 **프로파일 중 어떤 것을 활성화할지를 지정하는 역할**을 한다.
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@ActiveProfiles("test")
+public class MyServiceTest {
+    // 테스트 코드
+}
+```
+
+* `@ActiveProfiles("test")`: `test` 프로파일을 활성화하도록 지정한다.
+  * `application-test.yml`또는 `application-test.properties` 파일에 정의된 설정이 적용된다. 만약 `application.yml` 하나에 통합해서 관리하는 경우, `test` 프로파일을 찾아서 적용한다.
+
+<br>
+
+여러개의 프로파일을 적용하는 것도 가능하다.
+
+```java
+@ActiveProfiles({"test", "dev"})
+```
+
+<br>
+
+디폴트 프로파일은 `dev`나 `local`을 설정해두고, 테스트 코드에는 `@ActiveProfiles("test")`을 추가해서 `test` 프로파일을 활성화 시키는 방식으로 활용할 수 있다.
 
 <br>
 
