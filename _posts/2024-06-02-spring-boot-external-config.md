@@ -709,13 +709,13 @@ public class AppConfig {
 >   * 예를 들어, 애플리케이션에서 여러 개의 데이터 소스를 관리하는 경우
 > * **자동 구성되지 않는 사용자 정의 설정**
 >   * 예를 들어, 특정 API의 인증 정보, 서비스 엔드포인트, 애플리케이션의 커스텀 로직에 필요한 설정 등을 객체로 관리할 수 있다
-    {: .prompt-info }
+  {: .prompt-info }
 
 <br>
 
-`@ConfigurationProperties`를 사용해보자.
+`@ConfigurationProperties`를 사용해보자. 가상의 `MyDataSource`라는 데이터소스가 있다고 가정해보자.
 
-가상의 `MyDataSource`라는 데이터소스가 있다고 가정해보자.
+<br>
 
 ```Java
 @Slf4j
