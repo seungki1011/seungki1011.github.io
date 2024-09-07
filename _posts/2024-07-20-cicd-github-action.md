@@ -5,8 +5,6 @@ author: seungki1011
 date: 2024-07-20 10:30:00 +0900
 categories: [4. 소프트웨어 엔지니어링(SWE), CI/CD]
 tags: [github action, ci/cd]
-math: true
-mermaid: true
 ---
 
 ---
