@@ -191,14 +191,22 @@ Github Actions의 주요 개념들을 살펴보자.
 1. **워크플로우(Workflow)**
    * Github Actions에서 자동화 작업의 정의를 담고 있는 YAML 파일
    * `.github/workflows/` 디렉토리에 저장해서 사용한다
-   * **Event**: **워크플로우가 실행되는 트리거**를 의미한다. `push`, `pull_request`, `schedule`과 같은 다양한 이벤트가 존재한다
-   * **Job**: 하나의 **워크플로우는 여러 개의 Job으로 구성**될 수 있다
+   * **Enviroment**
+     * **워크플로우가 배포되는 대상**을 관리하는 개념으로, 개발, 스테이징, 프로덕션 환경에 대해 서로 다른 설정과 시나리오를 적용할 수 있다
+     * 환경별로 배포 승인 절차를 추가하거나, 특정 Secrets를 설정할 수 있다
+   * **Event**
+     * 워크플로우가 실행되는 트리거**를 의미한다. `push`, `pull_request`, `schedule`과 같은 다양한 이벤트가 존재한다
+   * **Job**
+     * 하나의 **워크플로우는 여러 개의 Job으로 구성**될 수 있다
      * 각각의 Job은 병렬로 실행될 수 있다. 예를 들어, 하나의 워크플로우에서 빌드, 테스트, 배포가 각각 다른 Job으로 나뉠 수 있다.
      * 서로 다른 Job에 대한 의존 관계를 설정할 수도 있고, 순차적 실행도 가능하다
-   * **Step**: 각 **Job은 여러 Step로 이루어지며**, 이 Step들은 **개별적으로 실행되는 스크립트 또는 액션**이다
+   * **Step**
+     * 각 **Job은 여러 Step로 이루어지며**, 이 Step들은 **개별적으로 실행되는 스크립트(명령어) 또는 액션**이다
      * 쉽게 말해서 Job에서 실행되는 개별 작업을 Step이라고 보면 된다
 2. **액션(Action)**
-   * 워크플로우 내에서 실행되는 **작업 단위**이다. 액션은 **재사용 가능한 코드 조각(컴포넌트)**으로, 예를 들어, 특정 프로그래밍 언어의 테스트를 실행하거나, 클라우드에 애플리케이션을 배포하는 등의 작업을 처리할 수 있다.
+   * 워크플로우 내에서 실행되는 **작업 단위**이다.
+   * 액션은 **재사용 가능한 코드 조각(컴포넌트)**이다.
+     * 예를 들어 특정 프로그래밍 언어의 테스트를 실행하거나, 클라우드에 애플리케이션을 배포하는 등의 작업을 처리할 수 있다
    * Github Marketplace에서 다양한 사전 정의된 액션을 찾을 수 있다
 3. **러너(Runner)**
    * 워크플로우가 실행될 때, GitHub Actions는 해당 **워크플로우를 러너라는 가상 머신에서 실행**한다
@@ -208,9 +216,6 @@ Github Actions의 주요 개념들을 살펴보자.
 4. **시크릿(Secrets)**
    * API 키나 비밀번호 같은 **민감한 정보**를 보관하는 기능이다
    * 워크플로우에서 **Secrets**로 저장된 값은 보안된 방식으로 사용되며, 리포지토리, 환경, 조직 등 다양한 수준에서 설정할 수 있다
-5. **환경(Enviroment)**
-   * **워크플로우가 배포되는 대상**을 관리하는 개념으로, 개발, 스테이징, 프로덕션 환경에 대해 서로 다른 설정과 시나리오를 적용할 수 있다
-   * 환경별로 배포 승인 절차를 추가하거나, 특정 Secrets를 설정할 수 있다
 
 <br>
 
@@ -326,33 +331,65 @@ class PostControllerTest {
 
 #### 워크플로우 설명
 
-Github Action으로 워크플로우를 정의해서 사용하기 위해서는 다음의 단계를 거친다.
+Github Action으로 워크플로우를 정의해서 사용하기 위해서는 크게 다음의 단계를 거친다.
 
-1. **YAML 파일 작성**: 사용할 워크플로우를 `.github/workflows/` 디렉토리에 **YAML** 파일로 작성한다. 다음의 내용을 해당 파일에 작성한다.
-2. **Triggers(Event)**: 워크플로우가 실행되는 이벤트를 정한다.
+1. **YAML 파일 작성**
+
+   * 사용할 워크플로우를 `.github/workflows/` 디렉토리에 **YAML** 파일로 작성한다
+   * 다음의 순서의 내용을 해당 파일에 작성한다
+
+2. **Triggers(Event)**
+
+   * 워크플로우가 실행되는 이벤트를 정한다
+
    * 예: `push`, `pull_request`
-3. **Jobs**: 워크플로우는 여러개의 Job으로 나눌 수 있다. 각 Job은 병렬, 순차, 의존성에 의한 순차에 따라 실행될 수 있다
-4. **Steps**: Job안에서 Step을 정의하여 각 단계를 실행한다. 각 Step은 `run`을 사용한 명령어를 실행하거나, `uses`를 사용한 액션이 될 수 있다
-5. **Secrets**: 민감한 정보(SSH, API 키)는 Github Secrets에 저장해서, 안전하게 관리한다
+
+3. **Jobs**
+
+   * 워크플로우는 여러 개의 Job으로 나눌 수 있다
+   * 각 Job은 병렬, 순차, 의존성에 의한 순차에 따라 실행될 수 있다
+   * 각 Job은 서로 독립된 러너(Runner) 환경에서 동작하기 때문에, 어떤 환경(운영체제)에서 실행할지 명시해야 한다
+
+4. **Steps**
+
+   * Job안에서 Step을 정의하여 각 단계를 실행한다
+   * 각 Step은 `run`을 사용한 명령어를 실행하거나, `uses`를 사용한 액션이 될 수 있다
+
+5. **Secrets**
+
+   * 필요한 경우 민감한 정보(SSH, API 키)는 Github Secrets에 저장해서, 안전하게 관리합니다
 
 <br>
 
-구체적으로 YAML 파일이 어떻게 작성되는지 살펴보자. 위에서 살펴본 **베이스 코드에 대해 아주 간단한 CI 파이프라인**을 만들어보자. 이 파이프라인은 **`test` 브랜치로의 PR 요청에서 코드가 성공적으로 빌드되고, 테스트가 통과하는지 확인**하는 아주 간단한 목표를 가진다.
+실제 예시를 통해 알아보자.
 
-`.github/workflows/`안에 `ci.yml`이라는 파일을 만들어서 워크플로우를 정의하자.
+현재 **자바17를 사용한 프로젝트를 진행**중이고 다음과 같은 CI 파이프라인을 구현한다고 가정해보자.
+
+* `test` 브랜치로 PR 요청을 하는 경우 트리거 된다
+* `build`와 `test`라는 2 개의 Job으로 구성된다. 이때 `test`는 `build`가 성공적으로 완료되어야 수행된다
+* 각 Job의 목적은 다음과 같다
+  * `build`: Gradle 빌드
+  * `test`: Gradle 테스트
+* `build` 또는 `test`가 **실패하면 CI 파이프라인도 실패하고 PR을 수행하지 못한다**
 
 <br>
+
+워크플로우를 정의해서 사용하기 위해서 `.github/workflows/` 아래에 `ci.yml`이라는 파일을 만들어서 사용한다.
+
+`ci.yml`
 
 ```yaml
+# 워크플로우의 이름을 지정합니다
+# 대시보드에서 워크플로우를 구분할 때 사용됩니다
 name: CI Pipeline
 
-# Event: Pull Request가 test 브랜치로 들어올 때 실행
+# Event
 on:
-  pull_request:
+  pull_request: # Pull Request가 test 브랜치로 들어올 때 실행
     branches:
       - test
 
-# Jobs: 필요한 Job을 병렬 또는 순차적으로 실행
+# Jobs: 필요한 Job을 병렬 또는 (의존성에 의해)순차적으로 실행
 jobs:
   # Build Job
   build:
@@ -390,13 +427,13 @@ jobs:
         run: ./gradlew build --no-daemon
 
   # Test Job
-  # 빌드에서 테스트를 진행하기 때문에 해당 Job은 제외해도 된다. 그러나 needs를 설명하기 위해 편의상 추가했다.
+  # 빌드에서 테스트를 진행하기 때문에 해당 Job은 제외해도 됩니다. 그러나 needs를 설명하기 위해 편의상 추가했습니다.
   test:
-    runs-on: ubuntu-latest
-    needs: build  # build Job이 완료된 후 실행됨
+    runs-on: ubuntu-latest # Job들은 서로 별개의 환경에서 수행 됨
+    needs: build  # build Job이 성공해야 실행
     
     steps:
-      # 기타 설정 과정
+      # 기존 체크아웃, JDK 설치 과정
       - name: Checkout code
         uses: actions/checkout@v3
       
@@ -412,31 +449,83 @@ jobs:
 ```
 
 * **Event**
-  * `name: CI Pipeline`: 워크플로우의 이름을 지정 한다. GitHub Actions 대시보드에서 워크플로우를 구분할 때 사용 된다.
-  * `on: pull_request`: 워크플로우가 실행될 조건을 정의 한다. 현재 `pull_request`가 트리거 조건이다.
-    * `branches: -test`: 이 워크플로우가 `test` 브랜치로의 PR이 열릴 때만 실행되도록 지정한다
+
+  * ```yaml
+    on: # 워크플로우가 실행될 조건을 정의합니다
+      pull_request: # PR을 조건으로 설정합니다
+        branches:
+          - test # test 브랜치로 PR이 열리면 실행되도록 지정
+    ```
 
 * **Jobs**
 
-  * `jobs`: 바로 아래 계층에 사용할 **Job**을 정의해서 사용한다. 위 코드에서는 `build`와 `test`라는 **Job**이 존재 한다
-    * `test` 아래에 `needs: build`를 통해서 **Job**에 대한 의존성을 설정한다. `test`는 `build`가 완료되어야 실행된다.
-  * `runs-on`: **Job**이 실행될 환경을 지정한다
-    * 위 코드에서는 `ubuntu-latest`를 통해 최신 버전의 Ubuntu 환경에서 실행되도록 한다
-  * 참고로 Github Actions에서 **러너는 Job 마다 새로운 러너 환경을 사용**한다
+  * ```yaml
+    jobs: # 아래 계층에 수행할 Job을 정의합니다
+      # (1)build라는 Job
+      build:
+        runs-on: ubuntu-latest # 해당 Job의 러너 환경을 지정합니다
+        # 아래에 build의 Step들을 정의합니다
+        step:
+          # 아래 계층에 수행할 Step을 정의합니다
+        	# Step 체크아웃, JDK 설정, 캐싱, 권한, 빌드...
+        	
+      # (2)test라는 Job
+      test:
+        runs-on: ubuntu-latest
+        needs: build  # build가 성공적으로 완료되어야 수행된다는 의미
+    ```
+
+  * `runs-on`: **Job**이 실행될 환경을 지정한다. 위 예시의 경우 `ubuntu-latest`를 통해 최신 버전의 Ubuntu 환경에서 동작하도록 한다. **Job들은 서로 별개의 환경을 사용**한다. 
+
+  * `needs`: **Job**의 의존성을 지정한다
+
+  * 의존하는 **Job**을 명시적으로 **지정하지 않는 경우 병렬로 수행**된다
 
 * **Steps**
 
-  * `steps`: 하나의 **Job**안에 정의된 `step`들은 순차적으로 실행 된다
+  * ```yaml
+    # 하나의 Job안에 정의된 Step들은 기본적으로 순차적으로 실행됩니다
+    steps:
+          # 1. 리포지토리에서 소스 코드를 체크아웃(복제)
+          - name: Checkout code # name으로 각 Step의 이름을 부여합니다
+            uses: actions/checkout@v3 # uses를 통해 액션을 호출합니다
+    
+          # 2. Gradle 라이브러리 캐싱
+          - name: Cache Gradle packages
+            uses: actions/cache@v3
+            with: # with를 통해 액션에 대한 추가적인 설정을 지정할 수 있습니다
+              path: |
+                ~/.gradle/caches
+                ~/.gradle/wrapper
+              key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+              restore-keys: |
+                ${{ runner.os }}-gradle-
+    
+          # 3. Java 17 설치(JDK 설치)
+          - name: Set up JDK 17
+            uses: actions/setup-java@v3
+            with:
+              distribution: 'temurin'
+              java-version: '17'
+              
+          # 4. gradlew에 권한 부여
+          - name: Grant execute permission for gradlew
+            run: chmod +x gradlew # run으로 직접 명령어를 실행할 수 있습니다
+    
+          # 5. 의존성 설치 및 빌드
+          - name: Build with Gradle
+            run: ./gradlew build --no-daemon
+    ```
 
-  * `- name`: 각 Step의 이름. Github Actions 로그에서 쉽게 식별할 수 있도록 지정한다.
-  * **`uses`: 다른 사람이 작성한 액션(Action)을 호출할 때 사용된다**
-    * `actions/checkout@v3`: 리포지토리에서 소스 코드를 체크아웃(복제)한다
-    * `actions/cache@v3`: 의존성, 빌드 아티팩트, 기타 자원 등을 캐싱한다
-    * `actions/setup-java@v3`: Java 개발 환경을 설정한다
-  * **`run`: 워크플로우에서 직접 명령어를 실행할 때 사용된다**
-    * `chmod +x gradlew`: `gradlew`에 권한을 부여 한다
-    * `./gradlew build --no-daemon`: Gradle을 사용하여 프로젝트를 빌드한다
-    * `./gradlew test --no-daemon`: Gradle을 사용하여 프로젝트의 테스트를 실행한다
+  * `steps`: 아래 계층에 순차적으로 수행할 **Step**들을 명시
+
+  * `name`: **Step**에 부여할 이름. GitHub Action 로그에 표시.
+
+  * `uses`: **액션(Action)을 호출**하기 위해서 사용
+
+  * `run`: **직접 명령어를 실행**하기 위해서 사용
+
+  * `id`: 예시에서 사용하지 않았지만 `id`를 부여해서 다른 **Step**이 `id`를 사용해서 해당 `id`의 **Step**의 출력값이 상태를 참조해서 사용할 수 있다
 
 <br>
 
@@ -493,17 +582,19 @@ uses: {repository}@{version or branch or commit}
 
 * **repository**: 액션이 위치한 리포지토리의 경로를 지정한다. 예를 들어 `actions/checkout`은 `actions`라는 사용자 또는 조직이 만든 `checkout`이라는 리포지토리를 의미한다.
 * **version or branch or commit**: 액션의 특정 버전(`@v2`), 브랜치(`@main`), 또는 커밋 해시(`@a1b2c3d4`)를 지정할 수 있다
-* `uses` 필드 하위에 **`with` 필드를 통해서 추가적인 설정(예: 배포판, Java 버전)을 전달**할 수 있다.
 
 <br>
 
-정리하자면 `uses` 필드를 통해서 특정 **액션을 재사용**하고 해당 **액션에 대한 버전 관리**를 할 수 있다.
+정리하자면 `uses` 필드를 통해서 특정 **액션을 재사용**하고 해당 **액션에 대한 버전 지정**을 할 수 있다.
 
 <br>
 
 > **액션 커스터마이즈**
 >
 > 커스터마이즈하고 싶은 액션의 레포지토리를 포크하고, 커스텀 후에 기존 사용자 또는 조직 대신 내 깃헙 아이디를 사용하면 된다.
+>
+> * 예: `slackapi/slack-github-action`을 포크하고 필요한 부분을 커스터마이징 후에 `myrespository/slack-github-action` 같은 형태로 사용이 가능하다
+>
 {: .prompt-tip }
 
 
@@ -582,15 +673,8 @@ key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.pr
 * **`key`**
   * **캐시 식별**: `key`는 저장된 캐시를 식별하고 검색하는 데 사용된다. 동일한 `key`를 가진 캐시가 존재하면, 해당 캐시가 복원된다.
   * **캐시 업데이트**: 캐시를 저장할 때 `key`를 사용하여 기존 캐시와 구분한다. `key`가 변경되면 새로운 캐시가 생성된다.
-* **`${{ runner.os }}`**
-  * 현재 실행 중인 운영 체제(OS) 이름을 포함한다
-
-* **`gradle-`**
-  * 캐시의 이름을 구분하는 고정 문자열이다
-
 * **캐시 무효화**
   * 프로젝트의 **의존성이나 Gradle 설정 파일이 변경**될 경우, **이전 캐시가 더 이상 유효하지 않게 된다**. 예를 들어, `build.gradle` 파일이나 `gradle-wrapper.properties` **파일이 수정되면 새로운 캐시가 필요**할 수 있다.
-  * **`${{ hashFiles('\**/\*.gradle\*', '\**/gradle-wrapper.properties') }}`**
   * 이 설정에서는 `build.gradle`, `settings.gradle`, `gradle-wrapper.properties` 파일의 해시 값을 기반으로 `key`를 생성한다. 이러한 **파일이 변경되면 해시 값이 바뀌고, 캐시 키도 변경되면서 캐시가 무효화**된다.
 
 
@@ -613,7 +697,6 @@ restore-keys: |
 
 * **빌드 시간 단축**: 캐시된 의존성을 재사용하여 의존성 다운로드 시간을 줄이고, 전체 빌드 시간을 단축할 수 있다
 * **네트워크 트래픽 절약**: 의존성을 매번 다운로드하지 않고, 캐시에서 복원함으로써 네트워크 사용을 줄일 수 있다
-* **빌드 안정성**: 캐시를 통해 빌드 환경의 일관성을 유지하고, 의존성 다운로드 실패로 인한 빌드 오류를 줄일 수 있다
 
 <br>
 
@@ -627,7 +710,7 @@ restore-keys: |
 
 ![cifail1](../post_images/2023-07-05-cicd-github-action/cifail1.png)_CI 파이프라인 build 실패_
 
-* **테스트가 실패하니 빌드도 실패**하는 것을 확인할 수 있다.
+* **테스트(테스트 코드)가 실패하니 빌드도 실패**하는 것을 확인할 수 있다.
 
 <br>
 
@@ -643,7 +726,7 @@ restore-keys: |
 
 * 로그를 통해서 테스트가 실패하여 빌드에 실패했다는 것을 파악할 수 있다. 
 
-현재 상황은 `dev` → `test`로 PR 요청 중에 CI 파이프라인 실패하여 PR 통과가 안되는 상황이다. 이번에는 테스트를 통과하도록 코드를 수정하고, `dev` 브랜치로 푸시를 넣어보자.
+현재 상황은 `dev` → `test`로 PR 요청 중에 CI 파이프라인이 실패하여 PR 통과가 안되는 상황이다. 이번에는 테스트를 통과하도록 코드를 수정하고, `dev` 브랜치로 푸시를 넣어보자.
 
 <br>
 
@@ -655,7 +738,9 @@ restore-keys: |
 
 ---
 
-#### 특정 브랜치에 대한 Job 정의
+#### 조건문: 특정 브랜치에 대한 Job 정의
+
+조건문을 사용해서 특정 브랜치에 대해서만 실행되는 Job을 정의해보자.
 
 이번엔 이런 상황을 가정해보자.
 
@@ -725,9 +810,28 @@ jobs:
         run: ./gradlew test --no-daemon
 ```
 
-* `if: github.ref == 'refs/heads/dev'` 
-  * `test` 하위에 정의된다
+* `if: github.ref == 'refs/heads/dev'` (dev 브랜치에서만 실행)
   * `dev` 브랜치로 푸시될 때만 해당 Job이 실행되도록 한다
+
+<br>
+
+위의 케이스 말고도 다음과 같은 케이스에서도 활용 가능하다.
+
+* **상태 기반의 조건문**
+  * `success()`: 이전 모든 Step이 성공한 경우 참(`true`)
+  * `failure()`: 이전 Step 중 하나라도 실패한 경우 참(`true`)
+  * `always()`: 모든 조건에 관계없이 항상 참(`true`)
+  * `cancelled()`: 워크플로우가 취소된 경우 참(`true`)
+* **브랜치 기반 조건문**
+  * `github.ref`: 참조를 나타내며, 특정 브랜치나 태그에서만 **Step**을 실행하도록 조건을 설정한다
+  * 예시: `github.ref == 'refs/heads/main'` (main 브랜치에서만 실행)
+* **환경 변수 또는 시크릿 기반 조건문**
+  * 환경 변수나 시크릿 값을 비교하여 조건을 설정할 수 있다
+  * 예시: `if: env.MY_ENV_VAR == 'production'`
+  * 당연히 `env`에 환경 변수를 정의하거나, 시크릿에 등록해야 한다
+* **결과 기반 조건문**
+  * 이전 `Job`의 결과에 따라 실행할 수 있다
+  * 예시: `needs.job1.result == 'success'` (job1이 성공한 경우)
 
 <br>
 
@@ -784,13 +888,15 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 
 ![createapp](../post_images/2023-07-05-cicd-github-action/createapp.png)_슬랙 앱 생성_
 
+* 앱의 이름과 앱을 사용할 워크스페이스-채널을 선택한다
+
 <br>
 
 ---
 
 ### Secrets 등록
 
-생성을 완료하고, 해당 앱의 설정 페이지에서 **Incoming Webhooks**를 선택하자. 그리고 **Webhook URL**을 복사하자.
+생성을 완료하고, 해당 앱의 설정 페이지에서 **Incoming Webhooks**를 선택하고 활성화 시키자. 그리고 **Webhook URL**을 복사하자.
 
 <br>
 
