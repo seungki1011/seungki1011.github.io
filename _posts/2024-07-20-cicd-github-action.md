@@ -163,7 +163,7 @@ tags: [github action, ci/cd]
 > * 예시
 >   * 스케쥴링 작업: `schedule` 이벤트를 활용한 주기적인 작업 설정
 >   * 프로젝트 관리: 지라와 같은 이슈 트래킹 도구와 통합한 워크플로우 생성
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -473,7 +473,7 @@ jobs:
 > 
   * `cache-read-only`: `true`일 경우 캐시를 읽기만 하고 저장하지 않는다. `false`일 경우 캐시 읽기/저장 모두 수행한다.
     * 위 예시에서는 `main`과 `develop` 브랜치일 때만 `false`로 설정한다
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
@@ -804,7 +804,7 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 
 ![secret](../post_images/2023-07-05-cicd-github-action/secret.png)_secret 추가_
 
-* 해당 시크릿은 GitHub Actions 워크플로우에서 `${{ secrets.SLACK_WEBHOOK_URL }}` 형태로 사용할 수 있다
+* 해당 시크릿은 GitHub Actions 워크플로우에서 {% raw %}`${{ secrets.SLACK_WEBHOOK_URL }}`{% endraw %} 형태로 사용할 수 있다
 
 <br>
 
