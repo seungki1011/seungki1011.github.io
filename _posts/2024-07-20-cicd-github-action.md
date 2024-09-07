@@ -163,7 +163,7 @@ tags: [github action, ci/cd]
 > * 예시
 >   * 스케쥴링 작업: `schedule` 이벤트를 활용한 주기적인 작업 설정
 >   * 프로젝트 관리: 지라와 같은 이슈 트래킹 도구와 통합한 워크플로우 생성
-    {: .prompt-info }
+  {: .prompt-info }
 
 <br>
 
@@ -473,7 +473,7 @@ jobs:
 > 
   * `cache-read-only`: `true`일 경우 캐시를 읽기만 하고 저장하지 않는다. `false`일 경우 캐시 읽기/저장 모두 수행한다.
     * 위 예시에서는 `main`과 `develop` 브랜치일 때만 `false`로 설정한다
-    {: .prompt-info }
+  {: .prompt-info }
 
 <br>
 
@@ -831,6 +831,8 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 
 <br>
 
+{% raw %}
+
 ```yaml
 # 6. 슬랙 채널로 빌드의 성공 또는 실패에 따라 알림 보내기
 # 성공시 슬랙 알람 보내기
@@ -865,7 +867,11 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 * `success-payload-content.json`와 `failure-payload-content.json`를 따로 정의해서 사용하고 있다
 * `payload` 필드를 사용해서 바로 정의해서 사용하는 방법도 존재한다(이 방법은 버그가 없음)
 
+{% endraw %}
+
 <br>
+
+{% raw %}
 
 `success-payload-content.json`
 
@@ -912,6 +918,8 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 
 * 필요한 경우, 채널ID도 시크릿으로 설정해서 사용할 수 있다
 
+{% endraw %}
+
 <br>
 
 이 방법의 경우 아래 처럼 필드가 `???`로 랜더링되는 버그가 있다.
@@ -932,6 +940,8 @@ GitHub Action을 이용한 파이프라인의 통과 여부에 대한 결과를 
 {: .prompt-warning }
 
 <br>
+
+{% raw %}
 
 ```yaml
 # 추가 1
@@ -965,7 +975,11 @@ jobs:
           payload-file-path: ./slack/ci_slack_message.json
 ```
 
+{% endraw %}
+
 <br>
+
+{% raw %}
 
 `ci_slack_message.json`
 
@@ -1032,6 +1046,8 @@ jobs:
 }
 ```
 
+{% endraw %}
+
 <br>
 
 이제 슬랙 알림을 보내서 확인해보면 다음과 같이 표시된다.
@@ -1049,6 +1065,7 @@ jobs:
 <br>
 
 아래의 Step만 추가하면 된다.
+{% raw %}
 
 ```yaml
 - name: Slack message with build result
@@ -1062,6 +1079,7 @@ jobs:
     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 ```
 
+{% endraw %}
 <br>
 
 다음과 같은 슬랙 알람을 받을 수 있다.
