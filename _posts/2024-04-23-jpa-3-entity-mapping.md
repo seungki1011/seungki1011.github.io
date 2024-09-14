@@ -12,17 +12,13 @@ mermaid: true
 ---
 
 
-## 1. DB 스키마 자동 생성 (`hibernate.hbm2ddl.auto`)
+## 1. DB 스키마 자동 생성 (hibernate.hbm2ddl.auto)
 
-들어가기 전에 JPA에서 지원하는 데이터베이스 스키마 자동 생성에 대해 알아보자. JPA는 DDL을 애플리케이션 실행 시점에 자동 생성되는 기능을 지원한다. 사용하는 방법은 다음과 같다.
+들어가기 전에 **JPA에서 지원하는 데이터베이스 스키마 자동 생성**에 대해 알아보자. JPA는 **DDL을 애플리케이션 실행 시점에 자동 생성되는 기능을 지원**한다. 사용하는 방법은 다음과 같다.
 
 <br>
 
-JPA 설정을 위해 `persistence.xml`을 확인하자. 
-
-다음과 같은 설정을 추가할 수 있다.
-
-`예시`
+JPA 설정을 위해 `persistence.xml`을 확인하자. 다음과 같은 설정을 추가할 수 있다.
 
 ```xml
 <property name="hibernate.hbm2ddl.auto" value="OPTION" />
@@ -30,27 +26,17 @@ JPA 설정을 위해 `persistence.xml`을 확인하자.
 
 * `OPTION` 대신에 다음의 4가지 옵션 중 하나를 선택할 수 있다
 
+* **`create`**: 기존 테이블 삭제 후 다시 생성 (`DROP` 그리고 `CREATE`)
 
+* **`create-drop`**: `create` 옵션과 동일 + 종료시점에 테이블 `DROP`
 
-* `create` : 기존 테이블 삭제 후 다시 생성 (`DROP` 그리고 `CREATE`)
-
-
-
-* `create-drop` : `create` 옵션과 동일 + 종료시점에 테이블 `DROP`
-
-
-
-* `update` : 변경 부분만 반영한다
+* **`update`**: 변경 부분만 반영한다
   * 엔티티에 새로운 필드를 추가하고 애플리케이션을 재시작하면, 테이블에 새로운 컬럼이 추가되는 것을 확인할 수 있다
 
-
-
-* `validate` : 엔티티와 테이블이 정상 매핑이 되었는지만 확인한다
+* **`validate`**: 엔티티와 테이블이 정상 매핑이 되었는지만 확인한다
   * 엔티티에 새로운 필드를 추가해서 애플리케이션을 실행해보면 실패하는 것을 확인할 수 있다
 
-
-
-* `none` : 사용하지 않는다. 해당 설정을 주석처리하는 것도 방법이다.
+* **`none`**: 사용하지 않는다. 해당 설정을 주석처리하는 것도 방법이다.
 
 <br>
 
@@ -58,15 +44,17 @@ JPA 설정을 위해 `persistence.xml`을 확인하자.
 
 <br>
 
+> **주의**
+>
 > 옵션을 적용하는 경우는 개발 환경에서만 사용하자. (**운영 환경에서 절대 사용하면 안된다! 최대 `validate` 까지만 사용! 대참사 조심!**)
 >
-> * 개발 초기 단계에서만 `create`, `update` 사용하자
+> * **개발 초기 단계에서만 `create`, `update` 사용**하자
 >   * `create`, `update`도 조심해서 사용!
 >
 > * 테스트 서버는 `update` 또는 `validate`
 >   * `update`도 조심해서 사용!
->   * 테스트 서버에 `create`를 사용해버리면, 기존 테스트 서버에서 사용하던 데이터가 다 날라가버리는 참사가 일어남
-    {: .prompt-warning }
+>   * **테스트 서버에 `create`를 사용해버리면, 기존 테스트 서버에서 사용하던 데이터가 다 날라가버리는 참사**가 일어남
+  {: .prompt-warning }
 
 <br>
 
@@ -78,22 +66,20 @@ JPA에서 `@Entity`가 붙은 클래스는 JPA가 관리하며, 엔티티라고 
 
 엔티티를 만들때 다음을 주의하자.
 
-* 기본 생성자가 필수
+* **기본 생성자가 필수**
 * `final` 클래스, `ENUM`, `Interface`, 내부 클래스 사용 불가
 
 <br>
 
 코드를 통해 살펴보자.
 
-<br>
-
 ```java
 /**
  * JPA에서 사용할 엔티티 이름을 직접 지정 가능
- * 기본값 : 클래스 이름을 그대로 사용한다
+ * 기본값: 클래스 이름을 그대로 사용한다
  * 기본값 사용 권장
+ * 예시: @Entity(name = "Customer")
  */
-// @Entity(name = "Customer")
 
 /**
  * @Table을 통해서 엔티티와 매핑할 테이블 직접 지정 가능
@@ -111,17 +97,17 @@ public class Customer {
     private Long id;
   
     // @Column(length=20)
+    // @Column에 제약 조건을 추가할 수 있다
     private String name;
     private Integer age;
 
     // 기본 생성자 필수
+    // 롬복의 @NoArgsConstructor를 사용할 수 있다
     public Customer() {
     }
 
 }
 ```
-
-* `@Column`에 제약 조건을 추가할 수 있다
 
 <br>
 
@@ -191,7 +177,7 @@ public class Customer {
     /**
      * VarChar를 넘어가는 큰 데이터는 Lob사용(Clob, Blob)
      * String을 사용했으니 Clob으로 생성됨
-     * 니머지는 Blob 매핑
+     * 나머지는 Blob 매핑
      */
     @Lob
     private String description;
@@ -205,21 +191,19 @@ public class Customer {
 
 이제 각 매핑과 관련된 기본적인 속성들을 알아보자.
 
-* `@Column`
-  * `name` : 필드와 매핑할 테이블의 컬럼 이름 (기본값 : 객체의 필드명)
-  * `insertable`, `updatable` : 등록, 변경 가능 여부 (기본값 : `TRUE`)
+* **`@Column`**
+  * `name`: 필드와 매핑할 테이블의 컬럼 이름 (기본값 : 객체의 필드명)
+  * `insertable`, `updatable`: 등록, 변경 가능 여부 (기본값 : `TRUE`)
   * DDL 관련 속성
-    * `nullable` : `null` 값의 허용 여부 설정. `false`로 설정시 DDL 생성 시에 `not null` 제약이 붙는다
-    * `unique` : `@Table`의 `uniqueConstraints`와 같다. 한 컬럼에 간단히 유니크 제약 조건을 걸 때 사용
+    * `nullable`: `null` 값의 허용 여부 설정. `false`로 설정시 DDL 생성 시에 `not null` 제약이 붙는다
+    * `unique`: `@Table`의 `uniqueConstraints`와 같다. 한 컬럼에 간단히 유니크 제약 조건을 걸 때 사용
       * 제약 조건의 이름을 식별하기 어려워서 잘 사용 안함, 사용한다면 `uniqueConstraints` 사용을 권장
-    * `columnDefinition` : 데이터베이스 컬럼 정보를 직접 주는 것이 가능
+    * `columnDefinition`: 데이터베이스 컬럼 정보를 직접 주는 것이 가능
       * 예) `varchar(100) default 'EMPTY'`
-    * `length` : 문자 길이 제약 조건. `String` 타입에만 사용 (기본값 : `255`)
+    * `length`: 문자 길이 제약 조건. `String` 타입에만 사용 (기본값 : `255`)
     * `precision`, `scale` : `BigDecimal` 타입에 사용가능. 정밀한 소수 다룰 때 사용. 
 
-<br>
-
-* `@Enumerated`
+* **`@Enumerated`**
   * `enum` 타입을 매핑할 때 사용한다
   * 종류
     * `ORDINAL` : `enum` 순서를 DB에 저장
@@ -228,16 +212,12 @@ public class Customer {
     * 상수를 추가하거나 순서를 바꾸는 작업 등에서 문제가 생길 확률이 높다
   * `EnumType.STRING`을 사용하도록 하자
 
-<br>
-
-* `@Temporal`
+* **`@Temporal`**
   * 날짜 타입(`Date`, `Calendar`)을 매핑할 때 사용
   * 자바8 이후부터 사용하는 `LocalDate`, `LocalDateTime`을 사용한다면 생략 가능
   * `TemporalType.TIMESTAMP` : 날짜와 시간 모두 포함
 
-<br>
-
-* `@Transient`
+* **`@Transient`**
   * 필드를 매핑하지 않을 경우 사용
   * `@Transient`가 붙은 필드는 데이터베이스에 저장, 조회 X
   * 보통 값을 DB에 저장하지 않고, 임시로 메모리에 보관해서 사용하고 싶은 경우 사용
@@ -248,7 +228,7 @@ public class Customer {
 
 ## 4. 기본키(PK) 매핑
 
-### 4.1 기본키 매핑 애노테이션 소개
+### 기본키 매핑 애노테이션 소개
 
 기본키 매핑에 대해 알아보자. 
 
@@ -256,8 +236,6 @@ public class Customer {
 
 * `@Id`
   * 직접 할당하는 경우 단독으로 `@Id`만 사용한다
-
-<br>
 
 * `@GeneratedValue`
   * 자동생성된 값을 사용한다
@@ -293,14 +271,10 @@ public class PkMember {
   * DB에 위임한다
   * 예) MySQL의 `auto_increment`
 
-
-
 * `SEQUENCE`
   * DB 시퀀스 오브젝트 사용
   * 예) Oracle의 `sequence`
   * `@SequenceGenerator` 필요
-
-
 
 * `TABLE`
   * 키 생성용 테이블 사용해서 시퀀스 흉내
@@ -308,27 +282,24 @@ public class PkMember {
   * `@TableGenerator` 필요
   * 성능이 다른 전략에 비해 좋지 않다
 
-
-
 * `AUTO`
   * 사용하는 DB에 따라서 자동 지정
   * 기본값
 
 <br>
 
-> 권장 식별자 전략
+> **권장 식별자 전략**
 >
 > * `Long` 타입
 > * 자연키를 사용하지 않고 대체키 사용
 > * 키 생성전략 사용
 {: .prompt-tip }
 
-
 <br>
 
 ---
 
-### 4.2 IDENTITY 전략
+### IDENTITY 전략
 
 `IDENTITY` 전략에 대해 자세히 알아보자.
 
@@ -350,7 +321,7 @@ public class PkMember {
 
 ---
 
-### 4.3 SEQUENCE 전략
+### SEQUENCE 전략
 
 `SEQUENCE` 전략에 대해 자세히 알아보자.
 

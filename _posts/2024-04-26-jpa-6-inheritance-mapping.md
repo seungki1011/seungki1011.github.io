@@ -13,23 +13,21 @@ mermaid: true
 
 ## 1. 상속 관계 매핑 소개
 
-하이버네이트에서의 상속 관계 매핑(Inheritance Relationship Mapping)에 대해 알아보자.
+하이버네이트에서의 **상속 관계 매핑(Inheritance Relationship Mapping)**에 대해 알아보자.
 
 객체에는 기본적으로 상속 관계가 존재한다. 그러나 데이터베이스에서는 상속 관계는 존재하지 않는다.(물론 상속 관계 비슷한 것을 지원하는 DB들도 존재하지만, 그것 마저도 실제 객체의 상속 관계와는 다르다.)
 
-그나마 데이터베이스에서 객체의 상속 구조를 비슷하게 표현할 수 있는 것이 슈퍼타입(super-type)과 서브 타입(sub-type) 관계이다.
+그나마 데이터베이스에서 **객체의 상속 구조를 비슷하게 표현할 수 있는 것이 슈퍼타입(super-type)과 서브 타입(sub-type) 관계**이다.
 
 다음 그림으로 두 관계를 살펴보자. 
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/inh.png)
-
-<p align="center">슈퍼-서브 타입 구조, 상속 구조</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/inh.png)_슈퍼-서브 타입 구조, 상속 구조_
 
 <br>
 
-이런 슈퍼 타입과 서브 타입 구조를 실제 물리적인 모델로 구현하기 위해 데이터베이스 입장에서 다음의 3가지 방법을 사용할 수 있다.
+이런 슈퍼 타입과 서브 타입 구조를 실제 물리적인 모델로 구현하기 위해 데이터베이스 입장에서 **다음의 3가지 방법을 사용**할 수 있다.
 
 * 각각 테이블로 변환해서 조인해서 사용하는 전략
 * 모두 하나의 테이블로 통합해서 단일 테이블을 사용하는 전략
@@ -49,9 +47,7 @@ Hibernate는 위 3가지 방법 모두 사용할 수 있도록 애노테이션�
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join.png)
-
-<p align="center">JOINED 전략</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join.png)_JOINED 전략_
 
 <br>
 
@@ -171,17 +167,13 @@ System.out.println("findMovie = " + findMovie);
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join2.png)
-
-<p align="center">생성된 테이블</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join2.png)_생성된 테이블_
 
 * `JOINED` 전략에 맞게, 각 객체에 대한 테이블을 생성해서 서로 조인해서 사용할 수 있도록 한다
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join3.png)
-
-<p align="center">JOIN으로 조회</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/join3.png)_JOIN으로 조회_
 
 * 조회하기 위해서 `JOIN`하는 것을 확인할 수 있다
 
@@ -214,9 +206,7 @@ System.out.println("findMovie = " + findMovie);
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/st1.png)
-
-<p align="center">단일 테이블 전략</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/st1.png)_단일 테이블 전략_
 
 * 단일 테이블 전략은 그림에서 볼 수 있듯이, 테이블을 나누지 않고 하나의 테이블에 다 때력박는 전략이다
 * 조회 성능이 필요할 때 사용할 수도 있다. 장점과 단점에 대한 내용은 뒤에서 설명.
@@ -251,9 +241,7 @@ System.out.println("findMovie = " + findMovie);
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/cpt1.png)
-
-<p align="center">클래스 마다 테이블 전략</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/cpt1.png)_클래스 마다 테이블 전략_
 
 <br>
 
@@ -285,17 +273,15 @@ System.out.println("findMovie = " + findMovie);
 
 ## 5. @MappedSuperclass
 
-`@MappedSuperclass`는 공통 매핑 정보가 필요할 때 사용한다. 다음 그림을 보면 바로 이해가 될 것이다.
+**`@MappedSuperclass`는 공통 매핑 정보가 필요할 때 사용**한다. 다음 그림을 보면 바로 이해가 될 것이다.
 
 <br>
 
-![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/msc1.png)
-
-<p align="center">공통 속성이 존재하는 경우</p>
+![jpa](../post_images/2024-04-26-jpa-6-inheritance-mapping/msc1.png)_공통 속성이 존재하는 경우_
 
 <br>
 
-이런 `@MappedSuperclass`는 상속관계 매핑이 아니며, 단순히 부모 클래스를 상속 받는 자식 클래스에 매핑 정보만 제공하고 싶을때 사용한다. 예를 들어서 등록일, 수정일, 등록자, 수정자와 같은 전체 엔티티에서 공통으로 적용하는 속성을 사용하고 싶을때 쉽게 적용할 수 있도록 해준다.
+이런 `@MappedSuperclass`는 상속관계 매핑이 아니며, **단순히 부모 클래스를 상속 받는 자식 클래스에 매핑 정보만 제공하고 싶을때 사용**한다. 예를 들어서 **등록일, 수정일, 등록자, 수정자와 같은 전체 엔티티에서 공통으로 적용하는 속성**을 사용하고 싶을때 쉽게 적용할 수 있도록 해준다.
 
 만약 `@MappedSuperclass` 기능이 없었다면, 이전과 같은 공통 속성들을 기존 엔티티에 복사 붙여넣기 하면서 고생했을 것이다. 
 

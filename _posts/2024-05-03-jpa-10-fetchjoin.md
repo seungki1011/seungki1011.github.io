@@ -25,7 +25,7 @@ select m.username -- 1. 상태 필드(state field)
 where t.name = 'teamA'
 ```
 
-
+<br>
 
 **상태 필드(state field)**
 
@@ -34,9 +34,9 @@ where t.name = 'teamA'
 
 <br>
 
-**연관 필드(association field)** : 연관 관계를 위한 필드
+**연관 필드(association field)**: 연관 관계를 위한 필드
 
-* 단일 값 연관 필드(single value)
+* **단일 값 연관 필드(single value)**
   * `@ManyToOne`, `@OneToOne`, 대상이 엔티티
   * 묵시적 내부 조인 발생
     * 조심하면서 사용해야 한다!
@@ -46,7 +46,7 @@ where t.name = 'teamA'
 
 
 
-* 컬렉션 값 연관 필드(collection value)
+* **컬렉션 값 연관 필드(collection value)**
   * `@OneToMany`, `@ManyToMany`, 대상이 컬렉션
   * 묵시적 내부 조인 발생
   * 탐색 불가능
@@ -67,7 +67,7 @@ where t.name = 'teamA'
 
 ## 2. ⭐페치 조인(JOIN FETCH)
 
-### 2.1 페치 조인 소개
+### 페치 조인 소개
 
 JPQL의 페치 조인에 대해 알아보자.
 
@@ -120,7 +120,7 @@ INNER JOIN TEAM T ON M.TEAM_ID=T.ID
 
 ---
 
-### 2.2 N+1 문제
+### N+1 문제
 
 `N+1` 문제에 대해 알아보자.
 
@@ -304,7 +304,7 @@ member.getTeam().getName() = teamC
 
 ---
 
-### 2.3 컬렉션 페치 조인
+### 컬렉션 페치 조인
 
 이번에는 일대다(`OneToMany`) 관계에서 컬렉션에 대한 페치 조인에 대해 알아보자.
 
@@ -368,7 +368,7 @@ team = teamC, member size = 1
 
 ---
 
- ### 2.4 페치 조인의 한계
+ ### 페치 조인의 한계
 
 페치 조인의 한계는 다음과 같다.
 
