@@ -1,6 +1,6 @@
 ---
-title: (Url Shortener - 2) URL 단축 서비스의 요구 사항 및 설계
-description: 프로젝트의 요구 사항을 정리해보고, 설계하기.
+title: (Url 단축 - 2) 요구 사항 고민
+description: 프로젝트의 요구 사항을 정리해보기
 author: seungki1011
 date: 2024-06-23 10:30:00 +0900
 categories: [Project, Url 단축 API와 서버사이드 페이지]
@@ -59,15 +59,11 @@ project_github: "https://github.com/seungki1011/url-shortener"
 사용하기로 구현 방법을 다시 살펴보자.
 
 * 프로젝트에서는 해시값을 Base62 인코딩해서 앞 7자를 잘라서 사용하는 방식으로 구현할 것이다.
-* 중복 숏코드를 처리하는 로직은 해시 충돌 때문에 중복이 되든, 같은 원본 URL이 이미 존재해서 중복이 되든 그냥 숏코드를 다시 생성하는 방식으로 처리할 것이다.
+* 중복 숏코드를 처리하는 로직은 **해시 충돌 때문에 중복이 되든, 같은 원본 URL이 이미 존재해서 중복이 되든 솔트를 추가해서 숏코드를 다시 생성하는 방식으로 처리**할 것이다.
 
 <br>
 
-![clickreq](../post_images/2024-06-23-url-shortener-project-2/improve.png){: width="972" height="589" }
-
-<br>
-
-![clickreq](../post_images/2024-06-23-url-shortener-project-2/design1.png){: width="972" height="589" }_로직의 흐름에 대해 컨트롤러, 서비스, 레포지토리 계층을 표현한 그림_
+![sc4](../post_images/2024-06-23-url-shortener-project-2/sc4.png)
 
 <br>
 
@@ -77,8 +73,7 @@ project_github: "https://github.com/seungki1011/url-shortener"
 
 경험이 없으니 이것이 제대로 된 설계인지 아직 감이 안잡힌다.
 
-* 숏코드로 변환시키거나, 뷰카운트(조회수)를 증가시키는 로직을 서비스 계층이 아니라 엔티티 클래스에 같이 넣어야할지 고민된다.
-* 단순히 값만 조회하는 로직은 서비스 계층 없이 그냥 바로 레포지토리 계층에서 호출해도 될지 고민된다.
+* 단순히 값만 조회하는 로직은 서비스 계층 없이 그냥 바로 레포지토리 계층에서 호출해도 될지 고민된다
 
 <br>
 

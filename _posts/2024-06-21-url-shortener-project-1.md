@@ -1,5 +1,5 @@
 ---
-title: (Url Shortener - 1) URL 단축의 원리 파악하기
+title: (Url 단축 - 1) URL 단축의 원리 파악하기
 description: Bitly와 같은 URL 단축 서비스의 원리 파악.
 author: seungki1011
 date: 2024-06-21 10:30:00 +0900
@@ -262,7 +262,7 @@ Base64 인코딩을 사용할 경우의 문제점이 여기서 나온다. **숏�
 > * `+`를 `-`로 바꾸고, `/`를 `_`로 바꾸는 URL and Filename safe Base64 방식도 존재한다.
 > * Base62로 인코딩하는 함수를 Bijective Function이라고 부르기도 한다
 >   * 더 정확히 말하자면, 인풋에 대해 고유한 아웃풋을 가질 수 있고, 그 역연산을 통해 인풋을 구하는 것이 가능한 인코딩을 Bijective Encoding이라고 한다. (Uniqueness, Reversibility)
-  {: .prompt-info }
+    {: .prompt-info }
 
 <br>
 
