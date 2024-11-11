@@ -11,7 +11,9 @@ tags: [github action, ci/cd]
 
 > * **첫 작성:** 2023-09-06
 > * **업데이트:** 2024-07-20
-> 모든 코드는 다음 레포지토리에서 확인할 수 있습니다. [https://github.com/seungki1011/CICD-using-Github-Actions](https://github.com/seungki1011/CICD-using-Github-Actions)
+> 
+> 모든 코드는 다음 레포지토리에서 확인할 수 있습니다. 
+> [https://github.com/seungki1011/CICD-using-Github-Actions](https://github.com/seungki1011/CICD-using-Github-Actions)
 {: .prompt-info }
 
 
